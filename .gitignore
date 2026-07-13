@@ -1,50 +1,59 @@
-# Python virtual environments
-.venv/
-**/.venv/
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
 
-# Python caches and compiled files
-**/__pycache__/
-**pycache**/
-*.py[cod]
+# Build
+.next/
+out/
+build/
+dist/
 
-# Environment and log files
+# Environment
 .env
-.env.*
-*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# AI model files
-models/
-*.pt
-*.pth
-*.onnx
-*.bin
-*.safetensors
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# User media, analysis output, temporary data, and logs
-ai-server/**/data/input/*
-!ai-server/**/data/input/*/
-!ai-server/**/data/input/**/
-ai-server/analysis-server/data/input/audio/raw/*
-ai-server/analysis-server/data/input/audio/standard/*
-ai-server/analysis-server/data/input/audio/transcripts/*.txt
-ai-server/**/data/output/*
-ai-server/**/data/temp/*
-ai-server/tts-server/data/reference_voice/*
-ai-server/**/logs/*
-
-# Keep empty directory placeholders
-!**/.gitkeep
-
-# IDE personal settings (keep shared workspace settings)
-.vscode/*
-!.vscode/settings.json
+# IDE
 .idea/
-*.code-workspace
+.vscode/
+*.swp
+*.swo
 
-# Operating-system temporary files
+# OS
 .DS_Store
 Thumbs.db
-Desktop.ini
-*.tmp
-*.temp
-~$*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# Local settings (not project config)
+.claude/settings.local.json
+
+# User-specific skills (not part of the template)
+.claude/skills/customize/
+.claude/skills/release/
+
+# Local temp files
+temp/
+
+# Visual verification and local delivery artifacts
+.playwright-cli/
+output/
+deliverables/
+pdf-preview/
+
+# Local agent and generated design cache
+.agents/
+*.local
