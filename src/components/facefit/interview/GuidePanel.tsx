@@ -23,8 +23,8 @@ export function GuidePanel() {
   const [open, setOpen] = useState(true);
 
   return (
-    <div className="box-border flex min-w-0 flex-[0_0_30%] flex-col overflow-y-auto rounded-2xl bg-white px-5 py-5">
-      <div className="flex items-center justify-between animate-[fade-up-sm_0.45s_cubic-bezier(0.16,1,0.3,1)_both]" style={{ animationDelay: "0ms" }}>
+    <div className="box-border flex min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl bg-white px-5 py-5 md:col-span-6 lg:col-span-4">
+      <div className="flex shrink-0 items-center justify-between animate-[fade-up-sm_0.45s_cubic-bezier(0.16,1,0.3,1)_both]" style={{ animationDelay: "0ms" }}>
         <span className="text-[15px] font-bold text-zinc-900">연습 코치</span>
         <button onClick={() => setOpen((v) => !v)} className="flex items-center gap-1 text-xs font-medium text-ink-400 transition-colors hover:text-ink-900">
           접기
@@ -33,11 +33,11 @@ export function GuidePanel() {
       </div>
 
       {open && (
-        <div className="mt-4 flex flex-col gap-4 animate-[fade-up-sm_0.45s_cubic-bezier(0.16,1,0.3,1)_both]" style={{ animationDelay: "60ms" }}>
+        <div className="mt-4 flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain pr-1 animate-[fade-up-sm_0.45s_cubic-bezier(0.16,1,0.3,1)_both]" style={{ animationDelay: "60ms" }}>
           <div>
             <p className="mb-2 text-xs font-semibold text-ink-400">나의 화면</p>
             <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-              <Image src="/images/user-webcam.png" alt="내 웹캠" fill className="object-cover" />
+              <Image src="/images/user-webcam.png" alt="내 웹캠" fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 100vw, 0px" className="object-cover" />
             </div>
           </div>
 

@@ -2,7 +2,7 @@ import { ScrollReveal } from "@/components/facefit/ScrollReveal";
 
 export function DevBackgroundSection() {
   return (
-    <section className="bg-[#fcfaf6] px-6 py-28 md:px-12 lg:px-16">
+    <section className="bg-[#fcfaf6] px-5 py-28 md:px-8 lg:px-12">
       <div className="mx-auto max-w-[860px]">
         <ScrollReveal>
           <p className="text-xs font-semibold tracking-[.08em] text-sunset-700">프로젝트 개발 배경</p>

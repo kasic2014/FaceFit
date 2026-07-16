@@ -10,7 +10,7 @@ export function VoicePracticeSection() {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <section className="bg-[#10221D] px-6 py-24 text-white md:px-12 lg:px-16">
+    <section className="bg-[#10221D] px-5 py-24 text-white md:px-8 lg:px-12">
       <div className="mx-auto max-w-[1200px]">
         <ScrollReveal>
           <p className="text-xs font-semibold tracking-[.08em] text-[#83dfd1]">음성으로 다시 듣고 연습하기</p>

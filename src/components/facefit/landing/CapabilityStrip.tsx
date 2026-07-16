@@ -9,7 +9,7 @@ const items = [
 
 export function CapabilityStrip() {
   return (
-    <section className="relative z-20 bg-ivory-100 px-6 md:px-14">
+    <section className="relative z-20 bg-ivory-100 px-5 md:px-8 lg:px-12">
       <div className="mx-auto -translate-y-1/2 max-w-[1200px] overflow-hidden rounded-[18px] border border-line-200 bg-white shadow-[0_18px_50px_rgba(55,40,24,.1)]">
         <div className="grid grid-cols-2 md:grid-cols-4">
           {items.map((item, i) => (

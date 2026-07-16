@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Camera, CheckCircle2, ChevronDown, ChevronLeft, Eye, Mic, Pause, Play, RefreshCw, ScanFace, Sun, Volume2, VolumeX } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AppNav } from "@/components/facefit/AppNav";
+import { PageContainer } from "@/components/facefit/layout/PageContainer";
 
 type Device = "camera" | "microphone" | "speaker";
 type VoiceStatus = "ready" | "unregistered" | "creating" | "failed";
@@ -30,7 +31,7 @@ export default function EquipmentPage() {
   return (
     <div className="min-h-screen bg-[#f7f5ef] text-ink-900">
       <AppNav active="새 면접" />
-      <main className="mx-auto max-w-[1280px] px-5 pb-16 pt-7 md:px-10 md:pt-10">
+      <PageContainer as="main" size="wide" className="pb-16 pt-7 md:pt-10">
         <Link href="/onboarding" className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-600 transition hover:text-moss-900">
           <ChevronLeft size={16} /> 이전 단계
         </Link>
@@ -86,7 +87,7 @@ export default function EquipmentPage() {
 
           <div className="mt-8 flex items-center justify-between border-t border-line-200 pt-6"><Link href="/onboarding" className="rounded-lg border border-line-300 bg-white px-5 py-3 text-sm font-bold">이전으로</Link><Link href="/session/live" className="rounded-lg bg-sunset-600 px-6 py-3 text-sm font-bold text-white shadow-[0_8px_18px_rgba(191,83,35,.22)] transition hover:bg-sunset-700">면접 시작하기</Link></div>
         </section>
-      </main>
+      </PageContainer>
     </div>
   );
 }

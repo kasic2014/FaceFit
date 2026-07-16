@@ -3,7 +3,7 @@ import { ScrollReveal } from "@/components/facefit/ScrollReveal";
 
 export function BeforeAfterSection() {
   return (
-    <section className="bg-ivory-100 px-6 py-24 md:px-12 lg:px-16">
+    <section className="bg-ivory-100 px-5 py-24 md:px-8 lg:px-12">
       <div className="mx-auto max-w-[1200px]">
         <ScrollReveal>
           <div className="flex flex-wrap items-center gap-3">

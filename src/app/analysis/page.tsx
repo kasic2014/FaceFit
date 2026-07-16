@@ -1,9 +1,38 @@
 "use client";
+
 import Link from "next/link";
-import { Check, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
+import { AnalysisProgress } from "@/components/facefit/analysis/AnalysisProgress";
 import { Logo } from "@/components/facefit/Logo";
+import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { errorGuidance } from "@/lib/facefit-content";
-const steps = ["답변 기록 저장", "시선·발화·자세·내용 분석", "질문별 피드백 생성", "AI 개선 답변 생성", "내 목소리 개선 음성 준비"];
-export default function AnalysisPage() { const delayed = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("state") === "delayed"; return <div className="min-h-screen bg-ivory-50"><header className="flex h-[70px] items-center justify-between border-b border-line-200 bg-white px-6 md:px-12"><Logo size="sm"/><span className="text-sm font-semibold text-ink-600">결과 분석 중</span></header><main className="mx-auto grid min-h-[650px] max-w-xl place-items-center px-6 text-center"><section className="w-full">{delayed?<Delayed/>:<Progress/>}</section></main></div>; }
-function Progress(){return <><span className="inline-flex size-12 animate-pulse items-center justify-center rounded-full bg-moss-300 text-moss-900">•••</span><h1 className="mt-6 text-3xl font-bold text-ink-900">면접 결과를 정리하고 있어요</h1><p className="mt-3 text-base text-ink-600">잠시 후 맞춤 리포트를 확인할 수 있습니다.</p><div className="mt-9 text-left">{steps.map((step,i)=><div key={step} className="relative flex gap-4 pb-6 last:pb-0"><span className={i<2?"grid size-6 shrink-0 place-items-center rounded-full bg-moss-700 text-white":i===2?"grid size-6 shrink-0 place-items-center rounded-full border-2 border-moss-700 text-moss-700":"grid size-6 shrink-0 place-items-center rounded-full bg-ivory-300 text-ink-600"}>{i<2?<Check size={14}/>:i+1}</span>{i<steps.length-1&&<span className="absolute top-6 left-[11px] h-5 border-l border-line-300"/>}<p className={i===2?"text-sm font-bold text-moss-900":"text-sm text-ink-600"}>{step}</p></div>)}</div><p className="mt-7 text-xs text-ink-400">상태 확인: ?state=delayed</p></>}
-function Delayed(){return <div className="rounded-[18px] border border-sunset-300 bg-white p-8"><span className="inline-flex size-11 items-center justify-center rounded-full bg-sunset-300/30 text-sunset-700">···</span><h1 className="mt-5 text-2xl font-bold text-ink-900">분석에 시간이 더 필요해요</h1><p className="mt-3 text-sm leading-6 text-ink-600">{errorGuidance.analysis}</p><div className="mt-6 flex flex-wrap justify-center gap-2"><button className="inline-flex items-center gap-2 rounded-lg border border-line-300 px-4 py-3 text-sm font-bold text-ink-700"><RefreshCw size={15}/>다시 시도</button><Link href="/dashboard" className="rounded-lg bg-moss-900 px-4 py-3 text-sm font-bold text-white">마이페이지로 이동</Link></div></div>}
+
+export default function AnalysisPage() {
+  const delayed = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("state") === "delayed";
+
+  return (
+    <div className="min-h-screen bg-ivory-50">
+      <header className="flex h-[70px] items-center justify-between border-b border-line-200 bg-white px-5 md:px-8 lg:px-12">
+        <Logo size="sm" />
+        <span className="text-sm font-semibold text-ink-600">결과 분석 중</span>
+      </header>
+      <PageContainer as="main" size="narrow" className="grid min-h-[650px] place-items-center py-12 text-center md:py-16">
+        {delayed ? <Delayed /> : <AnalysisProgress />}
+      </PageContainer>
+    </div>
+  );
+}
+
+function Delayed() {
+  return (
+    <section className="w-full rounded-[18px] border border-sunset-300 bg-white p-8">
+      <span className="inline-flex size-11 items-center justify-center rounded-full bg-sunset-300/30 text-sunset-700">···</span>
+      <h1 className="mt-5 text-2xl font-bold text-ink-900">분석에 시간이 더 필요해요</h1>
+      <p className="mt-3 text-sm leading-6 text-ink-600">{errorGuidance.analysis}</p>
+      <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <button type="button" className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-line-300 px-4 text-sm font-bold text-ink-700"><RefreshCw size={15} />다시 시도</button>
+        <Link href="/dashboard" className="inline-flex min-h-11 items-center rounded-lg bg-moss-900 px-4 text-sm font-bold text-white">마이페이지로 이동</Link>
+      </div>
+    </section>
+  );
+}

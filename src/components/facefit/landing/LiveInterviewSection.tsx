@@ -12,7 +12,7 @@ const structureChecklist = [
 
 export function LiveInterviewSection() {
   return (
-    <section className="bg-ivory-100 px-6 py-24 md:px-12 lg:px-16">
+    <section className="bg-ivory-100 px-5 py-24 md:px-8 lg:px-12">
       <div className="mx-auto max-w-[1200px]">
         <ScrollReveal>
           <p className="text-xs font-semibold tracking-[.08em] text-sunset-700">실제 면접실 경험</p>

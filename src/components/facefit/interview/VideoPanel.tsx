@@ -3,8 +3,8 @@ import { RotateCcw } from "lucide-react";
 
 export function VideoPanel() {
   return (
-    <div className="relative flex-[0_0_70%] overflow-hidden rounded-2xl bg-[#1c2b26]">
-      <Image src="/images/interviewer-hr.png" alt="AI 면접관 영상" fill className="object-cover" priority />
+    <div className="relative min-h-0 min-w-0 overflow-hidden rounded-2xl bg-[#1c2b26] md:col-span-6 md:min-h-[240px] lg:col-span-8 lg:min-h-0">
+      <Image src="/images/interviewer-hr.png" alt="AI 면접관 영상" fill sizes="(min-width: 1024px) 66vw, (min-width: 768px) 100vw, 0px" className="object-cover" priority />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-transparent via-30% to-black/20" />
 
       <div className="pointer-events-none absolute top-5 left-5 flex items-center gap-3 animate-[fade-up-sm_0.45s_cubic-bezier(0.16,1,0.3,1)_both]" style={{ animationDelay: "0ms" }}>
@@ -18,9 +18,9 @@ export function VideoPanel() {
         </div>
       </div>
 
-      <div className="absolute right-5 bottom-5 left-5 rounded-2xl bg-[#0e1a17]/85 px-6 py-5 text-center backdrop-blur-sm animate-[fade-up-sm_0.45s_cubic-bezier(0.16,1,0.3,1)_both]" style={{ animationDelay: "140ms" }}>
+      <div className="absolute right-5 bottom-5 left-5 min-w-0 rounded-2xl bg-[#0e1a17]/85 px-6 py-5 text-center backdrop-blur-sm animate-[fade-up-sm_0.45s_cubic-bezier(0.16,1,0.3,1)_both]" style={{ animationDelay: "140ms" }}>
         <p className="text-xs font-semibold tracking-[0.08em] text-[#7A9B7E] uppercase">질문</p>
-        <p className="mt-2.5 text-lg leading-[1.5] font-semibold text-white md:text-xl">
+        <p className="mt-2.5 break-words text-lg leading-[1.5] font-semibold text-white md:text-xl">
           본인이 가장 어려웠던 프로젝트 경험을 설명해 주세요.
         </p>
         <div className="mx-auto mt-4 max-w-[220px] border-t border-white/10 pt-3.5">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Check, ChevronLeft, CircleAlert, Mic, Pause, Play, RefreshCw, ShieldCheck, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AppNav } from "@/components/facefit/AppNav";
+import { PageContainer } from "@/components/facefit/layout/PageContainer";
 
 type Step = "guide" | "recording" | "review" | "creating" | "ready" | "failed";
 const readScript = "안녕하세요. 저는 새로운 문제를 구조적으로 이해하고, 팀과 함께 더 나은 방법을 찾는 일을 좋아합니다. 오늘 면접에서는 제 경험을 명확하고 편안하게 말씀드리겠습니다.";
@@ -15,11 +16,11 @@ export default function VoiceProfilePage() {
   useEffect(() => { if (step !== "creating") return; const id = window.setTimeout(() => setStep("ready"), 1700); return () => window.clearTimeout(id); }, [step]);
   const stateIndex = ["guide", "recording", "review", "creating", "ready"].indexOf(step);
   return <div className="min-h-screen bg-[#f7f5ef] text-ink-900"><AppNav active="새 면접" />
-    <main className="mx-auto max-w-[880px] px-5 py-8 md:px-10 md:py-12"><Link href="/equipment" className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-600 hover:text-moss-900"><ChevronLeft size={16}/>장비 확인으로</Link>
+    <PageContainer as="main" size="compact" className="py-8 md:py-12"><Link href="/equipment" className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-600 hover:text-moss-900"><ChevronLeft size={16}/>장비 확인으로</Link>
       <header className="mt-7 text-center"><span className="mx-auto grid size-12 place-items-center rounded-2xl bg-[#ecf2ed] text-moss-900"><Sparkles size={22}/></span><h1 className="mt-5 text-3xl font-bold tracking-[-.055em]">내 음성으로 개선 답변을 들어보세요</h1><p className="mt-3 text-sm leading-6 text-ink-600">약 45초 동안 안내 문장을 읽으면, 리포트의 개선 답변을 내 목소리에 가깝게 들을 수 있어요.</p></header>
       <ol className="mx-auto mt-8 flex max-w-[600px] justify-between text-center text-xs"><Step label="안내" active={stateIndex >= 0} done={stateIndex > 0}/><Step label="녹음" active={stateIndex >= 1} done={stateIndex > 1}/><Step label="확인" active={stateIndex >= 2} done={stateIndex > 2}/><Step label="준비 완료" active={stateIndex >= 3} done={stateIndex > 3}/></ol>
       <section className="mt-8 rounded-2xl border border-line-300 bg-white p-6 shadow-[0_16px_34px_rgba(50,55,45,.06)] md:p-8">
-        {step === "guide" && <Guide onStart={() => { setSeconds(0); setStep("recording"); }} />}
+        {step === "guide" && <div><Guide onStart={() => { setSeconds(0); setStep("recording"); }} /><Link href="/session/live" className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-line-300 px-5 py-3 text-sm font-bold text-ink-700 transition hover:bg-ivory-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700">건너뛰기</Link>{/* TODO: Persist an explicit skipped voice-profile state when the API is connected. */}</div>}
         {step === "recording" && <Recording seconds={seconds} onStop={() => setStep("review")} />}
         {step === "review" && <Review onAgain={() => { setSeconds(0); setStep("recording"); }} onUse={() => setStep("creating")} />}
         {step === "creating" && <Creating />}
@@ -27,7 +28,7 @@ export default function VoiceProfilePage() {
         {step === "failed" && <Failure onRetry={() => setStep("guide")} />}
       </section>
       <p className="mt-5 flex items-center justify-center gap-2 text-xs text-ink-400"><ShieldCheck size={14}/>이 화면은 프론트엔드 데모입니다. 실제 음성 저장 또는 복제는 수행하지 않아요.</p>
-    </main>
+    </PageContainer>
   </div>;
 }
 function Step({ label, active, done }: { label:string; active:boolean; done:boolean }) { return <li className="relative flex flex-1 flex-col items-center gap-2 after:absolute after:left-[60%] after:top-3 after:h-px after:w-[80%] after:bg-line-300 last:after:hidden"><span className={active ? "grid size-6 place-items-center rounded-full bg-moss-900 text-white" : "grid size-6 place-items-center rounded-full bg-ivory-300 text-ink-400"}>{done ? <Check size={13}/> : ""}</span><span className={active ? "font-bold text-moss-900" : "text-ink-400"}>{label}</span></li>; }

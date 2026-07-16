@@ -18,7 +18,7 @@ const axes = [
 
 export function GrowthRecordSection() {
   return (
-    <section className="bg-ivory-100 px-6 py-24 md:px-12 lg:px-16">
+    <section className="bg-ivory-100 px-5 py-24 md:px-8 lg:px-12">
       <div className="mx-auto max-w-[1200px]">
         <ScrollReveal>
           <div className="grid gap-6 md:grid-cols-[1fr_1fr] md:items-end">
@@ -39,10 +39,10 @@ export function GrowthRecordSection() {
 
         <ScrollReveal delay={100}>
           <div className="mt-10 grid gap-6 lg:grid-cols-[1.3fr_.7fr]">
-            <div className="rounded-2xl border border-line-200 bg-white p-6 md:p-8">
-              <div className="flex items-center justify-between">
+            <div className="min-w-0 rounded-2xl border border-line-200 bg-white p-6 md:p-8">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-[13px] font-semibold text-ink-900">축별 점수 추이 (최근 5회)</p>
-                <div className="flex gap-3 text-[11px] font-medium text-ink-600">
+                <div className="flex flex-wrap gap-3 text-[11px] font-medium text-ink-600">
                   {axes.map((a) => (
                     <span key={a.key} className="flex items-center gap-1.5">
                       <span className={`size-2 rounded-full ${a.dot}`} />
@@ -51,7 +51,7 @@ export function GrowthRecordSection() {
                   ))}
                 </div>
               </div>
-              <div className="mt-6 flex items-end gap-6">
+              <div className="mt-6 flex items-end gap-2 sm:gap-6">
                 {sessions.map((s) => (
                   <div key={s.date} className="flex flex-1 flex-col items-center gap-1.5">
                     <div className="flex h-[140px] items-end gap-1">
@@ -65,7 +65,7 @@ export function GrowthRecordSection() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-line-200 bg-white p-6">
+            <div className="min-w-0 rounded-2xl border border-line-200 bg-white p-6">
               <div className="flex items-center gap-2.5">
                 <span className="grid size-8 place-items-center rounded-full bg-ivory-100 text-moss-700">
                   <GrowthHistoryIcon className="size-4" />

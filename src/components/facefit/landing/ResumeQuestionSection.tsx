@@ -10,7 +10,7 @@ const fields = [
 
 export function ResumeQuestionSection() {
   return (
-    <section className="bg-ivory-100 px-6 py-24 md:px-12 lg:px-16">
+    <section className="bg-ivory-100 px-5 py-24 md:px-8 lg:px-12">
       <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-2 lg:gap-14">
         <ScrollReveal>
           <p className="text-xs font-semibold tracking-[.08em] text-sunset-700">이력서 기반 질문</p>

@@ -43,7 +43,7 @@ function Row({ items, reverse }: { items: typeof cards; reverse?: boolean }) {
 export function PainPointsMarquee() {
   return (
     <section className="bg-[#fcfaf6] py-24">
-      <div className="mx-auto max-w-[1200px] px-6 md:px-12 lg:px-14">
+      <div className="mx-auto max-w-[1200px] px-5 md:px-8 lg:px-12">
         <ScrollReveal>
           <p className="text-xs font-semibold tracking-[.08em] text-sunset-700">DEVELOPER INTERVIEW PAIN POINTS</p>
           <h2 className="mt-3 max-w-[720px] text-balance text-3xl font-bold leading-tight tracking-[-.03em] text-ink-900 md:text-4xl">
