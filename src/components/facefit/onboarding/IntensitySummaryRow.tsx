@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import { BarChart3, Building2, Briefcase, User } from "lucide-react";
 import { cn } from "@/lib/utils";

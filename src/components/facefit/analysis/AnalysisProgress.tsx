@@ -1,6 +1,4 @@
-"use client";
-
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { useEffect, useState, type ComponentType } from "react";
 import {
   AudioLines,
@@ -139,7 +137,7 @@ function LeaveAnalysisModal({ onClose }: { onClose: () => void }) {
         <p className="mt-3 text-sm leading-6 text-ink-600">분석은 계속 진행되며 완료된 결과는 마이페이지에서 확인할 수 있습니다.</p>
         <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-end">
           <button type="button" onClick={onClose} className="min-h-11 rounded-lg bg-moss-900 px-4 text-sm font-semibold text-white">계속 기다리기</button>
-          <Link href="/dashboard" className="inline-flex min-h-11 items-center justify-center rounded-lg border border-line-300 px-4 text-sm font-semibold text-ink-700">마이페이지로 이동</Link>
+          <Link to="/dashboard" className="inline-flex min-h-11 items-center justify-center rounded-lg border border-line-300 px-4 text-sm font-semibold text-ink-700">마이페이지로 이동</Link>
         </div>
       </section>
     </div>

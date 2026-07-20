@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { VoicePlaybackIcon, VoiceProfileIcon, PrivacyControlIcon } from "@/components/facefit/icons";
 import { ScrollReveal } from "@/components/facefit/ScrollReveal";

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { CircleCheck, Circle, Headphones, Mic, Video, ChevronDown, RotateCcw } from "lucide-react";
 import { FollowUpQuestionIcon, ContentAnalysisIcon } from "@/components/facefit/icons";
 import { ScrollReveal } from "@/components/facefit/ScrollReveal";
@@ -28,7 +27,7 @@ export function LiveInterviewSection() {
           <div className="mt-10 flex flex-col gap-4 rounded-[24px] bg-[#10221D] p-4 shadow-[0_22px_55px_rgba(42,48,39,.12)] md:p-5">
             <div className="flex flex-col gap-4 md:flex-row">
               <div className="relative flex-[0_0_68%] overflow-hidden rounded-2xl bg-[#1c2b26]">
-                <div className="absolute inset-0 min-h-[360px]"><Image src="/images/interviewer-hr.png" alt="AI 면접관 영상" fill className="object-cover" /></div>
+                <div className="absolute inset-0 min-h-[360px]"><img src="/images/interviewer-hr.png" alt="AI 면접관 영상" className="absolute inset-0 size-full object-cover" loading="lazy" /></div>
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-transparent via-30% to-black/20" />
 
                 <div className="pointer-events-none absolute top-5 left-5 flex items-center gap-3">
@@ -64,7 +63,7 @@ export function LiveInterviewSection() {
                 <div>
                   <p className="mb-2 text-xs font-semibold text-ink-400">나의 화면</p>
                   <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-                    <Image src="/images/user-webcam.png" alt="내 웹캠" fill className="object-cover" />
+                    <img src="/images/user-webcam.png" alt="내 웹캠" className="absolute inset-0 size-full object-cover" loading="lazy" />
                   </div>
                 </div>
 

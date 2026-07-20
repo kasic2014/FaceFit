@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { FileText, Upload, X } from "lucide-react";
 import { JobRoleSelect } from "./JobRoleSelect";

@@ -1,7 +1,4 @@
-"use client";
-
 import { useState } from "react";
-import Image from "next/image";
 import { ChevronUp, ChevronDown, CircleCheck, Circle } from "lucide-react";
 import { FollowUpQuestionIcon, ContentAnalysisIcon, SpeechAnalysisIcon } from "@/components/facefit/icons";
 
@@ -37,7 +34,7 @@ export function GuidePanel() {
           <div>
             <p className="mb-2 text-xs font-semibold text-ink-400">나의 화면</p>
             <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-              <Image src="/images/user-webcam.png" alt="내 웹캠" fill sizes="(min-width: 1024px) 33vw, (min-width: 768px) 100vw, 0px" className="object-cover" />
+              <img src="/images/user-webcam.png" alt="내 웹캠" className="absolute inset-0 size-full object-cover" loading="lazy" />
             </div>
           </div>
 

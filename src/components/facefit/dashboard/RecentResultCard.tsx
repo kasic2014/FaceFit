@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { CompanyBadge } from "./CompanyBadge";
 
 export function RecentResultCard() {
@@ -30,10 +30,10 @@ export function RecentResultCard() {
         </div>
 
         <div className="flex flex-none flex-col gap-2 md:w-[150px]">
-          <Link href="/report" className="rounded-xl border border-line-300 px-4 py-2.5 text-center text-[13px] font-semibold text-ink-700 transition hover:bg-ivory-100">
+          <Link to="/report" className="rounded-xl border border-line-300 px-4 py-2.5 text-center text-[13px] font-semibold text-ink-700 transition hover:bg-ivory-100">
             리포트 보기
           </Link>
-          <Link href="/onboarding" className="rounded-xl bg-moss-900 px-4 py-2.5 text-center text-[13px] font-semibold text-white transition hover:bg-[#1f3a24]">
+          <Link to="/onboarding" className="rounded-xl bg-moss-900 px-4 py-2.5 text-center text-[13px] font-semibold text-white transition hover:bg-[#1f3a24]">
             같은 조건으로 다시 면접
           </Link>
         </div>

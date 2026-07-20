@@ -5,19 +5,19 @@
 description: Project conventions for AI Website Clone Template
 alwaysApply: true
 ---
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+<!-- BEGIN:vite-agent-rules -->
+# React + Vite SPA
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+This project uses React, Vite, and React Router. Keep browser URLs stable, use `Link` for internal navigation, and retain the SPA fallback required by Vercel and Nginx.
+<!-- END:vite-agent-rules -->
 
 # Website Reverse-Engineer Template
 
 ## What This Is
-A reusable template for reverse-engineering any website into a clean, modern Next.js codebase using AI coding agents. The Next.js + shadcn/ui + Tailwind v4 base is pre-scaffolded — just run `/clone-website <url1> [<url2> ...]`.
+A reusable template for reverse-engineering any website into a clean, modern React + Vite codebase using AI coding agents. The React Router + shadcn/ui + Tailwind v4 base is pre-scaffolded.
 
 ## Tech Stack
-- **Framework:** Next.js 16 (App Router, React 19, TypeScript strict)
+- **Framework:** React 19 + Vite + React Router (TypeScript strict)
 - **UI:** shadcn/ui (Radix primitives, Tailwind CSS v4, `cn()` utility)
 - **Icons:** Lucide React (default — will be replaced/supplemented by extracted SVGs)
 - **Styling:** Tailwind CSS v4 with oklch design tokens
@@ -46,7 +46,9 @@ A reusable template for reverse-engineering any website into a clean, modern Nex
 ## Project Structure
 ```
 src/
-  app/              # Next.js routes
+  pages/            # Route-level screens
+  App.tsx           # React Router route map
+  main.tsx          # Vite entry point
   components/       # React components
     ui/             # shadcn/ui primitives
     icons.tsx       # Extracted SVG icons as React components

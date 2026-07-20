@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { CompanyBadge } from "./CompanyBadge";
 
 const rows = [
@@ -14,7 +14,7 @@ export function RecentHistoryList() {
     <div className="rounded-2xl border border-line-200 bg-white p-6">
       <div className="mb-4 flex items-center justify-between">
         <p className="text-[15px] font-bold text-ink-900">최근 면접 기록</p>
-        <Link href="/dashboard" className="text-[12.5px] font-semibold text-moss-700">전체 보기</Link>
+        <Link to="/dashboard" className="text-[12.5px] font-semibold text-moss-700">전체 보기</Link>
       </div>
 
       <div className="flex flex-col gap-3">
@@ -30,10 +30,10 @@ export function RecentHistoryList() {
             </div>
             <p className="flex-none text-lg font-bold tabular-nums text-ink-900">{row.score}<span className="text-xs font-medium text-ink-400">점</span></p>
             <div className="flex flex-none flex-col gap-1.5">
-              <Link href="/report" className="rounded-lg border border-line-300 px-2.5 py-1 text-center text-[11px] font-semibold text-ink-700 transition hover:bg-ivory-100">
+              <Link to="/report" className="rounded-lg border border-line-300 px-2.5 py-1 text-center text-[11px] font-semibold text-ink-700 transition hover:bg-ivory-100">
                 리포트 보기
               </Link>
-              <Link href="/onboarding" className="rounded-lg border border-line-300 px-2.5 py-1 text-center text-[11px] font-semibold text-ink-700 transition hover:bg-ivory-100">
+              <Link to="/onboarding" className="rounded-lg border border-line-300 px-2.5 py-1 text-center text-[11px] font-semibold text-ink-700 transition hover:bg-ivory-100">
                 다시 면접
               </Link>
             </div>

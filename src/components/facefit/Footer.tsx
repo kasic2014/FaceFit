@@ -1,5 +1,81 @@
-import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
-const groups=[{title:"서비스",items:[{label:"새 면접",href:"/onboarding"},{label:"분석 리포트",href:"/report"},{label:"성장 기록",href:"/dashboard"}]},{title:"안내",items:[{label:"이용 가이드",href:"/design-preview"},{label:"자주 묻는 질문",href:"/#faq"}]}];
-export function Footer(){return <footer className="border-t border-line-200 bg-ivory-100 px-5 py-14 md:px-8 lg:px-12"><div className="mx-auto max-w-[1200px]"><div className="grid gap-9 md:grid-cols-[1.1fr_.8fr_.8fr_1.2fr] md:gap-8"><div><Logo size="sm"/><p className="mt-4 text-sm font-medium leading-6 text-ink-600">내 경험을, 내 답변으로.</p><Link href="mailto:hello@facefit.example" className="mt-5 inline-flex size-10 items-center justify-center rounded-full border border-line-300 text-ink-600 transition hover:border-moss-500 hover:text-moss-700" aria-label="이메일 문의"><Mail size={16}/></Link></div>{groups.map(group=><div key={group.title}><p className="text-sm font-bold text-ink-900">{group.title}</p><div className="mt-4 space-y-2.5">{group.items.map(item=><Link key={item.label} href={item.href} className="block text-[13px] text-ink-600 transition hover:text-moss-700">{item.label}</Link>)}</div></div>)}<div><p className="text-sm font-bold text-ink-900">새 소식</p><p className="mt-3 text-[13px] leading-6 text-ink-600">새로운 면접 연습 방법과 기능을 확인하세요.</p><div className="mt-4 flex rounded-xl border border-line-300 bg-white p-1"><input aria-label="이메일 주소" placeholder="이메일 주소" className="min-h-10 min-w-0 flex-1 bg-transparent px-3 text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-moss-500"/><button aria-label="새 소식 구독" className="grid size-10 place-items-center rounded-lg bg-ink-900 text-white transition hover:bg-moss-900"><ArrowRight size={15}/></button></div></div></div><div className="mt-12 border-t border-line-200 pt-5 text-xs leading-5 text-ink-400"><p>© 2026 Face Fit. All rights reserved.</p><p className="mt-2">디자인 프로토타입 · 일부 기능은 화면 시안으로만 제공됩니다.</p></div></div></footer>}
+
+const groups = [
+  {
+    title: "서비스",
+    items: [
+      { label: "새 면접", href: "/onboarding" },
+      { label: "분석 리포트", href: "/report" },
+      { label: "성장 기록", href: "/dashboard" },
+    ],
+  },
+  {
+    title: "안내",
+    items: [
+      { label: "이용 가이드", href: "/design-preview" },
+      { label: "자주 묻는 질문", href: "/#faq" },
+    ],
+  },
+];
+
+export function Footer() {
+  return (
+    <footer className="border-t border-line-200 bg-ivory-100 px-5 py-14 md:px-8 lg:px-12">
+      <div className="mx-auto max-w-[1200px]">
+        <div className="grid gap-9 md:grid-cols-[1.1fr_.8fr_.8fr_1.2fr] md:gap-8">
+          <div>
+            <Logo size="sm" />
+            <p className="mt-4 text-sm font-medium leading-6 text-ink-600">내 경험을, 내 답변으로.</p>
+            <a
+              href="mailto:hello@facefit.example"
+              className="mt-5 inline-flex size-10 items-center justify-center rounded-full border border-line-300 text-ink-600 transition hover:border-moss-500 hover:text-moss-700"
+              aria-label="이메일 문의"
+            >
+              <Mail size={16} />
+            </a>
+          </div>
+
+          {groups.map((group) => (
+            <div key={group.title}>
+              <p className="text-sm font-bold text-ink-900">{group.title}</p>
+              <div className="mt-4 space-y-2.5">
+                {group.items.map((item) =>
+                  item.href.includes("#") ? (
+                    <a key={item.label} href={item.href} className="block text-[13px] text-ink-600 transition hover:text-moss-700">
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link key={item.label} to={item.href} className="block text-[13px] text-ink-600 transition hover:text-moss-700">
+                      {item.label}
+                    </Link>
+                  ),
+                )}
+              </div>
+            </div>
+          ))}
+
+          <div>
+            <p className="text-sm font-bold text-ink-900">새 소식</p>
+            <p className="mt-3 text-[13px] leading-6 text-ink-600">새로운 면접 연습 방법과 기능을 확인하세요.</p>
+            <div className="mt-4 flex rounded-xl border border-line-300 bg-white p-1">
+              <input
+                aria-label="이메일 주소"
+                placeholder="이메일 주소"
+                className="min-h-10 min-w-0 flex-1 bg-transparent px-3 text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-moss-500"
+              />
+              <button aria-label="새 소식 구독" className="grid size-10 place-items-center rounded-lg bg-ink-900 text-white transition hover:bg-moss-900">
+                <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="mt-12 border-t border-line-200 pt-5 text-xs leading-5 text-ink-400">
+          <p>© 2026 Face Fit. All rights reserved.</p>
+          <p className="mt-2">디자인 프로토타입 · 일부 기능은 화면 시안으로만 제공됩니다.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}

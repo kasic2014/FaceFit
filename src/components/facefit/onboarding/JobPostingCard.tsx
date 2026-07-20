@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { FileUploader } from "@/components/facefit/ui/States";

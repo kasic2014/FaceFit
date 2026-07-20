@@ -17,7 +17,7 @@ The current voice profile flow is a front-end prototype. It does not save audio 
 Requirements: Node.js 24 or later.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -36,20 +36,26 @@ npm run build
 1. Create an empty GitHub repository under your own account.
 2. Replace the template remote with that repository URL.
 3. Push the `release/uiux-mentoring` branch.
-4. Import the repository at [Vercel](https://vercel.com/new). Vercel detects Next.js automatically.
-5. Leave the build command as `npm run build` and the output setting as the default.
+4. Import the repository at [Vercel](https://vercel.com/new). Vercel detects Vite from `vercel.json`.
+5. Use `npm run build` and the `dist` output directory. The included SPA rewrite makes direct route access resolve to `index.html`.
 
 No environment variables are required for this front-end prototype.
 
 ## Design review artifacts
 
-The workspace root contains `uiux멘토링화면설계서.html`. The matching PDF and the source screenshots are stored under the workspace-level `deliverables/uiux-mentoring/` folder; these are intentionally excluded from the application repository.
+The UI/UX mentoring HTML, matching PDF, and source screenshots are review inputs and are intentionally excluded from this application repository. The complete pre-development planning set, OpenAvatarChat + MuseTalk integration plan, QA criteria, and traceability are indexed in [`docs/product/README_FaceFit_기획산출물.md`](docs/product/README_FaceFit_기획산출물.md).
 
 ## Project structure
 
 ```text
-src/app/              Route-level screens
+src/main.tsx          Vite entry point
+src/App.tsx           BrowserRouter route map
+src/pages/            Route-level screen components
 src/components/       Shared Face Fit UI
 src/lib/              Shared content and helpers
 public/images/        Product images used by the prototype
 ```
+
+## Docker
+
+`docker compose up app` builds the Vite bundle with Node 24 and serves it from Nginx on port `3000` by default. The Nginx configuration includes SPA route fallback, so direct visits to routes such as `/session/live` work in production.

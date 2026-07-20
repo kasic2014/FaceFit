@@ -1,10 +1,15 @@
-import Image from "next/image";
 import { RotateCcw } from "lucide-react";
 
 export function VideoPanel() {
   return (
     <div className="relative min-h-0 min-w-0 overflow-hidden rounded-2xl bg-[#1c2b26] md:col-span-6 md:min-h-[240px] lg:col-span-8 lg:min-h-0">
-      <Image src="/images/interviewer-hr.png" alt="AI 면접관 영상" fill sizes="(min-width: 1024px) 66vw, (min-width: 768px) 100vw, 0px" className="object-cover" priority />
+      <img
+        src="/images/interviewer-hr.png"
+        alt="AI 면접관 영상"
+        className="absolute inset-0 size-full object-cover"
+        loading="eager"
+        fetchPriority="high"
+      />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-transparent via-30% to-black/20" />
 
       <div className="pointer-events-none absolute top-5 left-5 flex items-center gap-3 animate-[fade-up-sm_0.45s_cubic-bezier(0.16,1,0.3,1)_both]" style={{ animationDelay: "0ms" }}>
