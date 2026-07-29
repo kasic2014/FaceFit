@@ -1,0 +1,30 @@
+# Local agent and temporary tooling
+.agents/
+.codex/
+tmp/
+Docker Desktop.lnk
+
+# Build outputs
+**/target/
+**/build/
+**/out/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# IDE and OS files
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+.DS_Store
+Thumbs.db
+
+# Logs and temporary office files
+*.log
+logs/
+~$*

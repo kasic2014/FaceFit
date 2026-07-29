@@ -1,0 +1,8 @@
+server:
+  forward-headers-strategy: framework
+
+logging:
+  level:
+    root: INFO
+    com.facefit.backend: INFO
+    org.springframework.security: WARN

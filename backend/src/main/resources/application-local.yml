@@ -1,0 +1,5 @@
+logging:
+  level:
+    root: INFO
+    com.facefit.backend: DEBUG
+    org.springframework.security: INFO
