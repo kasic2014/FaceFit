@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "status": "ready",
+  "face_model": {
+    "status": "loaded",
+    "path": "C:\\Users\\SMHRD\\Documents\\face-fit\\ai-server\\vision-server\\models\\face_landmarker.task",
+    "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+    "load_time_sec": 0.224743,
+    "closed": true
+  },
+  "pose_model": {
+    "status": "loaded",
+    "path": "C:\\Users\\SMHRD\\Documents\\face-fit\\ai-server\\vision-server\\models\\pose_landmarker_full.task",
+    "sha256": "4eaa5eb7a98365221087693fcc286334cf0858e2eb6e15b506aa4a7ecdcec4ad",
+    "load_time_sec": 0.142309,
+    "closed": true
+  },
+  "warnings": [],
+  "errors": []
+}

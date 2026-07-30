@@ -1,0 +1,9 @@
+fastapi>=0.100.0
+uvicorn>=0.22.0
+openai-whisper
+torch
+torchaudio
+librosa
+numpy
+pydantic
+python-dotenv

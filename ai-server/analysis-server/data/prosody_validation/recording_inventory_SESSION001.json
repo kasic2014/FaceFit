@@ -1,0 +1,561 @@
+{
+  "schema_version": "1.0",
+  "description": "SHA-256 baseline and read-only metadata inventory. Mapping uses exact expected filenames only and never infers identity from order or time.",
+  "session_id": "SESSION001",
+  "total_files": 24,
+  "pc_files": 12,
+  "phone_files": 12,
+  "files": [
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_clean_R01.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_clean_R01.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 508212,
+      "created_time": "2026-07-23T13:25:53.676226+00:00",
+      "modified_time": "2026-07-23T13:25:53.893159+00:00",
+      "sha256": "74c2a7319ef006cd7ca7207cf42ff0bbfa9fd09c8d08b76fc5ddef678f200dc2",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.912520833333332,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_clean_R02.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_clean_R02.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 477244,
+      "created_time": "2026-07-23T13:26:08.933977+00:00",
+      "modified_time": "2026-07-23T13:26:09.136798+00:00",
+      "sha256": "2458674e616f42cb1201b49cd0ed19afddf03a8a6cfd2101a8b6c3f8a694b83c",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.246125,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_clean_R03.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_clean_R03.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 509209,
+      "created_time": "2026-07-23T13:26:24.596118+00:00",
+      "modified_time": "2026-07-23T13:26:24.811054+00:00",
+      "sha256": "76d569116ca9c5c464945fa86f845e22c638221caa2d4fa15c84e91899164cd3",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.904,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_natural_R01.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_natural_R01.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 511072,
+      "created_time": "2026-07-23T13:26:43.229644+00:00",
+      "modified_time": "2026-07-23T13:26:43.438088+00:00",
+      "sha256": "a70f7926581a2de57b18e1aa2b087aee90b98cd5d5f3a95313a07b620a90a20c",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.989333333333335,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_natural_R02.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_natural_R02.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 524548,
+      "created_time": "2026-07-23T13:26:52.916182+00:00",
+      "modified_time": "2026-07-23T13:26:53.123600+00:00",
+      "sha256": "6d50bfa222538c9d14b6be96c4001bb73f760be55746eee35c8b09cb68033265",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 20.522708333333334,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_natural_R03.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT001_SESSION001_DEV_PC_MIC_01_natural_R03.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 535464,
+      "created_time": "2026-07-23T13:27:07.300352+00:00",
+      "modified_time": "2026-07-23T13:27:07.490797+00:00",
+      "sha256": "3c6ad6f3afe93feb54342282e0e928269d10dcc54136939fd0dce4b943f408ae",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 20.968020833333334,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_clean_R01.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_clean_R01.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 533926,
+      "created_time": "2026-07-23T13:27:21.406036+00:00",
+      "modified_time": "2026-07-23T13:27:21.589262+00:00",
+      "sha256": "b5f8731e55f3ca5202f56a01004630739f27209449e692bfdd07245ce0bc565e",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 20.864,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_clean_R02.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_clean_R02.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 562876,
+      "created_time": "2026-07-23T13:28:05.371509+00:00",
+      "modified_time": "2026-07-23T13:28:05.569362+00:00",
+      "sha256": "aa5b3396c119ab01de5ab4fd09f744da858de7c7eba1b34630409874ca72a5b4",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 22.23464583333333,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_clean_R03.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_clean_R03.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 523236,
+      "created_time": "2026-07-23T13:28:15.691475+00:00",
+      "modified_time": "2026-07-23T13:28:15.885238+00:00",
+      "sha256": "4a1fbf95b3bf6d905b9bffee7c1b02d2740d87ce9af41f649b06ff1f37376450",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 20.527375,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_natural_R01.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_natural_R01.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 602044,
+      "created_time": "2026-07-23T13:28:25.973078+00:00",
+      "modified_time": "2026-07-23T13:28:26.178777+00:00",
+      "sha256": "52e60e5ba7f79ee87cfcfdcfe4e41accb9b56a3e4f1f052f1f86381fa5ce0361",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 23.5306875,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_natural_R02.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_natural_R02.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 621724,
+      "created_time": "2026-07-23T13:28:36.357096+00:00",
+      "modified_time": "2026-07-23T13:28:36.562947+00:00",
+      "sha256": "67510200080396e203065559d73c8354122d9f5cf5ad26de4d76320c1f982579",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 24.298166666666667,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "pc",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_natural_R03.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/pc/SPK001_SCRIPT002_SESSION001_DEV_PC_MIC_01_natural_R03.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 638172,
+      "created_time": "2026-07-23T13:28:46.397906+00:00",
+      "modified_time": "2026-07-23T13:28:46.608180+00:00",
+      "sha256": "89f52a2b1a39d839913c3235db685cf14e92150af8e44bbfc184dc7de70b44b8",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 24.938375,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_clean_R01.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_clean_R01.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 309340,
+      "created_time": "2026-07-23T13:30:57.269192+00:00",
+      "modified_time": "2026-07-23T13:30:57.459212+00:00",
+      "sha256": "3cbaba1abab4dca3167f335378e73404781fb9ee5df6af062033f191e4178cbc",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 18.879708333333333,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_clean_R02.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_clean_R02.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 292005,
+      "created_time": "2026-07-23T13:30:24.884089+00:00",
+      "modified_time": "2026-07-23T13:30:25.074733+00:00",
+      "sha256": "7eb16e191f6f80c8eebcb7cae30915bb2c9ea8eb55ee3efad38d38f791e8a79e",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 17.8130625,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_clean_R03.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_clean_R03.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 309345,
+      "created_time": "2026-07-23T13:30:36.805188+00:00",
+      "modified_time": "2026-07-23T13:30:37.010605+00:00",
+      "sha256": "71bdea8c9b9a13ce57b7ae9da1b9e7859b02def0b9b5439991f745cbb9219cc3",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 18.879708333333333,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_natural_R01.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_natural_R01.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 312092,
+      "created_time": "2026-07-23T13:30:13.581174+00:00",
+      "modified_time": "2026-07-23T13:30:13.761756+00:00",
+      "sha256": "9f533b5cc8160cf0612e370ec161c2cfc872f9530fb91140cd68f8425168ea21",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.050375,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_natural_R02.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_natural_R02.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 316975,
+      "created_time": "2026-07-23T13:30:04.389939+00:00",
+      "modified_time": "2026-07-23T13:30:04.569459+00:00",
+      "sha256": "667cb02aca40a56a46c50e93bc18cae854df750287d1e04438e451b42766f64d",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.349020833333334,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_natural_R03.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT001_SESSION001_DEV_PHONE_01_natural_R03.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 324715,
+      "created_time": "2026-07-23T13:29:54.813343+00:00",
+      "modified_time": "2026-07-23T13:29:55.017969+00:00",
+      "sha256": "0f0749716422bb273c4e1b3377a0d6346c79e0fa01c3c72b3ab7007a90531c61",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.818354166666666,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_clean_R01.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_clean_R01.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 311559,
+      "created_time": "2026-07-23T13:29:45.974154+00:00",
+      "modified_time": "2026-07-23T13:29:46.155921+00:00",
+      "sha256": "1024d02732afa589e7c583070885db715d71de414ead72b1f2f26a3602edf42d",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.007708333333333,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_clean_R02.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_clean_R02.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 324376,
+      "created_time": "2026-07-23T13:29:36.815570+00:00",
+      "modified_time": "2026-07-23T13:29:37.002474+00:00",
+      "sha256": "0778a7886d3d03b2694ab63426114a46c33a10235d61b5e4ac54d7cc43cb06f0",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.797020833333335,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_clean_R03.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_clean_R03.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 312164,
+      "created_time": "2026-07-23T13:30:46.372663+00:00",
+      "modified_time": "2026-07-23T13:30:46.562317+00:00",
+      "sha256": "5179d29fc866ce398593024c902986506fd28ee501b3ba84f6d9b3baae73bc59",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 19.050375,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_natural_R01.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_natural_R01.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 362247,
+      "created_time": "2026-07-23T13:29:26.867262+00:00",
+      "modified_time": "2026-07-23T13:29:27.058541+00:00",
+      "sha256": "67daf0d4dcf7a351e0980dad131c4f6d49e23051a5837435af57519989e66289",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 22.1223125,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_natural_R02.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_natural_R02.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 381369,
+      "created_time": "2026-07-23T13:29:05.596948+00:00",
+      "modified_time": "2026-07-23T13:29:05.793404+00:00",
+      "sha256": "a1b38d28eb0c3120569300cc4b6182eeb915f972a7c2e82da0e20d2df4d2a5ce",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 23.29564583333333,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    },
+    {
+      "source_device_group": "phone",
+      "source_filename": "SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_natural_R03.m4a",
+      "source_relative_path": "data/prosody_validation/recordings/SESSION001/original/phone/SPK001_SCRIPT002_SESSION001_DEV_PHONE_01_natural_R03.m4a",
+      "extension": ".m4a",
+      "file_size_bytes": 396073,
+      "created_time": "2026-07-23T13:29:16.797208+00:00",
+      "modified_time": "2026-07-23T13:29:16.977301+00:00",
+      "sha256": "79646817be606cd0271120e60e920d58bcc7207dfe001744e6bd8e10a351870c",
+      "detected_audio_format": "M4A/AAC",
+      "duration_sec": 24.191625,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bit_depth": null,
+      "readable": true,
+      "inspection_warnings": [
+        "BIT_DEPTH_UNAVAILABLE_FOR_COMPRESSED_AUDIO",
+        "ANALYSIS_WAV_CONVERSION_REQUIRED"
+      ]
+    }
+  ],
+  "validation_summary": {
+    "empty_file_count": 0,
+    "unreadable_file_count": 0,
+    "unsupported_format_count": 0,
+    "non_positive_duration_count": 0,
+    "duplicate_sha256_count": 0,
+    "errors": []
+  },
+  "mapping_summary": {
+    "exact_filename_match": 12,
+    "unmatched": 12,
+    "ambiguous": 0,
+    "needs_manual_mapping": 12
+  },
+  "device_pair_summary": {
+    "pair_count": 12,
+    "complete_pair_count": 12,
+    "invalid_pair_count": 0,
+    "pair_key_fields": [
+      "speaker_code",
+      "session_id",
+      "script_id",
+      "recording_condition",
+      "repetition_index"
+    ]
+  },
+  "device_format_summary": {
+    "pc": {
+      "file_count": 12,
+      "audio_format_counts": {
+        "M4A/AAC": 12
+      },
+      "sample_rate_counts": {
+        "48000": 12
+      },
+      "channel_counts": {
+        "2": 12
+      },
+      "duration_sec": {
+        "min": 19.246125,
+        "median": 20.6956875,
+        "max": 24.938375
+      },
+      "read_failure_count": 0,
+      "conversion_required_count": 12
+    },
+    "phone": {
+      "file_count": 12,
+      "audio_format_counts": {
+        "M4A/AAC": 12
+      },
+      "sample_rate_counts": {
+        "48000": 12
+      },
+      "channel_counts": {
+        "1": 12
+      },
+      "duration_sec": {
+        "min": 17.8130625,
+        "median": 19.199697916666665,
+        "max": 24.191625
+      },
+      "read_failure_count": 0,
+      "conversion_required_count": 12
+    }
+  },
+  "warnings": [
+    "Inventory metadata and hashes only; no STT, conversion, quality metrics, or prosody analysis was run.",
+    "Non-WAV files are marked as requiring a future separate analysis-WAV conversion; originals must remain unchanged."
+  ],
+  "error": null
+}

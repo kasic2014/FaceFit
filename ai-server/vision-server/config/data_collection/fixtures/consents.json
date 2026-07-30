@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "consents": [
+    {"consent_reference_id":"CNS_000001","participant_id":"PTC_000001","status":"GRANTED","document_version":"fixture-1.0","video_collection_allowed":true,"automated_analysis_allowed":true,"research_use_allowed":true,"model_development_use_allowed":true,"withdrawn_at":null},
+    {"consent_reference_id":"CNS_000002","participant_id":"PTC_000002","status":"GRANTED","document_version":"fixture-1.0","video_collection_allowed":true,"automated_analysis_allowed":true,"research_use_allowed":true,"model_development_use_allowed":true,"withdrawn_at":null},
+    {"consent_reference_id":"CNS_000003","participant_id":"PTC_000003","status":"GRANTED","document_version":"fixture-1.0","video_collection_allowed":true,"automated_analysis_allowed":true,"research_use_allowed":true,"model_development_use_allowed":true,"withdrawn_at":null},
+    {"consent_reference_id":"CNS_000004","participant_id":"PTC_000004","status":"GRANTED","document_version":"fixture-1.0","video_collection_allowed":true,"automated_analysis_allowed":true,"research_use_allowed":true,"model_development_use_allowed":true,"withdrawn_at":null},
+    {"consent_reference_id":"CNS_000005","participant_id":"PTC_000005","status":"GRANTED","document_version":"fixture-1.0","video_collection_allowed":true,"automated_analysis_allowed":true,"research_use_allowed":true,"model_development_use_allowed":true,"withdrawn_at":null},
+    {"consent_reference_id":"CNS_000006","participant_id":"PTC_000006","status":"GRANTED","document_version":"fixture-1.0","video_collection_allowed":true,"automated_analysis_allowed":true,"research_use_allowed":true,"model_development_use_allowed":true,"withdrawn_at":null}
+  ]
+}

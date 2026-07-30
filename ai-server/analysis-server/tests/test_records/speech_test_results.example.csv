@@ -1,0 +1,2 @@
+test_id,audio_file,test_category,model_name,model_size,device,compute_type,audio_duration_sec,processing_time_sec,expected_transcript,actual_transcript,transcript_match_note,filler_expected,filler_actual,long_silence_expected,long_silence_actual,status,error_message,notes
+speech_01_clean,speech_01_clean.wav,clean,,,,,,,,,,,,,,,example,실제 테스트 결과가 아닌 형식 예시입니다.

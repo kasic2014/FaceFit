@@ -5,6 +5,7 @@ import com.facefit.backend.member.domain.MemberStatus;
 import com.facefit.backend.member.domain.OnboardingStatus;
 import com.facefit.backend.member.domain.Profile;
 import com.facefit.backend.member.repository.ProfileRepository;
+import com.facefit.backend.onboarding.application.OnboardingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,9 @@ class SecurityIntegrationTest {
 
     @MockitoBean
     private CurrentProfileService currentProfileService;
+
+    @MockitoBean
+    private OnboardingService onboardingService;
 
     private ProfileRepository profileRepository;
 
