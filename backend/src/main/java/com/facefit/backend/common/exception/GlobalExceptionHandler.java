@@ -29,6 +29,24 @@ public class GlobalExceptionHandler {
                 .body(ApiErrorResponse.of("MEMBER_ACCESS_DENIED", exception.getMessage()));
     }
 
+    @ExceptionHandler(OnboardingRequiredException.class)
+    public ResponseEntity<ApiErrorResponse> handleOnboardingRequired(OnboardingRequiredException exception) {
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(ApiErrorResponse.of("ONBOARDING_REQUIRED", exception.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidOnboardingStateException.class)
+    public ResponseEntity<ApiErrorResponse> handleInvalidOnboardingState() {
+        log.error("Invalid onboarding state detected");
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiErrorResponse.of(
+                        "ONBOARDING_STATE_INVALID",
+                        "온보딩 상태를 처리할 수 없습니다."
+                ));
+    }
+
     @ExceptionHandler(ProfileProvisioningException.class)
     public ResponseEntity<ApiErrorResponse> handleProfileProvisioning(ProfileProvisioningException exception) {
         log.error("Current profile provisioning failed");

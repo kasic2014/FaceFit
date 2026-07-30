@@ -1,0 +1,97 @@
+{
+  "evidence_records": [
+    {
+      "evidence_id": "EVID_FIX_HEAD_YAW_001",
+      "source_id": "SRC_FIXTURE_HEAD_001",
+      "construct_name": "Synthetic non-clinical relative head rotation",
+      "measurement_name": "Absolute p95 relative yaw fixture boundary",
+      "statistic_type": "THRESHOLD",
+      "value": 10.0,
+      "lower_bound": null,
+      "upper_bound": null,
+      "unit": "DEGREE",
+      "population_scope": "Synthetic fixture only",
+      "context_scope": "Contract unit test",
+      "extraction_location": "Synthetic fixture record",
+      "extraction_note": "This value is synthetic test data and is not an approved Face-Fit evaluation threshold.",
+      "evidence_strength": "NOT_ASSESSED",
+      "applicability": "REVIEW_REQUIRED",
+      "status": "TEST_FIXTURE",
+      "applicability_scope": {
+        "population": "Synthetic fixture only",
+        "age_range": null,
+        "recording_context": "Simulated Stage 10 aggregate",
+        "camera_setup": "Uncalibrated 2D camera proxy",
+        "analysis_fps": 5.0,
+        "measurement_method": "Approximate PnP relative angle",
+        "body_region": "Face",
+        "interview_context": false,
+        "limitations": [
+          "No real research participants or paper values."
+        ]
+      }
+    },
+    {
+      "evidence_id": "EVID_FIX_HEAD_QUALITY_001",
+      "source_id": "SRC_FIXTURE_HEAD_001",
+      "construct_name": "Synthetic data availability gate",
+      "measurement_name": "Head Pose availability ratio fixture boundary",
+      "statistic_type": "THRESHOLD",
+      "value": 0.8,
+      "lower_bound": null,
+      "upper_bound": null,
+      "unit": "RATIO",
+      "population_scope": "Synthetic fixture only",
+      "context_scope": "Data quality contract unit test",
+      "extraction_location": "Synthetic fixture record",
+      "extraction_note": "This value is synthetic test data and is not an approved Face-Fit evaluation threshold.",
+      "evidence_strength": "NOT_ASSESSED",
+      "applicability": "REVIEW_REQUIRED",
+      "status": "TEST_FIXTURE",
+      "applicability_scope": {
+        "population": "Synthetic fixture only",
+        "age_range": null,
+        "recording_context": "Simulated Stage 10 aggregate",
+        "camera_setup": "Uncalibrated 2D camera proxy",
+        "analysis_fps": 5.0,
+        "measurement_method": "Detection availability ratio",
+        "body_region": "Face",
+        "interview_context": false,
+        "limitations": [
+          "Data availability is not posture quality."
+        ]
+      }
+    },
+    {
+      "evidence_id": "EVID_FIX_POSTURE_TILT_001",
+      "source_id": "SRC_FIXTURE_POSTURE_001",
+      "construct_name": "Synthetic 2D shoulder-line proxy",
+      "measurement_name": "Absolute p95 relative shoulder tilt fixture boundary",
+      "statistic_type": "THRESHOLD",
+      "value": 5.0,
+      "lower_bound": null,
+      "upper_bound": null,
+      "unit": "DEGREE",
+      "population_scope": "Synthetic fixture only",
+      "context_scope": "Contract unit test",
+      "extraction_location": "Synthetic fixture record",
+      "extraction_note": "This value is synthetic test data and is not an approved Face-Fit evaluation threshold.",
+      "evidence_strength": "NOT_ASSESSED",
+      "applicability": "REVIEW_REQUIRED",
+      "status": "TEST_FIXTURE",
+      "applicability_scope": {
+        "population": "Synthetic fixture only",
+        "age_range": null,
+        "recording_context": "Simulated Stage 10 aggregate",
+        "camera_setup": "Uncalibrated 2D camera proxy",
+        "analysis_fps": 5.0,
+        "measurement_method": "2D shoulder line",
+        "body_region": "Both shoulders only",
+        "interview_context": false,
+        "limitations": [
+          "No spine, pelvis, hips, or lower body are measured."
+        ]
+      }
+    }
+  ]
+}

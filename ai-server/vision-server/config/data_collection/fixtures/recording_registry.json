@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "environments": [
+    {"environment_id":"ENV_FIXED_01","width_px":1280,"height_px":720,"source_fps":30.0,"analysis_fps":5.0,"fixed_camera":true,"mirror_preview":true,"stored_video_mirrored":false,"face_and_shoulders_in_frame":true}
+  ],
+  "sessions": [
+    {"session_id":"SES_000001","participant_id":"PTC_000001","protocol_id":"DCP_FACE_FIT_001","consent_reference_id":"CNS_000001","environment_id":"ENV_FIXED_01","status":"ANNOTATION_READY","duration_ms":9000,"baseline_start_timestamp_ms":0,"baseline_end_timestamp_ms":2000,"video_sha256":"1111111111111111111111111111111111111111111111111111111111111111","exclusion_reason":null},
+    {"session_id":"SES_000002","participant_id":"PTC_000002","protocol_id":"DCP_FACE_FIT_001","consent_reference_id":"CNS_000002","environment_id":"ENV_FIXED_01","status":"ANNOTATION_READY","duration_ms":9000,"baseline_start_timestamp_ms":0,"baseline_end_timestamp_ms":2000,"video_sha256":"2222222222222222222222222222222222222222222222222222222222222222","exclusion_reason":null},
+    {"session_id":"SES_000003","participant_id":"PTC_000003","protocol_id":"DCP_FACE_FIT_001","consent_reference_id":"CNS_000003","environment_id":"ENV_FIXED_01","status":"ANNOTATION_READY","duration_ms":9000,"baseline_start_timestamp_ms":0,"baseline_end_timestamp_ms":2000,"video_sha256":"3333333333333333333333333333333333333333333333333333333333333333","exclusion_reason":null},
+    {"session_id":"SES_000004","participant_id":"PTC_000004","protocol_id":"DCP_FACE_FIT_001","consent_reference_id":"CNS_000004","environment_id":"ENV_FIXED_01","status":"ANNOTATION_READY","duration_ms":9000,"baseline_start_timestamp_ms":0,"baseline_end_timestamp_ms":2000,"video_sha256":"4444444444444444444444444444444444444444444444444444444444444444","exclusion_reason":null},
+    {"session_id":"SES_000005","participant_id":"PTC_000005","protocol_id":"DCP_FACE_FIT_001","consent_reference_id":"CNS_000005","environment_id":"ENV_FIXED_01","status":"ANNOTATION_READY","duration_ms":9000,"baseline_start_timestamp_ms":0,"baseline_end_timestamp_ms":2000,"video_sha256":"5555555555555555555555555555555555555555555555555555555555555555","exclusion_reason":null},
+    {"session_id":"SES_000006","participant_id":"PTC_000006","protocol_id":"DCP_FACE_FIT_001","consent_reference_id":"CNS_000006","environment_id":"ENV_FIXED_01","status":"ANNOTATION_READY","duration_ms":9000,"baseline_start_timestamp_ms":0,"baseline_end_timestamp_ms":2000,"video_sha256":"6666666666666666666666666666666666666666666666666666666666666666","exclusion_reason":null}
+  ],
+  "answers": [
+    {"answer_id":"ANS_000001","session_id":"SES_000001","question_id":"QUE_01","start_timestamp_ms":2000,"end_timestamp_ms":5000,"target_id":"TGT_001","exclusion_reason":null},
+    {"answer_id":"ANS_000002","session_id":"SES_000001","question_id":"QUE_02","start_timestamp_ms":5000,"end_timestamp_ms":8000,"target_id":"TGT_001","exclusion_reason":null},
+    {"answer_id":"ANS_000003","session_id":"SES_000002","question_id":"QUE_01","start_timestamp_ms":2000,"end_timestamp_ms":5000,"target_id":"TGT_002","exclusion_reason":null},
+    {"answer_id":"ANS_000004","session_id":"SES_000002","question_id":"QUE_02","start_timestamp_ms":5000,"end_timestamp_ms":8000,"target_id":"TGT_002","exclusion_reason":null},
+    {"answer_id":"ANS_000005","session_id":"SES_000003","question_id":"QUE_01","start_timestamp_ms":2000,"end_timestamp_ms":5000,"target_id":"TGT_003","exclusion_reason":null},
+    {"answer_id":"ANS_000006","session_id":"SES_000003","question_id":"QUE_02","start_timestamp_ms":5000,"end_timestamp_ms":8000,"target_id":"TGT_003","exclusion_reason":null},
+    {"answer_id":"ANS_000007","session_id":"SES_000004","question_id":"QUE_01","start_timestamp_ms":2000,"end_timestamp_ms":5000,"target_id":"TGT_004","exclusion_reason":null},
+    {"answer_id":"ANS_000008","session_id":"SES_000004","question_id":"QUE_02","start_timestamp_ms":5000,"end_timestamp_ms":8000,"target_id":"TGT_004","exclusion_reason":null},
+    {"answer_id":"ANS_000009","session_id":"SES_000005","question_id":"QUE_01","start_timestamp_ms":2000,"end_timestamp_ms":5000,"target_id":"TGT_005","exclusion_reason":null},
+    {"answer_id":"ANS_000010","session_id":"SES_000005","question_id":"QUE_02","start_timestamp_ms":5000,"end_timestamp_ms":8000,"target_id":"TGT_005","exclusion_reason":null},
+    {"answer_id":"ANS_000011","session_id":"SES_000006","question_id":"QUE_01","start_timestamp_ms":2000,"end_timestamp_ms":5000,"target_id":"TGT_006","exclusion_reason":null},
+    {"answer_id":"ANS_000012","session_id":"SES_000006","question_id":"QUE_02","start_timestamp_ms":5000,"end_timestamp_ms":8000,"target_id":"TGT_006","exclusion_reason":null}
+  ]
+}

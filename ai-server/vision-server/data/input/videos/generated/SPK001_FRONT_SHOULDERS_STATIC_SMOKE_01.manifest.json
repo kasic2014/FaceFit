@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "source_image_path": "data/input/images/SPK001_FRONT_SHOULDERS_01.jpg",
+  "source_image_sha256": "11b885be961deaf276a4f6aeaeeb302799b2a150d057716d4fe43c085125b95c",
+  "generated_video_path": "data/input/videos/generated/SPK001_FRONT_SHOULDERS_STATIC_SMOKE_01.mp4",
+  "generated_video_sha256": "2e64bad8585e0b5fda5a2b017308a01ebb5e743ddb79980e298c941947a7c568",
+  "width": 720,
+  "height": 960,
+  "fps": 10.0,
+  "frame_count": 30,
+  "duration_sec": 3.0,
+  "codec": "FMP4",
+  "synthetic_static_video": true,
+  "purpose": "video_pipeline_smoke_test",
+  "not_valid_for_temporal_motion_validation": true
+}
