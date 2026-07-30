@@ -1,0 +1,54 @@
+{
+    "schema_version":  "1.0.0",
+    "participant_id":  "PTC_000001",
+    "session_id":  "SES_000001",
+    "consent_reference_id":  "CONSENT_PTC_000001_V1",
+    "video_file":  "PTC_000001_SES_000001.mp4",
+    "expected_sha256":  "a54511b0802641845dd92866124a5a74be90877e39c0e0880f6e45142cef87bc",
+    "recorded_at":  "2026-07-29T19:05:24+09:00",
+    "recording_environment":  {
+                                  "camera_type":  "PC_WEBCAM",
+                                  "camera_model":  null,
+                                  "camera_fixed":  true,
+                                  "single_person_expected":  true,
+                                  "face_required":  true,
+                                  "both_shoulders_required":  true
+                              },
+    "baseline_interval":  {
+                              "interval_id":  "BASELINE_001",
+                              "start_timestamp_ms":  0,
+                              "end_timestamp_ms":  10000
+                          },
+    "answers":  [
+                    {
+                        "answer_id":  "ANS_000001",
+                        "interval_id":  "INT_ANSWER_001",
+                        "question_id":  "Q_001",
+                        "start_timestamp_ms":  11000,
+                        "end_timestamp_ms":  50000
+                    },
+                    {
+                        "answer_id":  "ANS_000002",
+                        "interval_id":  "INT_ANSWER_002",
+                        "question_id":  "Q_002",
+                        "start_timestamp_ms":  51000,
+                        "end_timestamp_ms":  107000
+                    },
+                    {
+                        "answer_id":  "ANS_000003",
+                        "interval_id":  "INT_ANSWER_003",
+                        "question_id":  "Q_003",
+                        "start_timestamp_ms":  108000,
+                        "end_timestamp_ms":  160000
+                    },
+                    {
+                        "answer_id":  "ANS_000004",
+                        "interval_id":  "INT_ANSWER_004",
+                        "question_id":  "Q_004",
+                        "start_timestamp_ms":  161000,
+                        "end_timestamp_ms":  192000
+                    }
+                ],
+    "withdrawn":  false,
+    "notes":  "Face-Fit pilot session metadata"
+}

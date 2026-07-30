@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "seed":130013,
+  "production_ratio_defined":false,
+  "assignments":[
+    {"participant_id":"PTC_000001","split":"CALIBRATION","seed":130013,"assignment_method":"PARTICIPANT_LEVEL_DETERMINISTIC"},
+    {"participant_id":"PTC_000002","split":"CALIBRATION","seed":130013,"assignment_method":"PARTICIPANT_LEVEL_DETERMINISTIC"},
+    {"participant_id":"PTC_000003","split":"DEVELOPMENT","seed":130013,"assignment_method":"PARTICIPANT_LEVEL_DETERMINISTIC"},
+    {"participant_id":"PTC_000004","split":"HOLDOUT","seed":130013,"assignment_method":"PARTICIPANT_LEVEL_DETERMINISTIC"},
+    {"participant_id":"PTC_000005","split":"DEVELOPMENT","seed":130013,"assignment_method":"PARTICIPANT_LEVEL_DETERMINISTIC"},
+    {"participant_id":"PTC_000006","split":"VALIDATION","seed":130013,"assignment_method":"PARTICIPANT_LEVEL_DETERMINISTIC"}
+  ]
+}

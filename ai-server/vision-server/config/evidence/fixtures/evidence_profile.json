@@ -1,0 +1,48 @@
+{
+  "profiles": [
+    {
+      "profile_id": "EVIDENCE_FIX_HEAD",
+      "version": "1.0.0",
+      "name": "Synthetic Head Pose Evidence Contract Profile",
+      "description": "Fixture-only Head Pose contract. This value is synthetic test data and is not an approved Face-Fit evaluation threshold.",
+      "source_ids": [
+        "SRC_FIXTURE_HEAD_001"
+      ],
+      "evidence_ids": [
+        "EVID_FIX_HEAD_YAW_001",
+        "EVID_FIX_HEAD_QUALITY_001"
+      ],
+      "mapping_ids": [
+        "MAP_FIX_HEAD_YAW_001",
+        "MAP_FIX_HEAD_QUALITY_001"
+      ],
+      "domain": "HEAD_POSE",
+      "status": "TEST_FIXTURE",
+      "created_at": "2026-07-28T00:00:00Z",
+      "updated_at": "2026-07-28T00:00:00Z",
+      "supersedes_version": null,
+      "notes": "Not for production or user evaluation."
+    },
+    {
+      "profile_id": "EVIDENCE_FIX_POSTURE",
+      "version": "1.0.0",
+      "name": "Synthetic Posture Proxy Evidence Contract Profile",
+      "description": "Fixture-only 2D shoulder proxy contract. This value is synthetic test data and is not an approved Face-Fit evaluation threshold.",
+      "source_ids": [
+        "SRC_FIXTURE_POSTURE_001"
+      ],
+      "evidence_ids": [
+        "EVID_FIX_POSTURE_TILT_001"
+      ],
+      "mapping_ids": [
+        "MAP_FIX_POSTURE_TILT_001"
+      ],
+      "domain": "POSTURE",
+      "status": "TEST_FIXTURE",
+      "created_at": "2026-07-28T00:00:00Z",
+      "updated_at": "2026-07-28T00:00:00Z",
+      "supersedes_version": null,
+      "notes": "Not for production or user evaluation."
+    }
+  ]
+}
