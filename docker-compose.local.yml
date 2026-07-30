@@ -1,0 +1,11 @@
+services:
+  vision-server:
+    build:
+      context: ./ai-server/vision-server
+      dockerfile: Dockerfile
+    container_name: face-fit-vision-server
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
