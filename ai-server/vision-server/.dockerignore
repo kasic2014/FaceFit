@@ -5,7 +5,13 @@ __pycache__/
 *.pyo
 *.pyd
 .pytest_cache/
+models/
+data/input/
+data/pilot/
 data/output/
 data/temp/
 logs/
 node_modules/
+.env
+.env.*
+!.env.example

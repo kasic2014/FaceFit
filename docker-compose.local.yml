@@ -7,5 +7,25 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - PYTHONUNBUFFERED=1
+      PYTHONUNBUFFERED: "1"
+      VISION_API_ENV: "development"
+      VISION_API_HOST: "0.0.0.0"
+      VISION_API_PORT: "8000"
+      VISION_API_ALLOWED_ORIGINS: ""
+      VISION_API_ENABLE_DOCS: "true"
+      VISION_API_OUTPUT_ROOT: "/app/data/output"
+      VISION_API_LOG_LEVEL: "INFO"
+    volumes:
+      - ./ai-server/vision-server/data/output:/app/data/output
+      - ./ai-server/vision-server/data/pilot/incoming:/app/data/pilot/incoming:ro
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).read()
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
     restart: unless-stopped
