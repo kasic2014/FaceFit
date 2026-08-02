@@ -12,6 +12,15 @@ cd ai-server\vision-server
 .venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8001
 ```
 
+Starlette TestClient validation uses a separate test dependency contract:
+
+```powershell
+.venv\Scripts\python.exe -m pip install -r requirements-test.txt
+```
+
+`requirements-test.txt` declares `httpx2>=2.0.0`, as required by
+Starlette 1.3.1 TestClient, without adding it to the API service runtime.
+
 환경변수는 `.env.example`을 참고한다. `VISION_API_ALLOWED_ORIGINS`의 기본값은
 빈 목록이며 `*`는 허용되지 않는다. 운영 환경에서는 Swagger UI가 기본적으로
 비활성화된다.

@@ -16,6 +16,9 @@ from urllib.request import Request, urlopen
 
 
 ANALYSIS_MODE = "SINGLE_SESSION_BASELINE_RELATIVE_MVP"
+DEFAULT_SHUTDOWN_TIMEOUT_SECONDS = 5.0
+DEFAULT_PORT_RELEASE_TIMEOUT_SECONDS = 5.0
+DEFAULT_PORT_POLL_INTERVAL_SECONDS = 0.1
 REQUIRED_PATHS = {
     "/health",
     "/ready",
@@ -66,6 +69,48 @@ def _port_open(host: str, port: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as connection:
         connection.settimeout(0.2)
         return connection.connect_ex((host, port)) == 0
+
+
+def _wait_for_port_release(
+    host: str,
+    port: int,
+    *,
+    timeout_seconds: float,
+    poll_interval_seconds: float,
+    port_open: Any = _port_open,
+    monotonic: Any = time.monotonic,
+    sleep: Any = time.sleep,
+) -> bool:
+    if timeout_seconds < 0:
+        raise ValueError("Port release timeout cannot be negative")
+    if poll_interval_seconds <= 0:
+        raise ValueError("Port poll interval must be positive")
+    deadline = monotonic() + timeout_seconds
+    while port_open(host, port):
+        remaining = deadline - monotonic()
+        if remaining <= 0:
+            return False
+        sleep(min(poll_interval_seconds, remaining))
+    return True
+
+
+def _stop_process(
+    process: subprocess.Popen[Any],
+    *,
+    shutdown_timeout_seconds: float,
+) -> str:
+    if shutdown_timeout_seconds <= 0:
+        raise ValueError("Shutdown timeout must be positive")
+    if process.poll() is not None:
+        return "ALREADY_STOPPED"
+    process.terminate()
+    try:
+        process.wait(timeout=shutdown_timeout_seconds)
+        return "TERMINATED"
+    except subprocess.TimeoutExpired:
+        process.kill()
+        process.wait(timeout=shutdown_timeout_seconds)
+        return "KILLED"
 
 
 def _safe_response(value: dict[str, Any]) -> bool:
@@ -127,6 +172,13 @@ def run_smoke(
     port: int,
     session_id: str,
     timeout_seconds: float,
+    shutdown_timeout_seconds: float = DEFAULT_SHUTDOWN_TIMEOUT_SECONDS,
+    port_release_timeout_seconds: float = (
+        DEFAULT_PORT_RELEASE_TIMEOUT_SECONDS
+    ),
+    port_poll_interval_seconds: float = (
+        DEFAULT_PORT_POLL_INTERVAL_SECONDS
+    ),
 ) -> dict[str, Any]:
     if _port_open(host, port):
         raise RuntimeError("Requested validation port is already occupied")
@@ -167,6 +219,7 @@ def run_smoke(
         ),
     )
     results: list[dict[str, Any]] = []
+    shutdown_method = "NOT_REQUIRED"
     base_url = f"http://{host}:{port}"
     try:
         deadline = time.monotonic() + timeout_seconds
@@ -303,24 +356,30 @@ def run_smoke(
             )
         )
     finally:
-        if process.poll() is None:
-            process.terminate()
-            try:
-                process.wait(timeout=5)
-            except subprocess.TimeoutExpired:
-                process.kill()
-                process.wait(timeout=5)
-    port_left_occupied = _port_open(host, port)
+        shutdown_method = _stop_process(
+            process,
+            shutdown_timeout_seconds=shutdown_timeout_seconds,
+        )
+    uvicorn_stopped = process.poll() is not None
+    port_released = _wait_for_port_release(
+        host,
+        port,
+        timeout_seconds=port_release_timeout_seconds,
+        poll_interval_seconds=port_poll_interval_seconds,
+    )
+    port_left_occupied = not port_released
     return {
         "status": (
             "PASSED"
             if results
             and all(item["passed"] for item in results)
+            and uvicorn_stopped
             and not port_left_occupied
             else "FAILED"
         ),
         "uvicorn_started": bool(results),
-        "uvicorn_stopped": process.poll() is not None,
+        "uvicorn_stopped": uvicorn_stopped,
+        "shutdown_method": shutdown_method,
         "port_left_occupied": port_left_occupied,
         "results": results,
     }
@@ -337,6 +396,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--port", type=int, default=8001)
     parser.add_argument("--session-id", default="SES_000001")
     parser.add_argument("--timeout-seconds", type=float, default=20.0)
+    parser.add_argument(
+        "--shutdown-timeout-seconds",
+        type=float,
+        default=DEFAULT_SHUTDOWN_TIMEOUT_SECONDS,
+    )
+    parser.add_argument(
+        "--port-release-timeout-seconds",
+        type=float,
+        default=DEFAULT_PORT_RELEASE_TIMEOUT_SECONDS,
+    )
+    parser.add_argument(
+        "--port-poll-interval-seconds",
+        type=float,
+        default=DEFAULT_PORT_POLL_INTERVAL_SECONDS,
+    )
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
     report = run_smoke(
@@ -345,6 +419,11 @@ def main(argv: list[str] | None = None) -> int:
         port=args.port,
         session_id=args.session_id,
         timeout_seconds=args.timeout_seconds,
+        shutdown_timeout_seconds=args.shutdown_timeout_seconds,
+        port_release_timeout_seconds=(
+            args.port_release_timeout_seconds
+        ),
+        port_poll_interval_seconds=args.port_poll_interval_seconds,
     )
     text = (
         json.dumps(
