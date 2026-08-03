@@ -1,57 +1,28 @@
-# Face-Fit
+# Face-Fit (AI 기반 모의면접 플랫폼)
 
-Face-Fit은 사용자의 발화, 시선, 자세를 분석하고 맞춤형 음성을 생성해 면접 연습을 돕는 AI 면접 코칭 서비스입니다.
+Face-Fit은 사용자 면접 연습, 음성·운율 분석, 시선·자세 분석 및 AI 면접관 TTS 서비스를 제공하는 멀티 서비스 플랫폼입니다.
 
-## 담당 AI 기능
+## 모듈 구성
 
-- faster-whisper 기반 발화 분석
-- MediaPipe 기반 시선 분석
-- MediaPipe 기반 자세 분석
-- Qwen3-TTS 기반 음성 생성 및 음성 클론
+- `frontend/`: 사용자 면접 연습 Web 화면
+- `backend/`: 회원, 면접 세션, 문서 및 결과 관리 API (Java 21 / Spring Boot 3.5)
+- `ai-server/`:
+  - `analysis-server/`: 발화, STT, 운율 분석 서버
+  - `vision-server/`: 시선, 자세, 영상 분석 서버
+  - `tts-server/`: AI 면접관 음성 합성 서버
+- `docs/`: 시스템 아키텍처 및 API/AI 명세서
+- `infra/`: Docker, Nginx 및 멀티 컨테이너 배포 설정
+- `scripts/`: 로컬 실행 및 통합 검증 스크립트
 
-## 기본 폴더 구조
+## 시작하기
 
-```text
-face-fit/
-├── backend/
-├── frontend/
-├── ai-server/
-│   ├── analysis-server/
-│   │   ├── app/
-│   │   │   ├── speech/
-│   │   │   ├── vision/
-│   │   │   ├── schemas/
-│   │   │   └── core/
-│   │   ├── data/
-│   │   │   ├── input/
-│   │   │   │   ├── audio/
-│   │   │   │   └── video/
-│   │   │   ├── output/
-│   │   │   └── temp/
-│   │   ├── scripts/
-│   │   ├── tests/
-│   │   ├── logs/
-│   │   └── .venv/
-│   └── tts-server/
-│       ├── app/
-│       ├── data/
-│       │   ├── reference_voice/
-│       │   ├── output/
-│       │   └── temp/
-│       ├── scripts/
-│       ├── tests/
-│       └── logs/
-├── .vscode/
-├── .gitignore
-└── README.md
+```bash
+# 로컬 개발 환경 준비
+./scripts/setup.ps1
+
+# 전체 테스트 실행
+./scripts/test-all.ps1
+
+# 로컬 개발 서버 동시 실행
+./scripts/run-local.ps1
 ```
-
-## AI 서버 분리 이유
-
-`analysis-server`는 faster-whisper와 MediaPipe를 이용한 분석 작업을 담당하고, `tts-server`는 Qwen3-TTS를 이용한 음성 생성과 음성 클론을 담당합니다. 두 서버를 분리하면 서로 다른 의존성과 실행 자원을 독립적으로 관리할 수 있고, 기능별 배포와 확장이 쉬워집니다.
-
-## Python 버전 및 현재 상태
-
-- 사용할 Python 버전: Python 3.12
-- 현재 단계에서는 AI 라이브러리를 설치하지 않았습니다.
-- 다음 단계는 `analysis-server` 개발환경 점검 및 최소 테스트 코드 작성입니다.
