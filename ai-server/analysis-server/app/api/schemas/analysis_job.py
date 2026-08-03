@@ -44,8 +44,15 @@ class AnalysisJobResponse(ApiModel):
     pipeline: Pipeline
     status: JobStatus
     created_at: datetime = Field(alias="createdAt")
+    queued_at: datetime = Field(alias="queuedAt")
     started_at: datetime | None = Field(default=None, alias="startedAt")
     completed_at: datetime | None = Field(default=None, alias="completedAt")
+    updated_at: datetime = Field(alias="updatedAt")
+    queue_wait_ms: int | None = Field(default=None, alias="queueWaitMs", ge=0)
+    execution_duration_ms: int | None = Field(
+        default=None, alias="executionDurationMs", ge=0
+    )
+    total_duration_ms: int | None = Field(default=None, alias="totalDurationMs", ge=0)
     result_available: bool = Field(alias="resultAvailable")
     warnings: list[ApiWarning] = Field(default_factory=list)
     error: dict[str, Any] | None = None

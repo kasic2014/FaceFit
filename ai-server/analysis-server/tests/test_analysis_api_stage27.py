@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import tempfile
+import time
 import unittest
 import uuid
 
@@ -36,6 +37,16 @@ def config(root: Path, *, expose_text: bool = True) -> AnalysisApiConfig:
         log_level="INFO",
         expose_transcript_text=expose_text,
     )
+
+
+def wait_for_job(service: AnalysisJobService, job_id: str, timeout: float = 3) -> dict:
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        job = service.get_job(job_id)
+        if job["status"] in {"SUCCEEDED", "SUCCEEDED_WITH_WARNINGS", "FAILED"}:
+            return job
+        time.sleep(0.005)
+    raise AssertionError("analysis job did not finish")
 
 
 def seed_results(root: Path, session_id: str = "SES_000001") -> None:
@@ -113,6 +124,9 @@ class AnalysisApiConfigTests(unittest.TestCase):
         self.assertTrue(value.enable_docs)
         self.assertTrue(value.expose_transcript_text)
         self.assertEqual(value.allowed_origins, ())
+        self.assertEqual(value.job_max_workers, 1)
+        self.assertEqual(value.job_queue_capacity, 16)
+        self.assertFalse(value.job_retention_enabled)
 
     def test_production_hides_docs_and_text(self) -> None:
         value = AnalysisApiConfig.from_env({"ANALYSIS_API_ENV": "production"})
@@ -132,6 +146,10 @@ class AnalysisApiConfigTests(unittest.TestCase):
             AnalysisApiConfig.from_env({"ANALYSIS_API_LOG_LEVEL": "TRACE"})
         with self.assertRaises(AnalysisApiConfigError):
             AnalysisApiConfig.from_env({"ANALYSIS_API_OUTPUT_ROOT": "  "})
+        with self.assertRaises(AnalysisApiConfigError):
+            AnalysisApiConfig.from_env({"ANALYSIS_API_JOB_MAX_WORKERS": "0"})
+        with self.assertRaises(AnalysisApiConfigError):
+            AnalysisApiConfig.from_env({"ANALYSIS_API_JOB_RETENTION_ENABLED": "yes"})
 
 
 class JobStorageTests(unittest.TestCase):
@@ -184,12 +202,16 @@ class AnalysisJobServiceTests(unittest.TestCase):
             return {"status": "ready"}
 
         self.service = AnalysisJobService(config(self.root), stt_runner=stt, speech_runner=speech)
+        self.service.start()
 
     def tearDown(self) -> None:
+        self.service.shutdown()
         self.temp.cleanup()
 
     def test_combined_job_calls_services_in_order_and_persists_warning_status(self) -> None:
-        job = self.service.create_job("SES_000001", "STT_AND_SPEECH", False)
+        created = self.service.create_job("SES_000001", "STT_AND_SPEECH", False)
+        self.assertEqual(created["status"], "QUEUED")
+        job = wait_for_job(self.service, created["jobId"])
         self.assertEqual([row[0] for row in self.calls], ["stt", "speech"])
         self.assertEqual(job["status"], "SUCCEEDED_WITH_WARNINGS")
         self.assertTrue(job["resultAvailable"])
@@ -198,13 +220,16 @@ class AnalysisJobServiceTests(unittest.TestCase):
 
     def test_successful_non_force_job_is_reused(self) -> None:
         first = self.service.create_job("SES_000001", "SPEECH_CHARACTERISTICS", False)
+        wait_for_job(self.service, first["jobId"])
         second = self.service.create_job("SES_000001", "SPEECH_CHARACTERISTICS", False)
         self.assertEqual(first["jobId"], second["jobId"])
         self.assertEqual(len(self.calls), 1)
 
     def test_force_job_is_new_each_time(self) -> None:
         first = self.service.create_job("SES_000001", "SPEECH_CHARACTERISTICS", True)
+        wait_for_job(self.service, first["jobId"])
         second = self.service.create_job("SES_000001", "SPEECH_CHARACTERISTICS", True)
+        wait_for_job(self.service, second["jobId"])
         self.assertNotEqual(first["jobId"], second["jobId"])
 
     def test_transcript_text_can_be_hidden_consistently(self) -> None:
@@ -235,9 +260,10 @@ class AnalysisApiRouteTests(unittest.TestCase):
             speech_runner=lambda session_id, force: {"status": "ready"},
         )
         self.client = TestClient(create_app(config(root), service), raise_server_exceptions=False)
+        self.client.__enter__()
 
     def tearDown(self) -> None:
-        self.client.close()
+        self.client.__exit__(None, None, None)
         self.temp.cleanup()
 
     def test_health_ready_and_request_id(self) -> None:
@@ -254,9 +280,17 @@ class AnalysisApiRouteTests(unittest.TestCase):
             "sessionId": "SES_000001", "pipeline": "SPEECH_CHARACTERISTICS", "forceRebuild": False,
         })
         self.assertEqual(created.status_code, 201)
-        fetched = self.client.get(f"/api/v1/analysis/jobs/{created.json()['jobId']}")
+        self.assertEqual(created.json()["status"], "QUEUED")
+        deadline = time.monotonic() + 3
+        while True:
+            fetched = self.client.get(f"/api/v1/analysis/jobs/{created.json()['jobId']}")
+            if fetched.json()["status"] in {"SUCCEEDED", "SUCCEEDED_WITH_WARNINGS", "FAILED"}:
+                break
+            if time.monotonic() >= deadline:
+                self.fail("analysis job did not finish")
+            time.sleep(0.005)
         self.assertEqual(fetched.status_code, 200)
-        self.assertEqual(fetched.json(), created.json())
+        self.assertEqual(fetched.json()["jobId"], created.json()["jobId"])
 
     def test_result_routes(self) -> None:
         transcript = self.client.get("/api/v1/analysis/sessions/SES_000001/transcription")
@@ -290,6 +324,7 @@ class AnalysisApiRouteTests(unittest.TestCase):
             expose_transcript_text=base.expose_transcript_text,
         )
         client = TestClient(create_app(cors), raise_server_exceptions=False)
+        client.__enter__()
         try:
             response = client.options("/health", headers={
                 "Origin": "https://face-fit.example",
@@ -302,7 +337,7 @@ class AnalysisApiRouteTests(unittest.TestCase):
             )
             self.assertIn("X-Request-ID", response.headers)
         finally:
-            client.close()
+            client.__exit__(None, None, None)
 
     def test_openapi_lists_contract_and_has_no_file_input(self) -> None:
         document = self.client.get("/openapi.json")
@@ -322,6 +357,7 @@ class AnalysisApiRouteTests(unittest.TestCase):
             log_level="INFO", expose_transcript_text=False,
         )
         client = TestClient(create_app(production), raise_server_exceptions=False)
+        client.__enter__()
         try:
             self.assertEqual(client.get("/docs").status_code, 404)
             self.assertEqual(client.get("/openapi.json").status_code, 200)
@@ -331,7 +367,7 @@ class AnalysisApiRouteTests(unittest.TestCase):
             self.assertFalse(answer["textExposed"])
             self.assertIsNone(answer["text"])
         finally:
-            client.close()
+            client.__exit__(None, None, None)
 
 
 if __name__ == "__main__":
