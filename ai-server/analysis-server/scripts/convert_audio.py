@@ -10,7 +10,10 @@ import time
 from pathlib import Path
 from typing import Any
 
-from inspect_audio import inspect_audio
+try:
+    from .inspect_audio import inspect_audio
+except ImportError:  # Direct script execution.
+    from inspect_audio import inspect_audio
 
 
 FFMPEG_TIMEOUT_SECONDS = 120
@@ -19,9 +22,9 @@ SUPPORTED_INPUT_EXTENSIONS = {
 }
 
 
-def find_ffmpeg() -> tuple[Path | None, str | None]:
+def find_ffmpeg(explicit_path: Path | None = None) -> tuple[Path | None, str | None]:
     """Resolve ffmpeg from FFMPEG_PATH first, then the current PATH."""
-    configured_path = os.getenv("FFMPEG_PATH")
+    configured_path = str(explicit_path) if explicit_path is not None else os.getenv("FFMPEG_PATH")
     if configured_path:
         candidate = Path(configured_path)
         if candidate.is_file():
@@ -47,7 +50,14 @@ def conversion_result(input_file: Path, output_file: Path) -> dict[str, Any]:
     }
 
 
-def convert_audio(input_file: Path, output_file: Path, overwrite: bool = False) -> dict[str, Any]:
+def convert_audio(
+    input_file: Path,
+    output_file: Path,
+    overwrite: bool = False,
+    *,
+    ffmpeg_path: Path | None = None,
+    validate_output: bool = True,
+) -> dict[str, Any]:
     """Convert *input_file* to a mono, 16 kHz, signed-16-bit WAV file."""
     result = conversion_result(input_file, output_file)
     errors: list[str] = result["errors"]
@@ -71,14 +81,16 @@ def convert_audio(input_file: Path, output_file: Path, overwrite: bool = False) 
         errors.append("OUTPUT_ALREADY_EXISTS")
         return result
 
-    ffmpeg_path, resolution_error = find_ffmpeg()
+    resolved_ffmpeg, resolution_error = (
+        find_ffmpeg() if ffmpeg_path is None else find_ffmpeg(ffmpeg_path)
+    )
     if resolution_error:
         errors.append(resolution_error)
         return result
-    result["ffmpeg_path"] = str(ffmpeg_path)
+    result["ffmpeg_path"] = str(resolved_ffmpeg)
 
     command = [
-        str(ffmpeg_path), "-hide_banner", "-loglevel", "error", "-y" if overwrite else "-n",
+        str(resolved_ffmpeg), "-hide_banner", "-loglevel", "error", "-y" if overwrite else "-n",
         "-i", str(input_file), "-vn", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", str(output_file),
     ]
     started = time.monotonic()
@@ -103,11 +115,12 @@ def convert_audio(input_file: Path, output_file: Path, overwrite: bool = False) 
         errors.append("OUTPUT_NOT_CREATED")
         return result
 
-    inspection = inspect_audio(output_file)
-    if not inspection["valid"]:
-        errors.append("OUTPUT_VALIDATION_FAILED")
-        result["warnings"].extend(inspection["errors"] + inspection["warnings"])
-        return result
+    if validate_output:
+        inspection = inspect_audio(output_file)
+        if not inspection["valid"]:
+            errors.append("OUTPUT_VALIDATION_FAILED")
+            result["warnings"].extend(inspection["errors"] + inspection["warnings"])
+            return result
     result["success"] = True
     return result
 

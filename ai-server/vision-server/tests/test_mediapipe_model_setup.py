@@ -26,7 +26,7 @@ from scripts import setup_mediapipe_models as setup
 
 REQUIREMENTS_SHA256 = "8a18c111dc4e4d93e8e1c0e28615298a32819d78d78996303f1171b3fad6e925"
 REQUIREMENTS_LOCK_SHA256 = "d05e1d8c452a61bf2638aace9bc320278eee5716ef15f8697d6c75ce8a2bc091"
-ANALYSIS_TREE_SHA256 = "87749d38b070083af2ab0595faf976e7bbc7db159332526a9c51473c0eb3ad68"
+ANALYSIS_TREE_SHA256 = "12a4265874fd9b4fdf54d288bd3b20206d321c04d76a4b501393e1536a8f3f55"
 SESSION001_SHA256 = "6523d266058fba6daff29c10a15780545bc3d7eac8e9e0b2b940212f9c1b9ea2"
 
 
@@ -94,6 +94,9 @@ def protected_tree_digest(
         and ".venv" not in path.parts
         and "__pycache__" not in path.parts
         and path.suffix != ".pyc"
+        and not path.is_relative_to(
+            analysis / "data" / "output" / "stt_preprocessing"
+        )
         and (not session_only or "SESSION001" in path.as_posix())
     ]
     digest = hashlib.sha256()
