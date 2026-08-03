@@ -14,6 +14,13 @@ spring:
       ddl-auto: validate
   flyway:
     enabled: ${FLYWAY_ENABLED:true}
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 201MB
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
   security:
     oauth2:
       resourceserver:
@@ -41,3 +48,48 @@ springdoc:
     path: /swagger-ui.html
     operations-sorter: method
     tags-sorter: alpha
+
+facefit:
+  ai:
+    base-url: ${FACEFIT_AI_BASE_URL:}
+    service-token: ${FACEFIT_AI_SERVICE_TOKEN:}
+    connect-timeout: ${FACEFIT_AI_CONNECT_TIMEOUT:3s}
+    response-timeout: ${FACEFIT_AI_RESPONSE_TIMEOUT:60s}
+  storage:
+    supabase:
+      project-url: ${SUPABASE_URL:}
+      secret-key: ${SUPABASE_SECRET_KEY:}
+      career-documents-bucket: ${CAREER_DOCUMENTS_BUCKET:career-documents}
+      job-postings-bucket: ${JOB_POSTINGS_BUCKET:job-postings}
+      interview-answers-bucket: ${INTERVIEW_ANSWERS_BUCKET:interview-answers}
+  job-postings:
+    max-pdf-pages: ${JOB_POSTING_MAX_PDF_PAGES:50}
+    max-image-pixels: ${JOB_POSTING_MAX_IMAGE_PIXELS:40000000}
+    max-extracted-characters: ${JOB_POSTING_MAX_EXTRACTED_CHARACTERS:50000}
+    pdf-min-text-characters: ${JOB_POSTING_PDF_MIN_TEXT_CHARACTERS:20}
+    pdf-ocr-dpi: ${JOB_POSTING_PDF_OCR_DPI:300}
+    hwp-timeout-seconds: ${JOB_POSTING_HWP_TIMEOUT_SECONDS:30}
+    hwp-max-heap-megabytes: ${JOB_POSTING_HWP_MAX_HEAP_MB:256}
+    ocr:
+      enabled: ${JOB_POSTING_OCR_ENABLED:true}
+      executable: ${TESSERACT_EXECUTABLE:tesseract}
+      tessdata-prefix: ${TESSDATA_PREFIX:}
+      languages: ${JOB_POSTING_OCR_LANGUAGES:kor+eng}
+      timeout-seconds: ${JOB_POSTING_OCR_TIMEOUT_SECONDS:120}
+    processing:
+      async-enabled: ${JOB_POSTING_ASYNC_ENABLED:true}
+      recovery-enabled: ${JOB_POSTING_RECOVERY_ENABLED:true}
+      stale-minutes: ${JOB_POSTING_PROCESSING_STALE_MINUTES:15}
+      recovery-batch-size: ${JOB_POSTING_RECOVERY_BATCH_SIZE:20}
+      recovery-initial-delay-ms: ${JOB_POSTING_RECOVERY_INITIAL_DELAY_MS:60000}
+      recovery-delay-ms: ${JOB_POSTING_RECOVERY_DELAY_MS:60000}
+  interview:
+    processing:
+      dispatch-enabled: ${INTERVIEW_PROCESSING_DISPATCH_ENABLED:false}
+      recovery-enabled: ${INTERVIEW_PROCESSING_RECOVERY_ENABLED:false}
+      question-timeout-seconds: ${INTERVIEW_QUESTION_TIMEOUT_SECONDS:60}
+      stt-timeout-seconds: ${INTERVIEW_STT_TIMEOUT_SECONDS:120}
+      analysis-timeout-seconds: ${INTERVIEW_ANALYSIS_TIMEOUT_SECONDS:60}
+      report-timeout-seconds: ${INTERVIEW_REPORT_TIMEOUT_SECONDS:60}
+      recovery-initial-delay-ms: ${INTERVIEW_RECOVERY_INITIAL_DELAY_MS:10000}
+      recovery-delay-ms: ${INTERVIEW_RECOVERY_DELAY_MS:10000}

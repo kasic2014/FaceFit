@@ -284,7 +284,9 @@ class OnboardingIntegrationTest {
 
     @Test
     void onboardingEndpointRequiresAuthentication() throws Exception {
-        mockMvc.perform(patch(ONBOARDING_URI))
+        mockMvc.perform(patch(ONBOARDING_URI)
+                        .contentType("application/json")
+                        .content("{\"legalActions\":[]}"))
                 .andExpect(status().isUnauthorized())
                 .andExpect(content().contentTypeCompatibleWith("application/json"))
                 .andExpect(jsonPath("$.success").value(false))
@@ -300,16 +302,51 @@ class OnboardingIntegrationTest {
         );
 
         mockMvc.perform(patch(ONBOARDING_URI)
-                        .with(jwt().jwt(token -> token.subject(userId.toString()))))
+                        .with(jwt().jwt(token -> token.subject(userId.toString())))
+                        .contentType("application/json")
+                        .content("{\"legalActions\":[]}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.success").value(true))
                 .andExpect(jsonPath("$.data.onboardingStatus").value("COMPLETED"))
                 .andExpect(jsonPath("$.data.onboardingCompletedAt").isNotEmpty())
+                .andExpect(jsonPath("$.data.voiceAnalysisConsent").value(false))
+                .andExpect(jsonPath("$.data.voiceAnalysisConsentedAt").doesNotExist())
                 .andExpect(jsonPath("$.data.nextAction").value("GO_TO_SERVICE"))
                 .andExpect(jsonPath("$.data.userId").doesNotExist())
                 .andExpect(jsonPath("$.data.memberStatus").doesNotExist())
                 .andExpect(jsonPath("$.data.createdAt").doesNotExist())
                 .andExpect(jsonPath("$.timestamp").isNotEmpty());
+    }
+
+    @Test
+    void voiceAnalysisConsentIsOptionalAndStoredWhenSelected() throws Exception {
+        UUID userId = insertProfile(
+                MemberStatus.ACTIVE,
+                OnboardingStatus.NOT_STARTED,
+                null
+        );
+
+        mockMvc.perform(patch(ONBOARDING_URI)
+                        .with(jwt().jwt(token -> token.subject(userId.toString())))
+                        .contentType("application/json")
+                        .content("{\"legalActions\":[],\"voiceAnalysisConsent\":true}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.onboardingStatus").value("COMPLETED"))
+                .andExpect(jsonPath("$.data.voiceAnalysisConsent").value(true))
+                .andExpect(jsonPath("$.data.voiceAnalysisConsentedAt").isNotEmpty());
+
+        Boolean consent = jdbcTemplate.queryForObject(
+                "SELECT voice_analysis_consent FROM profiles WHERE user_id = ?",
+                Boolean.class,
+                userId
+        );
+        OffsetDateTime consentedAt = jdbcTemplate.queryForObject(
+                "SELECT voice_analysis_consented_at FROM profiles WHERE user_id = ?",
+                OffsetDateTime.class,
+                userId
+        );
+        assertThat(consent).isTrue();
+        assertThat(consentedAt).isNotNull();
     }
 
     @Test
@@ -321,7 +358,9 @@ class OnboardingIntegrationTest {
         );
 
         mockMvc.perform(patch(ONBOARDING_URI)
-                        .with(jwt().jwt(token -> token.subject(userId.toString()))))
+                        .with(jwt().jwt(token -> token.subject(userId.toString())))
+                        .contentType("application/json")
+                        .content("{\"legalActions\":[]}"))
                 .andExpect(status().isForbidden())
                 .andExpect(jsonPath("$.success").value(false))
                 .andExpect(jsonPath("$.error.code").value("MEMBER_ACCESS_DENIED"));
@@ -336,14 +375,17 @@ class OnboardingIntegrationTest {
         );
 
         mockMvc.perform(patch(ONBOARDING_URI)
-                        .with(jwt().jwt(token -> token.subject(userId.toString()))))
+                        .with(jwt().jwt(token -> token.subject(userId.toString())))
+                        .contentType("application/json")
+                        .content("{\"legalActions\":[]}"))
                 .andExpect(status().isOk());
 
         mockMvc.perform(get("/api/v1/auth/me")
                         .with(jwt().jwt(token -> token.subject(userId.toString()))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.userId").value(userId.toString()))
-                .andExpect(jsonPath("$.data.onboardingStatus").value("COMPLETED"));
+                .andExpect(jsonPath("$.data.onboardingStatus").value("COMPLETED"))
+                .andExpect(jsonPath("$.data.nextAction").value("GO_TO_SERVICE"));
     }
 
     private Jwt verifiedJwt(UUID userId) {

@@ -12,13 +12,22 @@ public record ApiErrorResponse(
 ) {
 
     public static ApiErrorResponse of(String code, String message) {
-        return of(code, message, List.of());
+        return of(code, message, List.of(), null);
     }
 
     public static ApiErrorResponse of(String code, String message, List<FieldViolation> details) {
+        return of(code, message, details, null);
+    }
+
+    public static ApiErrorResponse of(
+            String code,
+            String message,
+            List<FieldViolation> details,
+            Boolean retryable
+    ) {
         return new ApiErrorResponse(
                 false,
-                new ErrorBody(code, message, details),
+                new ErrorBody(code, message, details, retryable),
                 Instant.now()
         );
     }
@@ -27,7 +36,9 @@ public record ApiErrorResponse(
             String code,
             String message,
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            List<FieldViolation> details
+            List<FieldViolation> details,
+            @JsonInclude(JsonInclude.Include.NON_NULL)
+            Boolean retryable
     ) {
     }
 

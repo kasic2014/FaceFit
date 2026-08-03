@@ -6,9 +6,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface ProfileRepository extends JpaRepository<Profile, UUID> {
+
+    @Query("select p from Profile p where p.userId = :userId")
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    Optional<Profile> findByIdForUpdate(@Param("userId") UUID userId);
 
     /**
      * 최초 요청이 동시에 실행되어도 PostgreSQL이 사용자별 프로필을 한 번만 생성한다.
