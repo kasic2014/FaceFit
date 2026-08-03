@@ -68,3 +68,40 @@ python scripts/smoke_analysis_api_uvicorn.py --report data/output/analysis_api_v
 ```
 
 Validation evidence and job records are written below ignored `data/output/analysis_api_validation` and `data/output/analysis_api/jobs` directories.
+
+## Docker local runtime (Stage 27.2)
+
+The Analysis image uses Python 3.12.10, installs only the API, Faster-Whisper, CTranslate2, NumPy, FFmpeg, and OpenMP runtime dependencies, and runs as the unprivileged `facefit` user. Models, media, Stage 24~26 artifacts, output, caches, virtual environments, and real environment files are excluded from the build context.
+
+Copy `ai-server/analysis-server/.env.docker.example` to an ignored `.env.docker` or set `FACEFIT_STT_MODEL_CACHE_HOST` in the shell. Its value must be the host Hugging Face cache root containing the pinned `mobiuslabsgmbh/faster-whisper-large-v3-turbo` revision. Compose mounts it read-only at `/models/faster-whisper` and sets `HF_HOME` and offline mode. The host path is never returned by the API or written to validation reports.
+
+If the variable is omitted, Compose uses the ignored repository-local `ai-server/analysis-server/models/faster-whisper-cache` placeholder. Existing Stage 25 and 26 results remain readable without a model cache, but a forced STT rebuild fails with a sanitized dependency error. No model download occurs during image build or container startup.
+
+The normal container does not request a GPU. Stage 25's existing `auto` profile therefore resolves to `cpu/int8` when CUDA is unavailable; no duplicate Docker-only device setting is introduced. GPU execution is optional and must be reported as `ANALYSIS_DOCKER_GPU_RUNTIME_NOT_VERIFIED` unless NVIDIA device exposure, CTranslate2 CUDA support, float16, the pinned local model revision, and a real forced transcription are all verified.
+
+From the repository root:
+
+```powershell
+$env:FACEFIT_STT_MODEL_CACHE_HOST = "C:/replace/with/local/huggingface-cache"
+docker compose -f docker-compose.local.yml config
+docker compose -f docker-compose.local.yml build analysis-server
+docker compose -f docker-compose.local.yml up -d analysis-server
+docker compose -f docker-compose.local.yml ps
+```
+
+The host output directory is bind-mounted at `/app/data/output`. The non-root process must be able to create `analysis_api/jobs` and `analysis_api/locks`. Docker health checks call `/health` only and never initialize Faster-Whisper. `/ready` separately reports output storage, queue, recovery, and pipeline readiness.
+
+Run the bounded real-HTTP smoke against an already-running container:
+
+```powershell
+python ai-server/analysis-server/scripts/smoke_analysis_api_container.py
+```
+
+It waits at most 120 seconds, polls every 250 ms, validates `/health`, `/ready`, OpenAPI, asynchronous job creation, terminal polling, and sanitized Stage 25/26 results, and writes strict JSON below ignored `data/output/analysis_docker_validation`.
+
+Stop the Compose project after validation and confirm port 8002 is released:
+
+```powershell
+docker compose -f docker-compose.local.yml down
+Test-NetConnection 127.0.0.1 -Port 8002
+```
