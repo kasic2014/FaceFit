@@ -23,8 +23,8 @@ jobs:
             git checkout main
             git reset --hard origin/main
             docker compose -f docker-compose.dev.yml down
-            docker compose -f docker-compose.dev.yml up -d --build backend
-            docker ps --filter name=facefit-backend-dev
+            docker compose -f docker-compose.dev.yml up -d --build
+            docker ps
 
   deploy-frontend:
     runs-on: ubuntu-latest
