@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "analysisMode": {
+      "const": "SINGLE_SESSION_BASELINE_RELATIVE_MVP",
+      "type": "string"
+    },
+    "forceRebuild": {
+      "default": false,
+      "type": "boolean"
+    },
+    "sessionId": {
+      "pattern": "^SES_\\d{6}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "sessionId",
+    "analysisMode",
+    "forceRebuild"
+  ],
+  "title": "Vision Job Request",
+  "type": "object"
+}

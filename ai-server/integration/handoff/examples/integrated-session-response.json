@@ -1,0 +1,192 @@
+{
+  "answers": [
+    {
+      "answerId": "ANS_000001",
+      "interval": {
+        "durationMs": 39000,
+        "endMs": 50000,
+        "startMs": 11000
+      },
+      "speechCharacteristics": {
+        "fillerCandidateCount": 0,
+        "pitch": {
+          "medianF0Hz": 110.0
+        },
+        "speakingRate": {
+          "wordsPerMinute": 100.0
+        },
+        "status": "READY_WITH_WARNINGS",
+        "timestampPauses": {},
+        "volume": {
+          "rmsDbfs": -30.0
+        }
+      },
+      "transcription": {
+        "language": "ko",
+        "segmentCount": 6,
+        "status": "READY_WITH_WARNINGS",
+        "wordCount": 68
+      },
+      "vision": {
+        "measurementSummary": {
+          "sampleCount": 100
+        },
+        "status": "READY_WITH_WARNINGS"
+      },
+      "warnings": []
+    },
+    {
+      "answerId": "ANS_000002",
+      "interval": {
+        "durationMs": 56000,
+        "endMs": 107000,
+        "startMs": 51000
+      },
+      "speechCharacteristics": {
+        "fillerCandidateCount": 0,
+        "pitch": {
+          "medianF0Hz": 110.0
+        },
+        "speakingRate": {
+          "wordsPerMinute": 100.0
+        },
+        "status": "READY_WITH_WARNINGS",
+        "timestampPauses": {},
+        "volume": {
+          "rmsDbfs": -30.0
+        }
+      },
+      "transcription": {
+        "language": "ko",
+        "segmentCount": 8,
+        "status": "READY_WITH_WARNINGS",
+        "wordCount": 91
+      },
+      "vision": {
+        "measurementSummary": {
+          "sampleCount": 100
+        },
+        "status": "READY_WITH_WARNINGS"
+      },
+      "warnings": []
+    },
+    {
+      "answerId": "ANS_000003",
+      "interval": {
+        "durationMs": 52000,
+        "endMs": 160000,
+        "startMs": 108000
+      },
+      "speechCharacteristics": {
+        "fillerCandidateCount": 0,
+        "pitch": {
+          "medianF0Hz": 110.0
+        },
+        "speakingRate": {
+          "wordsPerMinute": 100.0
+        },
+        "status": "READY_WITH_WARNINGS",
+        "timestampPauses": {},
+        "volume": {
+          "rmsDbfs": -30.0
+        }
+      },
+      "transcription": {
+        "language": "ko",
+        "segmentCount": 9,
+        "status": "READY_WITH_WARNINGS",
+        "wordCount": 94
+      },
+      "vision": {
+        "measurementSummary": {
+          "sampleCount": 100
+        },
+        "status": "READY_WITH_WARNINGS"
+      },
+      "warnings": []
+    },
+    {
+      "answerId": "ANS_000004",
+      "interval": {
+        "durationMs": 31000,
+        "endMs": 192000,
+        "startMs": 161000
+      },
+      "speechCharacteristics": {
+        "fillerCandidateCount": 1,
+        "pitch": {
+          "medianF0Hz": 110.0
+        },
+        "speakingRate": {
+          "wordsPerMinute": 100.0
+        },
+        "status": "READY_WITH_WARNINGS",
+        "timestampPauses": {},
+        "volume": {
+          "rmsDbfs": -30.0
+        }
+      },
+      "transcription": {
+        "language": "ko",
+        "segmentCount": 4,
+        "status": "READY_WITH_WARNINGS",
+        "wordCount": 54
+      },
+      "vision": {
+        "measurementSummary": {
+          "sampleCount": 100
+        },
+        "status": "READY_WITH_WARNINGS"
+      },
+      "warnings": []
+    }
+  ],
+  "components": {
+    "speechCharacteristics": {
+      "answerCount": 4,
+      "fillerCandidateCount": 1,
+      "pitchAvailableAnswerCount": 4,
+      "sourceStatus": "SUCCEEDED_WITH_WARNINGS",
+      "status": "READY_WITH_WARNINGS"
+    },
+    "transcription": {
+      "answerCount": 4,
+      "language": "ko",
+      "segmentCount": 27,
+      "sourceStatus": "SUCCEEDED_WITH_WARNINGS",
+      "status": "READY_WITH_WARNINGS",
+      "textExposed": false,
+      "wordCount": 307
+    },
+    "vision": {
+      "answerCount": 4,
+      "sourceStatus": "SUCCEEDED_WITH_LIMITATIONS",
+      "status": "READY_WITH_WARNINGS"
+    }
+  },
+  "errors": [],
+  "generatedAt": "2026-08-03T00:00:00Z",
+  "limitations": [
+    {
+      "code": "ANALYSIS_DOCKER_GPU_FORCE_REBUILD_NOT_VERIFIED",
+      "message": "GPU forceRebuild transcription remains unverified.",
+      "source": "INTEGRATION"
+    }
+  ],
+  "scoringAvailable": false,
+  "scoringUnavailableReasons": [
+    "SCORING_NOT_AVAILABLE_SINGLE_SESSION_MVP",
+    "THRESHOLD_EVIDENCE_NOT_APPROVED"
+  ],
+  "sessionId": "SES_000001",
+  "status": "INTEGRATED_READY_WITH_WARNINGS",
+  "warnings": [
+    {
+      "answerId": null,
+      "code": "HEAD_POSE_PARTIAL_AVAILABILITY",
+      "message": "Head Pose measurements are partially available.",
+      "reviewRequired": false,
+      "source": "VISION"
+    }
+  ]
+}

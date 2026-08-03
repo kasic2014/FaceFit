@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "forceRebuild": {
+      "default": false,
+      "type": "boolean"
+    },
+    "pipeline": {
+      "enum": [
+        "STT_TRANSCRIPTION",
+        "SPEECH_CHARACTERISTICS",
+        "STT_AND_SPEECH"
+      ],
+      "type": "string"
+    },
+    "sessionId": {
+      "pattern": "^SES_\\d{6}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "sessionId",
+    "pipeline",
+    "forceRebuild"
+  ],
+  "title": "Analysis Job Request",
+  "type": "object"
+}

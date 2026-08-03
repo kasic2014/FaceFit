@@ -1,0 +1,5 @@
+{
+  "forceRebuild": false,
+  "pipeline": "STT_AND_SPEECH",
+  "sessionId": "SES_000001"
+}

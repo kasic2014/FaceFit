@@ -1,0 +1,19 @@
+{
+  "analysisMode": "SINGLE_SESSION_BASELINE_RELATIVE_MVP",
+  "completedAt": "2026-08-03T00:00:00Z",
+  "createdAt": "2026-08-03T00:00:00Z",
+  "error": null,
+  "jobId": "00000000-0000-4000-8000-000000000001",
+  "resultAvailable": true,
+  "sessionId": "SES_000001",
+  "startedAt": "2026-08-03T00:00:00Z",
+  "status": "SUCCEEDED_WITH_LIMITATIONS",
+  "warnings": [
+    {
+      "answerId": null,
+      "code": "HEAD_POSE_PARTIAL_AVAILABILITY",
+      "message": "Head Pose measurements are partially available.",
+      "reviewRequired": false
+    }
+  ]
+}
