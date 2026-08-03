@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 import logging
 import re
 import uuid
@@ -26,6 +27,16 @@ def create_app(
     logging.basicConfig(level=getattr(logging, settings.log_level))
     docs_url = "/docs" if settings.enable_docs else None
     redoc_url = "/redoc" if settings.enable_docs else None
+    service = job_service or AnalysisJobService(settings)
+
+    @asynccontextmanager
+    async def lifespan(_: FastAPI):
+        service.start()
+        try:
+            yield
+        finally:
+            service.shutdown()
+
     app = FastAPI(
         title="Face-Fit Analysis API",
         version="0.1.0",
@@ -37,9 +48,10 @@ def create_app(
         docs_url=docs_url,
         redoc_url=redoc_url,
         openapi_url="/openapi.json",
+        lifespan=lifespan,
     )
     app.state.analysis_api_config = settings
-    app.state.analysis_job_service = job_service or AnalysisJobService(settings)
+    app.state.analysis_job_service = service
 
     if settings.allowed_origins:
         app.add_middleware(

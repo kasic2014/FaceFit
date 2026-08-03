@@ -7,6 +7,7 @@ import importlib.metadata
 import json
 from pathlib import Path
 import sys
+import time
 from typing import Any
 
 
@@ -24,6 +25,7 @@ def write_markdown(path: Path, report: dict[str, Any]) -> None:
     lines = [
         "# Analysis API validation", "",
         f"- Status: {report['status']}",
+        f"- Async runtime status: {report['asyncRuntimeStatus']}",
         f"- Routes: {report['routeCount']}",
         f"- Transcription answers / segments / words: {report['transcription']['answers']} / "
         f"{report['transcription']['segments']} / {report['transcription']['words']}",
@@ -55,12 +57,24 @@ def main() -> int:
         speech = client.get("/api/v1/analysis/sessions/SES_000001/speech-characteristics")
         created = client.post("/api/v1/analysis/jobs", json={
             "sessionId": "SES_000001",
-            "pipeline": "SPEECH_CHARACTERISTICS",
+            "pipeline": "STT_AND_SPEECH",
             "forceRebuild": False,
         })
-        fetched = client.get(
-            f"/api/v1/analysis/jobs/{created.json().get('jobId', 'invalid')}"
-        ) if created.status_code == 201 else created
+        fetched = created
+        if created.status_code == 201:
+            fetched = client.get(
+                f"/api/v1/analysis/jobs/{created.json().get('jobId', 'invalid')}"
+            )
+            deadline = time.monotonic() + 60
+            while fetched.json().get("status") not in {
+                "SUCCEEDED", "SUCCEEDED_WITH_WARNINGS", "FAILED"
+            }:
+                if time.monotonic() >= deadline:
+                    break
+                time.sleep(0.1)
+                fetched = client.get(
+                    f"/api/v1/analysis/jobs/{created.json().get('jobId', 'invalid')}"
+                )
 
     document = openapi.json() if openapi.status_code == 200 else {}
     public_routes = {
@@ -102,11 +116,17 @@ def main() -> int:
     write_json_atomic(output / "endpoint_smoke.json", endpoint_status)
     transcript_body = transcript.json() if transcript.status_code == 200 else {"answers": []}
     speech_body = speech.json() if speech.status_code == 200 else {"answers": []}
+    job_body = fetched.json() if fetched.status_code == 200 else {"status": "FAILED"}
+    async_runtime_status = {
+        "SUCCEEDED": "analysis_api_async_runtime_verified",
+        "SUCCEEDED_WITH_WARNINGS": "analysis_api_async_runtime_verified_with_warnings",
+    }.get(job_body.get("status"), "analysis_api_async_runtime_failed")
     report = {
         "status": "PASS" if (
             all(value in {200, 201} for value in endpoint_status.values())
             and all(openapi_checks.values())
         ) else "FAIL",
+        "asyncRuntimeStatus": async_runtime_status,
         "routeCount": len(routes),
         "transcription": {
             "answers": len(transcript_body["answers"]),
@@ -118,10 +138,13 @@ def main() -> int:
             "fillerCandidates": sum(len(row["fillerCandidates"]) for row in speech_body["answers"]),
             "pitchAvailable": sum(row["pitch"].get("medianF0Hz") is not None for row in speech_body["answers"]),
         },
-        "job": created.json() if created.status_code == 201 else {"status": "FAILED"},
+        "job": job_body,
     }
     write_json_atomic(output / "validation_report.json", report)
-    write_json_atomic(output / "status.json", {"status": report["status"]})
+    write_json_atomic(output / "status.json", {
+        "status": report["status"],
+        "asyncRuntimeStatus": report["asyncRuntimeStatus"],
+    })
     write_markdown(output / "validation_report.md", report)
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return 0 if report["status"] == "PASS" else 1

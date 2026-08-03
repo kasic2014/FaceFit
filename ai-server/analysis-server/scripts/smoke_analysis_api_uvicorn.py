@@ -39,7 +39,12 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8002)
-    parser.add_argument("--report", type=Path, required=True)
+    parser.add_argument("--session-id", default="SES_000001")
+    parser.add_argument(
+        "--report",
+        type=Path,
+        default=ROOT / "data" / "output" / "analysis_api_validation" / "uvicorn_async_smoke.json",
+    )
     args = parser.parse_args()
     if port_open(args.host, args.port):
         raise RuntimeError(f"port {args.port} is already in use")
@@ -68,33 +73,69 @@ def main() -> int:
                 "health": client.get("/health"),
                 "ready": client.get("/ready"),
                 "openapi": client.get("/openapi.json"),
-                "transcription": client.get("/api/v1/analysis/sessions/SES_000001/transcription"),
-                "speechCharacteristics": client.get("/api/v1/analysis/sessions/SES_000001/speech-characteristics"),
             }
+            post_started = time.perf_counter()
             created = client.post("/api/v1/analysis/jobs", json={
-                "sessionId": "SES_000001", "pipeline": "SPEECH_CHARACTERISTICS", "forceRebuild": False,
+                "sessionId": args.session_id, "pipeline": "STT_AND_SPEECH", "forceRebuild": False,
             })
+            post_elapsed_ms = round((time.perf_counter() - post_started) * 1000, 3)
             responses["jobCreate"] = created
-            responses["jobRead"] = client.get(f"/api/v1/analysis/jobs/{created.json()['jobId']}")
+            job = created.json()
+            initial_status = job.get("status")
+            poll_count = 0
+            deadline = time.monotonic() + 60
+            while job.get("status") not in {"SUCCEEDED", "SUCCEEDED_WITH_WARNINGS", "FAILED"}:
+                if time.monotonic() >= deadline:
+                    raise RuntimeError("bounded analysis job polling timed out")
+                time.sleep(0.2)
+                polled = client.get(f"/api/v1/analysis/jobs/{job['jobId']}")
+                responses["jobRead"] = polled
+                job = polled.json()
+                poll_count += 1
+            if "jobRead" not in responses:
+                responses["jobRead"] = client.get(f"/api/v1/analysis/jobs/{job['jobId']}")
+            idempotent = client.post("/api/v1/analysis/jobs", json={
+                "sessionId": args.session_id, "pipeline": "STT_AND_SPEECH", "forceRebuild": False,
+            })
+            responses["jobIdempotent"] = idempotent
+            responses["transcription"] = client.get(
+                f"/api/v1/analysis/sessions/{args.session_id}/transcription"
+            )
+            responses["speechCharacteristics"] = client.get(
+                f"/api/v1/analysis/sessions/{args.session_id}/speech-characteristics"
+            )
         checks = {name: response.status_code for name, response in responses.items()}
-        job = responses["jobCreate"].json()
         speech = responses["speechCharacteristics"].json()
         checks.update({
             "jobSucceededWithWarnings": job.get("status") == "SUCCEEDED_WITH_WARNINGS",
             "jobWarningsPresent": bool(job.get("warnings")),
+            "postReturnedQuickly": post_elapsed_ms < 2000,
+            "initialStatusAllowed": initial_status in {
+                "QUEUED", "RUNNING", "SUCCEEDED", "SUCCEEDED_WITH_WARNINGS"
+            },
+            "idempotentJobReused": idempotent.json().get("jobId") == job.get("jobId"),
             "speechHasFourAnswers": len(speech.get("answers", [])) == 4,
             "requestIdPresent": all("X-Request-ID" in response.headers for response in responses.values()),
         })
+        http_status_checks = [
+            value for value in checks.values() if isinstance(value, int) and not isinstance(value, bool)
+        ]
         report = {
             "status": "PASS" if (
-                all(value in {200, 201} for value in list(checks.values())[:7])
+                all(value in {200, 201} for value in http_status_checks)
                 and all(checks[key] is True for key in (
-                    "jobSucceededWithWarnings", "jobWarningsPresent", "speechHasFourAnswers", "requestIdPresent"
+                    "jobSucceededWithWarnings", "jobWarningsPresent", "postReturnedQuickly",
+                    "initialStatusAllowed", "idempotentJobReused", "speechHasFourAnswers",
+                    "requestIdPresent"
                 ))
             ) else "FAIL",
             "port": args.port,
             "checks": checks,
             "jobId": job.get("jobId"),
+            "initialJobStatus": initial_status,
+            "finalJobStatus": job.get("status"),
+            "postElapsedMs": post_elapsed_ms,
+            "pollCount": poll_count,
         }
     finally:
         process.terminate()

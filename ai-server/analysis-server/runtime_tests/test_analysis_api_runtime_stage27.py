@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import sys
+import time
 import unittest
 import uuid
 
@@ -41,10 +42,11 @@ class AnalysisApiRuntimeStage27Tests(unittest.TestCase):
             expose_transcript_text=True,
         )
         cls.client = TestClient(create_app(config), raise_server_exceptions=False)
+        cls.client.__enter__()
 
     @classmethod
     def tearDownClass(cls) -> None:
-        cls.client.close()
+        cls.client.__exit__(None, None, None)
 
     def test_health_ready_and_openapi(self) -> None:
         self.assertEqual(self.client.get("/health").status_code, 200)
@@ -89,6 +91,11 @@ class AnalysisApiRuntimeStage27Tests(unittest.TestCase):
         })
         self.assertEqual(response.status_code, 201, response.text)
         body = response.json()
+        deadline = time.monotonic() + 60
+        while body["status"] not in {"SUCCEEDED", "SUCCEEDED_WITH_WARNINGS", "FAILED"}:
+            self.assertLess(time.monotonic(), deadline)
+            time.sleep(0.1)
+            body = self.client.get(f"/api/v1/analysis/jobs/{body['jobId']}").json()
         self.assertEqual(body["status"], "SUCCEEDED_WITH_WARNINGS")
         self.assertTrue(body["resultAvailable"])
         self.assertGreaterEqual(len(body["warnings"]), 2)

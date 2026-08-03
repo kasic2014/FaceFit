@@ -33,6 +33,10 @@ class HealthResponse(ApiModel):
 class ReadyResponse(ApiModel):
     status: str
     service: str
+    available_pipelines: list[str] = Field(alias="availablePipelines")
     pipelines: list[str]
     scoring_available: bool = Field(alias="scoringAvailable")
+    job_execution: dict[str, Any] = Field(alias="jobExecution")
+    recovery: dict[str, Any]
+    configuration_warnings: list[dict[str, Any]] = Field(alias="configurationWarnings")
     checks: dict[str, bool]

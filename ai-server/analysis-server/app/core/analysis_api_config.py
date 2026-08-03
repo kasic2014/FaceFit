@@ -37,6 +37,18 @@ def _port(value: str) -> int:
     return parsed
 
 
+def _integer(value: str, name: str, *, minimum: int, maximum: int) -> int:
+    try:
+        parsed = int(value)
+    except ValueError as exc:
+        raise AnalysisApiConfigError(f"{name} must be an integer") from exc
+    if not minimum <= parsed <= maximum:
+        raise AnalysisApiConfigError(
+            f"{name} must be between {minimum} and {maximum}"
+        )
+    return parsed
+
+
 def _origins(value: str) -> tuple[str, ...]:
     origins = tuple(item.strip().rstrip("/") for item in value.split(",") if item.strip())
     if "*" in origins:
@@ -56,6 +68,14 @@ class AnalysisApiConfig:
     output_root: Path
     log_level: str
     expose_transcript_text: bool
+    job_max_workers: int = 1
+    job_queue_capacity: int = 16
+    job_lock_wait_seconds: int = 300
+    stale_lock_seconds: int = 900
+    shutdown_wait_seconds: int = 30
+    job_retention_enabled: bool = False
+    job_retention_days: int = 30
+    job_max_records: int = 1000
 
     @classmethod
     def from_env(cls, values: Mapping[str, str] | None = None) -> "AnalysisApiConfig":
@@ -92,4 +112,36 @@ class AnalysisApiConfig:
             output_root=output_root.resolve(),
             log_level=log_level,
             expose_transcript_text=expose_text,
+            job_max_workers=_integer(
+                env.get(f"{PREFIX}JOB_MAX_WORKERS", "1"),
+                "ANALYSIS_API_JOB_MAX_WORKERS", minimum=1, maximum=16,
+            ),
+            job_queue_capacity=_integer(
+                env.get(f"{PREFIX}JOB_QUEUE_CAPACITY", "16"),
+                "ANALYSIS_API_JOB_QUEUE_CAPACITY", minimum=1, maximum=10_000,
+            ),
+            job_lock_wait_seconds=_integer(
+                env.get(f"{PREFIX}JOB_LOCK_WAIT_SECONDS", "300"),
+                "ANALYSIS_API_JOB_LOCK_WAIT_SECONDS", minimum=0, maximum=3_600,
+            ),
+            stale_lock_seconds=_integer(
+                env.get(f"{PREFIX}STALE_LOCK_SECONDS", "900"),
+                "ANALYSIS_API_STALE_LOCK_SECONDS", minimum=1, maximum=86_400,
+            ),
+            shutdown_wait_seconds=_integer(
+                env.get(f"{PREFIX}SHUTDOWN_WAIT_SECONDS", "30"),
+                "ANALYSIS_API_SHUTDOWN_WAIT_SECONDS", minimum=0, maximum=300,
+            ),
+            job_retention_enabled=_boolean(
+                env.get(f"{PREFIX}JOB_RETENTION_ENABLED", "false"),
+                "ANALYSIS_API_JOB_RETENTION_ENABLED",
+            ),
+            job_retention_days=_integer(
+                env.get(f"{PREFIX}JOB_RETENTION_DAYS", "30"),
+                "ANALYSIS_API_JOB_RETENTION_DAYS", minimum=1, maximum=3_650,
+            ),
+            job_max_records=_integer(
+                env.get(f"{PREFIX}JOB_MAX_RECORDS", "1000"),
+                "ANALYSIS_API_JOB_MAX_RECORDS", minimum=1, maximum=1_000_000,
+            ),
         )
