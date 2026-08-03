@@ -62,16 +62,6 @@ PROFILES = {profile.name: profile for profile in (CUDA_FLOAT16, CPU_INT8)}
 def runtime_capabilities() -> dict[str, Any]:
     try:
         import ctranslate2
-
-        cuda_count = int(ctranslate2.get_cuda_device_count())
-        cuda_types = sorted(ctranslate2.get_supported_compute_types("cuda"))
-        cpu_types = sorted(ctranslate2.get_supported_compute_types("cpu"))
-        return {
-            "ctranslate2Available": True,
-            "cudaDeviceCount": cuda_count,
-            "cudaComputeTypes": cuda_types,
-            "cpuComputeTypes": cpu_types,
-        }
     except Exception as exc:
         return {
             "ctranslate2Available": False,
@@ -80,6 +70,37 @@ def runtime_capabilities() -> dict[str, Any]:
             "cpuComputeTypes": [],
             "errorType": type(exc).__name__,
         }
+    try:
+        cpu_types = sorted(ctranslate2.get_supported_compute_types("cpu"))
+    except Exception as exc:
+        return {
+            "ctranslate2Available": False,
+            "cudaDeviceCount": 0,
+            "cudaComputeTypes": [],
+            "cpuComputeTypes": [],
+            "errorType": type(exc).__name__,
+        }
+    cuda_probe_error_type = None
+    try:
+        cuda_count = int(ctranslate2.get_cuda_device_count())
+        cuda_types = (
+            sorted(ctranslate2.get_supported_compute_types("cuda"))
+            if cuda_count > 0 else []
+        )
+    except Exception as exc:
+        # CUDA driver libraries are optional in the supported CPU container.
+        cuda_count = 0
+        cuda_types = []
+        cuda_probe_error_type = type(exc).__name__
+    result = {
+        "ctranslate2Available": True,
+        "cudaDeviceCount": cuda_count,
+        "cudaComputeTypes": cuda_types,
+        "cpuComputeTypes": cpu_types,
+    }
+    if cuda_probe_error_type is not None:
+        result["cudaProbeErrorType"] = cuda_probe_error_type
+    return result
 
 
 def resolve_profile(name: str = "auto") -> TranscriptionProfile:

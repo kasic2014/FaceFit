@@ -121,6 +121,22 @@ class ProfileTests(unittest.TestCase):
         with mock.patch.object(profiles, "runtime_capabilities", return_value=capabilities):
             self.assertEqual(profiles.resolve_profile("auto").name, "cpu-int8")
 
+    def test_cuda_probe_failure_keeps_cpu_runtime_available(self) -> None:
+        fake_ctranslate2 = SimpleNamespace(
+            get_cuda_device_count=mock.Mock(side_effect=RuntimeError("driver unavailable")),
+            get_supported_compute_types=lambda device: {"int8", "float32"}
+            if device == "cpu" else {"float16"},
+        )
+        with mock.patch.dict(sys.modules, {"ctranslate2": fake_ctranslate2}):
+            capabilities = profiles.runtime_capabilities()
+        self.assertTrue(capabilities["ctranslate2Available"])
+        self.assertEqual(capabilities["cudaDeviceCount"], 0)
+        self.assertEqual(capabilities["cudaComputeTypes"], [])
+        self.assertIn("int8", capabilities["cpuComputeTypes"])
+        self.assertEqual(capabilities["cudaProbeErrorType"], "RuntimeError")
+        with mock.patch.object(profiles, "runtime_capabilities", return_value=capabilities):
+            self.assertEqual(profiles.resolve_profile("auto").name, "cpu-int8")
+
     def test_explicit_unavailable_profile_is_rejected_without_fallback(self) -> None:
         capabilities = {
             "ctranslate2Available": True,

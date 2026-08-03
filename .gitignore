@@ -10,6 +10,7 @@
 # Environment and log files
 .env
 .env.*
+!**/.env.docker.example
 *.log
 
 # AI model files

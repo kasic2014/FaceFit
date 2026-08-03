@@ -1,0 +1,3 @@
+-r requirements-api.txt
+-r requirements-stt.txt
+-r requirements-speech.txt
