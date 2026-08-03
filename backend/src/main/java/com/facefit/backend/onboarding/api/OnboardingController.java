@@ -13,6 +13,8 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
 
 @Tag(name = "Onboarding")
 @RestController
@@ -28,8 +30,15 @@ public class OnboardingController {
     )
     @SecurityRequirement(name = OpenApiConfig.BEARER_AUTH)
     @PatchMapping
-    public ApiResponse<OnboardingResponse> complete(@AuthenticationPrincipal Jwt jwt) {
-        Profile completed = onboardingService.completeCurrentOnboarding(jwt);
+    public ApiResponse<OnboardingResponse> complete(
+            @AuthenticationPrincipal Jwt jwt,
+            @Valid @RequestBody OnboardingRequest request
+    ) {
+        Profile completed = onboardingService.completeCurrentOnboarding(
+                jwt,
+                request.legalActions(),
+                request.voiceAnalysisConsent()
+        );
         return ApiResponse.success(OnboardingResponse.completed(completed));
     }
 }

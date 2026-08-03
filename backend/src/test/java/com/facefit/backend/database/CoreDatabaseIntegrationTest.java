@@ -1,11 +1,20 @@
 package com.facefit.backend.database;
 
 import com.facefit.backend.legal.domain.LegalActionType;
+import com.facefit.backend.document.domain.CareerDocument;
+import com.facefit.backend.document.domain.CareerDocumentType;
+import com.facefit.backend.document.repository.CareerDocumentRepository;
 import com.facefit.backend.legal.domain.LegalDocument;
 import com.facefit.backend.legal.domain.LegalRecordActionType;
 import com.facefit.backend.legal.domain.UserLegalRecord;
 import com.facefit.backend.legal.repository.LegalDocumentRepository;
 import com.facefit.backend.legal.repository.UserLegalRecordRepository;
+import com.facefit.backend.jobposting.domain.JobPosting;
+import com.facefit.backend.jobposting.domain.JobPostingInputType;
+import com.facefit.backend.jobposting.domain.JobPostingProcessingStatus;
+import com.facefit.backend.jobposting.repository.JobPostingRepository;
+import com.facefit.backend.interview.domain.InterviewSession;
+import com.facefit.backend.interview.repository.InterviewSessionRepository;
 import com.facefit.backend.member.domain.MemberStatus;
 import com.facefit.backend.member.domain.OnboardingStatus;
 import com.facefit.backend.member.domain.Profile;
@@ -83,38 +92,64 @@ class CoreDatabaseIntegrationTest {
     @Autowired
     private UserLegalRecordRepository userLegalRecordRepository;
 
+    @Autowired
+    private CareerDocumentRepository careerDocumentRepository;
+
+    @Autowired
+    private JobPostingRepository jobPostingRepository;
+
+    @Autowired
+    private InterviewSessionRepository interviewSessionRepository;
+
     @MockitoBean
     private JwtDecoder jwtDecoder;
 
     @BeforeEach
     void clearDatabase() {
         jdbcTemplate.execute(
-                "TRUNCATE TABLE user_legal_records, legal_documents, profiles, auth.users CASCADE"
+                "TRUNCATE TABLE interview_sessions, job_postings, career_documents, "
+                        + "user_legal_records, "
+                        + "legal_documents, profiles, auth.users CASCADE"
         );
         entityManager.clear();
     }
 
     @Test
-    void flywayMigrationCreatesOnlyTheThreeRequestedTables() {
-        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("1");
+    void flywayMigrationsCreateCoreCareerDocumentAndJobPostingTables() {
+        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("7");
         assertThat(tableExists("profiles")).isTrue();
         assertThat(tableExists("legal_documents")).isTrue();
         assertThat(tableExists("user_legal_records")).isTrue();
+        assertThat(tableExists("career_documents")).isTrue();
+        assertThat(tableExists("job_postings")).isTrue();
+        assertThat(tableExists("interview_sessions")).isTrue();
+        assertThat(tableExists("interview_turns")).isTrue();
+        assertThat(tableExists("interview_answers")).isTrue();
+        assertThat(tableExists("interview_processing_jobs")).isTrue();
+        assertThat(tableExists("api_idempotency_records")).isTrue();
+        assertThat(tableExists("interview_analysis_results")).isTrue();
+        assertThat(tableExists("interview_reports")).isTrue();
 
         Integer migrationTableCount = jdbcTemplate.queryForObject(
                 """
                 SELECT COUNT(*)
                 FROM information_schema.tables
                 WHERE table_schema = 'public'
-                  AND table_name IN ('profiles', 'legal_documents', 'user_legal_records')
+                  AND table_name IN (
+                    'profiles', 'legal_documents', 'user_legal_records',
+                    'career_documents', 'job_postings', 'interview_sessions',
+                    'interview_turns', 'interview_answers',
+                    'interview_processing_jobs', 'api_idempotency_records',
+                    'interview_analysis_results', 'interview_reports'
+                  )
                 """,
                 Integer.class
         );
-        assertThat(migrationTableCount).isEqualTo(3);
+        assertThat(migrationTableCount).isEqualTo(12);
     }
 
     @Test
-    void applicationContextLoadsAndJpaMetamodelContainsTheThreeEntities() {
+    void applicationContextLoadsAndJpaMetamodelContainsAllEntities() {
         Set<String> entityNames = entityManagerFactory.getMetamodel()
                 .getEntities()
                 .stream()
@@ -122,7 +157,130 @@ class CoreDatabaseIntegrationTest {
                 .collect(java.util.stream.Collectors.toSet());
 
         assertThat(entityNames)
-                .contains("Profile", "LegalDocument", "UserLegalRecord");
+                .contains(
+                        "Profile",
+                        "LegalDocument",
+                        "UserLegalRecord",
+                        "CareerDocument",
+                        "JobPosting",
+                        "InterviewSession",
+                        "InterviewAnalysisResult",
+                        "InterviewReport"
+                );
+    }
+
+    @Test
+    void jobPostingSchemaMatchesFileAndTextEntities() {
+        Profile profile = saveProfileWithDatabaseDefaults();
+        JobPosting filePosting = jobPostingRepository.saveAndFlush(JobPosting.createFile(
+                UUID.randomUUID(),
+                profile,
+                "posting.hwp",
+                "job-postings",
+                profile.getUserId() + "/posting.hwp",
+                "application/x-hwp-v5",
+                512
+        ));
+        JobPosting textPosting = jobPostingRepository.saveAndFlush(JobPosting.createText(
+                UUID.randomUUID(),
+                profile,
+                "회사명: FaceFit\n지원 직무: 백엔드 개발자"
+        ));
+
+        assertThat(filePosting.getInputType()).isEqualTo(JobPostingInputType.FILE);
+        assertThat(filePosting.getMimeType()).isEqualTo("application/x-hwp-v5");
+        assertThat(filePosting.getProcessingStatus())
+                .isEqualTo(JobPostingProcessingStatus.PROCESSING);
+        assertThat(textPosting.getInputType()).isEqualTo(JobPostingInputType.TEXT);
+        assertThat(textPosting.getStoragePath()).isNull();
+        assertThat(textPosting.getCreatedAt()).isNotNull();
+        assertThat(textPosting.getUpdatedAt()).isNotNull();
+    }
+
+    @Test
+    void jobPostingInputPayloadAndProfileForeignKeyConstraintsAreEnforced() {
+        Profile profile = saveProfileWithDatabaseDefaults();
+
+        assertThatThrownBy(() -> jdbcTemplate.update(
+                """
+                INSERT INTO job_postings (
+                    job_posting_id, user_id, input_type, raw_text,
+                    storage_bucket, storage_path, mime_type, file_size_bytes
+                ) VALUES (?, ?, 'TEXT', 'text', 'job-postings', 'invalid.pdf',
+                    'application/pdf', 10)
+                """,
+                UUID.randomUUID(),
+                profile.getUserId()
+        )).isInstanceOf(DataIntegrityViolationException.class);
+
+        assertThatThrownBy(() -> jdbcTemplate.update(
+                """
+                INSERT INTO job_postings (
+                    job_posting_id, user_id, input_type, raw_text
+                ) VALUES (?, ?, 'TEXT', 'text')
+                """,
+                UUID.randomUUID(),
+                UUID.randomUUID()
+        )).isInstanceOf(DataIntegrityViolationException.class);
+
+        assertThatThrownBy(() -> jdbcTemplate.update(
+                """
+                INSERT INTO job_postings (
+                    job_posting_id, user_id, input_type, raw_text, processing_status
+                ) VALUES (?, ?, 'TEXT', 'text', 'WAITING')
+                """,
+                UUID.randomUUID(),
+                profile.getUserId()
+        )).isInstanceOf(DataIntegrityViolationException.class);
+    }
+
+    @Test
+    void careerDocumentSchemaMatchesEntityAndDefaults() {
+        Profile profile = saveProfileWithDatabaseDefaults();
+        CareerDocument saved = careerDocumentRepository.saveAndFlush(CareerDocument.create(
+                UUID.randomUUID(),
+                profile,
+                CareerDocumentType.RESUME,
+                "resume.pdf",
+                "career-documents",
+                profile.getUserId() + "/document/object.pdf",
+                "application/pdf",
+                128
+        ));
+
+        assertThat(saved.getProcessingStatus().name()).isEqualTo("PROCESSING");
+        assertThat(saved.getDeletedAt()).isNull();
+        assertThat(saved.getCreatedAt()).isNotNull();
+        assertThat(saved.getUpdatedAt()).isNotNull();
+    }
+
+    @Test
+    void careerDocumentConstraintsAndProfileForeignKeyAreEnforced() {
+        UUID missingUser = UUID.randomUUID();
+        assertThatThrownBy(() -> jdbcTemplate.update(
+                """
+                INSERT INTO career_documents (
+                  document_id, user_id, document_type, original_file_name,
+                  storage_bucket, storage_path, mime_type, file_size_bytes
+                ) VALUES (?, ?, 'RESUME', 'resume.pdf', 'career-documents', ?, 'application/pdf', 1)
+                """,
+                UUID.randomUUID(),
+                missingUser,
+                UUID.randomUUID() + ".pdf"
+        )).isInstanceOf(DataIntegrityViolationException.class);
+
+        Profile profile = saveProfileWithDatabaseDefaults();
+        assertThatThrownBy(() -> jdbcTemplate.update(
+                """
+                INSERT INTO career_documents (
+                  document_id, user_id, document_type, original_file_name,
+                  storage_bucket, storage_path, mime_type, file_size_bytes
+                ) VALUES (?, ?, 'JOB_POSTING', 'job.pdf', 'career-documents', ?, 'application/pdf', 0)
+                """,
+                UUID.randomUUID(),
+                profile.getUserId(),
+                UUID.randomUUID() + ".pdf"
+        )).isInstanceOf(DataIntegrityViolationException.class);
     }
 
     @Test

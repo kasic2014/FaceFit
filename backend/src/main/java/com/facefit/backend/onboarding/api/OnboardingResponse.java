@@ -8,6 +8,8 @@ import java.time.OffsetDateTime;
 public record OnboardingResponse(
         OnboardingStatus onboardingStatus,
         OffsetDateTime onboardingCompletedAt,
+        boolean voiceAnalysisConsent,
+        OffsetDateTime voiceAnalysisConsentedAt,
         NextAction nextAction
 ) {
 
@@ -15,6 +17,8 @@ public record OnboardingResponse(
         return new OnboardingResponse(
                 profile.getOnboardingStatus(),
                 profile.getOnboardingCompletedAt(),
+                profile.isVoiceAnalysisConsented(),
+                profile.getVoiceAnalysisConsentedAt(),
                 NextAction.GO_TO_SERVICE
         );
     }

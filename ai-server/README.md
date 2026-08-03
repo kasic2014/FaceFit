@@ -11,7 +11,14 @@ Face-Fit 모의면접 AI 멀티 서버 아키텍처입니다.
 3. **`tts-server/`**: AI 면접관 음성 합성 서버
    - 면접관 질문 음성 생성 (Qwen3-TTS 연동 예정)
 
+루트 `ai-server/`가 운영 변경의 단일 기준이다. `FaceFit/ai-server/`는 이전
+사본으로 취급하며 자동 동기화하거나 삭제하지 않는다.
+
 ## 서버 간 통신 방식
 
-- 백엔드 서버(Spring Boot)에서 REST API 또는 비동기 메시지 큐를 통해 AI 분석 작업을 요청합니다.
-- 분석 결과는 규격화된 JSON 스키마 형태로 백엔드 서버로 응답합니다.
+- 내부 HTTP 계약의 단일 진입점은 현재 `analysis-server`다.
+- Spring Boot는 Bearer 서비스 토큰과 UUID `X-Request-Id`로 요청한다.
+- STT는 실제 Whisper 서비스 경계를 사용한다.
+- CV·VOICE·CONTENT는 HTTP 계약은 존재하지만 운영 분석 산식이나 모델이 없어
+  `503 ANALYSIS_UNAVAILABLE`을 반환한다.
+- 기준 OpenAPI는 `openapi/facefit-ai-openapi-v1.json`이다.

@@ -1,6 +1,19 @@
 package com.facefit.backend.security;
 
 import com.facefit.backend.member.application.CurrentProfileService;
+import com.facefit.backend.legal.application.LegalDocumentService;
+import com.facefit.backend.document.application.CareerDocumentService;
+import com.facefit.backend.jobposting.application.JobPostingProcessingWorker;
+import com.facefit.backend.jobposting.application.JobPostingService;
+import com.facefit.backend.interview.application.InterviewSessionService;
+import com.facefit.backend.interview.application.InterviewProgressService;
+import com.facefit.backend.interview.application.InterviewAnswerService;
+import com.facefit.backend.interview.application.QuestionGenerationWorker;
+import com.facefit.backend.interview.application.AnswerAnalysisWorker;
+import com.facefit.backend.interview.application.IdempotencyService;
+import com.facefit.backend.interview.application.InterviewAnalysisOrchestrator;
+import com.facefit.backend.interview.application.InterviewAnalysisQueryService;
+import com.facefit.backend.interview.application.ReportGenerationWorker;
 import com.facefit.backend.member.domain.MemberStatus;
 import com.facefit.backend.member.domain.OnboardingStatus;
 import com.facefit.backend.member.domain.Profile;
@@ -33,6 +46,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         "DB_PASSWORD=test",
         "SUPABASE_JWT_ISSUER_URI=https://test-project.supabase.co/auth/v1",
         "FLYWAY_ENABLED=false",
+        "facefit.job-postings.processing.async-enabled=false",
+        "facefit.job-postings.processing.recovery-enabled=false",
         "spring.autoconfigure.exclude="
                 + "org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,"
                 + "org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,"
@@ -52,6 +67,45 @@ class SecurityIntegrationTest {
 
     @MockitoBean
     private OnboardingService onboardingService;
+
+    @MockitoBean
+    private LegalDocumentService legalDocumentService;
+
+    @MockitoBean
+    private CareerDocumentService careerDocumentService;
+
+    @MockitoBean
+    private JobPostingService jobPostingService;
+
+    @MockitoBean
+    private InterviewSessionService interviewSessionService;
+
+    @MockitoBean
+    private InterviewProgressService interviewProgressService;
+
+    @MockitoBean
+    private InterviewAnswerService interviewAnswerService;
+
+    @MockitoBean
+    private QuestionGenerationWorker questionGenerationWorker;
+
+    @MockitoBean
+    private AnswerAnalysisWorker answerAnalysisWorker;
+
+    @MockitoBean
+    private IdempotencyService idempotencyService;
+
+    @MockitoBean
+    private InterviewAnalysisOrchestrator interviewAnalysisOrchestrator;
+
+    @MockitoBean
+    private InterviewAnalysisQueryService interviewAnalysisQueryService;
+
+    @MockitoBean
+    private ReportGenerationWorker reportGenerationWorker;
+
+    @MockitoBean
+    private JobPostingProcessingWorker jobPostingProcessingWorker;
 
     private ProfileRepository profileRepository;
 

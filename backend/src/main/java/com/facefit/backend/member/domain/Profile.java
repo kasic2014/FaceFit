@@ -45,6 +45,14 @@ public class Profile {
     private OffsetDateTime onboardingCompletedAt;
 
     @Generated(event = EventType.INSERT)
+    @ColumnDefault("false")
+    @Column(name = "voice_analysis_consent", nullable = false)
+    private boolean voiceAnalysisConsent;
+
+    @Column(name = "voice_analysis_consented_at")
+    private OffsetDateTime voiceAnalysisConsentedAt;
+
+    @Generated(event = EventType.INSERT)
     @ColumnDefault("now()")
     @Column(name = "created_at", nullable = false, updatable = false)
     private OffsetDateTime createdAt;
@@ -83,5 +91,22 @@ public class Profile {
 
         this.onboardingStatus = nextStatus;
         this.onboardingCompletedAt = onboardingCompletedAt;
+    }
+
+    public void changeVoiceAnalysisConsent(
+            boolean consent,
+            OffsetDateTime consentedAt
+    ) {
+        if (consent != (consentedAt != null)) {
+            throw new IllegalArgumentException(
+                    "음성 분석 동의 시각은 동의한 경우에만 필요합니다."
+            );
+        }
+        this.voiceAnalysisConsent = consent;
+        this.voiceAnalysisConsentedAt = consentedAt;
+    }
+
+    public boolean isVoiceAnalysisConsented() {
+        return voiceAnalysisConsent;
     }
 }
