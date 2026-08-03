@@ -1,50 +1,33 @@
-# Python virtual environments
-.venv/
-**/.venv/
-
-# Python caches and compiled files
-**/__pycache__/
-**pycache**/
-*.py[cod]
-
-# Environment and log files
-.env
-.env.*
-*.log
-
-# AI model files
-models/
-*.pt
-*.pth
-*.onnx
-*.bin
-*.safetensors
-
-# User media, analysis output, temporary data, and logs
-ai-server/**/data/input/*
-!ai-server/**/data/input/*/
-!ai-server/**/data/input/**/
-ai-server/analysis-server/data/input/audio/raw/*
-ai-server/analysis-server/data/input/audio/standard/*
-ai-server/analysis-server/data/input/audio/transcripts/*.txt
-ai-server/**/data/output/*
-ai-server/**/data/temp/*
-ai-server/tts-server/data/reference_voice/*
-ai-server/**/logs/*
-
-# Keep empty directory placeholders
-!**/.gitkeep
-
-# IDE personal settings (keep shared workspace settings)
-.vscode/*
-!.vscode/settings.json
+# IDE & System
+.vscode/
 .idea/
-*.code-workspace
-
-# Operating-system temporary files
-.DS_Store
+*.swp
+*.DS_Store
 Thumbs.db
-Desktop.ini
-*.tmp
-*.temp
-~$*
+
+# Environments & Logs
+.env
+*.log
+logs/
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+
+# Python / AI Servers
+__pycache__/
+*.pyc
+.pytest_cache/
+venv/
+.venv/
+data/temp/
+data/output/
+
+# Java / Backend
+backend/target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Docker & Temporary files
+tmp/
+output/
