@@ -55,3 +55,26 @@ pdf-preview/
 # Local agent and generated design cache
 .agents/
 *.local
+
+# Local Claude Code preview tool config
+.claude/launch.json
+
+# Multi-AI-agent tool scaffolding (not needed on GitHub, kept locally)
+.aider.conf.yml
+.amazonq/
+.augment/
+.clinerules
+.codex/
+.continue/
+.cursor/
+.gemini/
+.opencode/
+.windsurf/
+.windsurfrules
+AGENTS.md
+GEMINI.md
+scripts/sync-agent-rules.sh
+.github/copilot-instructions.md
+.github/copilot-setup-steps.yml
+.github/skills/
+.claude/skills/clone-website/
