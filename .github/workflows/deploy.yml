@@ -1,15 +1,53 @@
-name: Deploy Pipeline
+name: Deploy FaceFit project
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  deploy:
+  deploy-backend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Deploy to Server
-        run: |
-          echo "Deploying Face-Fit services..."
+      - name: SSH into Private server via Public server (bastion) and redeploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PRIVATE_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          proxy_host: ${{ secrets.PUBLIC_HOST }}
+          proxy_username: ${{ secrets.SSH_USER }}
+          proxy_key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/gitactions
+            git pull
+            docker compose -f docker-compose.dev.yml down
+            docker compose -f docker-compose.dev.yml up -d --build backend
+            docker ps --filter name=facefit-backend-dev
+
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH into Public server and redeploy frontend
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PUBLIC_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/gitactions
+            git pull
+            docker rm -f facefit-frontend 2>/dev/null || true
+            docker build --no-cache \
+              -t facefit-frontend:latest \
+              ./frontend
+            docker run -d \
+              --name facefit-frontend \
+              -p 80:80 \
+              -p 443:443 \
+              -e DOMAIN='${{ secrets.DOMAIN }}' \
+              -e BACKEND_HOST='${{ secrets.BACKEND_HOST }}' \
+              -v /etc/letsencrypt:/etc/letsencrypt:ro \
+              --restart unless-stopped \
+              facefit-frontend:latest
+            docker ps --filter name=facefit-frontend
+            docker logs --tail 50 facefit-frontend
