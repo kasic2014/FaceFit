@@ -51,5 +51,6 @@ services:
       dockerfile: Dockerfile
     container_name: facefit-frontend-local
     ports:
-      - "3000:80"
+      - "80:80"
+      - "443:443"
     restart: unless-stopped
