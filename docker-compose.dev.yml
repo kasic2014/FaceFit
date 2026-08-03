@@ -5,56 +5,46 @@ services:
     build:
       context: .
       dockerfile: infra/docker/backend.Dockerfile
-    container_name: facefit-backend-local
+    container_name: facefit-backend-dev
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_PROFILES_ACTIVE=dev
       - DB_URL=${DB_URL}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - SUPABASE_JWT_ISSUER_URI=${SUPABASE_JWT_ISSUER_URI}
-    restart: unless-stopped
+    restart: always
 
   analysis-server:
     build:
       context: .
       dockerfile: infra/docker/analysis-server.Dockerfile
-    container_name: facefit-analysis-server-local
+    container_name: facefit-analysis-server-dev
     ports:
       - "8001:8001"
     environment:
       - ENV=development
-    restart: unless-stopped
+    restart: always
 
   vision-server:
     build:
       context: .
       dockerfile: infra/docker/vision-server.Dockerfile
-    container_name: facefit-vision-server-local
+    container_name: facefit-vision-server-dev
     ports:
       - "8002:8002"
     environment:
       - ENV=development
-    restart: unless-stopped
+    restart: always
 
   tts-server:
     build:
       context: .
       dockerfile: infra/docker/tts-server.Dockerfile
-    container_name: facefit-tts-server-local
+    container_name: facefit-tts-server-dev
     ports:
       - "8003:8003"
     environment:
       - ENV=development
-    restart: unless-stopped
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: facefit-frontend-local
-    ports:
-      - "80:80"
-      - "443:443"
-    restart: unless-stopped
+    restart: always
