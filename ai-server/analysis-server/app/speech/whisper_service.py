@@ -20,12 +20,23 @@ DEFAULT_BEAM_SIZE = 5
 ModelFactory = Callable[..., Any]
 
 
-def default_model_factory(model_name: str, *, device: str, compute_type: str) -> Any:
+def default_model_factory(
+    model_name: str,
+    *,
+    device: str,
+    compute_type: str,
+    **model_options: Any,
+) -> Any:
     """Register NVIDIA DLL paths before importing the CUDA-backed packages."""
     register_cuda_runtime()
     from faster_whisper import WhisperModel
 
-    return WhisperModel(model_name, device=device, compute_type=compute_type)
+    return WhisperModel(
+        model_name,
+        device=device,
+        compute_type=compute_type,
+        **model_options,
+    )
 
 
 class WhisperService:
@@ -37,11 +48,17 @@ class WhisperService:
         device: str = DEFAULT_DEVICE,
         compute_type: str = DEFAULT_COMPUTE_TYPE,
         *,
+        download_root: str | Path | None = None,
+        local_files_only: bool = False,
+        revision: str | None = None,
         model_factory: ModelFactory | None = None,
     ) -> None:
         self.model_name = model_name
         self.device = device
         self.compute_type = compute_type
+        self.download_root = Path(download_root) if download_root else None
+        self.local_files_only = local_files_only
+        self.revision = revision
         self._model_factory = model_factory or default_model_factory
         self._model: Any | None = None
         self._load_time_sec: float | None = None
@@ -66,6 +83,8 @@ class WhisperService:
             "model_name": self.model_name,
             "device": self.device,
             "compute_type": self.compute_type,
+            "local_files_only": self.local_files_only,
+            "revision": self.revision,
             "load_time_sec": self.load_time_sec,
             "initialization_count": self.initialization_count,
         }
@@ -79,10 +98,18 @@ class WhisperService:
                 return self._model
             started = time.perf_counter()
             try:
+                model_options: dict[str, Any] = {}
+                if self.download_root is not None:
+                    model_options["download_root"] = str(self.download_root)
+                if self.local_files_only:
+                    model_options["local_files_only"] = True
+                if self.revision is not None:
+                    model_options["revision"] = self.revision
                 model = self._model_factory(
                     self.model_name,
                     device=self.device,
                     compute_type=self.compute_type,
+                    **model_options,
                 )
             except Exception:
                 self._load_time_sec = round(time.perf_counter() - started, 6)
@@ -101,6 +128,8 @@ class WhisperService:
         beam_size: int = DEFAULT_BEAM_SIZE,
         word_timestamps: bool = True,
         vad_filter: bool = False,
+        condition_on_previous_text: bool = False,
+        temperature: float = 0.0,
     ) -> tuple[list[Any], Any]:
         """Transcribe one file and fully consume the returned segment generator."""
         model = self.initialize()
@@ -111,5 +140,7 @@ class WhisperService:
             beam_size=beam_size,
             word_timestamps=word_timestamps,
             vad_filter=vad_filter,
+            condition_on_previous_text=condition_on_previous_text,
+            temperature=temperature,
         )
         return list(segment_generator), info

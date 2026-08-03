@@ -30,7 +30,7 @@ POSE_MODEL_SHA256 = "4eaa5eb7a98365221087693fcc286334cf0858e2eb6e15b506aa4a7ecdc
 MANIFEST_SHA256 = "0e4b8be16652ebde7531090a27ca5ef5131e2939c6004cbd22f8a311ff581695"
 SETUP_REPORT_SHA256 = "8d30234a346d6d2213c33ad3771a8932bf78760c2d61acf9f912da3bb1819690"
 LOADING_REPORT_SHA256 = "ff5668185a41973c26e7ad7301302a6ec6a7f88b4b67c0aac98589feef9ae405"
-ANALYSIS_TREE_SHA256 = "12a4265874fd9b4fdf54d288bd3b20206d321c04d76a4b501393e1536a8f3f55"
+ANALYSIS_TREE_SHA256 = "3251e4557822f8d064021749e885a8bb61136152bbac6d0b10d0336973603d5f"
 
 
 class FakeAnalyzer:
@@ -64,6 +64,9 @@ def tree_digest() -> str:
         and path.suffix != ".pyc"
         and not path.is_relative_to(
             analysis / "data" / "output" / "stt_preprocessing"
+        )
+        and not path.is_relative_to(
+            analysis / "data" / "output" / "stt_transcription"
         )
     ]
     digest = hashlib.sha256()

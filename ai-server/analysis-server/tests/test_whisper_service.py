@@ -108,7 +108,31 @@ class WhisperServiceTests(unittest.TestCase):
                 "beam_size": 5,
                 "word_timestamps": True,
                 "vad_filter": False,
+                "condition_on_previous_text": False,
+                "temperature": 0.0,
             },
+        )
+
+    def test_model_cache_options_are_forwarded(self) -> None:
+        model = MagicMock()
+        factory = MagicMock(return_value=model)
+        service = WhisperService(
+            model_name="large-v3-turbo",
+            device="cuda",
+            compute_type="float16",
+            download_root=Path("model-cache"),
+            local_files_only=True,
+            revision="revision-1",
+            model_factory=factory,
+        )
+        service.initialize()
+        factory.assert_called_once_with(
+            "large-v3-turbo",
+            device="cuda",
+            compute_type="float16",
+            download_root=str(Path("model-cache")),
+            local_files_only=True,
+            revision="revision-1",
         )
 
     def test_segment_generator_is_consumed(self) -> None:
