@@ -10,6 +10,10 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+      - DB_URL=${DB_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - SUPABASE_JWT_ISSUER_URI=${SUPABASE_JWT_ISSUER_URI}
     restart: always
 
   analysis-server:
