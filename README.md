@@ -98,4 +98,4 @@ docker compose up
 ```
 Vite 번들이 빌드되며, Nginx가 내장된 컨테이너가 포트 `3000`에서 가동됩니다. SPA 라우팅 폴백 설정이 처리되어 `/session/live` 등의 경로에 직접 접속해도 정상 동작합니다.
 
-<!-- deploy trigger: 2026-08-03 (success verify) -->
+<!-- deploy trigger: 2026-08-03 17:00 (complete src fix) -->
