@@ -1,0 +1,16 @@
+{
+  "name": "ko-filler-candidates",
+  "version": "1.0.0",
+  "language": "ko",
+  "reviewRequired": true,
+  "entries": [
+    "음",
+    "어",
+    "아",
+    "그",
+    "저기",
+    "그러니까",
+    "약간",
+    "뭐랄까"
+  ]
+}
