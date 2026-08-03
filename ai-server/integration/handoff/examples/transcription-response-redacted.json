@@ -1,0 +1,50 @@
+{
+  "answers": [
+    {
+      "answerId": "ANS_000001",
+      "language": {
+        "detected": "ko"
+      },
+      "segmentCount": 6,
+      "segments": [
+        {
+          "endMsSession": 11500,
+          "startMsSession": 11000,
+          "text": null
+        }
+      ],
+      "status": "COMPLETE_WITH_WARNINGS",
+      "text": null,
+      "textExposed": false,
+      "warnings": [
+        {
+          "answerId": "ANS_000001",
+          "code": "SEGMENT_BOUNDARY_EXPANDED_TO_WORDS",
+          "message": "Segment boundary follows word timestamps.",
+          "reviewRequired": false
+        }
+      ],
+      "wordCount": 68,
+      "words": [
+        {
+          "endMsSession": 11500,
+          "startMsSession": 11000,
+          "text": null
+        }
+      ]
+    }
+  ],
+  "engine": {
+    "model": "large-v3-turbo",
+    "name": "faster-whisper"
+  },
+  "errors": [],
+  "options": {
+    "language": "ko",
+    "timestampToleranceMs": 1,
+    "wordTimestamps": true
+  },
+  "sessionId": "SES_000001",
+  "status": "stt_session_transcription_ready_with_warnings",
+  "warnings": []
+}

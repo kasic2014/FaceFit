@@ -1,0 +1,60 @@
+{
+  "analysisMode": "SINGLE_SESSION_BASELINE_RELATIVE_MVP",
+  "answers": [
+    {
+      "answerId": "ANS_000001",
+      "interval": {
+        "endTimestampMs": 50000,
+        "rule": "[start, end)",
+        "startTimestampMs": 11000
+      },
+      "sampleCount": 100
+    },
+    {
+      "answerId": "ANS_000002",
+      "interval": {
+        "endTimestampMs": 107000,
+        "rule": "[start, end)",
+        "startTimestampMs": 51000
+      },
+      "sampleCount": 100
+    },
+    {
+      "answerId": "ANS_000003",
+      "interval": {
+        "endTimestampMs": 160000,
+        "rule": "[start, end)",
+        "startTimestampMs": 108000
+      },
+      "sampleCount": 100
+    },
+    {
+      "answerId": "ANS_000004",
+      "interval": {
+        "endTimestampMs": 192000,
+        "rule": "[start, end)",
+        "startTimestampMs": 161000
+      },
+      "sampleCount": 100
+    }
+  ],
+  "disclaimer": "Measurements are not interview scores or hiring decisions.",
+  "limitations": [
+    "Single-Session baseline-relative measurement only."
+  ],
+  "measurementSummary": {
+    "answerCount": 4,
+    "scoringPerformed": false,
+    "thresholdsUsed": false
+  },
+  "scores": null,
+  "scoringUnavailableReasons": [
+    "SCORING_NOT_AVAILABLE_SINGLE_SESSION_MVP",
+    "THRESHOLD_EVIDENCE_NOT_APPROVED"
+  ],
+  "sessionId": "SES_000001",
+  "status": "single_session_mvp_feedback_ready_with_measurement_limitations",
+  "warnings": [
+    "Head Pose measurements are partially available."
+  ]
+}

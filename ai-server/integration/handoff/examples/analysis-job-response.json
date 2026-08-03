@@ -1,0 +1,24 @@
+{
+  "completedAt": "2026-08-03T00:00:00Z",
+  "createdAt": "2026-08-03T00:00:00Z",
+  "error": null,
+  "executionDurationMs": 0,
+  "jobId": "00000000-0000-4000-8000-000000000002",
+  "pipeline": "STT_AND_SPEECH",
+  "queueWaitMs": 0,
+  "queuedAt": "2026-08-03T00:00:00Z",
+  "resultAvailable": true,
+  "sessionId": "SES_000001",
+  "startedAt": "2026-08-03T00:00:00Z",
+  "status": "SUCCEEDED_WITH_WARNINGS",
+  "totalDurationMs": 0,
+  "updatedAt": "2026-08-03T00:00:00Z",
+  "warnings": [
+    {
+      "answerId": null,
+      "code": "UPSTREAM_TRANSCRIPTION_WARNING",
+      "message": "Existing transcription warnings are retained.",
+      "reviewRequired": false
+    }
+  ]
+}
