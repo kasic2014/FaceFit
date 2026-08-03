@@ -18,8 +18,10 @@ jobs:
           proxy_username: ${{ secrets.SSH_USER }}
           proxy_key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ~/gitactions
-            git pull
+            cd ~/FaceFit
+            git fetch --all
+            git checkout main
+            git reset --hard origin/main
             docker compose -f docker-compose.dev.yml down
             docker compose -f docker-compose.dev.yml up -d --build backend
             docker ps --filter name=facefit-backend-dev
@@ -34,8 +36,10 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ~/gitactions
-            git pull
+            cd ~/FaceFit
+            git fetch --all
+            git checkout main
+            git reset --hard origin/main
             docker rm -f facefit-frontend 2>/dev/null || true
             docker build --no-cache \
               -t facefit-frontend:latest \
