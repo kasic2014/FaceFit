@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  analysis-server:
+    build:
+      context: ../..
+      dockerfile: infra/docker/analysis-server.Dockerfile
+    restart: always
+
+  vision-server:
+    build:
+      context: ../..
+      dockerfile: infra/docker/vision-server.Dockerfile
+    restart: always
+
+  tts-server:
+    build:
+      context: ../..
+      dockerfile: infra/docker/tts-server.Dockerfile
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ../nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: always
