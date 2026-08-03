@@ -1,0 +1,20 @@
+import { Link } from "react-router-dom";
+import { LandingHeader } from "@/components/facefit/LandingHeader";
+import { Footer } from "@/components/facefit/Footer";
+import { MagneticButton } from "@/components/facefit/MagneticButton";
+import { HeroDashboard } from "@/components/facefit/landing/HeroDashboard";
+import { CapabilityStrip } from "@/components/facefit/landing/CapabilityStrip";
+import { PainPointsMarquee } from "@/components/facefit/landing/PainPointsMarquee";
+import { ResumeQuestionSection } from "@/components/facefit/landing/ResumeQuestionSection";
+import { FollowUpQuestionSection } from "@/components/facefit/landing/FollowUpQuestionSection";
+import { LiveInterviewSection } from "@/components/facefit/landing/LiveInterviewSection";
+import { AnalysisAxesSection } from "@/components/facefit/landing/AnalysisAxesSection";
+import { BeforeAfterSection } from "@/components/facefit/landing/BeforeAfterSection";
+import { VoicePracticeSection } from "@/components/facefit/landing/VoicePracticeSection";
+import { ReverseQuestionSection } from "@/components/facefit/landing/ReverseQuestionSection";
+import { GrowthRecordSection } from "@/components/facefit/landing/GrowthRecordSection";
+import { DevBackgroundSection } from "@/components/facefit/landing/DevBackgroundSection";
+import { CTABand } from "@/components/facefit/landing/CTABand";
+import { FAQAccordion } from "@/components/facefit/landing/FAQAccordion";
+
+export default function Home(){return <div className="bg-[radial-gradient(ellipse_900px_500px_at_15%_-10%,rgba(85,122,90,.11),transparent_60%),radial-gradient(ellipse_700px_500px_at_85%_10%,rgba(226,112,60,.08),transparent_60%),#F8F4EE]"><LandingHeader/><main><section id="service" className="relative flex w-full items-center overflow-hidden rounded-b-[28px] bg-[#10221D] px-5 py-10 md:rounded-b-[32px] md:px-8 md:py-16 lg:min-h-[640px] lg:px-12"><div className="hero-ambient pointer-events-none absolute -inset-[3%] bg-[radial-gradient(620px_420px_at_78%_32%,rgba(122,155,126,.22),transparent_62%),radial-gradient(520px_380px_at_94%_8%,rgba(226,112,60,.11),transparent_64%)]"/><div className="pointer-events-none absolute right-[9%] top-[15%] size-40 rounded-full border border-white/10 shadow-[0_0_80px_rgba(85,122,90,.18)]"/><div className="relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-[42%_58%] lg:gap-16"><div className="hero-copy-enter flex max-w-[480px] flex-col items-start text-left"><div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-medium text-white/80 backdrop-blur md:mb-6 md:px-4 md:py-2 md:text-xs"><span className="inline-block size-1.5 rounded-full bg-sunset-300 shadow-[0_0_14px_rgba(226,112,60,.9)]"/>이력서 기반 질문 · 꼬리질문 · 내 목소리 개선 답변</div><h1 className="font-heading text-4xl font-extrabold leading-[1.25] tracking-[-.03em] text-white drop-shadow-[0_2px_20px_rgba(0,0,0,.55)] md:text-5xl">외운 답변 말고,<br/>내 경험을 말하는 면접</h1><p className="mt-4 max-w-[440px] text-base leading-[1.7] text-white/70">이력서와 지원 공고를 바탕으로 실제 면접처럼 답하고, 더 나은 답변을 내 목소리로 다시 연습해 보세요.</p><div className="mt-6 flex gap-2.5 md:mt-8 md:gap-3"><MagneticButton><Link to="/onboarding" className="inline-block whitespace-nowrap rounded-lg bg-sunset-600 px-5 py-3.5 text-sm font-semibold text-white transition-all duration-150 hover:-translate-y-0.5 hover:bg-sunset-700 md:px-8 md:py-4 md:text-base">내 이력서로 시작하기</Link></MagneticButton><Link to="/session/live" className="rounded-lg border border-white/15 bg-white/5 px-3.5 py-3.5 text-sm font-medium text-white/80 transition hover:border-white/30 md:px-6 md:py-4 md:text-base">면접 화면 미리보기</Link></div></div><div className="relative z-10 w-full"><HeroDashboard/></div></div></section><CapabilityStrip/><PainPointsMarquee/><ResumeQuestionSection/><FollowUpQuestionSection/><LiveInterviewSection/><AnalysisAxesSection/><BeforeAfterSection/><VoicePracticeSection/><ReverseQuestionSection/><GrowthRecordSection/><DevBackgroundSection/><CTABand/><FAQAccordion/></main><Footer/></div>}
