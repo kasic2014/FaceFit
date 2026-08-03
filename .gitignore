@@ -7,10 +7,28 @@
 **pycache**/
 *.py[cod]
 
+# Node Dependencies
+**/node_modules/
+**/.pnp
+**/.pnp.js
+
+# Build output
+**/dist/
+**/build/
+**/out/
+*.tsbuildinfo
+
 # Environment and log files
 .env
 .env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # AI model files
 models/
@@ -35,11 +53,13 @@ ai-server/**/logs/*
 # Keep empty directory placeholders
 !**/.gitkeep
 
-# IDE personal settings (keep shared workspace settings)
+# IDE and Editor settings (keep shared workspace settings)
 .vscode/*
 !.vscode/settings.json
 .idea/
 *.code-workspace
+*.swp
+*.swo
 
 # Operating-system temporary files
 .DS_Store
@@ -48,3 +68,37 @@ Desktop.ini
 *.tmp
 *.temp
 ~$*
+
+# Vercel
+.vercel/
+
+# Tool configuration & local cache
+.agents/
+*.local
+.claude/
+
+# Visual verification and local delivery artifacts
+.playwright-cli/
+output/
+deliverables/
+pdf-preview/
+temp/
+
+# Multi-AI-agent tool scaffolding
+.aider.conf.yml
+.amazonq/
+.augment/
+.clinerules
+.codex/
+.continue/
+.cursor/
+.gemini/
+.opencode/
+.windsurf/
+.windsurfrules
+AGENTS.md
+GEMINI.md
+scripts/sync-agent-rules.sh
+.github/copilot-instructions.md
+.github/copilot-setup-steps.yml
+.github/skills/
