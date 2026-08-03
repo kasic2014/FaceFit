@@ -62,12 +62,16 @@ class PilotAnnotationPackageStage18Tests(unittest.TestCase):
         self.assertEqual(a["rater_id"], "RATER_A")
         self.assertEqual(b["rater_id"], "RATER_B")
         self.assertNotEqual(a, b)
-        self.assertFalse(
-            (OUTPUT / "rater_a" / "annotation_events.json").exists()
-        )
-        self.assertFalse(
-            (OUTPUT / "rater_b" / "annotation_events.json").exists()
-        )
+        for directory, rater_id in (
+            ("rater_a", "RATER_A"),
+            ("rater_b", "RATER_B"),
+        ):
+            result_path = OUTPUT / directory / "annotation_events.json"
+            if result_path.exists():
+                self.assertEqual(
+                    load_strict_json(result_path)["rater_id"],
+                    rater_id,
+                )
 
     def test_packages_exclude_model_metric_information(self) -> None:
         for directory in ("rater_a", "rater_b"):

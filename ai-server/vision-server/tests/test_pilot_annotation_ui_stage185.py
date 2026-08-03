@@ -20,6 +20,9 @@ class PilotAnnotationUiStage185Tests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.package = Path(self.temp.name) / "SES_000001"
         shutil.copytree(SOURCE_PACKAGE, self.package)
+        for directory in ("rater_a", "rater_b"):
+            for filename in ("annotation_events.draft.json", "annotation_events.json"):
+                (self.package / directory / filename).unlink(missing_ok=True)
         self.template = self.package / "rater_a" / "annotation_events.template.json"
         self.template_hash = hashlib.sha256(self.template.read_bytes()).hexdigest()
 

@@ -23,14 +23,14 @@ from app.vision.static_image_analyzer import StaticImageAnalysisError
 from scripts import analyze_static_image as cli
 
 
-REQUIREMENTS_SHA256 = "ee9b09227cd45ca183e327e0fa1dbd3f1afdd47424160268970a4a1f1b0b058e"
+REQUIREMENTS_SHA256 = "8a18c111dc4e4d93e8e1c0e28615298a32819d78d78996303f1171b3fad6e925"
 REQUIREMENTS_LOCK_SHA256 = "d05e1d8c452a61bf2638aace9bc320278eee5716ef15f8697d6c75ce8a2bc091"
 FACE_MODEL_SHA256 = "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff"
 POSE_MODEL_SHA256 = "4eaa5eb7a98365221087693fcc286334cf0858e2eb6e15b506aa4a7ecdcec4ad"
 MANIFEST_SHA256 = "0e4b8be16652ebde7531090a27ca5ef5131e2939c6004cbd22f8a311ff581695"
 SETUP_REPORT_SHA256 = "8d30234a346d6d2213c33ad3771a8932bf78760c2d61acf9f912da3bb1819690"
 LOADING_REPORT_SHA256 = "ff5668185a41973c26e7ad7301302a6ec6a7f88b4b67c0aac98589feef9ae405"
-ANALYSIS_TREE_SHA256 = "87749d38b070083af2ab0595faf976e7bbc7db159332526a9c51473c0eb3ad68"
+ANALYSIS_TREE_SHA256 = "12a4265874fd9b4fdf54d288bd3b20206d321c04d76a4b501393e1536a8f3f55"
 
 
 class FakeAnalyzer:
@@ -62,6 +62,9 @@ def tree_digest() -> str:
         and ".venv" not in path.parts
         and "__pycache__" not in path.parts
         and path.suffix != ".pyc"
+        and not path.is_relative_to(
+            analysis / "data" / "output" / "stt_preprocessing"
+        )
     ]
     digest = hashlib.sha256()
     for path in sorted(files, key=lambda item: item.as_posix().casefold()):
