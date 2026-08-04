@@ -18,13 +18,20 @@ jobs:
           proxy_username: ${{ secrets.SSH_USER }}
           proxy_key: ${{ secrets.SSH_KEY }}
           script: |
+            mkdir -p ~/FaceFit
             cd ~/FaceFit
+            if [ ! -d .git ]; then
+              git clone https://github.com/kasic2014/FaceFit.git .
+            fi
             git fetch --all
             git checkout main
             git reset --hard origin/main
-            docker compose -f docker-compose.dev.yml down
-            docker compose -f docker-compose.dev.yml up -d --build
-            docker ps
+            if [ ! -f .env ]; then
+              cp .env.example .env
+            fi
+            docker compose --env-file .env -f infra/compose/compose.dev.yml down 2>/dev/null || docker-compose --env-file .env -f infra/compose/compose.dev.yml down 2>/dev/null || docker-compose -f docker-compose.dev.yml down 2>/dev/null || true
+            docker compose --env-file .env -f infra/compose/compose.dev.yml up -d --build 2>/dev/null || docker-compose --env-file .env -f infra/compose/compose.dev.yml up -d --build 2>/dev/null || docker-compose -f docker-compose.dev.yml up -d --build
+            docker ps -a
 
   deploy-frontend:
     runs-on: ubuntu-latest
@@ -36,7 +43,11 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            mkdir -p ~/FaceFit
             cd ~/FaceFit
+            if [ ! -d .git ]; then
+              git clone https://github.com/kasic2014/FaceFit.git .
+            fi
             git fetch --all
             git checkout main
             git reset --hard origin/main
