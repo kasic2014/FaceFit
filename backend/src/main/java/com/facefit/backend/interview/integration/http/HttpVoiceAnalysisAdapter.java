@@ -24,10 +24,12 @@ public final class HttpVoiceAnalysisAdapter implements VoiceAnalysisPort {
     public PortResult<AnalysisResult> analyze(AnswerAnalysisRequest request) {
         return mediaForwarder.forward(
                 request,
-                media -> client.analyzeVoice(
+                mediaUrl -> client.analyzeVoice(
                         request.answerId(),
+                        mediaUrl,
                         request.mimeType(),
-                        media
+                        request.mediaSizeBytes(),
+                        request.recordedDurationSeconds()
                 )
         );
     }

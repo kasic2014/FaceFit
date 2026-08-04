@@ -1,0 +1,39 @@
+name: Docker Compose Test
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - 'ai-server/analysis-server/**'
+      - 'infra/docker/**'
+      - 'infra/compose/**'
+      - '.dockerignore'
+      - '.env.example'
+      - '.github/workflows/docker-compose-test.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'ai-server/analysis-server/**'
+      - 'infra/docker/**'
+      - 'infra/compose/**'
+      - '.dockerignore'
+      - '.env.example'
+      - '.github/workflows/docker-compose-test.yml'
+
+jobs:
+  compose-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Compose configuration
+        run: >-
+          docker compose
+          --env-file .env.example
+          -f infra/compose/compose.dev.yml
+          config --quiet
+      - name: Build Spring Boot and AI runtime images
+        run: >-
+          docker compose
+          --env-file .env.example
+          -f infra/compose/compose.dev.yml
+          build backend analysis-server

@@ -4,11 +4,9 @@ import com.facefit.backend.common.exception.StorageOperationException;
 import com.facefit.backend.interview.integration.AnswerAnalysisRequest;
 import com.facefit.backend.interview.integration.PortResult;
 import com.facefit.backend.interview.storage.InterviewAnswerStorage;
-import com.facefit.backend.interview.storage.StoredAnswerMedia;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.net.URI;
 import java.util.function.Function;
 
 @Component
@@ -24,33 +22,38 @@ final class AiMediaForwarder {
 
     <T> PortResult<T> forward(
             AnswerAnalysisRequest request,
-            Function<InputStream, PortResult<T>> operation
+            Function<URI, PortResult<T>> operation
     ) {
         if (request == null
+                || request.storageProvider() == null
                 || request.storageBucket() == null
                 || request.storageBucket().isBlank()
                 || request.storageObjectKey() == null
-                || request.storageObjectKey().isBlank()) {
+                || request.storageObjectKey().isBlank()
+                || request.mediaSizeBytes() < 1
+                || request.mediaSizeBytes() > MAX_MEDIA_BYTES) {
             return PortResult.permanentFailure("ANSWER_MEDIA_REFERENCE_INVALID");
         }
-        try (StoredAnswerMedia media = storage.read(
-                request.storageBucket(),
-                request.storageObjectKey()
-        )) {
-            if (media.contentLength() > MAX_MEDIA_BYTES) {
-                return PortResult.permanentFailure("PAYLOAD_TOO_LARGE");
+        try {
+            URI presignedUrl = storage.createPresignedGetUrl(
+                    request.storageProvider(),
+                    request.storageBucket(),
+                    request.storageObjectKey()
+            );
+            if (presignedUrl == null
+                    || !"https".equalsIgnoreCase(presignedUrl.getScheme())
+                    || presignedUrl.getRawQuery() == null) {
+                return PortResult.permanentFailure("ANSWER_PRESIGNED_URL_INVALID");
             }
-            return operation.apply(media.inputStream());
+            return operation.apply(presignedUrl);
         } catch (StorageOperationException exception) {
-            return "SUPABASE_STORAGE_NOT_CONFIGURED".equals(
-                    exception.getMessage()
-            )
-                    ? PortResult.permanentFailure(
-                    "ANSWER_STORAGE_NOT_CONFIGURED"
-            )
-                    : PortResult.retryableFailure("ANSWER_MEDIA_READ_FAILED");
-        } catch (IOException exception) {
-            return PortResult.retryableFailure("ANSWER_MEDIA_CLOSE_FAILED");
+            String code = exception.getMessage();
+            if ("NCLOUD_STORAGE_NOT_CONFIGURED".equals(code)
+                    || "SUPABASE_STORAGE_NOT_CONFIGURED".equals(code)
+                    || "ANSWER_PRESIGN_TTL_INVALID".equals(code)) {
+                return PortResult.permanentFailure("ANSWER_STORAGE_NOT_CONFIGURED");
+            }
+            return PortResult.retryableFailure("ANSWER_PRESIGN_FAILED");
         } catch (RuntimeException exception) {
             return PortResult.permanentFailure("ANSWER_MEDIA_FORWARD_FAILED");
         }

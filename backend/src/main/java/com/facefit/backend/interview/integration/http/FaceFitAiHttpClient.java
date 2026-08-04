@@ -14,11 +14,10 @@ import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpTimeoutException;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 public final class FaceFitAiHttpClient {
@@ -31,6 +30,8 @@ public final class FaceFitAiHttpClient {
     private static final int MAX_TRANSCRIPT_CHARS = 50_000;
     private static final int MAX_MODEL_VERSION_CHARS = 100;
     private static final double MAX_DURATION_SECONDS = 300.0;
+    private static final int MAX_FEEDBACK_ITEMS = 5;
+    private static final int MAX_FEEDBACK_CHARS = 500;
     private static final Map<Integer, AiErrorCode> ERROR_CODES = Map.of(
             400, AiErrorCode.INVALID_REQUEST,
             401, AiErrorCode.UNAUTHORIZED,
@@ -70,26 +71,24 @@ public final class FaceFitAiHttpClient {
 
     public PortResult<SttResult> transcribe(
             UUID answerId,
+            URI mediaUrl,
             String mimeType,
-            InputStream media
+            long mediaSizeBytes,
+            int recordedDurationSeconds
     ) {
-        if (answerId == null || media == null || !supportedMimeType(mimeType)) {
+        if (!validMediaRequest(answerId, mediaUrl, mimeType,
+                mediaSizeBytes, recordedDurationSeconds)) {
             return PortResult.permanentFailure("AI_REQUEST_INVALID");
         }
         UUID requestId = requestIdFactory.get();
         try {
+            byte[] body = mediaRequestBody(
+                    requestId, answerId, mediaUrl, mimeType,
+                    mediaSizeBytes, recordedDurationSeconds
+            );
             HttpRequest request = requestBuilder(STT_PATH, requestId)
-                    .header(
-                            "Content-Type",
-                            "multipart/form-data; boundary="
-                                    + multipartBoundary(requestId)
-                    )
-                    .POST(sttMultipart(
-                            requestId,
-                            answerId,
-                            mimeType,
-                            media
-                    ))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofByteArray(body))
                     .build();
             HttpResponse<InputStream> response = transport.send(request);
             return mapSttResponse(response, requestId, answerId);
@@ -109,18 +108,51 @@ public final class FaceFitAiHttpClient {
 
     public PortResult<AnalysisResult> analyzeCv(
             UUID answerId,
+            URI mediaUrl,
             String mimeType,
-            InputStream media
+            long mediaSizeBytes,
+            int recordedDurationSeconds
     ) {
-        return analyzeUnavailableMedia(CV_PATH, answerId, mimeType, media);
+        if (!validMediaRequest(answerId, mediaUrl, mimeType,
+                mediaSizeBytes, recordedDurationSeconds)) {
+            return PortResult.permanentFailure("AI_REQUEST_INVALID");
+        }
+        UUID requestId = requestIdFactory.get();
+        try {
+            byte[] body = mediaRequestBody(
+                    requestId, answerId, mediaUrl, mimeType,
+                    mediaSizeBytes, recordedDurationSeconds
+            );
+            HttpRequest request = requestBuilder(CV_PATH, requestId)
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofByteArray(body))
+                    .build();
+            return mapCvResponse(transport.send(request), requestId, answerId);
+        } catch (HttpTimeoutException | ConnectException exception) {
+            return PortResult.retryableFailure("AI_NETWORK_TIMEOUT");
+        } catch (InterruptedException exception) {
+            Thread.currentThread().interrupt();
+            return PortResult.retryableFailure("AI_NETWORK_INTERRUPTED");
+        } catch (IOException exception) {
+            return PortResult.retryableFailure("AI_NETWORK_ERROR");
+        } catch (IllegalStateException | IllegalArgumentException exception) {
+            return PortResult.permanentFailure("AI_CLIENT_NOT_CONFIGURED");
+        } catch (RuntimeException exception) {
+            return PortResult.permanentFailure("AI_RESPONSE_CONTRACT_VIOLATION");
+        }
     }
 
     public PortResult<AnalysisResult> analyzeVoice(
             UUID answerId,
+            URI mediaUrl,
             String mimeType,
-            InputStream media
+            long mediaSizeBytes,
+            int recordedDurationSeconds
     ) {
-        return analyzeUnavailableMedia(VOICE_PATH, answerId, mimeType, media);
+        return analyzeUnavailableMedia(
+                VOICE_PATH, answerId, mediaUrl, mimeType,
+                mediaSizeBytes, recordedDurationSeconds
+        );
     }
 
     public PortResult<AnalysisResult> analyzeContent(
@@ -174,26 +206,24 @@ public final class FaceFitAiHttpClient {
     private PortResult<AnalysisResult> analyzeUnavailableMedia(
             String path,
             UUID answerId,
+            URI mediaUrl,
             String mimeType,
-            InputStream media
+            long mediaSizeBytes,
+            int recordedDurationSeconds
     ) {
-        if (answerId == null || media == null || !supportedMimeType(mimeType)) {
+        if (!validMediaRequest(answerId, mediaUrl, mimeType,
+                mediaSizeBytes, recordedDurationSeconds)) {
             return PortResult.permanentFailure("AI_REQUEST_INVALID");
         }
         UUID requestId = requestIdFactory.get();
         try {
+            byte[] body = mediaRequestBody(
+                    requestId, answerId, mediaUrl, mimeType,
+                    mediaSizeBytes, recordedDurationSeconds
+            );
             HttpRequest request = requestBuilder(path, requestId)
-                    .header(
-                            "Content-Type",
-                            "multipart/form-data; boundary="
-                                    + multipartBoundary(requestId)
-                    )
-                    .POST(analysisMultipart(
-                            requestId,
-                            answerId,
-                            mimeType,
-                            media
-                    ))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofByteArray(body))
                     .build();
             return mapUnavailableResponse(
                     transport.send(request),
@@ -267,6 +297,34 @@ public final class FaceFitAiHttpClient {
         }
     }
 
+    private PortResult<AnalysisResult> mapCvResponse(
+            HttpResponse<InputStream> response,
+            UUID requestId,
+            UUID answerId
+    ) throws IOException {
+        try (InputStream body = response.body()) {
+            if (response.statusCode() != 200) {
+                return mapError(response.statusCode(), body, requestId);
+            }
+            AiCvResponse payload;
+            try {
+                payload = objectMapper.readValue(body, AiCvResponse.class);
+            } catch (IOException | RuntimeException exception) {
+                return PortResult.permanentFailure(
+                        "AI_RESPONSE_CONTRACT_VIOLATION"
+                );
+            }
+            if (!validCv(payload, requestId, answerId)) {
+                return PortResult.permanentFailure(
+                        "AI_RESPONSE_CONTRACT_VIOLATION"
+                );
+            }
+            return PortResult.success(new AnalysisResult(
+                    objectMapper.valueToTree(payload)
+            ));
+        }
+    }
+
     private <T> PortResult<T> mapError(
             int status,
             InputStream body,
@@ -331,90 +389,69 @@ public final class FaceFitAiHttpClient {
         return true;
     }
 
-    private HttpRequest.BodyPublisher sttMultipart(
+    private boolean validCv(
+            AiCvResponse payload,
+            UUID requestId,
+            UUID answerId
+    ) {
+        if (payload == null
+                || !requestId.equals(payload.requestId())
+                || !answerId.equals(payload.answerId())
+                || payload.analysisType() != AnalysisType.CV
+                || !SCHEMA_VERSION.equals(payload.schemaVersion())
+                || payload.modelVersion() == null
+                || payload.modelVersion().isBlank()
+                || payload.modelVersion().length() > MAX_MODEL_VERSION_CHARS
+                || payload.gazeScore() == null
+                || !Double.isFinite(payload.gazeScore())
+                || payload.gazeScore() < 0
+                || payload.gazeScore() > 100
+                || payload.postureScore() == null
+                || !Double.isFinite(payload.postureScore())
+                || payload.postureScore() < 0
+                || payload.postureScore() > 100
+                || payload.feedback() == null
+                || payload.feedback().size() > MAX_FEEDBACK_ITEMS) {
+            return false;
+        }
+        return payload.feedback().stream().allMatch(item ->
+                item != null
+                        && !item.isBlank()
+                        && item.codePointCount(0, item.length())
+                        <= MAX_FEEDBACK_CHARS
+        );
+    }
+
+    private byte[] mediaRequestBody(
             UUID requestId,
             UUID answerId,
+            URI mediaUrl,
             String mimeType,
-            InputStream media
-    ) {
-        String boundary = multipartBoundary(requestId);
-        return HttpRequest.BodyPublishers.concat(
-                textPart(boundary, "answerId", answerId.toString()),
-                textPart(boundary, "language", "ko"),
-                mediaPart(boundary, mimeType, media),
-                endBoundary(boundary)
-        );
+            long mediaSizeBytes,
+            int recordedDurationSeconds
+    ) throws JsonProcessingException {
+        return objectMapper.writeValueAsBytes(new MediaRequest(
+                "1", requestId, answerId, mediaUrl.toASCIIString(), mimeType,
+                mediaSizeBytes, (double) recordedDurationSeconds
+        ));
     }
 
-    private HttpRequest.BodyPublisher analysisMultipart(
-            UUID requestId,
+    private boolean validMediaRequest(
             UUID answerId,
+            URI mediaUrl,
             String mimeType,
-            InputStream media
+            long mediaSizeBytes,
+            int recordedDurationSeconds
     ) {
-        String boundary = multipartBoundary(requestId);
-        return HttpRequest.BodyPublishers.concat(
-                textPart(boundary, "answerId", answerId.toString()),
-                mediaPart(boundary, mimeType, media),
-                endBoundary(boundary)
-        );
-    }
-
-    private HttpRequest.BodyPublisher textPart(
-            String boundary,
-            String name,
-            String value
-    ) {
-        return bytes(
-                "--" + boundary + "\r\n"
-                        + "Content-Disposition: form-data; name=\""
-                        + name
-                        + "\"\r\n\r\n"
-                        + value
-                        + "\r\n"
-        );
-    }
-
-    private HttpRequest.BodyPublisher mediaPart(
-            String boundary,
-            String mimeType,
-            InputStream media
-    ) {
-        String safeName = "video/mp4".equals(mimeType)
-                ? "media.mp4"
-                : "media.webm";
-        AtomicBoolean supplied = new AtomicBoolean();
-        return HttpRequest.BodyPublishers.concat(
-                bytes(
-                        "--" + boundary + "\r\n"
-                                + "Content-Disposition: form-data; name=\"media\"; "
-                                + "filename=\"" + safeName + "\"\r\n"
-                                + "Content-Type: " + mimeType + "\r\n\r\n"
-                ),
-                HttpRequest.BodyPublishers.ofInputStream(() -> {
-                    if (!supplied.compareAndSet(false, true)) {
-                        throw new IllegalStateException(
-                                "MEDIA_STREAM_ALREADY_CONSUMED"
-                        );
-                    }
-                    return media;
-                }),
-                bytes("\r\n")
-        );
-    }
-
-    private HttpRequest.BodyPublisher endBoundary(String boundary) {
-        return bytes("--" + boundary + "--\r\n");
-    }
-
-    private HttpRequest.BodyPublisher bytes(String value) {
-        return HttpRequest.BodyPublishers.ofByteArray(
-                value.getBytes(StandardCharsets.UTF_8)
-        );
-    }
-
-    private String multipartBoundary(UUID requestId) {
-        return "facefit-" + requestId;
+        return answerId != null
+                && mediaUrl != null
+                && "https".equalsIgnoreCase(mediaUrl.getScheme())
+                && mediaUrl.getRawQuery() != null
+                && supportedMimeType(mimeType)
+                && mediaSizeBytes > 0
+                && mediaSizeBytes <= 200L * 1024 * 1024
+                && recordedDurationSeconds > 0
+                && recordedDurationSeconds <= 300;
     }
 
     private boolean supportedMimeType(String mimeType) {
@@ -451,6 +488,18 @@ public final class FaceFitAiHttpClient {
     ) {
     }
 
+    private record AiCvResponse(
+            UUID requestId,
+            UUID answerId,
+            AnalysisType analysisType,
+            String schemaVersion,
+            String modelVersion,
+            Double gazeScore,
+            Double postureScore,
+            List<String> feedback
+    ) {
+    }
+
     private record AiErrorResponse(
             UUID requestId,
             AiErrorCode code,
@@ -464,6 +513,17 @@ public final class FaceFitAiHttpClient {
             String question,
             String transcript,
             String jobContext
+    ) {
+    }
+
+    private record MediaRequest(
+            String schemaVersion,
+            UUID requestId,
+            UUID answerId,
+            String mediaUrl,
+            String mediaMimeType,
+            long mediaSizeBytes,
+            double recordedDurationSec
     ) {
     }
 }

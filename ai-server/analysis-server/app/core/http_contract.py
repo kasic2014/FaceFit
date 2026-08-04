@@ -19,7 +19,7 @@ from app.core.security import parse_request_id
 
 
 class AnalysisContentTypeMiddleware(BaseHTTPMiddleware):
-    _MULTIPART_PATHS = {
+    _MEDIA_JSON_PATHS = {
         "/internal/v1/analyses/stt",
         "/internal/v1/analyses/cv",
         "/internal/v1/analyses/voice",
@@ -32,7 +32,7 @@ class AnalysisContentTypeMiddleware(BaseHTTPMiddleware):
         call_next: Callable[[Request], Awaitable[Response]],
     ) -> Response:
         if request.method == "POST" and (
-            request.url.path in self._MULTIPART_PATHS
+            request.url.path in self._MEDIA_JSON_PATHS
             or request.url.path in self._JSON_PATHS
         ):
             request_id_header = request.headers.get("X-Request-Id")
@@ -58,8 +58,8 @@ class AnalysisContentTypeMiddleware(BaseHTTPMiddleware):
                 .lower()
             )
             if (
-                request.url.path in self._MULTIPART_PATHS
-                and media_type != "multipart/form-data"
+                request.url.path in self._MEDIA_JSON_PATHS
+                and media_type != "application/json"
             ):
                 return _error_response(unsupported_media(request_id))
             if request.url.path in self._JSON_PATHS and media_type != "application/json":
