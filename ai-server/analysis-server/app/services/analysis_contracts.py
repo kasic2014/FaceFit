@@ -13,6 +13,14 @@ class SttAnalysisResult:
     duration_seconds: float
 
 
+@dataclass(frozen=True)
+class CvAnalysisResult:
+    model_version: str
+    gaze_score: float
+    posture_score: float
+    feedback: tuple[str, ...]
+
+
 class AnalyzerFailure(Exception):
     """Base class deliberately carrying no provider error text."""
 

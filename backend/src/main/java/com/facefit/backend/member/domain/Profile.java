@@ -44,7 +44,6 @@ public class Profile {
     @Column(name = "onboarding_completed_at")
     private OffsetDateTime onboardingCompletedAt;
 
-    @Generated(event = EventType.INSERT)
     @ColumnDefault("false")
     @Column(name = "voice_analysis_consent", nullable = false)
     private boolean voiceAnalysisConsent;

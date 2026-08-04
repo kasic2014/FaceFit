@@ -130,7 +130,7 @@ public class InterviewReportAggregator {
         }
 
         EnumMap<ReportAxis, BigDecimal> averages = new EnumMap<>(ReportAxis.class);
-        for (ReportAxis axis : ReportAxis.values()) {
+        for (ReportAxis axis : scores.keySet()) {
             averages.put(axis, average(scores.get(axis)));
         }
         BigDecimal overall = average(List.copyOf(averages.values()));

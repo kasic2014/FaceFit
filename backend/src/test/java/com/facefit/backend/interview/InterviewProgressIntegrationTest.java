@@ -58,6 +58,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.doThrow;
@@ -171,6 +172,10 @@ class InterviewProgressIntegrationTest {
                 voicePort,
                 contentPort
         );
+        when(answerStorage.canonicalUrl(any(), anyString(), anyString()))
+                .thenReturn(java.net.URI.create(
+                        "https://kr.object.ncloudstorage.com/facefit-interview-videos/test.mp4"
+                ));
     }
 
     @Test
@@ -369,7 +374,7 @@ class InterviewProgressIntegrationTest {
         assertThat(jdbcTemplate.queryForObject(
                 "SELECT storage_bucket FROM interview_answers",
                 String.class
-        )).isEqualTo("interview-answers");
+        )).isEqualTo("facefit-interview-videos");
         assertThat(jdbcTemplate.queryForObject(
                 "SELECT storage_path FROM interview_answers",
                 String.class
@@ -378,8 +383,19 @@ class InterviewProgressIntegrationTest {
                         + "/turns/" + questionId
                         + "/[0-9a-f-]+\\.mp4"
         );
+        assertThat(jdbcTemplate.queryForObject(
+                "SELECT storage_provider FROM interview_answers",
+                String.class
+        )).isEqualTo("NCLOUD");
+        assertThat(jdbcTemplate.queryForObject(
+                "SELECT storage_url FROM interview_answers",
+                String.class
+        )).isEqualTo(
+                "https://kr.object.ncloudstorage.com/facefit-interview-videos/test.mp4"
+        ).doesNotContain("?");
         verify(answerStorage, times(1))
-                .upload(anyString(), anyString(), anyString(), any());
+                .upload(any(), anyString(), anyString(), anyString(),
+                        anyLong(), anyString(), any());
 
         submitAnswer(
                 fixture.userId(),
@@ -425,7 +441,8 @@ class InterviewProgressIntegrationTest {
                 .andExpect(jsonPath("$.error.code").value("INVALID_ANSWER_MEDIA"));
 
         verify(answerStorage, never())
-                .upload(anyString(), anyString(), anyString(), any());
+                .upload(any(), anyString(), anyString(), anyString(),
+                        anyLong(), anyString(), any());
         assertThat(count("interview_answers")).isZero();
     }
 
@@ -436,7 +453,8 @@ class InterviewProgressIntegrationTest {
         byte[] media = TestMediaFiles.mp4(true, true, 30);
         doThrow(new StorageOperationException("TEST_UPLOAD_FAILED"))
                 .when(answerStorage)
-                .upload(anyString(), anyString(), anyString(), any());
+                .upload(any(), anyString(), anyString(), anyString(),
+                        anyLong(), anyString(), any());
 
         submitAnswer(
                 fixture.userId(),
@@ -452,9 +470,13 @@ class InterviewProgressIntegrationTest {
         assertThat(count("interview_answers")).isZero();
         assertThat(count("api_idempotency_records")).isEqualTo(1);
         verify(answerStorage, times(1))
-                .delete(anyString(), anyString());
+                .delete(any(), anyString(), anyString());
 
         reset(answerStorage);
+        when(answerStorage.canonicalUrl(any(), anyString(), anyString()))
+                .thenReturn(java.net.URI.create(
+                        "https://kr.object.ncloudstorage.com/facefit-interview-videos/test.mp4"
+                ));
         submitAnswer(
                 fixture.userId(),
                 fixture.sessionId(),

@@ -14,6 +14,8 @@ spring:
       ddl-auto: validate
   flyway:
     enabled: ${FLYWAY_ENABLED:true}
+    baseline-on-migrate: ${FLYWAY_BASELINE_ON_MIGRATE:false}
+    baseline-version: ${FLYWAY_BASELINE_VERSION:1}
   servlet:
     multipart:
       max-file-size: 200MB
@@ -61,7 +63,16 @@ facefit:
       secret-key: ${SUPABASE_SECRET_KEY:}
       career-documents-bucket: ${CAREER_DOCUMENTS_BUCKET:career-documents}
       job-postings-bucket: ${JOB_POSTINGS_BUCKET:job-postings}
-      interview-answers-bucket: ${INTERVIEW_ANSWERS_BUCKET:interview-answers}
+    interview-answers:
+      provider: ${INTERVIEW_ANSWER_STORAGE_PROVIDER:NCLOUD}
+      bucket: ${NCLOUD_OBJECT_STORAGE_BUCKET:facefit-interview-videos}
+      presigned-get-ttl-seconds: ${NCLOUD_PRESIGNED_GET_TTL_SECONDS:300}
+      temp-directory: ${INTERVIEW_ANSWER_TEMP_DIRECTORY:${java.io.tmpdir}/facefit-answers}
+    ncloud:
+      endpoint: ${NCLOUD_OBJECT_STORAGE_ENDPOINT:https://kr.object.ncloudstorage.com}
+      region: ${NCLOUD_OBJECT_STORAGE_REGION:kr-standard}
+      access-key: ${NCLOUD_ACCESS_KEY:}
+      secret-key: ${NCLOUD_SECRET_KEY:}
   job-postings:
     max-pdf-pages: ${JOB_POSTING_MAX_PDF_PAGES:50}
     max-image-pixels: ${JOB_POSTING_MAX_IMAGE_PIXELS:40000000}

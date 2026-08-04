@@ -116,7 +116,7 @@ class CoreDatabaseIntegrationTest {
 
     @Test
     void flywayMigrationsCreateCoreCareerDocumentAndJobPostingTables() {
-        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("7");
+        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("8");
         assertThat(tableExists("profiles")).isTrue();
         assertThat(tableExists("legal_documents")).isTrue();
         assertThat(tableExists("user_legal_records")).isTrue();

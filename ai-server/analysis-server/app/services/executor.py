@@ -34,7 +34,10 @@ class AnalysisExecutor:
                 asyncio.shield(future),
                 timeout=timeout_seconds,
             )
-        except TimeoutError as exc:
+        # Python 3.10 keeps asyncio.TimeoutError separate from the built-in
+        # TimeoutError; Python 3.11+ aliases them. Support the declared 3.10
+        # container runtime and newer local runtimes with the same contract.
+        except (asyncio.TimeoutError, TimeoutError) as exc:
             future.add_done_callback(lambda _completed: cleanup())
             raise AnalyzerTimeout from exc
         except asyncio.CancelledError:

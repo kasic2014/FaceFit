@@ -81,3 +81,7 @@ python -m unittest `
 실제 Whisper 모델 E2E는 모델·GPU·테스트 미디어가 준비된 명시적 환경에서 별도로
 실행한다. 계약 테스트의 주입형 분석기는 테스트에만 존재하며 운영 `app`에는
 등록되지 않는다.
+
+## Ncloud Presigned URL 미디어 입력
+
+STT/CV/VOICE는 `application/json`으로 `schemaVersion`, `requestId`, `answerId`, `mediaUrl`, `mediaMimeType`, `mediaSizeBytes`, `recordedDurationSec`를 받는다. Python은 Ncloud 인증키를 받지 않고 허용된 HTTPS Object Storage host에서만 영상을 제한 스트리밍 다운로드한다. 자세한 설정은 `../../docs/19_FaceFit_Ncloud_영상_저장소_전환.md`를 따른다.
