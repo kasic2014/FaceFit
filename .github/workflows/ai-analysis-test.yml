@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
     paths:
       - 'ai-server/analysis-server/**'
       - 'ai-server/openapi/**'
@@ -13,7 +12,6 @@ on:
   pull_request:
     branches:
       - main
-      - develop
     paths:
       - 'ai-server/analysis-server/**'
       - 'ai-server/openapi/**'
