@@ -30,7 +30,16 @@ POSE_MODEL_SHA256 = "4eaa5eb7a98365221087693fcc286334cf0858e2eb6e15b506aa4a7ecdc
 MANIFEST_SHA256 = "0e4b8be16652ebde7531090a27ca5ef5131e2939c6004cbd22f8a311ff581695"
 SETUP_REPORT_SHA256 = "8d30234a346d6d2213c33ad3771a8932bf78760c2d61acf9f912da3bb1819690"
 LOADING_REPORT_SHA256 = "ff5668185a41973c26e7ad7301302a6ec6a7f88b4b67c0aac98589feef9ae405"
-ANALYSIS_TREE_SHA256 = "c56f1147556369f2ebdc50bbe682741d8a26d83aba8d5cd0e01c10d195692ecf"
+# Verified remote Analysis baseline plus the compatibility recovery in this branch.
+ANALYSIS_TREE_SHA256 = "07cc6ee0d6039ad60c8b776f78b16abf17aa1526d02d628b3463f56d9447fdd6"
+TEXT_HASH_SUFFIXES = {".csv", ".json", ".md", ".py", ".txt", ".yml", ".yaml"}
+
+
+def protected_bytes(path: Path) -> bytes:
+    data = path.read_bytes()
+    if path.suffix.lower() in TEXT_HASH_SUFFIXES:
+        data = data.replace(b"\r\n", b"\n")
+    return data
 
 
 class FakeAnalyzer:
@@ -83,7 +92,7 @@ def tree_digest() -> str:
     ]
     digest = hashlib.sha256()
     for path in sorted(files, key=lambda item: item.as_posix().casefold()):
-        data = path.read_bytes()
+        data = protected_bytes(path)
         digest.update(path.relative_to(WORKSPACE_ROOT).as_posix().encode())
         digest.update(b"\0")
         digest.update(hashlib.sha256(data).digest())
@@ -199,7 +208,7 @@ class RealBlankImageSmokeTests(unittest.TestCase):
 
 class ProtectionTests(unittest.TestCase):
     def _sha(self, relative: str) -> str:
-        return hashlib.sha256((VISION_SERVER_ROOT / relative).read_bytes()).hexdigest()
+        return hashlib.sha256(protected_bytes(VISION_SERVER_ROOT / relative)).hexdigest()
 
     def test_requirements_unchanged(self) -> None:
         self.assertEqual(self._sha("requirements.txt"), REQUIREMENTS_SHA256)

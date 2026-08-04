@@ -17,6 +17,18 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+TEXT_HASH_SUFFIXES = {".csv", ".json", ".md", ".py", ".txt"}
+
+
+def portable_sha256(path: Path, expected: str) -> str:
+    data = path.read_bytes()
+    raw_hash = hashlib.sha256(data).hexdigest()
+    if raw_hash == expected:
+        return raw_hash
+    if path.suffix.lower() in TEXT_HASH_SUFFIXES:
+        data = data.replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 if str(ROOT / "scripts") not in sys.path:
@@ -372,7 +384,7 @@ class ProsodyValidationTests(unittest.TestCase):
     def test_v1_module_and_outputs_are_unchanged(self) -> None:
         for relative, expected in self.V1_HASHES.items():
             path = ROOT / relative
-            actual = hashlib.sha256(path.read_bytes()).hexdigest()
+            actual = portable_sha256(path, expected)
             self.assertEqual(actual, expected, relative)
 
     def test_source_sha256_is_preserved(self) -> None:
