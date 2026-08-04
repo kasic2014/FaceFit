@@ -1,0 +1,100 @@
+{
+  "evidenceId": "GAP_DATA_004",
+  "title": "KsponSpeech preprocessing reference implementation",
+  "authors": [
+    "sooftware contributors"
+  ],
+  "year": 2020,
+  "doi": null,
+  "officialUrl": "https://github.com/sooftware/ksponspeech",
+  "fileSha256": "ec1bf9dd59cece5f58bc8a80ab4e6ef61ffbbeb277d3cc1c683aa6e0f719fd36",
+  "metricDefinition": "KsponSpeech transcript symbol preprocessing",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "README and preprocessing source files",
+      "table": null,
+      "figure": null,
+      "description": "The reference removes noise and interjection symbols for ASR preprocessing, so it cannot serve directly as a filler-validation label pipeline."
+    }
+  ],
+  "mapping": {
+    "relation": "NOT_APPLICABLE",
+    "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+  },
+  "access": {
+    "accessLevel": "SOURCE_ARCHIVE",
+    "reviewDepth": "MATERIAL_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "PROJECT_REPOSITORY"
+  },
+  "study": {
+    "context": "SPEECH_CORPUS",
+    "sampleSize": null,
+    "participantDescription": null,
+    "language": "Korean",
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "KsponSpeech transcript symbol preprocessing",
+      "definition": "The reference removes noise and interjection symbols for ASR preprocessing, so it cannot serve directly as a filler-validation label pipeline.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Source was statically inspected and not executed.",
+        "Preprocessing for ASR deletion conflicts with behavior-label preservation."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The reference removes noise and interjection symbols for ASR preprocessing, so it cannot serve directly as a filler-validation label pipeline.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "KsponSpeech transcript symbol preprocessing",
+      "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+      "relation": "NOT_APPLICABLE",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Source was statically inspected and not executed.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "MEASUREMENT_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "NOT_APPLICABLE",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Source was statically inspected and not executed.",
+    "Preprocessing for ASR deletion conflicts with behavior-label preservation."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

@@ -1,0 +1,103 @@
+{
+  "evidenceId": "GAP_GAZE_001",
+  "title": "Off-camera gaze decreases evaluation scores in a simulated online job interview",
+  "authors": [
+    "Source authors not locally reviewable"
+  ],
+  "year": 2024,
+  "doi": "10.1038/s41598-024-60371-5",
+  "officialUrl": "https://www.nature.com/articles/s41598-024-60371-5",
+  "fileSha256": "32ed63159c77e21ee19ca1b9aa3213ccf0218eb59539560b132a8e68ef0e18ea",
+  "metricDefinition": "Off-camera gaze in simulated online interviews",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": null,
+      "section": "Metadata only; local file begins with HTML and has no PDF payload",
+      "table": null,
+      "figure": null,
+      "description": "No local full-text finding was adopted because the acquired artifact is an access-challenge page, not the cited article."
+    }
+  ],
+  "mapping": {
+    "relation": "NOT_APPLICABLE",
+    "faceFitMetricId": "HEAD_RELATIVE_YAW_ABS_P95_DEG"
+  },
+  "access": {
+    "accessLevel": "ACCESS_BLOCKED",
+    "reviewDepth": "REVIEW_BLOCKED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "DOI_PUBLISHER"
+  },
+  "study": {
+    "context": "GAZE_MEASUREMENT",
+    "sampleSize": null,
+    "participantDescription": null,
+    "language": null,
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Off-camera gaze in simulated online interviews",
+      "definition": "No local full-text finding was adopted because the acquired artifact is an access-challenge page, not the cited article.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Full text was not available for local verification.",
+        "Gaze direction cannot be equated with head-pose p95."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "No local full-text finding was adopted because the acquired artifact is an access-challenge page, not the cited article.",
+      "findingType": "MEASUREMENT_LIMITATION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Off-camera gaze in simulated online interviews",
+      "faceFitMetricId": "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+      "relation": "NOT_APPLICABLE",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Full text was not available for local verification.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "CONTEXT",
+    "MEASUREMENT_LIMITATION",
+    "FAIRNESS_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_CONTEXT",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "EXPERIMENTAL_ONLY",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NONE_REPORTED",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Full text was not available for local verification.",
+    "Gaze direction cannot be equated with head-pose p95."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

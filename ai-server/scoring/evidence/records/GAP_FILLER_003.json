@@ -1,0 +1,101 @@
+{
+  "evidenceId": "GAP_FILLER_003",
+  "title": "FillerSpeech: Towards Human-Like Text-to-Speech Synthesis with Filler Insertion and Filler Style Control",
+  "authors": [
+    "FillerSpeech authors"
+  ],
+  "year": 2025,
+  "doi": "10.18653/v1/2025.emnlp-main.1730",
+  "officialUrl": "https://aclanthology.org/2025.emnlp-main.1730/",
+  "fileSha256": "03f96b4f128b9be60e9b4e80fb709c10085513cc6fc3cd6e0a2ddc4b25e7a350",
+  "metricDefinition": "Filler occurrence and style labels for speech synthesis",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Sections 3 and 5; Limitations",
+      "table": null,
+      "figure": null,
+      "description": "The large English TTS resource models filler insertion and style; its pitch and duration groupings are synthesis controls rather than behavioral boundaries."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "CONFERENCE_REPOSITORY"
+  },
+  "study": {
+    "context": "FILLER_DETECTION",
+    "sampleSize": 4460,
+    "participantDescription": null,
+    "language": "English",
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Filler occurrence and style labels for speech synthesis",
+      "definition": "The large English TTS resource models filler insertion and style; its pitch and duration groupings are synthesis controls rather than behavioral boundaries.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "English synthetic-speech purpose does not validate Korean interview fillers.",
+        "Style groupings must never be converted into Face-Fit penalties."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The large English TTS resource models filler insertion and style; its pitch and duration groupings are synthesis controls rather than behavioral boundaries.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Filler occurrence and style labels for speech synthesis",
+      "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "English synthetic-speech purpose does not validate Korean interview fillers.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "CONTEXT",
+    "MEASUREMENT_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_CONTEXT",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "English synthetic-speech purpose does not validate Korean interview fillers.",
+    "Style groupings must never be converted into Face-Fit penalties."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

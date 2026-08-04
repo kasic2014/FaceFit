@@ -1,0 +1,103 @@
+{
+  "evidenceId": "GAP_DATA_007",
+  "title": "TalkTrack-Corpus annotation guidelines",
+  "authors": [
+    "TalkTrack-Corpus contributors"
+  ],
+  "year": 2026,
+  "doi": null,
+  "officialUrl": "https://github.com/KonWooKim/TalkTrack-Corpus/blob/main/annotationguidelines.md",
+  "fileSha256": "4f717c8e0c6c39a2809050831f9334104bae5b81f3f90acbdca2ea6044e6ab4c",
+  "metricDefinition": "Human correction rules for disfluency annotations",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Complete annotation guideline",
+      "table": null,
+      "figure": null,
+      "description": "The guideline requires human correction of filler, cancellation, STT-error, and false-positive cases; it supports observable annotation procedures, not score bands."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+  },
+  "access": {
+    "accessLevel": "DATASET_DOCUMENTATION",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "PROJECT_REPOSITORY"
+  },
+  "study": {
+    "context": "FILLER_DETECTION",
+    "sampleSize": null,
+    "participantDescription": null,
+    "language": "Korean and Japanese interpreted speech",
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Human correction rules for disfluency annotations",
+      "definition": "The guideline requires human correction of filler, cancellation, STT-error, and false-positive cases; it supports observable annotation procedures, not score bands.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Interpreted-speech context is not a Face-Fit interview.",
+        "No Face-Fit inter-rater study is supplied."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The guideline requires human correction of filler, cancellation, STT-error, and false-positive cases; it supports observable annotation procedures, not score bands.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Human correction rules for disfluency annotations",
+      "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Interpreted-speech context is not a Face-Fit interview.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "HUMAN_RUBRIC",
+    "VALIDATION_DESIGN",
+    "MEASUREMENT_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_HUMAN_RUBRIC",
+    "ACCEPTED_VALIDATION_DESIGN",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Interpreted-speech context is not a Face-Fit interview.",
+    "No Face-Fit inter-rater study is supplied."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

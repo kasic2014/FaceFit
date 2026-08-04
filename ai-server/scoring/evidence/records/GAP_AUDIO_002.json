@@ -1,0 +1,102 @@
+{
+  "evidenceId": "GAP_AUDIO_002",
+  "title": "ITU-R BS.1770-5: Algorithms to measure audio programme loudness and true-peak audio level",
+  "authors": [
+    "International Telecommunication Union"
+  ],
+  "year": 2023,
+  "doi": null,
+  "officialUrl": "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I",
+  "fileSha256": "eefb926f72f72a96b96f251067bfee0650a0f29a26f60661d354162038b041ad",
+  "metricDefinition": "K-weighted programme loudness and true-peak algorithms",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": "LKFS",
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Sections 2-4 and annex algorithm definitions",
+      "table": null,
+      "figure": null,
+      "description": "The recommendation specifies K-weighted mean-square integration, channel weighting, gating, and true-peak measurement; it is a signal-quality reference only."
+    }
+  ],
+  "mapping": {
+    "relation": "NOT_APPLICABLE",
+    "faceFitMetricId": "SPEECH_PEAK_DBFS"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "STANDARDS_BODY"
+  },
+  "study": {
+    "context": "AUDIO_STANDARD",
+    "sampleSize": null,
+    "participantDescription": null,
+    "language": null,
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "K-weighted programme loudness and true-peak algorithms",
+      "definition": "The recommendation specifies K-weighted mean-square integration, channel weighting, gating, and true-peak measurement; it is a signal-quality reference only.",
+      "calculationMethod": null,
+      "unit": "LKFS",
+      "aggregation": null,
+      "measurementType": "MODEL_INPUT",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Programme loudness is not Face-Fit whole-answer RMS dBFS.",
+        "True peak is not the current clipping-sample ratio definition."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The recommendation specifies K-weighted mean-square integration, channel weighting, gating, and true-peak measurement; it is a signal-quality reference only.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "K-weighted programme loudness and true-peak algorithms",
+      "faceFitMetricId": "SPEECH_PEAK_DBFS",
+      "relation": "NOT_APPLICABLE",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Programme loudness is not Face-Fit whole-answer RMS dBFS.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "QUALITY_GATE",
+    "MEASUREMENT_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_QUALITY_GATE",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "NOT_APPLICABLE",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Programme loudness is not Face-Fit whole-answer RMS dBFS.",
+    "True peak is not the current clipping-sample ratio definition."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

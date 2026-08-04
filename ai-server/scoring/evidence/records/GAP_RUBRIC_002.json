@@ -1,0 +1,102 @@
+{
+  "evidenceId": "GAP_RUBRIC_002",
+  "title": "PSCR+ interrater agreement testing scores",
+  "authors": [
+    "PSCR+ study team"
+  ],
+  "year": 2024,
+  "doi": "10.5061/dryad.6m905qg6r",
+  "officialUrl": "https://datadryad.org/dataset/doi:10.5061/dryad.6m905qg6r",
+  "fileSha256": "42f87eeef7787bbd124546cb1cfb57059d390dacaf0221257b123ec60928563e",
+  "metricDefinition": "Four-rater, twenty-item public-speaking rubric ratings",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": "ORDINAL_LEVEL",
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Header, row structure, category ranges, and aggregate counts",
+      "table": null,
+      "figure": null,
+      "description": "The file contains 80 long-format 0-4 ratings across four talks and four raters; it is a small reliability example, not a Face-Fit validation cohort."
+    }
+  ],
+  "mapping": {
+    "relation": "NOT_APPLICABLE",
+    "faceFitMetricId": "SPEECH_WORDS_PER_MINUTE"
+  },
+  "access": {
+    "accessLevel": "LOCAL_DATA_PACKAGE",
+    "reviewDepth": "MATERIAL_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "DATA_REPOSITORY"
+  },
+  "study": {
+    "context": "VALIDATION_METHOD",
+    "sampleSize": 4,
+    "participantDescription": null,
+    "language": null,
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Four-rater, twenty-item public-speaking rubric ratings",
+      "definition": "The file contains 80 long-format 0-4 ratings across four talks and four raters; it is a small reliability example, not a Face-Fit validation cohort.",
+      "calculationMethod": null,
+      "unit": "ORDINAL_LEVEL",
+      "aggregation": null,
+      "measurementType": "HUMAN_RATING",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Raw rows are not committed or copied into evidence records.",
+        "Four public-speaking samples cannot establish interview scoring thresholds."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The file contains 80 long-format 0-4 ratings across four talks and four raters; it is a small reliability example, not a Face-Fit validation cohort.",
+      "findingType": "VALIDATION_RESULT",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Four-rater, twenty-item public-speaking rubric ratings",
+      "faceFitMetricId": "SPEECH_WORDS_PER_MINUTE",
+      "relation": "NOT_APPLICABLE",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Raw rows are not committed or copied into evidence records.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "HUMAN_RUBRIC",
+    "VALIDATION_DESIGN"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_HUMAN_RUBRIC",
+    "ACCEPTED_VALIDATION_DESIGN",
+    "NOT_APPLICABLE",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Raw rows are not committed or copied into evidence records.",
+    "Four public-speaking samples cannot establish interview scoring thresholds."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

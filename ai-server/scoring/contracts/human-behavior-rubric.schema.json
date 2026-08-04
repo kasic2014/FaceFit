@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://face-fit.local/scoring/human-behavior-rubric.schema.json",
+  "title": "Face-Fit Human Behavior Rubric v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "status",
+    "productionApproved",
+    "scoreGenerationAllowed",
+    "purpose",
+    "ratingScale",
+    "items",
+    "prohibitedInferences",
+    "pilotValidationRequired"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^1\\."
+    },
+    "status": {
+      "const": "DRAFT_RESEARCH_ONLY"
+    },
+    "productionApproved": {
+      "const": false
+    },
+    "scoreGenerationAllowed": {
+      "const": false
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ratingScale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "levels",
+        "specialStatuses"
+      ],
+      "properties": {
+        "type": {
+          "const": "BEHAVIORALLY_ANCHORED_ORDINAL"
+        },
+        "levels": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "specialStatuses": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "enum": [
+              "NOT_OBSERVABLE",
+              "INSUFFICIENT_DATA"
+            ]
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/item"
+      }
+    },
+    "prohibitedInferences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "PERSONALITY",
+          "EMOTION",
+          "ANXIETY",
+          "CONFIDENCE",
+          "DECEPTION",
+          "GENDER",
+          "HEALTH",
+          "JOB_FIT",
+          "HIRING_RECOMMENDATION"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "pilotValidationRequired": {
+      "const": true
+    }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+        "required": [
+          "itemId",
+          "rubricItemId",
+          "axis",
+          "construct",
+          "observableBehavior",
+          "operationalDefinition",
+          "observationUnit",
+          "observationWindow",
+          "inclusionRule",
+          "exclusionRule",
+          "metricLinks",
+          "anchors",
+          "examples",
+          "counterExamples",
+          "notObservableWhen",
+          "insufficientDataWhen",
+          "raterConfidence",
+          "evidenceSources",
+          "limitations",
+          "raterNotes",
+          "productionUse"
+        ],
+      "properties": {
+          "itemId": {
+            "type": "string",
+            "pattern": "^RUB_[A-Z0-9_]+$"
+          },
+          "rubricItemId": {
+            "type": "string",
+            "pattern": "^RUB_[A-Z0-9_]+$"
+          },
+        "axis": {
+          "enum": [
+            "GAZE_HEAD",
+            "POSTURE",
+            "SPEECH_DELIVERY"
+          ]
+        },
+          "construct": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observableBehavior": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operationalDefinition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observationUnit": {
+            "const": "ANSWER"
+          },
+          "observationWindow": {
+            "type": "string",
+            "minLength": 1
+          },
+          "inclusionRule": {
+            "type": "string",
+            "minLength": 1
+          },
+          "exclusionRule": {
+            "type": "string",
+            "minLength": 1
+          },
+        "metricLinks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+          "anchors": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "LEVEL_1",
+            "LEVEL_2",
+            "LEVEL_3",
+            "LEVEL_4"
+          ],
+          "properties": {
+            "LEVEL_1": {
+              "type": "string",
+              "minLength": 1
+          },
+          "examples": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "counterExamples": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1}
+          },
+            "LEVEL_2": {
+              "type": "string",
+              "minLength": 1
+            },
+            "LEVEL_3": {
+              "type": "string",
+              "minLength": 1
+            },
+            "LEVEL_4": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "notObservableWhen": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+          "insufficientDataWhen": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+          },
+          "raterConfidence": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["allowedValues", "rule"],
+            "properties": {
+              "allowedValues": {
+                "type": "array",
+                "items": {"enum": ["HIGH", "MEDIUM", "LOW", "NOT_RATED"]},
+                "uniqueItems": true
+              },
+              "rule": {"type": "string", "minLength": 1}
+            }
+          },
+          "evidenceSources": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "pattern": "^GAP_"},
+            "uniqueItems": true
+          },
+          "limitations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1}
+          },
+        "raterNotes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "productionUse": {
+          "const": "PROHIBITED_UNTIL_VALIDATED"
+        }
+      }
+    }
+  }
+}

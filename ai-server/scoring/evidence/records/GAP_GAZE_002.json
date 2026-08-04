@@ -1,0 +1,101 @@
+{
+  "evidenceId": "GAP_GAZE_002",
+  "title": "Webcam-based Eye Gaze Tracking under Natural Head Movement",
+  "authors": [
+    "Webcam gaze study authors"
+  ],
+  "year": 2018,
+  "doi": "10.48550/arXiv.1803.11088",
+  "officialUrl": "https://arxiv.org/abs/1803.11088",
+  "fileSha256": "a488c06d3f7fd1cd337fe18f2dc3e804c05b9ddf926de02062182a1fb0c7fc18",
+  "metricDefinition": "Webcam eye-gaze estimation under natural head movement",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": "DEGREE",
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Abstract; Chapters 1, 5, and 6; participant and error discussions",
+      "table": null,
+      "figure": null,
+      "description": "The study separates eye features from head movement and reports larger gaze-estimation errors during natural movement, supporting a construct boundary and measurement caution."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "HEAD_RELATIVE_YAW_ABS_P95_DEG"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "AUTHOR_REPOSITORY"
+  },
+  "study": {
+    "context": "GAZE_MEASUREMENT",
+    "sampleSize": null,
+    "participantDescription": null,
+    "language": null,
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Webcam eye-gaze estimation under natural head movement",
+      "definition": "The study separates eye features from head movement and reports larger gaze-estimation errors during natural movement, supporting a construct boundary and measurement caution.",
+      "calculationMethod": null,
+      "unit": "DEGREE",
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Gaze-estimation error is not an interview behavior boundary.",
+        "Sample size was not confirmed in the reviewed locations and is recorded as not reported."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The study separates eye features from head movement and reports larger gaze-estimation errors during natural movement, supporting a construct boundary and measurement caution.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Webcam eye-gaze estimation under natural head movement",
+      "faceFitMetricId": "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Gaze-estimation error is not an interview behavior boundary.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "METRIC_DEFINITION",
+    "MEASUREMENT_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_METRIC_DEFINITION",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Gaze-estimation error is not an interview behavior boundary.",
+    "Sample size was not confirmed in the reviewed locations and is recorded as not reported."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

@@ -1,0 +1,103 @@
+{
+  "evidenceId": "GAP_METHOD_001",
+  "title": "Estimating Presentation Competence using Multimodal Nonverbal Behavioral Cues",
+  "authors": [
+    "Presentation competence study authors"
+  ],
+  "year": 2021,
+  "doi": "10.48550/arXiv.2105.02636",
+  "officialUrl": "https://arxiv.org/abs/2105.02636",
+  "fileSha256": "7febc4d30a8c268951af8d43faa33c58619811ec3b8cc38d302d1c77713f8c78",
+  "metricDefinition": "Multimodal presentation-competence criterion design",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": "ORDINAL_LEVEL",
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Dataset, rater training, reliability, and modeling sections",
+      "table": null,
+      "figure": null,
+      "description": "The study uses 251 school presentations, four trained raters, substantial training, randomized independent ratings, and ICC analysis; it informs validation design, not Face-Fit weights."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "SPEECH_WORDS_PER_MINUTE"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "AUTHOR_REPOSITORY"
+  },
+  "study": {
+    "context": "VALIDATION_METHOD",
+    "sampleSize": 251,
+    "participantDescription": null,
+    "language": null,
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Multimodal presentation-competence criterion design",
+      "definition": "The study uses 251 school presentations, four trained raters, substantial training, randomized independent ratings, and ICC analysis; it informs validation design, not Face-Fit weights.",
+      "calculationMethod": null,
+      "unit": "ORDINAL_LEVEL",
+      "aggregation": null,
+      "measurementType": "HUMAN_RATING",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Adolescent scientific presentations differ from employment interviews.",
+        "Model coefficients, fusion results, and feature importance cannot become axis weights."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The study uses 251 school presentations, four trained raters, substantial training, randomized independent ratings, and ICC analysis; it informs validation design, not Face-Fit weights.",
+      "findingType": "VALIDATION_RESULT",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Multimodal presentation-competence criterion design",
+      "faceFitMetricId": "SPEECH_WORDS_PER_MINUTE",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Adolescent scientific presentations differ from employment interviews.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "HUMAN_RUBRIC",
+    "VALIDATION_DESIGN",
+    "MEASUREMENT_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_HUMAN_RUBRIC",
+    "ACCEPTED_VALIDATION_DESIGN",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Adolescent scientific presentations differ from employment interviews.",
+    "Model coefficients, fusion results, and feature importance cannot become axis weights."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

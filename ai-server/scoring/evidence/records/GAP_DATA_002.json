@@ -1,0 +1,103 @@
+{
+  "evidenceId": "GAP_DATA_002",
+  "title": "Seoul Corpus Praat TextGrid labels",
+  "authors": [
+    "Seoul Corpus contributors"
+  ],
+  "year": 2015,
+  "doi": null,
+  "officialUrl": "https://www.openslr.org/113/",
+  "fileSha256": "63c3f8ffa6976307a732689d6c5be7b2db4ec20f14bf276faf98c886add0d24b",
+  "metricDefinition": "Seven-tier TextGrid timing annotation",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": "MILLISECOND",
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Archive member inventory and sampled UTF-16 TextGrid tiers",
+      "table": null,
+      "figure": null,
+      "description": "The archive supplies time-aligned corpus labels and explicit noise/private-information markers, but its tiers do not equal Face-Fit STT word-timestamp semantics."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "SPEECH_TOTAL_INTERWORD_GAP_MS"
+  },
+  "access": {
+    "accessLevel": "LOCAL_DATA_PACKAGE",
+    "reviewDepth": "MATERIAL_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "DATA_REPOSITORY"
+  },
+  "study": {
+    "context": "SPEECH_CORPUS",
+    "sampleSize": null,
+    "participantDescription": null,
+    "language": "Korean",
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Seven-tier TextGrid timing annotation",
+      "definition": "The archive supplies time-aligned corpus labels and explicit noise/private-information markers, but its tiers do not equal Face-Fit STT word-timestamp semantics.",
+      "calculationMethod": null,
+      "unit": "MILLISECOND",
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Only structure and a bounded sample were inspected; raw labels are not redistributed.",
+        "Corpus boundary conventions require a registered conversion and validation study."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The archive supplies time-aligned corpus labels and explicit noise/private-information markers, but its tiers do not equal Face-Fit STT word-timestamp semantics.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Seven-tier TextGrid timing annotation",
+      "faceFitMetricId": "SPEECH_TOTAL_INTERWORD_GAP_MS",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Only structure and a bounded sample were inspected; raw labels are not redistributed.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "METRIC_DEFINITION",
+    "MEASUREMENT_LIMITATION",
+    "VALIDATION_DESIGN"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_METRIC_DEFINITION",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "ACCEPTED_VALIDATION_DESIGN",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Only structure and a bounded sample were inspected; raw labels are not redistributed.",
+    "Corpus boundary conventions require a registered conversion and validation study."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

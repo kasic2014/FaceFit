@@ -1,0 +1,104 @@
+{
+  "evidenceId": "GAP_DATA_001",
+  "title": "Seoul Corpus readme, manual, and paper package",
+  "authors": [
+    "Young-mee Yu Cho",
+    "Seoul Corpus contributors"
+  ],
+  "year": 2015,
+  "doi": null,
+  "officialUrl": "https://www.openslr.org/113/",
+  "fileSha256": "bc925df3d72adbefab6909af518a90c113a1e841874da735f34ea46f73c21d27",
+  "metricDefinition": "Seoul Corpus spontaneous-speech annotation",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "ReadMe, corpus manual, and embedded paper pages 1-7",
+      "table": null,
+      "figure": null,
+      "description": "The corpus documents roughly one hour of spontaneous Seoul Korean per speaker, a seven-tier annotation design, and recording conditions; these are corpus-design facts, not interview score boundaries."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "SPEECH_WORDS_PER_MINUTE"
+  },
+  "access": {
+    "accessLevel": "LOCAL_DATA_PACKAGE",
+    "reviewDepth": "MATERIAL_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "DATA_REPOSITORY"
+  },
+  "study": {
+    "context": "SPEECH_CORPUS",
+    "sampleSize": 40,
+    "participantDescription": null,
+    "language": "Korean",
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Seoul Corpus spontaneous-speech annotation",
+      "definition": "The corpus documents roughly one hour of spontaneous Seoul Korean per speaker, a seven-tier annotation design, and recording conditions; these are corpus-design facts, not interview score boundaries.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Sociolinguistic spontaneous speech is not a video-interview answer task.",
+        "The package does not report a transferable Face-Fit behavior threshold."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The corpus documents roughly one hour of spontaneous Seoul Korean per speaker, a seven-tier annotation design, and recording conditions; these are corpus-design facts, not interview score boundaries.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Seoul Corpus spontaneous-speech annotation",
+      "faceFitMetricId": "SPEECH_WORDS_PER_MINUTE",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Sociolinguistic spontaneous speech is not a video-interview answer task.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "CONTEXT",
+    "MEASUREMENT_LIMITATION",
+    "VALIDATION_DESIGN"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_CONTEXT",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "ACCEPTED_VALIDATION_DESIGN",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Sociolinguistic spontaneous speech is not a video-interview answer task.",
+    "The package does not report a transferable Face-Fit behavior threshold."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

@@ -1,0 +1,633 @@
+{
+  "version": "1.0.0",
+  "status": "DRAFT_RESEARCH_ONLY",
+  "productionApproved": false,
+  "scoreGenerationAllowed": false,
+  "purpose": "Independent human annotation of directly observable answer behavior for a future Face-Fit pilot; levels are rubric labels and are not automated scores or thresholds.",
+  "ratingScale": {
+    "type": "BEHAVIORALLY_ANCHORED_ORDINAL",
+    "levels": [
+      "LEVEL_1",
+      "LEVEL_2",
+      "LEVEL_3",
+      "LEVEL_4"
+    ],
+    "specialStatuses": [
+      "NOT_OBSERVABLE",
+      "INSUFFICIENT_DATA"
+    ]
+  },
+  "items": [
+    {
+      "itemId": "RUB_HEAD_ORIENTATION_STABILITY",
+      "axis": "GAZE_HEAD",
+      "construct": "Visible head-orientation stability",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+        "HEAD_RELATIVE_ROLL_ABS_P95_DEG"
+      ],
+      "anchors": {
+        "LEVEL_1": "Large, repeated orientation changes interrupt visual continuity.",
+        "LEVEL_2": "Several orientation changes are visible and occasionally interrupt continuity.",
+        "LEVEL_3": "Minor changes occur without sustained disruption.",
+        "LEVEL_4": "Orientation remains visually steady with only task-relevant movement."
+      },
+      "notObservableWhen": [
+        "Face is absent or occluded for most of the answer.",
+        "Camera angle prevents orientation judgment."
+      ],
+      "insufficientDataWhen": [
+        "The observable segment is too brief.",
+        "Video decoding or landmark availability is materially incomplete."
+      ],
+      "raterNotes": [
+        "Rate head orientation only, never eye contact or attention.",
+        "Ignore a single natural adjustment."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_HEAD_ORIENTATION_STABILITY",
+      "observableBehavior": "Visible head-orientation stability",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "Minor changes occur without sustained disruption.",
+        "Orientation remains visually steady with only task-relevant movement."
+      ],
+      "counterExamples": [
+        "Large, repeated orientation changes interrupt visual continuity.",
+        "Face is absent or occluded for most of the answer."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_GAZE_002",
+        "GAP_GAZE_003"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    },
+    {
+      "itemId": "RUB_HEAD_RECOVERY",
+      "axis": "GAZE_HEAD",
+      "construct": "Recovery after a visible head turn",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG"
+      ],
+      "anchors": {
+        "LEVEL_1": "Repeated turns remain displaced for extended portions.",
+        "LEVEL_2": "Recovery is inconsistent after several turns.",
+        "LEVEL_3": "Most turns return promptly to the prior orientation.",
+        "LEVEL_4": "Turns are brief and recovery is consistently clear."
+      },
+      "notObservableWhen": [
+        "No visible turn occurs; use NOT_OBSERVABLE rather than assuming a high level.",
+        "Face is not visible during the relevant event."
+      ],
+      "insufficientDataWhen": [
+        "Fewer than two interpretable events are available.",
+        "Timestamp continuity is invalid."
+      ],
+      "raterNotes": [
+        "Do not infer where the eyes are looking.",
+        "Event absence is not evidence of a preferred behavior."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_HEAD_RECOVERY",
+      "observableBehavior": "Recovery after a visible head turn",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "Most turns return promptly to the prior orientation.",
+        "Turns are brief and recovery is consistently clear."
+      ],
+      "counterExamples": [
+        "Repeated turns remain displaced for extended portions.",
+        "No visible turn occurs; use NOT_OBSERVABLE rather than assuming a high level."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_GAZE_002",
+        "GAP_GAZE_003"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    },
+    {
+      "itemId": "RUB_HEAD_MEASUREMENT_OBSERVABILITY",
+      "axis": "GAZE_HEAD",
+      "construct": "Head measurement observability",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "QUALITY_HEAD_AVAILABILITY_RATIO"
+      ],
+      "anchors": {
+        "LEVEL_1": "Most of the answer cannot support head observation.",
+        "LEVEL_2": "Substantial portions are unavailable.",
+        "LEVEL_3": "Only brief portions are unavailable.",
+        "LEVEL_4": "The head is observable through nearly all relevant portions."
+      },
+      "notObservableWhen": [
+        "The head is outside frame or persistently occluded."
+      ],
+      "insufficientDataWhen": [
+        "The answer is too short to characterize availability."
+      ],
+      "raterNotes": [
+        "This item is a quality label, never a behavior penalty."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_HEAD_MEASUREMENT_OBSERVABILITY",
+      "observableBehavior": "Head measurement observability",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "Only brief portions are unavailable.",
+        "The head is observable through nearly all relevant portions."
+      ],
+      "counterExamples": [
+        "Most of the answer cannot support head observation.",
+        "The head is outside frame or persistently occluded."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_GAZE_002",
+        "GAP_GAZE_003"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    },
+    {
+      "itemId": "RUB_SHOULDER_LINE_STABILITY",
+      "axis": "POSTURE",
+      "construct": "Visible shoulder-line stability",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG"
+      ],
+      "anchors": {
+        "LEVEL_1": "Repeated large shoulder-line changes dominate the answer.",
+        "LEVEL_2": "Several sustained changes are visible.",
+        "LEVEL_3": "Minor or brief changes occur.",
+        "LEVEL_4": "The shoulder line remains visually stable aside from natural adjustments."
+      },
+      "notObservableWhen": [
+        "Both shoulders are not simultaneously visible.",
+        "Loose clothing or occlusion prevents line judgment."
+      ],
+      "insufficientDataWhen": [
+        "Usable upper-body video is too brief."
+      ],
+      "raterNotes": [
+        "Do not apply ergonomic or medical interpretation.",
+        "Allow natural asymmetry and camera perspective."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_SHOULDER_LINE_STABILITY",
+      "observableBehavior": "Visible shoulder-line stability",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "Minor or brief changes occur.",
+        "The shoulder line remains visually stable aside from natural adjustments."
+      ],
+      "counterExamples": [
+        "Repeated large shoulder-line changes dominate the answer.",
+        "Both shoulders are not simultaneously visible."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_BODY_004",
+        "GAP_METHOD_002"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    },
+    {
+      "itemId": "RUB_UPPER_BODY_CENTER_STABILITY",
+      "axis": "POSTURE",
+      "construct": "Visible upper-body center movement",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC",
+        "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM"
+      ],
+      "anchors": {
+        "LEVEL_1": "Large repeated shifts interrupt framing.",
+        "LEVEL_2": "Several shifts are visible and sometimes interrupt framing.",
+        "LEVEL_3": "Minor shifts occur without sustained framing loss.",
+        "LEVEL_4": "Position remains stable with task-relevant movement."
+      },
+      "notObservableWhen": [
+        "Framing excludes the upper body.",
+        "Camera motion cannot be separated from participant motion."
+      ],
+      "insufficientDataWhen": [
+        "Too little valid motion history is available."
+      ],
+      "raterNotes": [
+        "Do not equate stillness with communication quality.",
+        "Record camera movement separately."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_UPPER_BODY_CENTER_STABILITY",
+      "observableBehavior": "Visible upper-body center movement",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "Minor shifts occur without sustained framing loss.",
+        "Position remains stable with task-relevant movement."
+      ],
+      "counterExamples": [
+        "Large repeated shifts interrupt framing.",
+        "Framing excludes the upper body."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_BODY_004",
+        "GAP_METHOD_002"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    },
+    {
+      "itemId": "RUB_POSTURE_MEASUREMENT_OBSERVABILITY",
+      "axis": "POSTURE",
+      "construct": "Posture measurement observability",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "QUALITY_POSTURE_AVAILABILITY_RATIO"
+      ],
+      "anchors": {
+        "LEVEL_1": "Most upper-body landmarks are unavailable.",
+        "LEVEL_2": "Substantial portions are unavailable.",
+        "LEVEL_3": "Only brief portions are unavailable.",
+        "LEVEL_4": "Upper-body landmarks are observable through nearly all relevant portions."
+      },
+      "notObservableWhen": [
+        "Shoulders remain out of frame."
+      ],
+      "insufficientDataWhen": [
+        "The answer is too short to characterize availability."
+      ],
+      "raterNotes": [
+        "This item is a quality label, never a behavior penalty."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_POSTURE_MEASUREMENT_OBSERVABILITY",
+      "observableBehavior": "Posture measurement observability",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "Only brief portions are unavailable.",
+        "Upper-body landmarks are observable through nearly all relevant portions."
+      ],
+      "counterExamples": [
+        "Most upper-body landmarks are unavailable.",
+        "Shoulders remain out of frame."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_BODY_004",
+        "GAP_METHOD_002"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    },
+    {
+      "itemId": "RUB_SPEECH_PACING",
+      "axis": "SPEECH_DELIVERY",
+      "construct": "Observable speech pacing continuity",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "SPEECH_WORDS_PER_MINUTE",
+        "SPEECH_ARTICULATION_WORDS_PER_MINUTE"
+      ],
+      "anchors": {
+        "LEVEL_1": "Pacing repeatedly prevents following the spoken sequence.",
+        "LEVEL_2": "Pacing disruptions are frequent.",
+        "LEVEL_3": "A few brief pacing disruptions occur.",
+        "LEVEL_4": "Pacing remains followable throughout the answer."
+      },
+      "notObservableWhen": [
+        "Speech is not intelligible enough to judge pacing."
+      ],
+      "insufficientDataWhen": [
+        "The spoken segment is too brief."
+      ],
+      "raterNotes": [
+        "Do not reward a particular numeric rate.",
+        "Judge continuity, not accent or dialect."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_SPEECH_PACING",
+      "observableBehavior": "Observable speech pacing continuity",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "A few brief pacing disruptions occur.",
+        "Pacing remains followable throughout the answer."
+      ],
+      "counterExamples": [
+        "Pacing repeatedly prevents following the spoken sequence.",
+        "Speech is not intelligible enough to judge pacing."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_DATA_001",
+        "GAP_DATA_002",
+        "GAP_SPEECH_003",
+        "GAP_FILLER_004",
+        "GAP_DATA_007",
+        "GAP_METHOD_001"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    },
+    {
+      "itemId": "RUB_PAUSE_FLOW",
+      "axis": "SPEECH_DELIVERY",
+      "construct": "Observable pause placement and flow",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "SPEECH_TOTAL_INTERWORD_GAP_MS",
+        "SPEECH_P90_INTERWORD_GAP_MS"
+      ],
+      "anchors": {
+        "LEVEL_1": "Repeated pauses break the spoken sequence and obscure completion.",
+        "LEVEL_2": "Several pauses disrupt the sequence.",
+        "LEVEL_3": "Some pauses occur but the sequence remains clear.",
+        "LEVEL_4": "Pauses consistently support a clear spoken sequence."
+      },
+      "notObservableWhen": [
+        "Audio is absent or unintelligible."
+      ],
+      "insufficientDataWhen": [
+        "Too few spoken phrases are available."
+      ],
+      "raterNotes": [
+        "Do not classify cognitive state or intent.",
+        "Use context, not raw gap duration alone."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_PAUSE_FLOW",
+      "observableBehavior": "Observable pause placement and flow",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "Some pauses occur but the sequence remains clear.",
+        "Pauses consistently support a clear spoken sequence."
+      ],
+      "counterExamples": [
+        "Repeated pauses break the spoken sequence and obscure completion.",
+        "Audio is absent or unintelligible."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_DATA_001",
+        "GAP_DATA_002",
+        "GAP_SPEECH_003",
+        "GAP_FILLER_004",
+        "GAP_DATA_007",
+        "GAP_METHOD_001"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    },
+    {
+      "itemId": "RUB_FILLER_REPAIR",
+      "axis": "SPEECH_DELIVERY",
+      "construct": "Observable filler and repair handling",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+      ],
+      "anchors": {
+        "LEVEL_1": "Repeated fillers or repairs obscure completion of ideas.",
+        "LEVEL_2": "Fillers or repairs frequently interrupt completion.",
+        "LEVEL_3": "Some events occur without sustained interruption.",
+        "LEVEL_4": "Events are rare or handled without interrupting idea completion."
+      },
+      "notObservableWhen": [
+        "Language content cannot be reviewed by an authorized rater."
+      ],
+      "insufficientDataWhen": [
+        "Too little speech is available to observe events."
+      ],
+      "raterNotes": [
+        "Lexicon candidates require contextual confirmation.",
+        "Do not penalize discourse-functional fillers automatically."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_FILLER_REPAIR",
+      "observableBehavior": "Observable filler and repair handling",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "Some events occur without sustained interruption.",
+        "Events are rare or handled without interrupting idea completion."
+      ],
+      "counterExamples": [
+        "Repeated fillers or repairs obscure completion of ideas.",
+        "Language content cannot be reviewed by an authorized rater."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_DATA_001",
+        "GAP_DATA_002",
+        "GAP_SPEECH_003",
+        "GAP_FILLER_004",
+        "GAP_DATA_007",
+        "GAP_METHOD_001"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    },
+    {
+      "itemId": "RUB_AUDIO_OBSERVABILITY",
+      "axis": "SPEECH_DELIVERY",
+      "construct": "Audio observability",
+      "observationUnit": "ANSWER",
+      "metricLinks": [
+        "SPEECH_RMS_DBFS",
+        "SPEECH_PEAK_DBFS",
+        "SPEECH_CLIPPING_SAMPLE_RATIO",
+        "SPEECH_VOICED_FRAME_RATIO"
+      ],
+      "anchors": {
+        "LEVEL_1": "Most speech is not reliably audible or is severely corrupted.",
+        "LEVEL_2": "Substantial portions are difficult to hear.",
+        "LEVEL_3": "Only brief portions are affected.",
+        "LEVEL_4": "Speech is reliably audible through nearly all relevant portions."
+      },
+      "notObservableWhen": [
+        "Audio is missing."
+      ],
+      "insufficientDataWhen": [
+        "The answer contains too little speech."
+      ],
+      "raterNotes": [
+        "This item records capture quality only.",
+        "Never infer speaker loudness quality across devices."
+      ],
+      "productionUse": "PROHIBITED_UNTIL_VALIDATED",
+      "rubricItemId": "RUB_AUDIO_OBSERVABILITY",
+      "observableBehavior": "Audio observability",
+      "operationalDefinition": "Rate only the directly visible or audible behavior described by the anchors; do not derive the label from an automated metric value.",
+      "observationWindow": "Complete answer, excluding intervals marked unavailable or invalid.",
+      "inclusionRule": "Include an event only when the relevant modality is directly observable and temporally attributable to the answer.",
+      "exclusionRule": "Exclude capture failures, camera motion, interruptions, and events outside the answer; use a special status when exclusion prevents judgment.",
+      "examples": [
+        "Only brief portions are affected.",
+        "Speech is reliably audible through nearly all relevant portions."
+      ],
+      "counterExamples": [
+        "Most speech is not reliably audible or is severely corrupted.",
+        "Audio is missing."
+      ],
+      "raterConfidence": {
+        "allowedValues": [
+          "HIGH",
+          "MEDIUM",
+          "LOW",
+          "NOT_RATED"
+        ],
+        "rule": "Record confidence separately from the rubric level; low confidence triggers review and never changes the level numerically."
+      },
+      "evidenceSources": [
+        "GAP_DATA_001",
+        "GAP_DATA_002",
+        "GAP_SPEECH_003",
+        "GAP_FILLER_004",
+        "GAP_DATA_007",
+        "GAP_METHOD_001"
+      ],
+      "limitations": [
+        "Draft anchors require content review, rater training, and reliability testing.",
+        "The item cannot be used for automated or production scoring."
+      ]
+    }
+  ],
+  "prohibitedInferences": [
+    "PERSONALITY",
+    "EMOTION",
+    "ANXIETY",
+    "CONFIDENCE",
+    "DECEPTION",
+    "GENDER",
+    "HEALTH",
+    "JOB_FIT",
+    "HIRING_RECOMMENDATION"
+  ],
+  "pilotValidationRequired": true
+}

@@ -1,0 +1,105 @@
+{
+  "evidenceId": "GAP_GAZE_003",
+  "title": "Gaze-in-wild: A dataset for studying eye and head coordination in everyday activities",
+  "authors": [
+    "Gaze-in-Wild study authors"
+  ],
+  "year": 2020,
+  "doi": "10.1038/s41597-020-0372-4",
+  "officialUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7018838/",
+  "fileSha256": "b4db32a89765aa96952ee2ae88e502600c1f97a607e3c58f9550ceb36e37fdd5",
+  "metricDefinition": "Separate eye and head coordination annotations",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Abstract; Methods; annotation and agreement sections",
+      "table": null,
+      "figure": null,
+      "description": "Nineteen participants, mobile eye tracking, IMU and RGB-D data, and five trained annotators support separate eye/head constructs and an annotation-design example."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "HEAD_RELATIVE_YAW_ABS_P95_DEG"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "PMC"
+  },
+  "study": {
+    "context": "GAZE_MEASUREMENT",
+    "sampleSize": 19,
+    "participantDescription": null,
+    "language": null,
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Separate eye and head coordination annotations",
+      "definition": "Nineteen participants, mobile eye tracking, IMU and RGB-D data, and five trained annotators support separate eye/head constructs and an annotation-design example.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Everyday mobile tasks differ from webcam interviews.",
+        "Reported annotation agreement does not validate a Face-Fit behavior score."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "Nineteen participants, mobile eye tracking, IMU and RGB-D data, and five trained annotators support separate eye/head constructs and an annotation-design example.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Separate eye and head coordination annotations",
+      "faceFitMetricId": "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Everyday mobile tasks differ from webcam interviews.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "METRIC_DEFINITION",
+    "HUMAN_RUBRIC",
+    "VALIDATION_DESIGN",
+    "MEASUREMENT_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_METRIC_DEFINITION",
+    "ACCEPTED_HUMAN_RUBRIC",
+    "ACCEPTED_VALIDATION_DESIGN",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Everyday mobile tasks differ from webcam interviews.",
+    "Reported annotation agreement does not validate a Face-Fit behavior score."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

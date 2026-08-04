@@ -1,0 +1,102 @@
+{
+  "evidenceId": "GAP_AUDIO_001",
+  "title": "EBU Tech 3343: Guidelines for Production of Programmes in accordance with EBU R 128",
+  "authors": [
+    "European Broadcasting Union"
+  ],
+  "year": 2023,
+  "doi": null,
+  "officialUrl": "https://tech.ebu.ch/publications/tech3343",
+  "fileSha256": "92d6500c78c4fca586daad1e37c8d8dbe144d81ef1dbe413badf13330b18a36c",
+  "metricDefinition": "Programme loudness measurement and normalisation",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": "LUFS",
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Sections 3-4; measurement-mode definitions",
+      "table": null,
+      "figure": null,
+      "description": "The guideline distinguishes momentary, short-term, and integrated programme loudness and supplies broadcast production guidance, not person-level delivery scoring."
+    }
+  ],
+  "mapping": {
+    "relation": "NOT_APPLICABLE",
+    "faceFitMetricId": "SPEECH_RMS_DBFS"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "STANDARDS_BODY"
+  },
+  "study": {
+    "context": "AUDIO_STANDARD",
+    "sampleSize": null,
+    "participantDescription": null,
+    "language": null,
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Programme loudness measurement and normalisation",
+      "definition": "The guideline distinguishes momentary, short-term, and integrated programme loudness and supplies broadcast production guidance, not person-level delivery scoring.",
+      "calculationMethod": null,
+      "unit": "LUFS",
+      "aggregation": null,
+      "measurementType": "MODEL_INPUT",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Broadcast programme normalisation differs from browser microphone capture.",
+        "Its target values must not become Face-Fit speaking-volume scores."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The guideline distinguishes momentary, short-term, and integrated programme loudness and supplies broadcast production guidance, not person-level delivery scoring.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Programme loudness measurement and normalisation",
+      "faceFitMetricId": "SPEECH_RMS_DBFS",
+      "relation": "NOT_APPLICABLE",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Broadcast programme normalisation differs from browser microphone capture.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "QUALITY_GATE",
+    "MEASUREMENT_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_QUALITY_GATE",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "NOT_APPLICABLE",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Broadcast programme normalisation differs from browser microphone capture.",
+    "Its target values must not become Face-Fit speaking-volume scores."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

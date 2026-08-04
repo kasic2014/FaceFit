@@ -1,0 +1,103 @@
+{
+  "evidenceId": "GAP_BODY_004",
+  "title": "SitPose: Real-Time Detection of Sitting Posture and Sedentary Behavior Using Ensemble Learning With Depth Sensor",
+  "authors": [
+    "SitPose study authors"
+  ],
+  "year": 2024,
+  "doi": "10.48550/arXiv.2412.12216",
+  "officialUrl": "https://arxiv.org/abs/2412.12216",
+  "fileSha256": "b3555c3eceb214288a31358fedcb1e0458168bc04e1b6d62152dd777e41312e0",
+  "metricDefinition": "Depth-sensor 3D joint posture classification",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Sections 3-5; sensor, joint-selection, and participant descriptions",
+      "table": null,
+      "figure": null,
+      "description": "The study uses Azure Kinect 3D joints from 36 participants to classify sitting postures; it provides design context but not RGB webcam shoulder-line validation."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "AUTHOR_REPOSITORY"
+  },
+  "study": {
+    "context": "SEATED_POSTURE",
+    "sampleSize": 36,
+    "participantDescription": null,
+    "language": null,
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Depth-sensor 3D joint posture classification",
+      "definition": "The study uses Azure Kinect 3D joints from 36 participants to classify sitting postures; it provides design context but not RGB webcam shoulder-line validation.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Depth-sensor 3D joints differ from Face-Fit 2D RGB landmarks.",
+        "Ergonomic posture classes are not communication-quality bands."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The study uses Azure Kinect 3D joints from 36 participants to classify sitting postures; it provides design context but not RGB webcam shoulder-line validation.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Depth-sensor 3D joint posture classification",
+      "faceFitMetricId": "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Depth-sensor 3D joints differ from Face-Fit 2D RGB landmarks.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "CONTEXT",
+    "MEASUREMENT_LIMITATION",
+    "VALIDATION_DESIGN"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_CONTEXT",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "ACCEPTED_VALIDATION_DESIGN",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Depth-sensor 3D joints differ from Face-Fit 2D RGB landmarks.",
+    "Ergonomic posture classes are not communication-quality bands."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

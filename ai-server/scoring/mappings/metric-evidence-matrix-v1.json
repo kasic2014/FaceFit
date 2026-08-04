@@ -1,95 +1,1014 @@
 {
-  "version":"1.0.0","metricCount":18,"productionApproved":false,
-  "metrics":[
+  "version": "1.1.0",
+  "metricCount": 18,
+  "productionApproved": false,
+  "metrics": [
     {
-      "metricId":"HEAD_RELATIVE_YAW_ABS_P95_DEG","axis":"GAZE_HEAD",
-      "evidenceMappings":[{"evidenceId":"SRC_HEAD_002","paperMetricName":"Euler yaw","relation":"PROXY","definitionMatch":false,"unitMatch":true,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Per-image intrinsic yaw is not baseline-relative absolute p95 over an answer.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["METRIC_DEFINITION","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["WEBCAM_HEAD_POSE_BEHAVIOR","HEAD_POSE_VS_EYE_GAZE","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+      "axis": "GAZE_HEAD",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_HEAD_002",
+          "paperMetricName": "Euler yaw",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": true,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Per-image intrinsic yaw is not baseline-relative absolute p95 over an answer.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "METRIC_DEFINITION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "WEBCAM_HEAD_POSE_BEHAVIOR",
+        "HEAD_POSE_VS_EYE_GAZE",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "METRIC_DEFINITION_ONLY",
+      "stage32Readiness": "METRIC_DEFINITION_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_GAZE_002",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        },
+        {
+          "evidenceId": "GAP_GAZE_003",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"HEAD_RELATIVE_PITCH_ABS_P95_DEG","axis":"GAZE_HEAD",
-      "evidenceMappings":[{"evidenceId":"SRC_HEAD_002","paperMetricName":"Euler pitch","relation":"PROXY","definitionMatch":false,"unitMatch":true,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Per-image intrinsic pitch is not baseline-relative absolute p95 over an answer.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["METRIC_DEFINITION","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["WEBCAM_HEAD_POSE_BEHAVIOR","HEAD_POSE_VS_EYE_GAZE","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+      "axis": "GAZE_HEAD",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_HEAD_002",
+          "paperMetricName": "Euler pitch",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": true,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Per-image intrinsic pitch is not baseline-relative absolute p95 over an answer.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "METRIC_DEFINITION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "WEBCAM_HEAD_POSE_BEHAVIOR",
+        "HEAD_POSE_VS_EYE_GAZE",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "METRIC_DEFINITION_ONLY",
+      "stage32Readiness": "METRIC_DEFINITION_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_GAZE_002",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        },
+        {
+          "evidenceId": "GAP_GAZE_003",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"HEAD_RELATIVE_ROLL_ABS_P95_DEG","axis":"GAZE_HEAD",
-      "evidenceMappings":[{"evidenceId":"SRC_HEAD_003","paperMetricName":"roll component","relation":"PROXY","definitionMatch":false,"unitMatch":true,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Single-image roll lacks Face-Fit baseline subtraction, absolute value, and p95 aggregation.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["METRIC_DEFINITION","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["WEBCAM_HEAD_POSE_BEHAVIOR","HEAD_POSE_VS_EYE_GAZE","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "HEAD_RELATIVE_ROLL_ABS_P95_DEG",
+      "axis": "GAZE_HEAD",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_HEAD_003",
+          "paperMetricName": "roll component",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": true,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Single-image roll lacks Face-Fit baseline subtraction, absolute value, and p95 aggregation.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "METRIC_DEFINITION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "WEBCAM_HEAD_POSE_BEHAVIOR",
+        "HEAD_POSE_VS_EYE_GAZE",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "METRIC_DEFINITION_ONLY",
+      "stage32Readiness": "METRIC_DEFINITION_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_GAZE_002",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        },
+        {
+          "evidenceId": "GAP_GAZE_003",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"QUALITY_HEAD_AVAILABILITY_RATIO","axis":"GAZE_HEAD",
-      "evidenceMappings":[{"evidenceId":"SRC_HEAD_005","paperMetricName":"head-pose estimator validity","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Accuracy limitations motivate a measurement gate but do not define available-frame ratio.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["QUALITY_GATE","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_APPLICABLE","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["WEBCAM_HEAD_POSE_BEHAVIOR","MULTI_SESSION_DISTRIBUTION"]
+      "metricId": "QUALITY_HEAD_AVAILABILITY_RATIO",
+      "axis": "GAZE_HEAD",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_HEAD_005",
+          "paperMetricName": "head-pose estimator validity",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Accuracy limitations motivate a measurement gate but do not define available-frame ratio.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "QUALITY_GATE",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_APPLICABLE",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "WEBCAM_HEAD_POSE_BEHAVIOR",
+        "MULTI_SESSION_DISTRIBUTION"
+      ],
+      "stage31Readiness": "QUALITY_GATE_ONLY",
+      "stage32Readiness": "QUALITY_GATE_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_GAZE_002",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "QUALITY_GATE",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG","axis":"POSTURE",
-      "evidenceMappings":[{"evidenceId":"SRC_POSE_001","paperMetricName":"left and right shoulder keypoints","relation":"DERIVED","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Face-Fit derives a baseline-relative shoulder-line angle and p95 that the paper does not define.","conversion":"Compute the image-plane shoulder line, then apply Face-Fit baseline and answer aggregation."}],
-      "bestAvailableRelation":"DERIVED","supportedUses":["METRIC_DEFINITION","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["SEATED_SHOULDER_POSTURE","HUMAN_BEHAVIOR_RUBRIC","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+      "axis": "POSTURE",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_POSE_001",
+          "paperMetricName": "left and right shoulder keypoints",
+          "relation": "DERIVED",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Face-Fit derives a baseline-relative shoulder-line angle and p95 that the paper does not define.",
+          "conversion": "Compute the image-plane shoulder line, then apply Face-Fit baseline and answer aggregation."
+        }
+      ],
+      "bestAvailableRelation": "DERIVED",
+      "supportedUses": [
+        "METRIC_DEFINITION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "SEATED_SHOULDER_POSTURE",
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "MEASUREMENT_LIMITATION_ONLY",
+      "stage32Readiness": "MEASUREMENT_LIMITATION_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_BODY_004",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        },
+        {
+          "evidenceId": "GAP_BODY_003",
+          "relation": "NOT_APPLICABLE",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Retained for quality or construct limitations only; it does not support behavior scoring."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC","axis":"POSTURE",
-      "evidenceMappings":[{"evidenceId":"SRC_POSE_001","paperMetricName":"left and right shoulder keypoints","relation":"DERIVED","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Face-Fit derives timestamp-based normalized center velocity absent from the paper.","conversion":"Average shoulder coordinates, normalize displacement, divide by time, and aggregate p95."}],
-      "bestAvailableRelation":"DERIVED","supportedUses":["METRIC_DEFINITION","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["SHOULDER_CENTER_MOVEMENT","HUMAN_BEHAVIOR_RUBRIC","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC",
+      "axis": "POSTURE",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_POSE_001",
+          "paperMetricName": "left and right shoulder keypoints",
+          "relation": "DERIVED",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Face-Fit derives timestamp-based normalized center velocity absent from the paper.",
+          "conversion": "Average shoulder coordinates, normalize displacement, divide by time, and aggregate p95."
+        }
+      ],
+      "bestAvailableRelation": "DERIVED",
+      "supportedUses": [
+        "METRIC_DEFINITION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "SHOULDER_CENTER_MOVEMENT",
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "MEASUREMENT_LIMITATION_ONLY",
+      "stage32Readiness": "MEASUREMENT_LIMITATION_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_METHOD_002",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM","axis":"POSTURE",
-      "evidenceMappings":[{"evidenceId":"SRC_POSE_001","paperMetricName":"nose and shoulder keypoints","relation":"DERIVED","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Face-Fit derives a normalized baseline-relative horizontal offset absent from the paper.","conversion":"Normalize nose-to-shoulder-center offset by shoulder width, then apply baseline and p95."}],
-      "bestAvailableRelation":"DERIVED","supportedUses":["METRIC_DEFINITION","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["SEATED_SHOULDER_POSTURE","HUMAN_BEHAVIOR_RUBRIC","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM",
+      "axis": "POSTURE",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_POSE_001",
+          "paperMetricName": "nose and shoulder keypoints",
+          "relation": "DERIVED",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Face-Fit derives a normalized baseline-relative horizontal offset absent from the paper.",
+          "conversion": "Normalize nose-to-shoulder-center offset by shoulder width, then apply baseline and p95."
+        }
+      ],
+      "bestAvailableRelation": "DERIVED",
+      "supportedUses": [
+        "METRIC_DEFINITION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "SEATED_SHOULDER_POSTURE",
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "MEASUREMENT_LIMITATION_ONLY",
+      "stage32Readiness": "MEASUREMENT_LIMITATION_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_BODY_004",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"QUALITY_POSTURE_AVAILABILITY_RATIO","axis":"POSTURE",
-      "evidenceMappings":[{"evidenceId":"SRC_POSE_002","paperMetricName":"tracking success and joint-position error","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Pose validity supports a quality gate but does not define Face-Fit available-frame ratio.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["QUALITY_GATE","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_APPLICABLE","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["SEATED_SHOULDER_POSTURE","MULTI_SESSION_DISTRIBUTION"]
+      "metricId": "QUALITY_POSTURE_AVAILABILITY_RATIO",
+      "axis": "POSTURE",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_POSE_002",
+          "paperMetricName": "tracking success and joint-position error",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Pose validity supports a quality gate but does not define Face-Fit available-frame ratio.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "QUALITY_GATE",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_APPLICABLE",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "SEATED_SHOULDER_POSTURE",
+        "MULTI_SESSION_DISTRIBUTION"
+      ],
+      "stage31Readiness": "QUALITY_GATE_ONLY",
+      "stage32Readiness": "QUALITY_GATE_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_BODY_004",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "QUALITY_GATE",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_WORDS_PER_MINUTE","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_INT_002","paperMetricName":"speaking activity","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":true,"numericThresholdSupported":false,"reason":"Speaking activity is directionally relevant but does not equal Korean STT word count per answer minute.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["AXIS_SELECTION","METRIC_DIRECTION","MEASUREMENT_LIMITATION"],"directionReadiness":"CANDIDATE","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["KOREAN_SPEECH_RATE","HUMAN_BEHAVIOR_RUBRIC","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "SPEECH_WORDS_PER_MINUTE",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_INT_002",
+          "paperMetricName": "speaking activity",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": true,
+          "numericThresholdSupported": false,
+          "reason": "Speaking activity is directionally relevant but does not equal Korean STT word count per answer minute.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "AXIS_SELECTION",
+        "METRIC_DIRECTION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "CANDIDATE",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "KOREAN_SPEECH_RATE",
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "DIRECTION_ONLY",
+      "stage32Readiness": "DIRECTION_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_DATA_001",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        },
+        {
+          "evidenceId": "GAP_SPEECH_003",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_ARTICULATION_WORDS_PER_MINUTE","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_INT_002","paperMetricName":"speaking activity","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"The paper has no word-timestamp-union articulation-rate definition.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["KOREAN_ARTICULATION_RATE","HUMAN_BEHAVIOR_RUBRIC","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "SPEECH_ARTICULATION_WORDS_PER_MINUTE",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_INT_002",
+          "paperMetricName": "speaking activity",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "The paper has no word-timestamp-union articulation-rate definition.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "KOREAN_ARTICULATION_RATE",
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "NOT_READY",
+      "stage32Readiness": "NOT_READY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_DATA_002",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_TOTAL_INTERWORD_GAP_MS","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_INT_002","paperMetricName":"pauses","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Speaker-segmentation pauses do not equal summed adjacent STT word gaps.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["AXIS_SELECTION","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["KOREAN_PAUSE_DURATION","HUMAN_BEHAVIOR_RUBRIC","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "SPEECH_TOTAL_INTERWORD_GAP_MS",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_INT_002",
+          "paperMetricName": "pauses",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Speaker-segmentation pauses do not equal summed adjacent STT word gaps.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "AXIS_SELECTION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "KOREAN_PAUSE_DURATION",
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "NOT_READY",
+      "stage32Readiness": "NOT_READY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_DATA_002",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_P90_INTERWORD_GAP_MS","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_INT_003","paperMetricName":"pause-appropriateness rating","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Human pause appropriateness is not the p90 of adjacent word-timestamp gaps.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["HUMAN_RUBRIC","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["KOREAN_PAUSE_DURATION","HUMAN_BEHAVIOR_RUBRIC","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "SPEECH_P90_INTERWORD_GAP_MS",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_INT_003",
+          "paperMetricName": "pause-appropriateness rating",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Human pause appropriateness is not the p90 of adjacent word-timestamp gaps.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "HUMAN_RUBRIC",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "KOREAN_PAUSE_DURATION",
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "NOT_READY",
+      "stage32Readiness": "NOT_READY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_DATA_002",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_FILLER_CANDIDATES_PER_MINUTE","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_INT_003","paperMetricName":"no-fillers rating","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Lexicon matches are candidates and cannot reproduce human semantic judgment.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["HUMAN_RUBRIC","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["KOREAN_FILLER_VALIDATION","HUMAN_BEHAVIOR_RUBRIC","INTER_RATER_RELIABILITY","THRESHOLD_SENSITIVITY"]
+      "metricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_INT_003",
+          "paperMetricName": "no-fillers rating",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Lexicon matches are candidates and cannot reproduce human semantic judgment.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "HUMAN_RUBRIC",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "KOREAN_FILLER_VALIDATION",
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "INTER_RATER_RELIABILITY",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "NOT_READY",
+      "stage32Readiness": "NOT_READY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_SPEECH_003",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        },
+        {
+          "evidenceId": "GAP_FILLER_004",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        },
+        {
+          "evidenceId": "GAP_DATA_007",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Related evidence does not match the Face-Fit definition, aggregation, task, and device conditions."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_RMS_DBFS","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_INT_002","paperMetricName":"energy","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Prosodic energy is not confirmed as whole-answer RMS dBFS and depends on capture conditions.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["MEASUREMENT_LIMITATION","QUALITY_GATE"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["MICROPHONE_LOUDNESS_NORMALIZATION","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "SPEECH_RMS_DBFS",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_INT_002",
+          "paperMetricName": "energy",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Prosodic energy is not confirmed as whole-answer RMS dBFS and depends on capture conditions.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "MEASUREMENT_LIMITATION",
+        "QUALITY_GATE"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "MICROPHONE_LOUDNESS_NORMALIZATION",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "NOT_READY",
+      "stage32Readiness": "NOT_READY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_AUDIO_001",
+          "relation": "NOT_APPLICABLE",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Retained for quality or construct limitations only; it does not support behavior scoring."
+        },
+        {
+          "evidenceId": "GAP_AUDIO_002",
+          "relation": "NOT_APPLICABLE",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Retained for quality or construct limitations only; it does not support behavior scoring."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_PEAK_DBFS","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_INT_002","paperMetricName":"energy","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Prosodic energy is not peak normalized PCM amplitude and depends on capture conditions.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["MEASUREMENT_LIMITATION","QUALITY_GATE"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["MICROPHONE_LOUDNESS_NORMALIZATION","MULTI_SESSION_DISTRIBUTION","THRESHOLD_SENSITIVITY"]
+      "metricId": "SPEECH_PEAK_DBFS",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_INT_002",
+          "paperMetricName": "energy",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Prosodic energy is not peak normalized PCM amplitude and depends on capture conditions.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "MEASUREMENT_LIMITATION",
+        "QUALITY_GATE"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "MICROPHONE_LOUDNESS_NORMALIZATION",
+        "MULTI_SESSION_DISTRIBUTION",
+        "THRESHOLD_SENSITIVITY"
+      ],
+      "stage31Readiness": "NOT_READY",
+      "stage32Readiness": "NOT_READY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_AUDIO_002",
+          "relation": "NOT_APPLICABLE",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Retained for quality or construct limitations only; it does not support behavior scoring."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_CLIPPING_SAMPLE_RATIO","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_PUB_003","paperMetricName":"expert nonverbal-practice rubric","relation":"NOT_APPLICABLE","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Clipping is capture quality and not a public-speaking behavior rubric item.","conversion":null}],
-      "bestAvailableRelation":"NOT_APPLICABLE","supportedUses":["QUALITY_GATE"],"directionReadiness":"NOT_APPLICABLE","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["MICROPHONE_LOUDNESS_NORMALIZATION"]
+      "metricId": "SPEECH_CLIPPING_SAMPLE_RATIO",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_PUB_003",
+          "paperMetricName": "expert nonverbal-practice rubric",
+          "relation": "NOT_APPLICABLE",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Clipping is capture quality and not a public-speaking behavior rubric item.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "NOT_APPLICABLE",
+      "supportedUses": [
+        "QUALITY_GATE"
+      ],
+      "directionReadiness": "NOT_APPLICABLE",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "MICROPHONE_LOUDNESS_NORMALIZATION"
+      ],
+      "stage31Readiness": "QUALITY_GATE_ONLY",
+      "stage32Readiness": "QUALITY_GATE_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_AUDIO_002",
+          "relation": "NOT_APPLICABLE",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Retained for quality or construct limitations only; it does not support behavior scoring."
+        }
+      ],
+      "stage32AllowedUse": [
+        "QUALITY_GATE",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_VOICED_FRAME_RATIO","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_INT_002","paperMetricName":"voiced rate","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Voiced segments per second and voiced-frame ratio have different definitions and units.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["QUALITY_GATE","MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["MICROPHONE_LOUDNESS_NORMALIZATION","MULTI_SESSION_DISTRIBUTION"]
+      "metricId": "SPEECH_VOICED_FRAME_RATIO",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_INT_002",
+          "paperMetricName": "voiced rate",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Voiced segments per second and voiced-frame ratio have different definitions and units.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "QUALITY_GATE",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "MICROPHONE_LOUDNESS_NORMALIZATION",
+        "MULTI_SESSION_DISTRIBUTION"
+      ],
+      "stage31Readiness": "QUALITY_GATE_ONLY",
+      "stage32Readiness": "QUALITY_GATE_ONLY",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_AUDIO_001",
+          "relation": "NOT_APPLICABLE",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Retained for quality or construct limitations only; it does not support behavior scoring."
+        }
+      ],
+      "stage32AllowedUse": [
+        "QUALITY_GATE",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No transferable Face-Fit numeric boundary was found."
     },
     {
-      "metricId":"SPEECH_F0_RANGE_HZ","axis":"SPEECH_DELIVERY",
-      "evidenceMappings":[{"evidenceId":"SRC_INT_002","paperMetricName":"fundamental frequency variability","relation":"PROXY","definitionMatch":false,"unitMatch":false,"calculationMatch":false,"scoringDirectionSupported":false,"numericThresholdSupported":false,"reason":"Frequency variability is not confirmed as maximum-minus-minimum physical F0 and supports no person-level inference.","conversion":null}],
-      "bestAvailableRelation":"PROXY","supportedUses":["MEASUREMENT_LIMITATION"],"directionReadiness":"NOT_READY","numericThresholdReadiness":"NOT_READY","productionReadiness":"NOT_READY","remainingGaps":["HUMAN_BEHAVIOR_RUBRIC","BIAS_AND_FAIRNESS_VALIDATION","MULTI_SESSION_DISTRIBUTION"]
+      "metricId": "SPEECH_F0_RANGE_HZ",
+      "axis": "SPEECH_DELIVERY",
+      "evidenceMappings": [
+        {
+          "evidenceId": "SRC_INT_002",
+          "paperMetricName": "fundamental frequency variability",
+          "relation": "PROXY",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Frequency variability is not confirmed as maximum-minus-minimum physical F0 and supports no person-level inference.",
+          "conversion": null
+        }
+      ],
+      "bestAvailableRelation": "PROXY",
+      "supportedUses": [
+        "MEASUREMENT_LIMITATION"
+      ],
+      "directionReadiness": "NOT_READY",
+      "numericThresholdReadiness": "NOT_READY",
+      "productionReadiness": "NOT_READY",
+      "remainingGaps": [
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "BIAS_AND_FAIRNESS_VALIDATION",
+        "MULTI_SESSION_DISTRIBUTION"
+      ],
+      "stage31Readiness": "EXCLUDED_FROM_SCORING",
+      "stage32Readiness": "EXCLUDED_FROM_SCORING",
+      "readinessChanged": false,
+      "stage32EvidenceMappings": [
+        {
+          "evidenceId": "GAP_FILLER_003",
+          "relation": "NOT_APPLICABLE",
+          "definitionMatch": false,
+          "unitMatch": false,
+          "calculationMatch": false,
+          "scoringDirectionSupported": false,
+          "numericThresholdSupported": false,
+          "reason": "Retained for quality or construct limitations only; it does not support behavior scoring."
+        }
+      ],
+      "stage32AllowedUse": [
+        "RESEARCH_MAPPING",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "stage32BlockingReason": "No validated behavioral interpretation; remains excluded."
     }
-  ]
+  ],
+  "stage32ReviewVersion": "1.0.0",
+  "thresholdsCreated": false,
+  "weightsCreated": false,
+  "scoringAvailable": false,
+  "score": null
 }

@@ -1,0 +1,217 @@
+{
+  "version": "1.0.0",
+  "stage": 32,
+  "status": "DESIGN_ONLY_NOT_AUTHORIZED_FOR_COLLECTION",
+  "productionApproved": false,
+  "scoringAvailable": false,
+  "score": null,
+  "objective": "Validate Face-Fit measurement reliability, observable-behavior rubric reliability, missingness, repeated-session stability, and transfer limitations before any numeric threshold or weight is proposed.",
+  "governance": {
+    "preregistrationRequired": true,
+    "ethicsAndConsentApprovalRequired": true,
+    "dataProtectionReviewRequired": true,
+    "collectionMayStart": false,
+    "approvalOwner": "TBD_BY_PROJECT_GOVERNANCE",
+    "changeControl": "Protocol, rubric, metrics, exclusions, and analysis plan must be version-locked before enrollment."
+  },
+  "sampleDesign": {
+    "targetSampleSize": "TBD_BY_POWER_ANALYSIS",
+    "minimumRaters": "MINIMUM_NOT_YET_APPROVED",
+    "repeatedSessionsPerParticipant": "MINIMUM_NOT_YET_APPROVED",
+    "samplingFrame": [
+      "Korean-language interview-answer users",
+      "Multiple supported webcam and microphone classes",
+      "Varied lighting, framing, network, and room-noise conditions",
+      "Accessibility needs and assistive technology represented where consent and safe measurement permit"
+    ],
+    "prohibitedPractice": "No convenience-sample statistic may be promoted as a population norm.",
+    "feasibilityTarget": "PILOT_FEASIBILITY_TARGET"
+  },
+  "taskDesign": {
+    "answerTasks": [
+      "Standardized baseline reading or calibration task",
+      "Standardized interview-style prompts",
+      "Repeated prompt family with counterbalanced order"
+    ],
+    "baselinePolicy": "Baseline collection method must be locked and separated from behavior outcomes.",
+    "sessionPolicy": "Repeat sessions on different days or conditions as preregistered; do not silently pool."
+  },
+  "captureSpec": {
+    "video": [
+      "Record declared resolution, frame rate, camera class, framing, lighting, occlusion, and processing failures.",
+      "Retain head and posture availability independently."
+    ],
+    "audio": [
+      "Record sample rate, channel count, browser processing declarations where obtainable, microphone class, distance band, room-noise condition, clipping, and missingness.",
+      "Do not normalize away device strata without a validated protocol."
+    ],
+    "time": [
+      "Preserve monotonic timestamps and explicit invalid intervals.",
+      "Never convert missing frames, missing speech, or decoder errors to zero behavior."
+    ]
+  },
+  "privacy": {
+    "consent": [
+      "Explicit research consent separate from product terms",
+      "Separate consent for audio, video, transcript-derived timing, and human rating"
+    ],
+    "minimization": [
+      "Use pseudonymous study/session/answer identifiers.",
+      "Store only fields required by the locked protocol."
+    ],
+    "retention": "TBD_BY_APPROVED_DATA_GOVERNANCE",
+    "access": "Role-based access with audit logging; raters receive only the minimum media and metadata needed.",
+    "release": "No participant media, transcript, identifier, or raw rater row may be committed to the repository."
+  },
+  "annotation": {
+    "rubricVersion": "human-behavior-rubric-draft-v1.json",
+    "raterTraining": [
+      "Use a versioned handbook and standardized examples.",
+      "Complete calibration before independent production labels.",
+      "Blind raters to automated metrics, treatment arm, identity metadata, and other raters."
+    ],
+    "independence": "Each assigned answer is rated independently before adjudication.",
+    "specialStatuses": [
+      "NOT_OBSERVABLE",
+      "INSUFFICIENT_DATA"
+    ],
+    "adjudication": "Keep original independent labels immutable; store adjudicated labels separately with a reason code.",
+    "languageReview": "Korean filler and repair judgments require authorized Korean-language raters."
+  },
+  "exclusions": {
+    "predefinedReasons": [
+      "WITHDRAWN_CONSENT",
+      "CORRUPT_MEDIA",
+      "WRONG_TASK",
+      "DUPLICATE_SESSION",
+      "INSUFFICIENT_DATA",
+      "PROTOCOL_DEVIATION"
+    ],
+    "rule": "Exclusions are applied without viewing desired model outcomes.",
+    "missingness": "Report missingness by metric, axis, device, environment, session, and approved fairness strata; missing values remain missing."
+  },
+  "analysisPlan": {
+    "reliability": [
+      "Select ordinal-appropriate inter-rater statistics before data access.",
+      "Report uncertainty intervals and category prevalence effects.",
+      "Estimate test-retest stability separately from inter-rater agreement."
+    ],
+    "constructValidity": [
+      "Compare automated physical metrics with the locked observable-behavior items only.",
+      "Do not validate against personality, emotion, confidence, job fit, hiring, health, gender, or deception labels."
+    ],
+    "distributions": [
+      "Report robust distributions by task, session, device, environment, and measurement-availability strata.",
+      "Separate technical quality metrics from behavior metrics."
+    ],
+    "fairness": [
+      "Audit availability, error, exclusion, and disagreement rates across approved strata.",
+      "Escalate accessibility-related measurement failures for human review; never impute a behavior penalty."
+    ],
+    "sensitivity": [
+      "Threshold candidates, if later authorized, require preregistered alternatives, uncertainty analysis, and held-out confirmation.",
+      "Axis weights require a separately preregistered construct model and out-of-sample validation."
+    ],
+    "dataSplit": "Participant-level development and held-out partitions must be fixed before candidate modeling."
+  },
+  "qualityGates": {
+    "designPrinciples": [
+      "Quality gates determine whether a metric is observable, not whether behavior is good.",
+      "Gate parameters remain TBD until pilot distributions and device effects are reviewed.",
+      "A failed gate yields NOT_SCORABLE or INSUFFICIENT_DATA, never zero."
+    ],
+    "requiredChecks": [
+      "Timestamp validity",
+      "Answer duration and speech sufficiency",
+      "Head and posture availability",
+      "Audio clipping and voiced-frame availability",
+      "Artifact integrity and provenance"
+    ]
+  },
+  "decisionGates": [
+    {
+      "gate": "PROTOCOL_APPROVAL",
+      "requiredEvidence": [
+        "Ethics/consent approval",
+        "Privacy and retention approval",
+        "Locked protocol and rubric"
+      ],
+      "status": "NOT_MET"
+    },
+    {
+      "gate": "MEASUREMENT_RELIABILITY",
+      "requiredEvidence": [
+        "Inter-rater reliability with uncertainty",
+        "Test-retest results",
+        "Device/environment missingness audit"
+      ],
+      "status": "NOT_MET"
+    },
+    {
+      "gate": "THRESHOLD_RESEARCH_AUTHORIZATION",
+      "requiredEvidence": [
+        "Construct validity",
+        "Fairness and accessibility review",
+        "Held-out analysis plan"
+      ],
+      "status": "NOT_MET"
+    },
+    {
+      "gate": "PRODUCTION_SCORING_APPROVAL",
+      "requiredEvidence": [
+        "Independent review",
+        "Approved thresholds and weights",
+        "Fail-closed production verification"
+      ],
+      "status": "NOT_MET"
+    }
+  ],
+  "forbiddenOutputs": [
+    "REAL_USER_SCORE",
+    "PRODUCTION_THRESHOLD",
+    "AXIS_WEIGHT",
+    "OVERALL_WEIGHT",
+    "HIRING_RECOMMENDATION",
+    "JOB_FIT_INFERENCE"
+  ],
+  "openParameters": [
+    "Sample size",
+    "Rater count",
+    "Repeat-session count",
+    "Reliability acceptance criteria",
+    "Quality-gate values",
+    "Threshold candidates",
+    "Axis weights"
+  ],
+  "researchQuestions": [
+    "Are registered physical metrics repeatable across sessions and supported devices?",
+    "Can independent raters apply the observable-behavior rubric reliably?",
+    "Which technical conditions cause metric unavailability or disagreement?",
+    "Do automated metrics have construct-valid relationships with locked rubric items without protected or prohibited inference?"
+  ],
+  "eligibility": {
+    "inclusionCriteria": [
+      "Approved consent",
+      "Required task language",
+      "Supported capture flow",
+      "Protocol-defined repeat-session availability"
+    ],
+    "exclusionCriteria": [
+      "Missing consent",
+      "Unsafe or unusable media",
+      "Wrong task",
+      "Protocol deviation defined before outcome review"
+    ]
+  },
+  "answerIntervalDefinition": "Use the locked interview question boundaries; calibration, silence outside the answer, and system prompts are not behavior intervals.",
+  "disagreementHandling": "Preserve independent ratings, apply a preregistered disagreement flag, and adjudicate separately without overwriting source labels.",
+  "approvalProcess": "Research, privacy, accessibility, evidence, and engineering owners must approve their gates independently.",
+  "productionPromotionConditions": "All decision gates must be met with versioned evidence and an explicit production profile approval; Stage 32 satisfies none.",
+  "stopConditions": [
+    "Consent withdrawal",
+    "Unexpected privacy or safety risk",
+    "Material protocol drift",
+    "Systematic measurement failure",
+    "Unapproved use or inference"
+  ]
+}

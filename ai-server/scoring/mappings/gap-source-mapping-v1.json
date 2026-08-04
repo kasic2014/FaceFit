@@ -1,0 +1,615 @@
+{
+  "version": "1.0.0",
+  "stage": 32,
+  "gapCount": 16,
+  "productionApproved": false,
+  "resolvedGapCount": 0,
+  "gaps": [
+    {
+      "gapId": "KOREAN_SPEECH_RATE",
+      "evidenceState": "PARTIALLY_SUPPORTED",
+      "evidenceIds": [
+        "GAP_DATA_001",
+        "GAP_DATA_002",
+        "GAP_SPEECH_003"
+      ],
+      "affectedMetricIds": [
+        "SPEECH_WORDS_PER_MINUTE"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "Definitions are informative, but task, device, processing, or aggregation transfer is unvalidated.",
+      "description": "Face-Fit Korean interview speaking-rate construct and token boundary validation.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_INT_002"
+      ],
+      "newStage32Sources": [
+        "GAP_DATA_001",
+        "GAP_DATA_002",
+        "GAP_SPEECH_003"
+      ],
+      "evidenceCoverage": "PARTIALLY_SUPPORTED",
+      "remainingProblem": "Definitions are informative, but task, device, processing, or aggregation transfer is unvalidated.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "PARTIALLY_SUPPORTED"
+    },
+    {
+      "gapId": "KOREAN_ARTICULATION_RATE",
+      "evidenceState": "PARTIALLY_SUPPORTED",
+      "evidenceIds": [
+        "GAP_DATA_002"
+      ],
+      "affectedMetricIds": [
+        "SPEECH_ARTICULATION_WORDS_PER_MINUTE"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "Definitions are informative, but task, device, processing, or aggregation transfer is unvalidated.",
+      "description": "Korean articulation-rate denominator and timestamp validity.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_INT_002"
+      ],
+      "newStage32Sources": [
+        "GAP_DATA_002"
+      ],
+      "evidenceCoverage": "PARTIALLY_SUPPORTED",
+      "remainingProblem": "Definitions are informative, but task, device, processing, or aggregation transfer is unvalidated.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "PARTIALLY_SUPPORTED"
+    },
+    {
+      "gapId": "KOREAN_PAUSE_DURATION",
+      "evidenceState": "PARTIALLY_SUPPORTED",
+      "evidenceIds": [
+        "GAP_DATA_001",
+        "GAP_DATA_002"
+      ],
+      "affectedMetricIds": [
+        "SPEECH_TOTAL_INTERWORD_GAP_MS",
+        "SPEECH_P90_INTERWORD_GAP_MS"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "Definitions are informative, but task, device, processing, or aggregation transfer is unvalidated.",
+      "description": "Korean interview pause taxonomy and inter-word-gap semantics.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_INT_002",
+        "SRC_INT_003"
+      ],
+      "newStage32Sources": [
+        "GAP_DATA_001",
+        "GAP_DATA_002"
+      ],
+      "evidenceCoverage": "PARTIALLY_SUPPORTED",
+      "remainingProblem": "Definitions are informative, but task, device, processing, or aggregation transfer is unvalidated.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "PARTIALLY_SUPPORTED"
+    },
+    {
+      "gapId": "KOREAN_FILLER_VALIDATION",
+      "evidenceState": "PARTIALLY_SUPPORTED",
+      "evidenceIds": [
+        "GAP_SPEECH_003",
+        "GAP_DATA_004",
+        "GAP_FILLER_003",
+        "GAP_FILLER_004",
+        "GAP_DATA_007"
+      ],
+      "affectedMetricIds": [
+        "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "Definitions are informative, but task, device, processing, or aggregation transfer is unvalidated.",
+      "description": "Contextual Korean filler candidate validity and false-positive control.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_INT_003"
+      ],
+      "newStage32Sources": [
+        "GAP_SPEECH_003",
+        "GAP_DATA_004",
+        "GAP_FILLER_003",
+        "GAP_FILLER_004",
+        "GAP_DATA_007"
+      ],
+      "evidenceCoverage": "PARTIALLY_SUPPORTED",
+      "remainingProblem": "Definitions are informative, but task, device, processing, or aggregation transfer is unvalidated.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "PARTIALLY_SUPPORTED"
+    },
+    {
+      "gapId": "WEBCAM_HEAD_POSE_BEHAVIOR",
+      "evidenceState": "ACCESS_LIMITED",
+      "evidenceIds": [
+        "GAP_GAZE_001",
+        "GAP_GAZE_002"
+      ],
+      "affectedMetricIds": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+        "HEAD_RELATIVE_ROLL_ABS_P95_DEG",
+        "QUALITY_HEAD_AVAILABILITY_RATIO"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A central source was inaccessible or non-transferable; the gap stays open.",
+      "description": "Behavioral meaning and measurement validity of webcam head pose.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_HEAD_002",
+        "SRC_HEAD_003",
+        "SRC_HEAD_005"
+      ],
+      "newStage32Sources": [
+        "GAP_GAZE_001",
+        "GAP_GAZE_002"
+      ],
+      "evidenceCoverage": "ACCESS_LIMITED",
+      "remainingProblem": "A central source was inaccessible or non-transferable; the gap stays open.",
+      "nextRequiredAction": "Obtain and verify a lawful full-text source, then perform the required Face-Fit pilot.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "ACCESS_LIMITED"
+    },
+    {
+      "gapId": "HEAD_POSE_VS_EYE_GAZE",
+      "evidenceState": "METHOD_DEFINED",
+      "evidenceIds": [
+        "GAP_GAZE_002",
+        "GAP_GAZE_003"
+      ],
+      "affectedMetricIds": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+        "HEAD_RELATIVE_ROLL_ABS_P95_DEG"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A validation method can be drafted, but Face-Fit pilot evidence is absent.",
+      "description": "Construct separation between head orientation, ocular gaze, and eye contact.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_HEAD_002",
+        "SRC_HEAD_003"
+      ],
+      "newStage32Sources": [
+        "GAP_GAZE_002",
+        "GAP_GAZE_003"
+      ],
+      "evidenceCoverage": "METHOD_DEFINED",
+      "remainingProblem": "A validation method can be drafted, but Face-Fit pilot evidence is absent.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "METHOD_DEFINED"
+    },
+    {
+      "gapId": "SEATED_SHOULDER_POSTURE",
+      "evidenceState": "ACCESS_LIMITED",
+      "evidenceIds": [
+        "GAP_BODY_003",
+        "GAP_BODY_004"
+      ],
+      "affectedMetricIds": [
+        "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+        "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM",
+        "QUALITY_POSTURE_AVAILABILITY_RATIO"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A central source was inaccessible or non-transferable; the gap stays open.",
+      "description": "Transferability of seated shoulder measurements to 2D RGB webcam answers.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_POSE_001",
+        "SRC_POSE_002"
+      ],
+      "newStage32Sources": [
+        "GAP_BODY_003",
+        "GAP_BODY_004"
+      ],
+      "evidenceCoverage": "ACCESS_LIMITED",
+      "remainingProblem": "A central source was inaccessible or non-transferable; the gap stays open.",
+      "nextRequiredAction": "Obtain and verify a lawful full-text source, then perform the required Face-Fit pilot.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "ACCESS_LIMITED"
+    },
+    {
+      "gapId": "SHOULDER_CENTER_MOVEMENT",
+      "evidenceState": "PILOT_REQUIRED",
+      "evidenceIds": [
+        "GAP_METHOD_002"
+      ],
+      "affectedMetricIds": [
+        "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A consented Face-Fit pilot is required before threshold or weight work.",
+      "description": "Construct validity of normalized shoulder-center movement.",
+      "severity": "HIGH",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_POSE_001"
+      ],
+      "newStage32Sources": [
+        "GAP_METHOD_002"
+      ],
+      "evidenceCoverage": "PILOT_REQUIRED",
+      "remainingProblem": "A consented Face-Fit pilot is required before threshold or weight work.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "PILOT_REQUIRED"
+    },
+    {
+      "gapId": "MICROPHONE_LOUDNESS_NORMALIZATION",
+      "evidenceState": "QUALITY_ONLY",
+      "evidenceIds": [
+        "GAP_AUDIO_001",
+        "GAP_AUDIO_002"
+      ],
+      "affectedMetricIds": [
+        "SPEECH_RMS_DBFS",
+        "SPEECH_PEAK_DBFS",
+        "SPEECH_CLIPPING_SAMPLE_RATIO",
+        "SPEECH_VOICED_FRAME_RATIO"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "The sources support capture-quality terminology only, never behavior scoring.",
+      "description": "Cross-device browser microphone comparability and capture quality.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_INT_002",
+        "SRC_PUB_003"
+      ],
+      "newStage32Sources": [
+        "GAP_AUDIO_001",
+        "GAP_AUDIO_002"
+      ],
+      "evidenceCoverage": "QUALITY_ONLY",
+      "remainingProblem": "The sources support capture-quality terminology only, never behavior scoring.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "AUDIO_ENGINEERING_RESEARCH",
+      "status": "QUALITY_ONLY"
+    },
+    {
+      "gapId": "HUMAN_BEHAVIOR_RUBRIC",
+      "evidenceState": "METHOD_DEFINED",
+      "evidenceIds": [
+        "GAP_DATA_007",
+        "GAP_RUBRIC_002",
+        "GAP_RUBRIC_003",
+        "GAP_GAZE_003",
+        "GAP_METHOD_001",
+        "GAP_METHOD_002"
+      ],
+      "affectedMetricIds": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+        "HEAD_RELATIVE_ROLL_ABS_P95_DEG",
+        "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+        "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC",
+        "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM",
+        "SPEECH_WORDS_PER_MINUTE",
+        "SPEECH_ARTICULATION_WORDS_PER_MINUTE",
+        "SPEECH_TOTAL_INTERWORD_GAP_MS",
+        "SPEECH_P90_INTERWORD_GAP_MS",
+        "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A validation method can be drafted, but Face-Fit pilot evidence is absent.",
+      "description": "Observable behavior anchors for independent human annotation.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_INT_002",
+        "SRC_INT_003",
+        "SRC_POSE_001"
+      ],
+      "newStage32Sources": [
+        "GAP_DATA_007",
+        "GAP_RUBRIC_002",
+        "GAP_RUBRIC_003",
+        "GAP_GAZE_003",
+        "GAP_METHOD_001",
+        "GAP_METHOD_002"
+      ],
+      "evidenceCoverage": "METHOD_DEFINED",
+      "remainingProblem": "A validation method can be drafted, but Face-Fit pilot evidence is absent.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "METHOD_DEFINED"
+    },
+    {
+      "gapId": "INTER_RATER_RELIABILITY",
+      "evidenceState": "METHOD_DEFINED",
+      "evidenceIds": [
+        "GAP_RUBRIC_002",
+        "GAP_RUBRIC_003",
+        "GAP_GAZE_003",
+        "GAP_METHOD_001"
+      ],
+      "affectedMetricIds": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+        "SPEECH_WORDS_PER_MINUTE",
+        "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A validation method can be drafted, but Face-Fit pilot evidence is absent.",
+      "description": "Reliability of the locked Face-Fit human rubric.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_INT_003"
+      ],
+      "newStage32Sources": [
+        "GAP_RUBRIC_002",
+        "GAP_RUBRIC_003",
+        "GAP_GAZE_003",
+        "GAP_METHOD_001"
+      ],
+      "evidenceCoverage": "METHOD_DEFINED",
+      "remainingProblem": "A validation method can be drafted, but Face-Fit pilot evidence is absent.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "METHOD_DEFINED"
+    },
+    {
+      "gapId": "MULTI_SESSION_DISTRIBUTION",
+      "evidenceState": "PILOT_REQUIRED",
+      "evidenceIds": [
+        "GAP_DATA_001",
+        "GAP_DATA_002",
+        "GAP_SPEECH_003",
+        "GAP_BODY_004",
+        "GAP_METHOD_002"
+      ],
+      "affectedMetricIds": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+        "HEAD_RELATIVE_ROLL_ABS_P95_DEG",
+        "QUALITY_HEAD_AVAILABILITY_RATIO",
+        "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+        "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC",
+        "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM",
+        "QUALITY_POSTURE_AVAILABILITY_RATIO",
+        "SPEECH_WORDS_PER_MINUTE",
+        "SPEECH_ARTICULATION_WORDS_PER_MINUTE",
+        "SPEECH_TOTAL_INTERWORD_GAP_MS",
+        "SPEECH_P90_INTERWORD_GAP_MS",
+        "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+        "SPEECH_RMS_DBFS",
+        "SPEECH_PEAK_DBFS",
+        "SPEECH_CLIPPING_SAMPLE_RATIO",
+        "SPEECH_VOICED_FRAME_RATIO",
+        "SPEECH_F0_RANGE_HZ"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A consented Face-Fit pilot is required before threshold or weight work.",
+      "description": "Repeated-session distributions and measurement stability.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_HEAD_002",
+        "SRC_HEAD_003",
+        "SRC_HEAD_005",
+        "SRC_INT_002",
+        "SRC_INT_003",
+        "SRC_POSE_001",
+        "SRC_POSE_002"
+      ],
+      "newStage32Sources": [
+        "GAP_DATA_001",
+        "GAP_DATA_002",
+        "GAP_SPEECH_003",
+        "GAP_BODY_004",
+        "GAP_METHOD_002"
+      ],
+      "evidenceCoverage": "PILOT_REQUIRED",
+      "remainingProblem": "A consented Face-Fit pilot is required before threshold or weight work.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "PILOT_REQUIRED"
+    },
+    {
+      "gapId": "THRESHOLD_SENSITIVITY",
+      "evidenceState": "PILOT_REQUIRED",
+      "evidenceIds": [],
+      "affectedMetricIds": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+        "HEAD_RELATIVE_ROLL_ABS_P95_DEG",
+        "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+        "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC",
+        "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM",
+        "SPEECH_WORDS_PER_MINUTE",
+        "SPEECH_ARTICULATION_WORDS_PER_MINUTE",
+        "SPEECH_TOTAL_INTERWORD_GAP_MS",
+        "SPEECH_P90_INTERWORD_GAP_MS",
+        "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+        "SPEECH_RMS_DBFS",
+        "SPEECH_PEAK_DBFS"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A consented Face-Fit pilot is required before threshold or weight work.",
+      "description": "Preregistered sensitivity and held-out validation for future boundaries.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_HEAD_002",
+        "SRC_HEAD_003",
+        "SRC_INT_002",
+        "SRC_INT_003",
+        "SRC_POSE_001"
+      ],
+      "newStage32Sources": [],
+      "evidenceCoverage": "PILOT_REQUIRED",
+      "remainingProblem": "A consented Face-Fit pilot is required before threshold or weight work.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "PILOT_REQUIRED"
+    },
+    {
+      "gapId": "AXIS_WEIGHT_VALIDATION",
+      "evidenceState": "PILOT_REQUIRED",
+      "evidenceIds": [
+        "GAP_METHOD_001"
+      ],
+      "affectedMetricIds": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+        "HEAD_RELATIVE_ROLL_ABS_P95_DEG",
+        "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+        "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC",
+        "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM",
+        "SPEECH_WORDS_PER_MINUTE",
+        "SPEECH_ARTICULATION_WORDS_PER_MINUTE",
+        "SPEECH_TOTAL_INTERWORD_GAP_MS",
+        "SPEECH_P90_INTERWORD_GAP_MS",
+        "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+        "SPEECH_RMS_DBFS",
+        "SPEECH_PEAK_DBFS"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A consented Face-Fit pilot is required before threshold or weight work.",
+      "description": "Construct and out-of-sample validation of any future aggregation weights.",
+      "severity": "HIGH",
+      "blockingProduction": true,
+      "existingSources": [],
+      "newStage32Sources": [
+        "GAP_METHOD_001"
+      ],
+      "evidenceCoverage": "PILOT_REQUIRED",
+      "remainingProblem": "A consented Face-Fit pilot is required before threshold or weight work.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "PILOT_REQUIRED"
+    },
+    {
+      "gapId": "BIAS_AND_FAIRNESS_VALIDATION",
+      "evidenceState": "ACCESS_LIMITED",
+      "evidenceIds": [
+        "GAP_GAZE_001"
+      ],
+      "affectedMetricIds": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+        "HEAD_RELATIVE_ROLL_ABS_P95_DEG",
+        "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+        "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC",
+        "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM",
+        "SPEECH_WORDS_PER_MINUTE",
+        "SPEECH_ARTICULATION_WORDS_PER_MINUTE",
+        "SPEECH_TOTAL_INTERWORD_GAP_MS",
+        "SPEECH_P90_INTERWORD_GAP_MS",
+        "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+        "SPEECH_RMS_DBFS",
+        "SPEECH_PEAK_DBFS",
+        "SPEECH_VOICED_FRAME_RATIO",
+        "SPEECH_F0_RANGE_HZ"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A central source was inaccessible or non-transferable; the gap stays open.",
+      "description": "Availability, error, disagreement, and accessibility audit across approved strata.",
+      "severity": "CRITICAL",
+      "blockingProduction": true,
+      "existingSources": [
+        "SRC_INT_002"
+      ],
+      "newStage32Sources": [
+        "GAP_GAZE_001"
+      ],
+      "evidenceCoverage": "ACCESS_LIMITED",
+      "remainingProblem": "A central source was inaccessible or non-transferable; the gap stays open.",
+      "nextRequiredAction": "Obtain and verify a lawful full-text source, then perform the required Face-Fit pilot.",
+      "ownerType": "PRIVACY_ACCESSIBILITY_REVIEW",
+      "status": "ACCESS_LIMITED"
+    },
+    {
+      "gapId": "VALIDATION_DESIGN",
+      "evidenceState": "METHOD_DEFINED",
+      "evidenceIds": [
+        "GAP_RUBRIC_002",
+        "GAP_RUBRIC_003",
+        "GAP_METHOD_001",
+        "GAP_METHOD_002"
+      ],
+      "affectedMetricIds": [
+        "HEAD_RELATIVE_YAW_ABS_P95_DEG",
+        "HEAD_RELATIVE_PITCH_ABS_P95_DEG",
+        "HEAD_RELATIVE_ROLL_ABS_P95_DEG",
+        "QUALITY_HEAD_AVAILABILITY_RATIO",
+        "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG",
+        "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC",
+        "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM",
+        "QUALITY_POSTURE_AVAILABILITY_RATIO",
+        "SPEECH_WORDS_PER_MINUTE",
+        "SPEECH_ARTICULATION_WORDS_PER_MINUTE",
+        "SPEECH_TOTAL_INTERWORD_GAP_MS",
+        "SPEECH_P90_INTERWORD_GAP_MS",
+        "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+        "SPEECH_RMS_DBFS",
+        "SPEECH_PEAK_DBFS",
+        "SPEECH_CLIPPING_SAMPLE_RATIO",
+        "SPEECH_VOICED_FRAME_RATIO",
+        "SPEECH_F0_RANGE_HZ"
+      ],
+      "productionBlocking": true,
+      "resolved": false,
+      "thresholdSupported": false,
+      "stage32Conclusion": "A validation method can be drafted, but Face-Fit pilot evidence is absent.",
+      "description": "Locked pilot protocol, analysis plan, and decision gates.",
+      "severity": "HIGH",
+      "blockingProduction": true,
+      "existingSources": [],
+      "newStage32Sources": [
+        "GAP_RUBRIC_002",
+        "GAP_RUBRIC_003",
+        "GAP_METHOD_001",
+        "GAP_METHOD_002"
+      ],
+      "evidenceCoverage": "METHOD_DEFINED",
+      "remainingProblem": "A validation method can be drafted, but Face-Fit pilot evidence is absent.",
+      "nextRequiredAction": "Execute the preregistered, consented Face-Fit pilot and review uncertainty before any readiness change.",
+      "ownerType": "MEASUREMENT_AND_VALIDATION_RESEARCH",
+      "status": "METHOD_DEFINED"
+    }
+  ]
+}

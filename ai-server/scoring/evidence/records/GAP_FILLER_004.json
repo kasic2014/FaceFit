@@ -1,0 +1,103 @@
+{
+  "evidenceId": "GAP_FILLER_004",
+  "title": "Filler Word Detection and Classification: A Dataset and Benchmark",
+  "authors": [
+    "PodcastFillers authors"
+  ],
+  "year": 2022,
+  "doi": "10.48550/arXiv.2203.15135",
+  "officialUrl": "https://arxiv.org/abs/2203.15135",
+  "fileSha256": "87b84a428c3ca4c294c3eed8fff108de95e5765f41daab6712bf6b4d3ad85608",
+  "metricDefinition": "VAD and ASR filler-candidate detection pipeline",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Sections 2-3; evaluation tables",
+      "table": null,
+      "figure": null,
+      "description": "The work demonstrates candidate generation plus manual classification and highlights context-dependent false positives; this supports a fail-safe annotation workflow only."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "AUTHOR_REPOSITORY"
+  },
+  "study": {
+    "context": "FILLER_DETECTION",
+    "sampleSize": null,
+    "participantDescription": null,
+    "language": "English",
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "VAD and ASR filler-candidate detection pipeline",
+      "definition": "The work demonstrates candidate generation plus manual classification and highlights context-dependent false positives; this supports a fail-safe annotation workflow only.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "English podcasts differ from Korean interview speech.",
+        "Candidate duration filters and model performance are not behavior thresholds."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The work demonstrates candidate generation plus manual classification and highlights context-dependent false positives; this supports a fail-safe annotation workflow only.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "VAD and ASR filler-candidate detection pipeline",
+      "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "English podcasts differ from Korean interview speech.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "HUMAN_RUBRIC",
+    "MEASUREMENT_LIMITATION",
+    "VALIDATION_DESIGN"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_HUMAN_RUBRIC",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "ACCEPTED_VALIDATION_DESIGN",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "English podcasts differ from Korean interview speech.",
+    "Candidate duration filters and model performance are not behavior thresholds."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

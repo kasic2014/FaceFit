@@ -1,0 +1,1700 @@
+{
+  "version": "1.0.0",
+  "stage": 32,
+  "sourceCount": 18,
+  "productionApproved": false,
+  "numericThresholdsCreated": false,
+  "reviewedAt": "2026-08-04T00:00:00Z",
+  "sources": [
+    {
+      "evidenceId": "GAP_DATA_001",
+      "title": "Seoul Corpus readme, manual, and paper package",
+      "authors": [
+        "Young-mee Yu Cho",
+        "Seoul Corpus contributors"
+      ],
+      "year": 2015,
+      "doi": null,
+      "officialUrl": "https://www.openslr.org/113/",
+      "license": "CC BY-NC 2.0",
+      "materialType": "DATASET_DOCUMENTATION",
+      "fileSha256": "bc925df3d72adbefab6909af518a90c113a1e841874da735f34ea46f73c21d27",
+      "fileSizeBytes": 27530017,
+      "fileIntegrity": "VALID_ARCHIVE",
+      "reviewStatus": "FULL_MATERIAL_REVIEWED",
+      "gapIds": [
+        "KOREAN_SPEECH_RATE",
+        "KOREAN_PAUSE_DURATION",
+        "MULTI_SESSION_DISTRIBUTION"
+      ],
+      "permittedUses": [
+        "CONTEXT",
+        "MEASUREMENT_LIMITATION",
+        "VALIDATION_DESIGN"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_DATA_001",
+        "sourceType": "DATASET_DOCUMENTATION",
+        "localFileName": "GAP_DATA_001_seoul_corpus_readme.tgz",
+        "accessLevel": "LOCAL_DATA_PACKAGE",
+        "reviewDepth": "MATERIAL_REVIEWED",
+        "reviewStatus": "FULL_MATERIAL_REVIEWED",
+        "licenseSummary": "CC BY-NC 2.0",
+        "relatedGaps": [
+          "KOREAN_SPEECH_RATE",
+          "KOREAN_PAUSE_DURATION",
+          "MULTI_SESSION_DISTRIBUTION"
+        ],
+        "relatedMetrics": [
+          "SPEECH_WORDS_PER_MINUTE"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "The corpus documents roughly one hour of spontaneous Seoul Korean per speaker, a seven-tier annotation design, and recording conditions; these are corpus-design facts, not interview score boundaries."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Sociolinguistic spontaneous speech is not a video-interview answer task.",
+          "The package does not report a transferable Face-Fit behavior threshold."
+        ],
+        "measurementDefinition": "Seoul Corpus spontaneous-speech annotation",
+        "population": {
+          "sampleSize": 40,
+          "language": "Korean",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "SPEECH_CORPUS",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The corpus documents roughly one hour of spontaneous Seoul Korean per speaker, a seven-tier annotation design, and recording conditions; these are corpus-design facts, not interview score boundaries.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Sociolinguistic spontaneous speech is not a video-interview answer task.",
+          "The package does not report a transferable Face-Fit behavior threshold."
+        ],
+        "faceFitApplicability": [
+          "CONTEXT",
+          "MEASUREMENT_LIMITATION",
+          "VALIDATION_DESIGN"
+        ],
+        "faceFitNonApplicability": [
+          "Sociolinguistic spontaneous speech is not a video-interview answer task.",
+          "The package does not report a transferable Face-Fit behavior threshold."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "ReadMe, corpus manual, and embedded paper pages 1-7",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The corpus documents roughly one hour of spontaneous Seoul Korean per speaker, a seven-tier annotation design, and recording conditions; these are corpus-design facts, not interview score boundaries."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_DATA_002",
+      "title": "Seoul Corpus Praat TextGrid labels",
+      "authors": [
+        "Seoul Corpus contributors"
+      ],
+      "year": 2015,
+      "doi": null,
+      "officialUrl": "https://www.openslr.org/113/",
+      "license": "CC BY-NC 2.0",
+      "materialType": "DATASET",
+      "fileSha256": "63c3f8ffa6976307a732689d6c5be7b2db4ec20f14bf276faf98c886add0d24b",
+      "fileSizeBytes": 57779067,
+      "fileIntegrity": "VALID_ARCHIVE",
+      "reviewStatus": "STRUCTURE_AND_SAMPLE_REVIEWED",
+      "gapIds": [
+        "KOREAN_SPEECH_RATE",
+        "KOREAN_ARTICULATION_RATE",
+        "KOREAN_PAUSE_DURATION",
+        "MULTI_SESSION_DISTRIBUTION"
+      ],
+      "permittedUses": [
+        "METRIC_DEFINITION",
+        "MEASUREMENT_LIMITATION",
+        "VALIDATION_DESIGN"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_DATA_002",
+        "sourceType": "DATASET",
+        "localFileName": "GAP_DATA_002_seoul_corpus_labels.tgz",
+        "accessLevel": "LOCAL_DATA_PACKAGE",
+        "reviewDepth": "MATERIAL_REVIEWED",
+        "reviewStatus": "STRUCTURE_AND_SAMPLE_REVIEWED",
+        "licenseSummary": "CC BY-NC 2.0",
+        "relatedGaps": [
+          "KOREAN_SPEECH_RATE",
+          "KOREAN_ARTICULATION_RATE",
+          "KOREAN_PAUSE_DURATION",
+          "MULTI_SESSION_DISTRIBUTION"
+        ],
+        "relatedMetrics": [
+          "SPEECH_TOTAL_INTERWORD_GAP_MS"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "The archive supplies time-aligned corpus labels and explicit noise/private-information markers, but its tiers do not equal Face-Fit STT word-timestamp semantics."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Only structure and a bounded sample were inspected; raw labels are not redistributed.",
+          "Corpus boundary conventions require a registered conversion and validation study."
+        ],
+        "measurementDefinition": "Seven-tier TextGrid timing annotation",
+        "population": {
+          "sampleSize": "NOT_REPORTED",
+          "language": "Korean",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "SPEECH_CORPUS",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The archive supplies time-aligned corpus labels and explicit noise/private-information markers, but its tiers do not equal Face-Fit STT word-timestamp semantics.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Only structure and a bounded sample were inspected; raw labels are not redistributed.",
+          "Corpus boundary conventions require a registered conversion and validation study."
+        ],
+        "faceFitApplicability": [
+          "METRIC_DEFINITION",
+          "MEASUREMENT_LIMITATION",
+          "VALIDATION_DESIGN"
+        ],
+        "faceFitNonApplicability": [
+          "Only structure and a bounded sample were inspected; raw labels are not redistributed.",
+          "Corpus boundary conventions require a registered conversion and validation study."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Archive member inventory and sampled UTF-16 TextGrid tiers",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The archive supplies time-aligned corpus labels and explicit noise/private-information markers, but its tiers do not equal Face-Fit STT word-timestamp semantics."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_SPEECH_003",
+      "title": "KsponSpeech: Korean Spontaneous Speech Corpus for Automatic Speech Recognition",
+      "authors": [
+        "Jeong-Uk Bang",
+        "Seung Yun",
+        "Seung-Hi Kim",
+        "Mu-Yeol Choi",
+        "Min-Kyu Lee",
+        "Yong-Hwa Lee"
+      ],
+      "year": 2020,
+      "doi": "10.3390/app10196936",
+      "officialUrl": "https://www.mdpi.com/2076-3417/10/19/6936",
+      "license": "CC BY 4.0 article; corpus terms separate",
+      "materialType": "PAPER",
+      "fileSha256": "56f7c0a71a4b38dda00704e2ce323ed0d7f08ccf92da22d82ea736d3a65963fc",
+      "fileSizeBytes": 1051581,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "KOREAN_FILLER_VALIDATION",
+        "KOREAN_SPEECH_RATE",
+        "MULTI_SESSION_DISTRIBUTION"
+      ],
+      "permittedUses": [
+        "CONTEXT",
+        "METRIC_DEFINITION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_SPEECH_003",
+        "sourceType": "PAPER",
+        "localFileName": "GAP_SPEECH_003_ksponspeech_paper.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "CC BY 4.0 article; corpus terms separate",
+        "relatedGaps": [
+          "KOREAN_FILLER_VALIDATION",
+          "KOREAN_SPEECH_RATE",
+          "MULTI_SESSION_DISTRIBUTION"
+        ],
+        "relatedMetrics": [
+          "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "The 969-hour Korean dialogue corpus documents slash-marked fillers and plus-marked repetition or fragments; it supports annotation design, not automatic interview penalties."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Clean two-person dialogue differs from browser interview answers.",
+          "Corpus access and use terms are separate from the open article."
+        ],
+        "measurementDefinition": "Dual orthographic/pronunciation transcription with disfluency symbols",
+        "population": {
+          "sampleSize": 2000,
+          "language": "Korean",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "SPEECH_CORPUS",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The 969-hour Korean dialogue corpus documents slash-marked fillers and plus-marked repetition or fragments; it supports annotation design, not automatic interview penalties.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Clean two-person dialogue differs from browser interview answers.",
+          "Corpus access and use terms are separate from the open article."
+        ],
+        "faceFitApplicability": [
+          "CONTEXT",
+          "METRIC_DEFINITION",
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Clean two-person dialogue differs from browser interview answers.",
+          "Corpus access and use terms are separate from the open article."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Abstract; Sections 3-4; transcription examples",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The 969-hour Korean dialogue corpus documents slash-marked fillers and plus-marked repetition or fragments; it supports annotation design, not automatic interview penalties."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_DATA_004",
+      "title": "KsponSpeech preprocessing reference implementation",
+      "authors": [
+        "sooftware contributors"
+      ],
+      "year": 2020,
+      "doi": null,
+      "officialUrl": "https://github.com/sooftware/ksponspeech",
+      "license": "Repository license requires separate review",
+      "materialType": "SOURCE_ARCHIVE",
+      "fileSha256": "ec1bf9dd59cece5f58bc8a80ab4e6ef61ffbbeb277d3cc1c683aa6e0f719fd36",
+      "fileSizeBytes": 9148,
+      "fileIntegrity": "VALID_ARCHIVE",
+      "reviewStatus": "SOURCE_REVIEWED_NOT_EXECUTED",
+      "gapIds": [
+        "KOREAN_FILLER_VALIDATION",
+        "KOREAN_SPEECH_RATE"
+      ],
+      "permittedUses": [
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_DATA_004",
+        "sourceType": "SOURCE_ARCHIVE",
+        "localFileName": "GAP_DATA_004_ksponspeech_preprocess.zip",
+        "accessLevel": "SOURCE_ARCHIVE",
+        "reviewDepth": "MATERIAL_REVIEWED",
+        "reviewStatus": "SOURCE_REVIEWED_NOT_EXECUTED",
+        "licenseSummary": "Repository license requires separate review",
+        "relatedGaps": [
+          "KOREAN_FILLER_VALIDATION",
+          "KOREAN_SPEECH_RATE"
+        ],
+        "relatedMetrics": [
+          "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+        ],
+        "evidenceRelationship": [
+          "NOT_APPLICABLE"
+        ],
+        "supportedClaims": [
+          "The reference removes noise and interjection symbols for ASR preprocessing, so it cannot serve directly as a filler-validation label pipeline."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Source was statically inspected and not executed.",
+          "Preprocessing for ASR deletion conflicts with behavior-label preservation."
+        ],
+        "measurementDefinition": "KsponSpeech transcript symbol preprocessing",
+        "population": {
+          "sampleSize": "NOT_REPORTED",
+          "language": "Korean",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "SPEECH_CORPUS",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The reference removes noise and interjection symbols for ASR preprocessing, so it cannot serve directly as a filler-validation label pipeline.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Source was statically inspected and not executed.",
+          "Preprocessing for ASR deletion conflicts with behavior-label preservation."
+        ],
+        "faceFitApplicability": [
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Source was statically inspected and not executed.",
+          "Preprocessing for ASR deletion conflicts with behavior-label preservation."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "README and preprocessing source files",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The reference removes noise and interjection symbols for ASR preprocessing, so it cannot serve directly as a filler-validation label pipeline."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_FILLER_003",
+      "title": "FillerSpeech: Towards Human-Like Text-to-Speech Synthesis with Filler Insertion and Filler Style Control",
+      "authors": [
+        "FillerSpeech authors"
+      ],
+      "year": 2025,
+      "doi": "10.18653/v1/2025.emnlp-main.1730",
+      "officialUrl": "https://aclanthology.org/2025.emnlp-main.1730/",
+      "license": "CC BY 4.0",
+      "materialType": "PAPER",
+      "fileSha256": "03f96b4f128b9be60e9b4e80fb709c10085513cc6fc3cd6e0a2ddc4b25e7a350",
+      "fileSizeBytes": 7448128,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "KOREAN_FILLER_VALIDATION"
+      ],
+      "permittedUses": [
+        "CONTEXT",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_FILLER_003",
+        "sourceType": "PAPER",
+        "localFileName": "GAP_FILLER_003_fillerspeech_emnlp2025.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "CC BY 4.0",
+        "relatedGaps": [
+          "KOREAN_FILLER_VALIDATION"
+        ],
+        "relatedMetrics": [
+          "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "The large English TTS resource models filler insertion and style; its pitch and duration groupings are synthesis controls rather than behavioral boundaries."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "English synthetic-speech purpose does not validate Korean interview fillers.",
+          "Style groupings must never be converted into Face-Fit penalties."
+        ],
+        "measurementDefinition": "Filler occurrence and style labels for speech synthesis",
+        "population": {
+          "sampleSize": 4460,
+          "language": "English",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "FILLER_DETECTION",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The large English TTS resource models filler insertion and style; its pitch and duration groupings are synthesis controls rather than behavioral boundaries.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "English synthetic-speech purpose does not validate Korean interview fillers.",
+          "Style groupings must never be converted into Face-Fit penalties."
+        ],
+        "faceFitApplicability": [
+          "CONTEXT",
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "English synthetic-speech purpose does not validate Korean interview fillers.",
+          "Style groupings must never be converted into Face-Fit penalties."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Sections 3 and 5; Limitations",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The large English TTS resource models filler insertion and style; its pitch and duration groupings are synthesis controls rather than behavioral boundaries."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_FILLER_004",
+      "title": "Filler Word Detection and Classification: A Dataset and Benchmark",
+      "authors": [
+        "PodcastFillers authors"
+      ],
+      "year": 2022,
+      "doi": "10.48550/arXiv.2203.15135",
+      "officialUrl": "https://arxiv.org/abs/2203.15135",
+      "license": "Paper terms per arXiv; episode and dataset licenses vary",
+      "materialType": "PAPER",
+      "fileSha256": "87b84a428c3ca4c294c3eed8fff108de95e5765f41daab6712bf6b4d3ad85608",
+      "fileSizeBytes": 2486500,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "KOREAN_FILLER_VALIDATION"
+      ],
+      "permittedUses": [
+        "HUMAN_RUBRIC",
+        "MEASUREMENT_LIMITATION",
+        "VALIDATION_DESIGN"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_FILLER_004",
+        "sourceType": "PAPER",
+        "localFileName": "GAP_FILLER_004_podcastfillers_paper.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "Paper terms per arXiv; episode and dataset licenses vary",
+        "relatedGaps": [
+          "KOREAN_FILLER_VALIDATION"
+        ],
+        "relatedMetrics": [
+          "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "The work demonstrates candidate generation plus manual classification and highlights context-dependent false positives; this supports a fail-safe annotation workflow only."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "English podcasts differ from Korean interview speech.",
+          "Candidate duration filters and model performance are not behavior thresholds."
+        ],
+        "measurementDefinition": "VAD and ASR filler-candidate detection pipeline",
+        "population": {
+          "sampleSize": "NOT_REPORTED",
+          "language": "English",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "FILLER_DETECTION",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The work demonstrates candidate generation plus manual classification and highlights context-dependent false positives; this supports a fail-safe annotation workflow only.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "English podcasts differ from Korean interview speech.",
+          "Candidate duration filters and model performance are not behavior thresholds."
+        ],
+        "faceFitApplicability": [
+          "HUMAN_RUBRIC",
+          "MEASUREMENT_LIMITATION",
+          "VALIDATION_DESIGN"
+        ],
+        "faceFitNonApplicability": [
+          "English podcasts differ from Korean interview speech.",
+          "Candidate duration filters and model performance are not behavior thresholds."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Sections 2-3; evaluation tables",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The work demonstrates candidate generation plus manual classification and highlights context-dependent false positives; this supports a fail-safe annotation workflow only."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_DATA_007",
+      "title": "TalkTrack-Corpus annotation guidelines",
+      "authors": [
+        "TalkTrack-Corpus contributors"
+      ],
+      "year": 2026,
+      "doi": null,
+      "officialUrl": "https://github.com/KonWooKim/TalkTrack-Corpus/blob/main/annotationguidelines.md",
+      "license": "CC BY-NC-ND 4.0 repository terms",
+      "materialType": "GUIDELINE",
+      "fileSha256": "4f717c8e0c6c39a2809050831f9334104bae5b81f3f90acbdca2ea6044e6ab4c",
+      "fileSizeBytes": 6008,
+      "fileIntegrity": "VALID_TEXT",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "KOREAN_FILLER_VALIDATION",
+        "HUMAN_BEHAVIOR_RUBRIC"
+      ],
+      "permittedUses": [
+        "HUMAN_RUBRIC",
+        "VALIDATION_DESIGN",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_DATA_007",
+        "sourceType": "GUIDELINE",
+        "localFileName": "GAP_DATA_007_talktrack_annotation_guidelines.md",
+        "accessLevel": "DATASET_DOCUMENTATION",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "CC BY-NC-ND 4.0 repository terms",
+        "relatedGaps": [
+          "KOREAN_FILLER_VALIDATION",
+          "HUMAN_BEHAVIOR_RUBRIC"
+        ],
+        "relatedMetrics": [
+          "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "The guideline requires human correction of filler, cancellation, STT-error, and false-positive cases; it supports observable annotation procedures, not score bands."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Interpreted-speech context is not a Face-Fit interview.",
+          "No Face-Fit inter-rater study is supplied."
+        ],
+        "measurementDefinition": "Human correction rules for disfluency annotations",
+        "population": {
+          "sampleSize": "NOT_REPORTED",
+          "language": "Korean and Japanese interpreted speech",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "FILLER_DETECTION",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The guideline requires human correction of filler, cancellation, STT-error, and false-positive cases; it supports observable annotation procedures, not score bands.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Interpreted-speech context is not a Face-Fit interview.",
+          "No Face-Fit inter-rater study is supplied."
+        ],
+        "faceFitApplicability": [
+          "HUMAN_RUBRIC",
+          "VALIDATION_DESIGN",
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Interpreted-speech context is not a Face-Fit interview.",
+          "No Face-Fit inter-rater study is supplied."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Complete annotation guideline",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The guideline requires human correction of filler, cancellation, STT-error, and false-positive cases; it supports observable annotation procedures, not score bands."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_RUBRIC_002",
+      "title": "PSCR+ interrater agreement testing scores",
+      "authors": [
+        "PSCR+ study team"
+      ],
+      "year": 2024,
+      "doi": "10.5061/dryad.6m905qg6r",
+      "officialUrl": "https://datadryad.org/dataset/doi:10.5061/dryad.6m905qg6r",
+      "license": "Dataset page states no license restrictions",
+      "materialType": "DATASET",
+      "fileSha256": "42f87eeef7787bbd124546cb1cfb57059d390dacaf0221257b123ec60928563e",
+      "fileSizeBytes": 3025,
+      "fileIntegrity": "VALID_CSV",
+      "reviewStatus": "STRUCTURE_AND_AGGREGATE_REVIEWED",
+      "gapIds": [
+        "INTER_RATER_RELIABILITY",
+        "HUMAN_BEHAVIOR_RUBRIC"
+      ],
+      "permittedUses": [
+        "HUMAN_RUBRIC",
+        "VALIDATION_DESIGN"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_RUBRIC_002",
+        "sourceType": "DATASET",
+        "localFileName": "GAP_RUBRIC_002_pscr_plus_scores.csv",
+        "accessLevel": "LOCAL_DATA_PACKAGE",
+        "reviewDepth": "MATERIAL_REVIEWED",
+        "reviewStatus": "STRUCTURE_AND_AGGREGATE_REVIEWED",
+        "licenseSummary": "Dataset page states no license restrictions",
+        "relatedGaps": [
+          "INTER_RATER_RELIABILITY",
+          "HUMAN_BEHAVIOR_RUBRIC"
+        ],
+        "relatedMetrics": [
+          "SPEECH_WORDS_PER_MINUTE"
+        ],
+        "evidenceRelationship": [
+          "NOT_APPLICABLE"
+        ],
+        "supportedClaims": [
+          "The file contains 80 long-format 0-4 ratings across four talks and four raters; it is a small reliability example, not a Face-Fit validation cohort."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Raw rows are not committed or copied into evidence records.",
+          "Four public-speaking samples cannot establish interview scoring thresholds."
+        ],
+        "measurementDefinition": "Four-rater, twenty-item public-speaking rubric ratings",
+        "population": {
+          "sampleSize": 4,
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "VALIDATION_METHOD",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The file contains 80 long-format 0-4 ratings across four talks and four raters; it is a small reliability example, not a Face-Fit validation cohort.",
+        "raterCount": 4,
+        "interRaterMethod": "Agreement dataset; method selection must follow the locked Face-Fit scale.",
+        "reportedLimitations": [
+          "Raw rows are not committed or copied into evidence records.",
+          "Four public-speaking samples cannot establish interview scoring thresholds."
+        ],
+        "faceFitApplicability": [
+          "HUMAN_RUBRIC",
+          "VALIDATION_DESIGN"
+        ],
+        "faceFitNonApplicability": [
+          "Raw rows are not committed or copied into evidence records.",
+          "Four public-speaking samples cannot establish interview scoring thresholds."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Header, row structure, category ranges, and aggregate counts",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The file contains 80 long-format 0-4 ratings across four talks and four raters; it is a small reliability example, not a Face-Fit validation cohort."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_RUBRIC_003",
+      "title": "PSCR+ interrater agreement dataset README",
+      "authors": [
+        "PSCR+ study team"
+      ],
+      "year": 2024,
+      "doi": "10.5061/dryad.6m905qg6r",
+      "officialUrl": "https://datadryad.org/dataset/doi:10.5061/dryad.6m905qg6r",
+      "license": "Dataset page states no license restrictions",
+      "materialType": "DATASET_DOCUMENTATION",
+      "fileSha256": "298ff36866041c5af115c7581605e54279ba374aa76ab245a7e086cfe6e876e9",
+      "fileSizeBytes": 4170,
+      "fileIntegrity": "VALID_TEXT",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "INTER_RATER_RELIABILITY",
+        "HUMAN_BEHAVIOR_RUBRIC"
+      ],
+      "permittedUses": [
+        "VALIDATION_DESIGN",
+        "HUMAN_RUBRIC"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_RUBRIC_003",
+        "sourceType": "DATASET_DOCUMENTATION",
+        "localFileName": "GAP_RUBRIC_003_pscr_plus_readme.md",
+        "accessLevel": "DATASET_DOCUMENTATION",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "Dataset page states no license restrictions",
+        "relatedGaps": [
+          "INTER_RATER_RELIABILITY",
+          "HUMAN_BEHAVIOR_RUBRIC"
+        ],
+        "relatedMetrics": [
+          "SPEECH_WORDS_PER_MINUTE"
+        ],
+        "evidenceRelationship": [
+          "NOT_APPLICABLE"
+        ],
+        "supportedClaims": [
+          "The README documents four raters, four talks, twenty rubric items, and transformations needed by one analysis package; it informs analysis reproducibility only."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "The small dataset is not an interview sample.",
+          "Agreement methods must be selected for the locked Face-Fit scale and design."
+        ],
+        "measurementDefinition": "Inter-rater agreement analysis documentation",
+        "population": {
+          "sampleSize": 4,
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "VALIDATION_METHOD",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The README documents four raters, four talks, twenty rubric items, and transformations needed by one analysis package; it informs analysis reproducibility only.",
+        "raterCount": 4,
+        "interRaterMethod": "README documents agreement analysis conditions; no Face-Fit result.",
+        "reportedLimitations": [
+          "The small dataset is not an interview sample.",
+          "Agreement methods must be selected for the locked Face-Fit scale and design."
+        ],
+        "faceFitApplicability": [
+          "VALIDATION_DESIGN",
+          "HUMAN_RUBRIC"
+        ],
+        "faceFitNonApplicability": [
+          "The small dataset is not an interview sample.",
+          "Agreement methods must be selected for the locked Face-Fit scale and design."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Complete README",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The README documents four raters, four talks, twenty rubric items, and transformations needed by one analysis package; it informs analysis reproducibility only."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_GAZE_001",
+      "title": "Off-camera gaze decreases evaluation scores in a simulated online job interview",
+      "authors": [
+        "Source authors not locally reviewable"
+      ],
+      "year": 2024,
+      "doi": "10.1038/s41598-024-60371-5",
+      "officialUrl": "https://www.nature.com/articles/s41598-024-60371-5",
+      "license": "Publisher page; local acquisition was an access challenge",
+      "materialType": "ACCESS_CHALLENGE",
+      "fileSha256": "32ed63159c77e21ee19ca1b9aa3213ccf0218eb59539560b132a8e68ef0e18ea",
+      "fileSizeBytes": 3038,
+      "fileIntegrity": "HTML_CHALLENGE_NOT_PDF",
+      "reviewStatus": "REVIEW_BLOCKED",
+      "gapIds": [
+        "WEBCAM_HEAD_POSE_BEHAVIOR",
+        "HEAD_POSE_VS_EYE_GAZE",
+        "BIAS_AND_FAIRNESS_VALIDATION"
+      ],
+      "permittedUses": [
+        "CONTEXT",
+        "MEASUREMENT_LIMITATION",
+        "FAIRNESS_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_GAZE_001",
+        "sourceType": "ACCESS_CHALLENGE",
+        "localFileName": "GAP_GAZE_001_off_camera_gaze_online_interview.pdf",
+        "accessLevel": "ACCESS_BLOCKED",
+        "reviewDepth": "REVIEW_BLOCKED",
+        "reviewStatus": "REVIEW_BLOCKED",
+        "licenseSummary": "Publisher page; local acquisition was an access challenge",
+        "relatedGaps": [
+          "WEBCAM_HEAD_POSE_BEHAVIOR",
+          "HEAD_POSE_VS_EYE_GAZE",
+          "BIAS_AND_FAIRNESS_VALIDATION"
+        ],
+        "relatedMetrics": [
+          "HEAD_RELATIVE_YAW_ABS_P95_DEG"
+        ],
+        "evidenceRelationship": [
+          "NOT_APPLICABLE"
+        ],
+        "supportedClaims": [
+          "No local full-text finding was adopted because the acquired artifact is an access-challenge page, not the cited article."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Full text was not available for local verification.",
+          "Gaze direction cannot be equated with head-pose p95."
+        ],
+        "measurementDefinition": "Off-camera gaze in simulated online interviews",
+        "population": {
+          "sampleSize": "NOT_REPORTED",
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "GAZE_MEASUREMENT",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "No local full-text finding was adopted because the acquired artifact is an access-challenge page, not the cited article.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Full text was not available for local verification.",
+          "Gaze direction cannot be equated with head-pose p95."
+        ],
+        "faceFitApplicability": [
+          "CONTEXT",
+          "MEASUREMENT_LIMITATION",
+          "FAIRNESS_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Full text was not available for local verification.",
+          "Gaze direction cannot be equated with head-pose p95."
+        ],
+        "extractionLocations": [
+          {
+            "page": null,
+            "section": "Metadata only; local file begins with HTML and has no PDF payload",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "No local full-text finding was adopted because the acquired artifact is an access-challenge page, not the cited article."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_GAZE_002",
+      "title": "Webcam-based Eye Gaze Tracking under Natural Head Movement",
+      "authors": [
+        "Webcam gaze study authors"
+      ],
+      "year": 2018,
+      "doi": "10.48550/arXiv.1803.11088",
+      "officialUrl": "https://arxiv.org/abs/1803.11088",
+      "license": "arXiv distribution terms",
+      "materialType": "PAPER",
+      "fileSha256": "a488c06d3f7fd1cd337fe18f2dc3e804c05b9ddf926de02062182a1fb0c7fc18",
+      "fileSizeBytes": 4997065,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "HEAD_POSE_VS_EYE_GAZE",
+        "WEBCAM_HEAD_POSE_BEHAVIOR"
+      ],
+      "permittedUses": [
+        "METRIC_DEFINITION",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_GAZE_002",
+        "sourceType": "PAPER",
+        "localFileName": "GAP_GAZE_002_webcam_gaze_natural_head_movement.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "arXiv distribution terms",
+        "relatedGaps": [
+          "HEAD_POSE_VS_EYE_GAZE",
+          "WEBCAM_HEAD_POSE_BEHAVIOR"
+        ],
+        "relatedMetrics": [
+          "HEAD_RELATIVE_YAW_ABS_P95_DEG"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "The study separates eye features from head movement and reports larger gaze-estimation errors during natural movement, supporting a construct boundary and measurement caution."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Gaze-estimation error is not an interview behavior boundary.",
+          "Sample size was not confirmed in the reviewed locations and is recorded as not reported."
+        ],
+        "measurementDefinition": "Webcam eye-gaze estimation under natural head movement",
+        "population": {
+          "sampleSize": "NOT_REPORTED",
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "GAZE_MEASUREMENT",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The study separates eye features from head movement and reports larger gaze-estimation errors during natural movement, supporting a construct boundary and measurement caution.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Gaze-estimation error is not an interview behavior boundary.",
+          "Sample size was not confirmed in the reviewed locations and is recorded as not reported."
+        ],
+        "faceFitApplicability": [
+          "METRIC_DEFINITION",
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Gaze-estimation error is not an interview behavior boundary.",
+          "Sample size was not confirmed in the reviewed locations and is recorded as not reported."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Abstract; Chapters 1, 5, and 6; participant and error discussions",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The study separates eye features from head movement and reports larger gaze-estimation errors during natural movement, supporting a construct boundary and measurement caution."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_GAZE_003",
+      "title": "Gaze-in-wild: A dataset for studying eye and head coordination in everyday activities",
+      "authors": [
+        "Gaze-in-Wild study authors"
+      ],
+      "year": 2020,
+      "doi": "10.1038/s41597-020-0372-4",
+      "officialUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7018838/",
+      "license": "Open-access article; dataset terms apply separately",
+      "materialType": "PAPER",
+      "fileSha256": "b4db32a89765aa96952ee2ae88e502600c1f97a607e3c58f9550ceb36e37fdd5",
+      "fileSizeBytes": 9437264,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "HEAD_POSE_VS_EYE_GAZE",
+        "INTER_RATER_RELIABILITY"
+      ],
+      "permittedUses": [
+        "METRIC_DEFINITION",
+        "HUMAN_RUBRIC",
+        "VALIDATION_DESIGN",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_GAZE_003",
+        "sourceType": "PAPER",
+        "localFileName": "GAP_GAZE_003_gaze_in_wild.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "Open-access article; dataset terms apply separately",
+        "relatedGaps": [
+          "HEAD_POSE_VS_EYE_GAZE",
+          "INTER_RATER_RELIABILITY"
+        ],
+        "relatedMetrics": [
+          "HEAD_RELATIVE_YAW_ABS_P95_DEG"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "Nineteen participants, mobile eye tracking, IMU and RGB-D data, and five trained annotators support separate eye/head constructs and an annotation-design example."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Everyday mobile tasks differ from webcam interviews.",
+          "Reported annotation agreement does not validate a Face-Fit behavior score."
+        ],
+        "measurementDefinition": "Separate eye and head coordination annotations",
+        "population": {
+          "sampleSize": 19,
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "GAZE_MEASUREMENT",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "Nineteen participants, mobile eye tracking, IMU and RGB-D data, and five trained annotators support separate eye/head constructs and an annotation-design example.",
+        "raterCount": 5,
+        "interRaterMethod": "Cohen's kappa is reported for source annotations; it is not Face-Fit reliability.",
+        "reportedLimitations": [
+          "Everyday mobile tasks differ from webcam interviews.",
+          "Reported annotation agreement does not validate a Face-Fit behavior score."
+        ],
+        "faceFitApplicability": [
+          "METRIC_DEFINITION",
+          "HUMAN_RUBRIC",
+          "VALIDATION_DESIGN",
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Everyday mobile tasks differ from webcam interviews.",
+          "Reported annotation agreement does not validate a Face-Fit behavior score."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Abstract; Methods; annotation and agreement sections",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "Nineteen participants, mobile eye tracking, IMU and RGB-D data, and five trained annotators support separate eye/head constructs and an annotation-design example."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_BODY_003",
+      "title": "Reliability of sitting posture between physical therapist video-based evaluation and SMART IMU system using RULA",
+      "authors": [
+        "Source authors not locally reviewable"
+      ],
+      "year": 2025,
+      "doi": "10.1038/s41598-025-85159-z",
+      "officialUrl": "https://www.nature.com/articles/s41598-025-85159-z",
+      "license": "Publisher page; local acquisition was an access challenge",
+      "materialType": "ACCESS_CHALLENGE",
+      "fileSha256": "32ed63159c77e21ee19ca1b9aa3213ccf0218eb59539560b132a8e68ef0e18ea",
+      "fileSizeBytes": 3038,
+      "fileIntegrity": "HTML_CHALLENGE_NOT_PDF",
+      "reviewStatus": "REVIEW_BLOCKED",
+      "gapIds": [
+        "SEATED_SHOULDER_POSTURE",
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "INTER_RATER_RELIABILITY"
+      ],
+      "permittedUses": [
+        "CONTEXT",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_BODY_003",
+        "sourceType": "ACCESS_CHALLENGE",
+        "localFileName": "GAP_BODY_003_sitting_posture_rula_imu.pdf",
+        "accessLevel": "ACCESS_BLOCKED",
+        "reviewDepth": "REVIEW_BLOCKED",
+        "reviewStatus": "REVIEW_BLOCKED",
+        "licenseSummary": "Publisher page; local acquisition was an access challenge",
+        "relatedGaps": [
+          "SEATED_SHOULDER_POSTURE",
+          "HUMAN_BEHAVIOR_RUBRIC",
+          "INTER_RATER_RELIABILITY"
+        ],
+        "relatedMetrics": [
+          "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG"
+        ],
+        "evidenceRelationship": [
+          "NOT_APPLICABLE"
+        ],
+        "supportedClaims": [
+          "No RULA angle, agreement, or sample result was adopted because the acquired artifact is not a PDF."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Full text was not available for local verification.",
+          "Occupational ergonomic assessment cannot be transferred to interview quality."
+        ],
+        "measurementDefinition": "RULA sitting-posture agreement",
+        "population": {
+          "sampleSize": "NOT_REPORTED",
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "SEATED_POSTURE",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "No RULA angle, agreement, or sample result was adopted because the acquired artifact is not a PDF.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Full text was not available for local verification.",
+          "Occupational ergonomic assessment cannot be transferred to interview quality."
+        ],
+        "faceFitApplicability": [
+          "CONTEXT",
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Full text was not available for local verification.",
+          "Occupational ergonomic assessment cannot be transferred to interview quality."
+        ],
+        "extractionLocations": [
+          {
+            "page": null,
+            "section": "Metadata only; local file begins with HTML and has no PDF payload",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "No RULA angle, agreement, or sample result was adopted because the acquired artifact is not a PDF."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_BODY_004",
+      "title": "SitPose: Real-Time Detection of Sitting Posture and Sedentary Behavior Using Ensemble Learning With Depth Sensor",
+      "authors": [
+        "SitPose study authors"
+      ],
+      "year": 2024,
+      "doi": "10.48550/arXiv.2412.12216",
+      "officialUrl": "https://arxiv.org/abs/2412.12216",
+      "license": "arXiv distribution terms",
+      "materialType": "PAPER",
+      "fileSha256": "b3555c3eceb214288a31358fedcb1e0458168bc04e1b6d62152dd777e41312e0",
+      "fileSizeBytes": 2866469,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "SEATED_SHOULDER_POSTURE",
+        "MULTI_SESSION_DISTRIBUTION"
+      ],
+      "permittedUses": [
+        "CONTEXT",
+        "MEASUREMENT_LIMITATION",
+        "VALIDATION_DESIGN"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_BODY_004",
+        "sourceType": "PAPER",
+        "localFileName": "GAP_BODY_004_sitpose.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "arXiv distribution terms",
+        "relatedGaps": [
+          "SEATED_SHOULDER_POSTURE",
+          "MULTI_SESSION_DISTRIBUTION"
+        ],
+        "relatedMetrics": [
+          "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "The study uses Azure Kinect 3D joints from 36 participants to classify sitting postures; it provides design context but not RGB webcam shoulder-line validation."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Depth-sensor 3D joints differ from Face-Fit 2D RGB landmarks.",
+          "Ergonomic posture classes are not communication-quality bands."
+        ],
+        "measurementDefinition": "Depth-sensor 3D joint posture classification",
+        "population": {
+          "sampleSize": 36,
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "SEATED_POSTURE",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The study uses Azure Kinect 3D joints from 36 participants to classify sitting postures; it provides design context but not RGB webcam shoulder-line validation.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Depth-sensor 3D joints differ from Face-Fit 2D RGB landmarks.",
+          "Ergonomic posture classes are not communication-quality bands."
+        ],
+        "faceFitApplicability": [
+          "CONTEXT",
+          "MEASUREMENT_LIMITATION",
+          "VALIDATION_DESIGN"
+        ],
+        "faceFitNonApplicability": [
+          "Depth-sensor 3D joints differ from Face-Fit 2D RGB landmarks.",
+          "Ergonomic posture classes are not communication-quality bands."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Sections 3-5; sensor, joint-selection, and participant descriptions",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The study uses Azure Kinect 3D joints from 36 participants to classify sitting postures; it provides design context but not RGB webcam shoulder-line validation."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_AUDIO_001",
+      "title": "EBU Tech 3343: Guidelines for Production of Programmes in accordance with EBU R 128",
+      "authors": [
+        "European Broadcasting Union"
+      ],
+      "year": 2023,
+      "doi": null,
+      "officialUrl": "https://tech.ebu.ch/publications/tech3343",
+      "license": "EBU publication terms",
+      "materialType": "STANDARD",
+      "fileSha256": "92d6500c78c4fca586daad1e37c8d8dbe144d81ef1dbe413badf13330b18a36c",
+      "fileSizeBytes": 1544183,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "MICROPHONE_LOUDNESS_NORMALIZATION"
+      ],
+      "permittedUses": [
+        "QUALITY_GATE",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_AUDIO_001",
+        "sourceType": "STANDARD",
+        "localFileName": "GAP_AUDIO_001_ebu_tech3343_r128.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "EBU publication terms",
+        "relatedGaps": [
+          "MICROPHONE_LOUDNESS_NORMALIZATION"
+        ],
+        "relatedMetrics": [
+          "SPEECH_RMS_DBFS"
+        ],
+        "evidenceRelationship": [
+          "NOT_APPLICABLE"
+        ],
+        "supportedClaims": [
+          "The guideline distinguishes momentary, short-term, and integrated programme loudness and supplies broadcast production guidance, not person-level delivery scoring."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Broadcast programme normalisation differs from browser microphone capture.",
+          "Its target values must not become Face-Fit speaking-volume scores."
+        ],
+        "measurementDefinition": "Programme loudness measurement and normalisation",
+        "population": {
+          "sampleSize": "NOT_REPORTED",
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "AUDIO_STANDARD",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The guideline distinguishes momentary, short-term, and integrated programme loudness and supplies broadcast production guidance, not person-level delivery scoring.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Broadcast programme normalisation differs from browser microphone capture.",
+          "Its target values must not become Face-Fit speaking-volume scores."
+        ],
+        "faceFitApplicability": [
+          "QUALITY_GATE",
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Broadcast programme normalisation differs from browser microphone capture.",
+          "Its target values must not become Face-Fit speaking-volume scores."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Sections 3-4; measurement-mode definitions",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The guideline distinguishes momentary, short-term, and integrated programme loudness and supplies broadcast production guidance, not person-level delivery scoring."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_AUDIO_002",
+      "title": "ITU-R BS.1770-5: Algorithms to measure audio programme loudness and true-peak audio level",
+      "authors": [
+        "International Telecommunication Union"
+      ],
+      "year": 2023,
+      "doi": null,
+      "officialUrl": "https://www.itu.int/rec/R-REC-BS.1770-5-202311-I",
+      "license": "ITU publication terms",
+      "materialType": "STANDARD",
+      "fileSha256": "eefb926f72f72a96b96f251067bfee0650a0f29a26f60661d354162038b041ad",
+      "fileSizeBytes": 1996355,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "MICROPHONE_LOUDNESS_NORMALIZATION"
+      ],
+      "permittedUses": [
+        "QUALITY_GATE",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_AUDIO_002",
+        "sourceType": "STANDARD",
+        "localFileName": "GAP_AUDIO_002_itu_bs1770_5.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "ITU publication terms",
+        "relatedGaps": [
+          "MICROPHONE_LOUDNESS_NORMALIZATION"
+        ],
+        "relatedMetrics": [
+          "SPEECH_PEAK_DBFS"
+        ],
+        "evidenceRelationship": [
+          "NOT_APPLICABLE"
+        ],
+        "supportedClaims": [
+          "The recommendation specifies K-weighted mean-square integration, channel weighting, gating, and true-peak measurement; it is a signal-quality reference only."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Programme loudness is not Face-Fit whole-answer RMS dBFS.",
+          "True peak is not the current clipping-sample ratio definition."
+        ],
+        "measurementDefinition": "K-weighted programme loudness and true-peak algorithms",
+        "population": {
+          "sampleSize": "NOT_REPORTED",
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "AUDIO_STANDARD",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The recommendation specifies K-weighted mean-square integration, channel weighting, gating, and true-peak measurement; it is a signal-quality reference only.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Programme loudness is not Face-Fit whole-answer RMS dBFS.",
+          "True peak is not the current clipping-sample ratio definition."
+        ],
+        "faceFitApplicability": [
+          "QUALITY_GATE",
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Programme loudness is not Face-Fit whole-answer RMS dBFS.",
+          "True peak is not the current clipping-sample ratio definition."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Sections 2-4 and annex algorithm definitions",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The recommendation specifies K-weighted mean-square integration, channel weighting, gating, and true-peak measurement; it is a signal-quality reference only."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_METHOD_001",
+      "title": "Estimating Presentation Competence using Multimodal Nonverbal Behavioral Cues",
+      "authors": [
+        "Presentation competence study authors"
+      ],
+      "year": 2021,
+      "doi": "10.48550/arXiv.2105.02636",
+      "officialUrl": "https://arxiv.org/abs/2105.02636",
+      "license": "arXiv distribution terms",
+      "materialType": "PAPER",
+      "fileSha256": "7febc4d30a8c268951af8d43faa33c58619811ec3b8cc38d302d1c77713f8c78",
+      "fileSizeBytes": 1687126,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "AXIS_WEIGHT_VALIDATION",
+        "VALIDATION_DESIGN"
+      ],
+      "permittedUses": [
+        "HUMAN_RUBRIC",
+        "VALIDATION_DESIGN",
+        "MEASUREMENT_LIMITATION"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_METHOD_001",
+        "sourceType": "PAPER",
+        "localFileName": "GAP_METHOD_001_presentation_competence_multimodal.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "arXiv distribution terms",
+        "relatedGaps": [
+          "HUMAN_BEHAVIOR_RUBRIC",
+          "AXIS_WEIGHT_VALIDATION",
+          "VALIDATION_DESIGN"
+        ],
+        "relatedMetrics": [
+          "SPEECH_WORDS_PER_MINUTE"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "The study uses 251 school presentations, four trained raters, substantial training, randomized independent ratings, and ICC analysis; it informs validation design, not Face-Fit weights."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Adolescent scientific presentations differ from employment interviews.",
+          "Model coefficients, fusion results, and feature importance cannot become axis weights."
+        ],
+        "measurementDefinition": "Multimodal presentation-competence criterion design",
+        "population": {
+          "sampleSize": 251,
+          "language": "NOT_REPORTED",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "VALIDATION_METHOD",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "The study uses 251 school presentations, four trained raters, substantial training, randomized independent ratings, and ICC analysis; it informs validation design, not Face-Fit weights.",
+        "raterCount": 4,
+        "interRaterMethod": "Two-way mixed absolute-agreement average-measures ICC in the source design.",
+        "reportedLimitations": [
+          "Adolescent scientific presentations differ from employment interviews.",
+          "Model coefficients, fusion results, and feature importance cannot become axis weights."
+        ],
+        "faceFitApplicability": [
+          "HUMAN_RUBRIC",
+          "VALIDATION_DESIGN",
+          "MEASUREMENT_LIMITATION"
+        ],
+        "faceFitNonApplicability": [
+          "Adolescent scientific presentations differ from employment interviews.",
+          "Model coefficients, fusion results, and feature importance cannot become axis weights."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Dataset, rater training, reliability, and modeling sections",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "The study uses 251 school presentations, four trained raters, substantial training, randomized independent ratings, and ICC analysis; it informs validation design, not Face-Fit weights."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    },
+    {
+      "evidenceId": "GAP_METHOD_002",
+      "title": "Semi-Automated and Collaborative Online Training Module for Improving Communication Skills (ROC Speak)",
+      "authors": [
+        "ROC Speak study authors"
+      ],
+      "year": 2017,
+      "doi": "10.48550/arXiv.1704.08735",
+      "officialUrl": "https://arxiv.org/abs/1704.08735",
+      "license": "arXiv distribution terms",
+      "materialType": "PAPER",
+      "fileSha256": "1941da17a33c421b53f3f723ad653d5b504d53f5cae8e2dcf273e95deafa4ead",
+      "fileSizeBytes": 1124552,
+      "fileIntegrity": "VALID_PDF",
+      "reviewStatus": "FULL_TEXT_REVIEWED",
+      "gapIds": [
+        "HUMAN_BEHAVIOR_RUBRIC",
+        "VALIDATION_DESIGN",
+        "MULTI_SESSION_DISTRIBUTION"
+      ],
+      "permittedUses": [
+        "CONTEXT",
+        "HUMAN_RUBRIC",
+        "VALIDATION_DESIGN"
+      ],
+      "prohibitedUses": [
+        "PRODUCTION_THRESHOLD",
+        "SCORE_WEIGHT",
+        "HIRING_DECISION"
+      ],
+      "reviewDetails": {
+        "sourceId": "GAP_METHOD_002",
+        "sourceType": "PAPER",
+        "localFileName": "GAP_METHOD_002_roc_speak.pdf",
+        "accessLevel": "FULL_TEXT_PDF",
+        "reviewDepth": "FULL_TEXT_REVIEWED",
+        "reviewStatus": "FULL_TEXT_REVIEWED",
+        "licenseSummary": "arXiv distribution terms",
+        "relatedGaps": [
+          "HUMAN_BEHAVIOR_RUBRIC",
+          "VALIDATION_DESIGN",
+          "MULTI_SESSION_DISTRIBUTION"
+        ],
+        "relatedMetrics": [
+          "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC"
+        ],
+        "evidenceRelationship": [
+          "PROXY"
+        ],
+        "supportedClaims": [
+          "A 56-person ten-day treatment/control study with repeated responses and human feedback provides a pilot-design precedent but no metric-level cutoff."
+        ],
+        "unsupportedClaims": [
+          "A transferable numeric Face-Fit behavior threshold",
+          "A production score or axis weight",
+          "Training-system outcomes do not validate individual Face-Fit metric boundaries.",
+          "Reported body movement is broader than shoulder-center velocity."
+        ],
+        "measurementDefinition": "Repeated online communication-training evaluation",
+        "population": {
+          "sampleSize": 56,
+          "language": "English",
+          "countryOrCulture": "NOT_REPORTED"
+        },
+        "taskContext": "VALIDATION_METHOD",
+        "equipmentOrCaptureSetting": "NOT_REPORTED",
+        "annotationMethod": "A 56-person ten-day treatment/control study with repeated responses and human feedback provides a pilot-design precedent but no metric-level cutoff.",
+        "raterCount": "NOT_REPORTED",
+        "interRaterMethod": "NOT_APPLICABLE",
+        "reportedLimitations": [
+          "Training-system outcomes do not validate individual Face-Fit metric boundaries.",
+          "Reported body movement is broader than shoulder-center velocity."
+        ],
+        "faceFitApplicability": [
+          "CONTEXT",
+          "HUMAN_RUBRIC",
+          "VALIDATION_DESIGN"
+        ],
+        "faceFitNonApplicability": [
+          "Training-system outcomes do not validate individual Face-Fit metric boundaries.",
+          "Reported body movement is broader than shoulder-center velocity."
+        ],
+        "extractionLocations": [
+          {
+            "page": 1,
+            "section": "Study design, participant, outcome, and limitations sections",
+            "table": null,
+            "figure": null,
+            "appendix": null,
+            "paragraphDescription": "A 56-person ten-day treatment/control study with repeated responses and human feedback provides a pilot-design precedent but no metric-level cutoff."
+          }
+        ],
+        "thresholdUse": "PROHIBITED",
+        "productionApproved": false
+      }
+    }
+  ]
+}

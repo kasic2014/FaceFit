@@ -1,0 +1,108 @@
+{
+  "evidenceId": "GAP_SPEECH_003",
+  "title": "KsponSpeech: Korean Spontaneous Speech Corpus for Automatic Speech Recognition",
+  "authors": [
+    "Jeong-Uk Bang",
+    "Seung Yun",
+    "Seung-Hi Kim",
+    "Mu-Yeol Choi",
+    "Min-Kyu Lee",
+    "Yong-Hwa Lee"
+  ],
+  "year": 2020,
+  "doi": "10.3390/app10196936",
+  "officialUrl": "https://www.mdpi.com/2076-3417/10/19/6936",
+  "fileSha256": "56f7c0a71a4b38dda00704e2ce323ed0d7f08ccf92da22d82ea736d3a65963fc",
+  "metricDefinition": "Dual orthographic/pronunciation transcription with disfluency symbols",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Abstract; Sections 3-4; transcription examples",
+      "table": null,
+      "figure": null,
+      "description": "The 969-hour Korean dialogue corpus documents slash-marked fillers and plus-marked repetition or fragments; it supports annotation design, not automatic interview penalties."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "DOI_PUBLISHER"
+  },
+  "study": {
+    "context": "SPEECH_CORPUS",
+    "sampleSize": 2000,
+    "participantDescription": null,
+    "language": "Korean",
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Dual orthographic/pronunciation transcription with disfluency symbols",
+      "definition": "The 969-hour Korean dialogue corpus documents slash-marked fillers and plus-marked repetition or fragments; it supports annotation design, not automatic interview penalties.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "AUTOMATED",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Clean two-person dialogue differs from browser interview answers.",
+        "Corpus access and use terms are separate from the open article."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The 969-hour Korean dialogue corpus documents slash-marked fillers and plus-marked repetition or fragments; it supports annotation design, not automatic interview penalties.",
+      "findingType": "MEASUREMENT_DEFINITION",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Dual orthographic/pronunciation transcription with disfluency symbols",
+      "faceFitMetricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Clean two-person dialogue differs from browser interview answers.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "CONTEXT",
+    "METRIC_DEFINITION",
+    "MEASUREMENT_LIMITATION"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_CONTEXT",
+    "ACCEPTED_METRIC_DEFINITION",
+    "ACCEPTED_MEASUREMENT_LIMITATION",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Clean two-person dialogue differs from browser interview answers.",
+    "Corpus access and use terms are separate from the open article."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

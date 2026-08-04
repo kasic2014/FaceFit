@@ -1,0 +1,102 @@
+{
+  "evidenceId": "GAP_RUBRIC_003",
+  "title": "PSCR+ interrater agreement dataset README",
+  "authors": [
+    "PSCR+ study team"
+  ],
+  "year": 2024,
+  "doi": "10.5061/dryad.6m905qg6r",
+  "officialUrl": "https://datadryad.org/dataset/doi:10.5061/dryad.6m905qg6r",
+  "fileSha256": "298ff36866041c5af115c7581605e54279ba374aa76ab245a7e086cfe6e876e9",
+  "metricDefinition": "Inter-rater agreement analysis documentation",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": "ORDINAL_LEVEL",
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Complete README",
+      "table": null,
+      "figure": null,
+      "description": "The README documents four raters, four talks, twenty rubric items, and transformations needed by one analysis package; it informs analysis reproducibility only."
+    }
+  ],
+  "mapping": {
+    "relation": "NOT_APPLICABLE",
+    "faceFitMetricId": "SPEECH_WORDS_PER_MINUTE"
+  },
+  "access": {
+    "accessLevel": "DATASET_DOCUMENTATION",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "DATA_REPOSITORY"
+  },
+  "study": {
+    "context": "VALIDATION_METHOD",
+    "sampleSize": 4,
+    "participantDescription": null,
+    "language": null,
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Inter-rater agreement analysis documentation",
+      "definition": "The README documents four raters, four talks, twenty rubric items, and transformations needed by one analysis package; it informs analysis reproducibility only.",
+      "calculationMethod": null,
+      "unit": "ORDINAL_LEVEL",
+      "aggregation": null,
+      "measurementType": "HUMAN_RATING",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "The small dataset is not an interview sample.",
+        "Agreement methods must be selected for the locked Face-Fit scale and design."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "The README documents four raters, four talks, twenty rubric items, and transformations needed by one analysis package; it informs analysis reproducibility only.",
+      "findingType": "VALIDATION_RESULT",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Inter-rater agreement analysis documentation",
+      "faceFitMetricId": "SPEECH_WORDS_PER_MINUTE",
+      "relation": "NOT_APPLICABLE",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "The small dataset is not an interview sample.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "VALIDATION_DESIGN",
+    "HUMAN_RUBRIC"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_VALIDATION_DESIGN",
+    "ACCEPTED_HUMAN_RUBRIC",
+    "NOT_APPLICABLE",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "The small dataset is not an interview sample.",
+    "Agreement methods must be selected for the locked Face-Fit scale and design."
+  ],
+  "status": "REVIEW_REQUIRED"
+}

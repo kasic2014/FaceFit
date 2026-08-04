@@ -1,0 +1,103 @@
+{
+  "evidenceId": "GAP_METHOD_002",
+  "title": "Semi-Automated and Collaborative Online Training Module for Improving Communication Skills (ROC Speak)",
+  "authors": [
+    "ROC Speak study authors"
+  ],
+  "year": 2017,
+  "doi": "10.48550/arXiv.1704.08735",
+  "officialUrl": "https://arxiv.org/abs/1704.08735",
+  "fileSha256": "1941da17a33c421b53f3f723ad653d5b504d53f5cae8e2dcf273e95deafa4ead",
+  "metricDefinition": "Repeated online communication-training evaluation",
+  "thresholdExists": false,
+  "thresholdValue": null,
+  "unit": null,
+  "extractionLocations": [
+    {
+      "page": 1,
+      "section": "Study design, participant, outcome, and limitations sections",
+      "table": null,
+      "figure": null,
+      "description": "A 56-person ten-day treatment/control study with repeated responses and human feedback provides a pilot-design precedent but no metric-level cutoff."
+    }
+  ],
+  "mapping": {
+    "relation": "PROXY",
+    "faceFitMetricId": "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC"
+  },
+  "access": {
+    "accessLevel": "FULL_TEXT_PDF",
+    "reviewDepth": "FULL_TEXT_REVIEWED",
+    "retrievedAt": "2026-08-04T00:00:00Z",
+    "retrievalSource": "AUTHOR_REPOSITORY"
+  },
+  "study": {
+    "context": "VALIDATION_METHOD",
+    "sampleSize": 56,
+    "participantDescription": null,
+    "language": "English",
+    "countryOrCulture": null,
+    "interviewType": null,
+    "deviceAndEnvironment": null
+  },
+  "measurements": [
+    {
+      "paperMetricName": "Repeated online communication-training evaluation",
+      "definition": "A 56-person ten-day treatment/control study with repeated responses and human feedback provides a pilot-design precedent but no metric-level cutoff.",
+      "calculationMethod": null,
+      "unit": null,
+      "aggregation": null,
+      "measurementType": "HUMAN_RATING",
+      "deviceOrTool": null,
+      "reportedStatistics": [],
+      "behaviorBoundaryReported": false,
+      "notes": [
+        "Training-system outcomes do not validate individual Face-Fit metric boundaries.",
+        "Reported body movement is broader than shoulder-center velocity."
+      ]
+    }
+  ],
+  "reportedFindings": [
+    {
+      "summary": "A 56-person ten-day treatment/control study with repeated responses and human feedback provides a pilot-design precedent but no metric-level cutoff.",
+      "findingType": "VALIDATION_RESULT",
+      "supportsBehaviorThreshold": false
+    }
+  ],
+  "faceFitMappings": [
+    {
+      "paperMetricName": "Repeated online communication-training evaluation",
+      "faceFitMetricId": "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC",
+      "relation": "PROXY",
+      "definitionMatch": false,
+      "unitMatch": false,
+      "calculationMatch": false,
+      "scoringDirectionSupported": false,
+      "numericThresholdSupported": false,
+      "reason": "Training-system outcomes do not validate individual Face-Fit metric boundaries.",
+      "conversion": null
+    }
+  ],
+  "intendedUses": [
+    "CONTEXT",
+    "HUMAN_RUBRIC",
+    "VALIDATION_DESIGN"
+  ],
+  "adoptionStatuses": [
+    "ACCEPTED_CONTEXT",
+    "ACCEPTED_HUMAN_RUBRIC",
+    "ACCEPTED_VALIDATION_DESIGN",
+    "REJECTED_FOR_THRESHOLD"
+  ],
+  "thresholdAssessment": {
+    "behaviorThresholdReported": false,
+    "transferability": "NON_TRANSFERABLE_CONTEXT",
+    "productionThresholdUsable": false,
+    "reason": "No reviewed material reports a transferable Face-Fit behavior threshold."
+  },
+  "limitations": [
+    "Training-system outcomes do not validate individual Face-Fit metric boundaries.",
+    "Reported body movement is broader than shoulder-center velocity."
+  ],
+  "status": "REVIEW_REQUIRED"
+}
