@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["profileId", "version", "status", "productionApproved", "evidenceApprovalStatus", "validationStatus", "scoreScale", "metricRules", "axisRules", "answerAggregation", "sessionAggregation", "overallRule", "evidenceIds", "approvedBy", "approvedAt"],
+  "properties": {
+    "profileId": {"type": "string"}, "version": {"type": "string"}, "status": {"enum": ["DISABLED", "EXPERIMENTAL", "APPROVED"]},
+    "productionApproved": {"type": "boolean"}, "evidenceApprovalStatus": {"enum": ["NOT_APPROVED", "APPROVED"]},
+    "validationStatus": {"enum": ["NOT_STARTED", "PASSED", "FAILED"]},
+    "scoreScale": {"type": "object"}, "metricRules": {"type": "array"}, "axisRules": {"type": "array"},
+    "answerAggregation": {"type": "object"}, "sessionAggregation": {"type": "object"}, "overallRule": {"type": "object"},
+    "evidenceIds": {"type": "array", "items": {"type": "string"}}, "approvedBy": {"type": ["string", "null"]}, "approvedAt": {"type": ["string", "null"]},
+    "profileHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "aggregate": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "analysisMode": {
+      "const": "MEASUREMENT_ONLY",
+      "type": "string"
+    },
+    "answers": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "acousticSilence": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "answerId": {
+            "pattern": "^ANS_\\d{6}$",
+            "type": "string"
+          },
+          "fillerCandidates": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "pitch": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "speakingRate": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "status": {
+            "type": "string"
+          },
+          "timestampPauses": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "volume": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "warnings": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "answerId": {
+                  "anyOf": [
+                    {
+                      "pattern": "^ANS_\\d{6}$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "code": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "message": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "reviewRequired": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "code",
+                "message",
+                "answerId",
+                "reviewRequired"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "answerId",
+          "status",
+          "speakingRate",
+          "timestampPauses",
+          "acousticSilence",
+          "fillerCandidates",
+          "volume",
+          "pitch",
+          "warnings"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "scoringAvailable": {
+      "const": false,
+      "type": "boolean"
+    },
+    "sessionId": {
+      "pattern": "^SES_\\d{6}$",
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "thresholdApproval": {
+      "const": false,
+      "type": "boolean"
+    },
+    "warnings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "answerId": {
+            "anyOf": [
+              {
+                "pattern": "^ANS_\\d{6}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "message": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "reviewRequired": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "answerId",
+          "reviewRequired"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "sessionId",
+    "status",
+    "analysisMode",
+    "scoringAvailable",
+    "thresholdApproval",
+    "answers",
+    "aggregate",
+    "warnings",
+    "limitations"
+  ],
+  "title": "Speech Characteristics Response",
+  "type": "object"
+}

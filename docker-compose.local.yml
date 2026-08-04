@@ -58,3 +58,9 @@ services:
       - "80:80"
       - "443:443"
     restart: unless-stopped
+    networks:
+      - face-fit-ai-network
+
+networks:
+  face-fit-ai-network:
+    name: face-fit-ai-network

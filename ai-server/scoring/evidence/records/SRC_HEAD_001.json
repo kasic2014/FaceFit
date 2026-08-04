@@ -1,0 +1,9 @@
+{
+  "evidenceId":"SRC_HEAD_001","title":"Head Pose Estimation in Computer Vision: A Survey","authors":["Erik Murphy-Chutorian","Mohan Manubhai Trivedi"],"year":2009,"doi":"10.1109/TPAMI.2008.106","officialUrl":"https://doi.org/10.1109/TPAMI.2008.106","fileSha256":null,
+  "metricDefinition":null,"thresholdExists":false,"thresholdValue":null,"unit":null,"extractionLocations":[],"mapping":{"relation":"NOT_APPLICABLE","faceFitMetricId":null},
+  "access":{"accessLevel":"METADATA_ONLY","reviewDepth":"METADATA_REVIEWED","retrievedAt":"2026-08-04T00:00:00Z","retrievalSource":"CROSSREF"},
+  "study":{"context":"HEAD_POSE_MEASUREMENT","sampleSize":null,"participantDescription":null,"language":null,"countryOrCulture":null,"interviewType":null,"deviceAndEnvironment":null},
+  "measurements":[],"reportedFindings":[],"faceFitMappings":[],"intendedUses":["CONTEXT","AXIS_SELECTION"],"adoptionStatuses":["ACCEPTED_CONTEXT","ACCEPTED_AXIS_SELECTION","EXPERIMENTAL_ONLY","REJECTED_FOR_THRESHOLD"],
+  "thresholdAssessment":{"behaviorThresholdReported":false,"transferability":"NONE_REPORTED","productionThresholdUsable":false,"reason":"Metadata review supports only source identity, not metric extraction or behavioral scoring."},
+  "limitations":["Only registered bibliographic metadata was reviewed."],"status":"REVIEW_REQUIRED"
+}

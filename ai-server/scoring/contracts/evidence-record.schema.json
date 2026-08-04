@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://face-fit.local/scoring/evidence-record.schema.json",
+  "title": "Face-Fit evidence record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidenceId", "title", "authors", "year", "doi", "officialUrl", "fileSha256",
+    "metricDefinition", "thresholdExists", "thresholdValue", "unit", "extractionLocations",
+    "mapping", "access", "study", "measurements", "reportedFindings", "faceFitMappings",
+    "intendedUses", "adoptionStatuses", "thresholdAssessment", "limitations", "status"
+  ],
+  "properties": {
+    "evidenceId": {"type": "string", "pattern": "^SRC_(INT|PUB|HEAD|POSE)_[0-9]{3}$"},
+    "title": {"type": "string", "minLength": 1},
+    "authors": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "year": {"type": ["integer", "null"], "minimum": 1900, "maximum": 2100},
+    "doi": {"type": ["string", "null"], "pattern": "^10\\.[0-9]{4,9}/\\S+$"},
+    "officialUrl": {"type": "string", "pattern": "^https://"},
+    "fileSha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "metricDefinition": {"type": ["string", "null"]},
+    "thresholdExists": {"type": "boolean", "const": false},
+    "thresholdValue": {"type": "null"},
+    "unit": {"type": ["string", "null"]},
+    "extractionLocations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["page", "section", "table", "figure", "description"],
+        "properties": {
+          "page": {"type": ["integer", "null"], "minimum": 1},
+          "section": {"type": ["string", "null"]},
+          "table": {"type": ["string", "null"]},
+          "figure": {"type": ["string", "null"]},
+          "description": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "mapping": {"$ref": "#/$defs/legacyMapping"},
+    "access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accessLevel", "reviewDepth", "retrievedAt", "retrievalSource"],
+      "properties": {
+        "accessLevel": {"enum": ["FULL_TEXT_PDF", "AUTHOR_ACCEPTED_MANUSCRIPT", "OFFICIAL_HTML_FULL_TEXT", "OFFICIAL_ABSTRACT_ONLY", "METADATA_ONLY", "ACCESS_BLOCKED"]},
+        "reviewDepth": {"enum": ["FULL_TEXT_REVIEWED", "ABSTRACT_REVIEWED", "METADATA_REVIEWED", "REVIEW_BLOCKED"]},
+        "retrievedAt": {"type": "string", "format": "date-time"},
+        "retrievalSource": {"enum": ["DOI_PUBLISHER", "AUTHOR_REPOSITORY", "UNIVERSITY_REPOSITORY", "CONFERENCE_REPOSITORY", "PMC", "CVF", "SCIELO", "CROSSREF"]}
+      }
+    },
+    "study": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["context", "sampleSize", "participantDescription", "language", "countryOrCulture", "interviewType", "deviceAndEnvironment"],
+      "properties": {
+        "context": {"enum": ["EMPLOYMENT_INTERVIEW", "PUBLIC_SPEAKING", "HEAD_POSE_MEASUREMENT", "POSE_MEASUREMENT"]},
+        "sampleSize": {"type": ["integer", "null"], "minimum": 1},
+        "participantDescription": {"type": "null"},
+        "language": {"type": ["string", "null"]},
+        "countryOrCulture": {"type": ["string", "null"]},
+        "interviewType": {"type": ["string", "null"]},
+        "deviceAndEnvironment": {"type": ["string", "null"]}
+      }
+    },
+    "measurements": {"type": "array", "items": {"$ref": "#/$defs/measurement"}},
+    "reportedFindings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "faceFitMappings": {"type": "array", "items": {"$ref": "#/$defs/faceFitMapping"}},
+    "intendedUses": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"enum": ["CONTEXT", "AXIS_SELECTION", "METRIC_DEFINITION", "METRIC_DIRECTION", "QUALITY_GATE", "MEASUREMENT_LIMITATION", "HUMAN_RUBRIC", "VALIDATION_DESIGN", "FAIRNESS_LIMITATION", "THRESHOLD_CANDIDATE"]}
+    },
+    "adoptionStatuses": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"enum": ["ACCEPTED_CONTEXT", "ACCEPTED_AXIS_SELECTION", "ACCEPTED_METRIC_DEFINITION", "ACCEPTED_METRIC_DIRECTION", "ACCEPTED_QUALITY_GATE", "ACCEPTED_MEASUREMENT_LIMITATION", "ACCEPTED_HUMAN_RUBRIC", "ACCEPTED_VALIDATION_DESIGN", "EXPERIMENTAL_ONLY", "REJECTED_FOR_THRESHOLD", "NOT_APPLICABLE"]}
+    },
+    "thresholdAssessment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["behaviorThresholdReported", "transferability", "productionThresholdUsable", "reason"],
+      "properties": {
+        "behaviorThresholdReported": {"type": "boolean", "const": false},
+        "transferability": {"enum": ["NONE_REPORTED", "REPORTED_BUT_DIFFERENT_SEMANTICS", "DATASET_SPLIT_ONLY", "MODEL_PARAMETER_ONLY", "MEASUREMENT_ERROR_ONLY", "NON_TRANSFERABLE_CONTEXT", "PILOT_CANDIDATE_REQUIRES_VALIDATION"]},
+        "productionThresholdUsable": {"type": "boolean", "const": false},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "status": {"enum": ["DRAFT", "REVIEW_REQUIRED", "APPROVED", "REJECTED"]}
+  },
+  "$defs": {
+    "legacyMapping": {
+      "type": "object", "additionalProperties": false,
+      "required": ["relation", "faceFitMetricId"],
+      "properties": {
+        "relation": {"enum": ["DIRECT", "PROXY", "UNIT_CONVERSION", "DERIVED", "NOT_APPLICABLE"]},
+        "faceFitMetricId": {"type": ["string", "null"]}
+      }
+    },
+    "measurement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["paperMetricName", "definition", "calculationMethod", "unit", "aggregation", "measurementType", "deviceOrTool", "reportedStatistics", "behaviorBoundaryReported", "notes"],
+      "properties": {
+        "paperMetricName": {"type": "string", "minLength": 1},
+        "definition": {"type": "string", "minLength": 1},
+        "calculationMethod": {"type": ["string", "null"]},
+        "unit": {"type": ["string", "null"]},
+        "aggregation": {"type": ["string", "null"]},
+        "measurementType": {"enum": ["AUTOMATED", "HUMAN_RATING", "SCALE", "MODEL_INPUT", "MODEL_WEIGHT", "CORRELATION", "COEFFICIENT", "PERFORMANCE", "ALGORITHM_ERROR", "BEHAVIOR_THRESHOLD"]},
+        "deviceOrTool": {"type": ["string", "null"]},
+        "reportedStatistics": {"type": "array", "items": {"type": "string"}},
+        "behaviorBoundaryReported": {"type": "boolean", "const": false},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "finding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["summary", "findingType", "supportsBehaviorThreshold"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1},
+        "findingType": {"enum": ["CONTEXT", "ASSOCIATION", "HUMAN_RUBRIC", "MEASUREMENT_DEFINITION", "MEASUREMENT_LIMITATION", "VALIDATION_RESULT"]},
+        "supportsBehaviorThreshold": {"type": "boolean", "const": false}
+      }
+    },
+    "faceFitMapping": {
+      "type": "object", "additionalProperties": false,
+      "required": ["paperMetricName", "faceFitMetricId", "relation", "definitionMatch", "unitMatch", "calculationMatch", "scoringDirectionSupported", "numericThresholdSupported", "reason", "conversion"],
+      "properties": {
+        "paperMetricName": {"type": "string", "minLength": 1},
+        "faceFitMetricId": {"type": "string", "minLength": 1},
+        "relation": {"enum": ["DIRECT", "PROXY", "UNIT_CONVERSION", "DERIVED", "NOT_APPLICABLE"]},
+        "definitionMatch": {"type": "boolean"},
+        "unitMatch": {"type": "boolean"},
+        "calculationMatch": {"type": "boolean"},
+        "scoringDirectionSupported": {"type": "boolean"},
+        "numericThresholdSupported": {"type": "boolean", "const": false},
+        "reason": {"type": "string", "minLength": 1},
+        "conversion": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

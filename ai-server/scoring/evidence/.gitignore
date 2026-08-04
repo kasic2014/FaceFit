@@ -1,0 +1,6 @@
+private/
+*.pdf
+*.doc
+*.docx
+!.gitignore
+!README.md

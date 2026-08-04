@@ -1,0 +1,47 @@
+{
+  "aggregate": {
+    "answerCount": 4,
+    "totalFillerCandidateCount": 1,
+    "totalWordCount": 307
+  },
+  "analysisMode": "MEASUREMENT_ONLY",
+  "answers": [
+    {
+      "acousticSilence": {},
+      "answerId": "ANS_000004",
+      "fillerCandidates": [
+        {
+          "endMsSession": 161200,
+          "startMsSession": 161100
+        }
+      ],
+      "pitch": {
+        "medianF0Hz": 110.0
+      },
+      "speakingRate": {
+        "wordsPerMinute": 100.0
+      },
+      "status": "COMPLETE_WITH_WARNINGS",
+      "timestampPauses": {},
+      "volume": {
+        "rmsDbfs": -30.0
+      },
+      "warnings": [
+        {
+          "answerId": "ANS_000004",
+          "code": "FILLER_CANDIDATE_REVIEW_REQUIRED",
+          "message": "Filler candidates require human review.",
+          "reviewRequired": true
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Measurements are technical observations, not scores."
+  ],
+  "scoringAvailable": false,
+  "sessionId": "SES_000001",
+  "status": "speech_characteristics_ready_with_warnings",
+  "thresholdApproval": false,
+  "warnings": []
+}

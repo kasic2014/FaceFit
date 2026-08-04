@@ -1,0 +1,6 @@
+{
+  "evidenceId": null, "title": null, "authors": [], "year": null, "doi": null, "officialUrl": null, "fileSha256": null,
+  "metricDefinition": null, "thresholdExists": null, "thresholdValue": null, "unit": null,
+  "extractionLocations": [{"page": null, "table": null, "figure": null, "quoteNote": null}],
+  "mapping": {"relation": "NOT_APPLICABLE", "faceFitMetricId": null}, "limitations": [], "status": "DRAFT"
+}

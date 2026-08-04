@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["sessionId", "scoringMode", "scoringAvailable", "scoreStatus", "profileId", "profileVersion", "profileHash", "engineVersion", "generatedAt", "answers", "sessionAxisScores", "overallScoreAvailable", "overallScore", "evidenceIds", "warnings", "limitations"],
+  "properties": {
+    "sessionId": {"type": "string"}, "scoringMode": {"enum": ["EXPERIMENTAL", "PRODUCTION"]}, "scoringAvailable": {"const": true},
+    "scoreStatus": {"enum": ["SCORED", "PARTIAL", "NOT_SCORABLE"]}, "profileId": {"type": "string"}, "profileVersion": {"type": "string"},
+    "profileHash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "engineVersion": {"type": "string"}, "generatedAt": {"type": "string"},
+    "answers": {"type": "array"}, "sessionAxisScores": {"type": "object"}, "overallScoreAvailable": {"type": "boolean"},
+    "overallScore": {"type": ["number", "null"]}, "evidenceIds": {"type": "array", "items": {"type": "string"}},
+    "warnings": {"type": "array"}, "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

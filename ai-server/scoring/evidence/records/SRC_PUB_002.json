@@ -1,0 +1,9 @@
+{
+  "evidenceId":"SRC_PUB_002","title":"Multimodal Public Speaking Performance Assessment","authors":["Torsten Wortwein","Mathieu Chollet","Boris Schauerte","Louis-Philippe Morency","Rainer Stiefelhagen","Stefan Scherer"],"year":2015,"doi":"10.1145/2818346.2820762","officialUrl":"https://dl.acm.org/doi/10.1145/2818346.2820762","fileSha256":null,
+  "metricDefinition":null,"thresholdExists":false,"thresholdValue":null,"unit":null,"extractionLocations":[],"mapping":{"relation":"NOT_APPLICABLE","faceFitMetricId":null},
+  "access":{"accessLevel":"METADATA_ONLY","reviewDepth":"METADATA_REVIEWED","retrievedAt":"2026-08-04T00:00:00Z","retrievalSource":"CROSSREF"},
+  "study":{"context":"PUBLIC_SPEAKING","sampleSize":null,"participantDescription":null,"language":null,"countryOrCulture":null,"interviewType":null,"deviceAndEnvironment":null},
+  "measurements":[],"reportedFindings":[],"faceFitMappings":[],"intendedUses":["CONTEXT","AXIS_SELECTION"],"adoptionStatuses":["ACCEPTED_CONTEXT","ACCEPTED_AXIS_SELECTION","EXPERIMENTAL_ONLY","REJECTED_FOR_THRESHOLD"],
+  "thresholdAssessment":{"behaviorThresholdReported":false,"transferability":"NONE_REPORTED","productionThresholdUsable":false,"reason":"The ACM page was access-restricted; metadata alone cannot support metric mappings."},
+  "limitations":["Only registered metadata was reviewed because official content access was restricted."],"status":"REVIEW_REQUIRED"
+}

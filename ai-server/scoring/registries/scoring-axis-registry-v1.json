@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "axes": [
+    {"axis": "GAZE_HEAD", "name": "Head-direction coaching proxies", "supported": true, "limitations": ["Head Pose is not eye tracking or an eye-contact measure."]},
+    {"axis": "POSTURE", "name": "Upper-body posture coaching proxies", "supported": true, "limitations": ["2D shoulder and head alignment is not a medical or full-body assessment."]},
+    {"axis": "SPEECH_DELIVERY", "name": "Physical and timing delivery measurements", "supported": true, "limitations": ["Speech measurements do not infer content quality, confidence, emotion, personality, or gender."]},
+    {"axis": "CONTENT", "name": "Answer content", "supported": false},
+    {"axis": "HIRING", "name": "Hiring outcome", "supported": false},
+    {"axis": "PERSONALITY", "name": "Personality", "supported": false},
+    {"axis": "EMOTION", "name": "Emotion", "supported": false}
+  ]
+}

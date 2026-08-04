@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "description": "Runtime permits measurement-specific fields while forbidding scores other than null.",
+  "properties": {
+    "analysisMode": {
+      "const": "SINGLE_SESSION_BASELINE_RELATIVE_MVP",
+      "type": "string"
+    },
+    "answers": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "answerId": {
+            "pattern": "^ANS_\\d{6}$",
+            "type": "string"
+          },
+          "interval": {
+            "additionalProperties": true,
+            "properties": {
+              "endTimestampMs": {
+                "minimum": 1,
+                "type": "integer"
+              },
+              "rule": {
+                "const": "[start, end)",
+                "type": "string"
+              },
+              "startTimestampMs": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "startTimestampMs",
+              "endTimestampMs"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "answerId",
+          "interval"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "disclaimer": {
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "measurementSummary": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "scores": {
+      "description": "Scoring is unavailable.",
+      "type": "null"
+    },
+    "scoringUnavailableReasons": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "type": "array"
+    },
+    "sessionId": {
+      "pattern": "^SES_\\d{6}$",
+      "type": "string"
+    },
+    "status": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "sessionId",
+    "status",
+    "analysisMode",
+    "scores",
+    "scoringUnavailableReasons",
+    "measurementSummary",
+    "answers",
+    "warnings",
+    "limitations",
+    "disclaimer"
+  ],
+  "title": "Vision Feedback Response",
+  "type": "object"
+}

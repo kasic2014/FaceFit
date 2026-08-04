@@ -1,0 +1,10 @@
+{
+  "evidenceId":"SRC_INT_004","title":"Automated Video Interview Judgment on a Large-Sized Corpus Collected Online","authors":["Lei Chen","Ru Zhao","Chee Wee Leong","Blair Lehman","Gary Feng","Mohammed Ehsan Hoque"],"year":2017,"doi":"10.1109/ACII.2017.8273646","officialUrl":"https://doi.org/10.1109/ACII.2017.8273646","fileSha256":null,
+  "metricDefinition":null,"thresholdExists":false,"thresholdValue":null,"unit":null,"extractionLocations":[],"mapping":{"relation":"NOT_APPLICABLE","faceFitMetricId":null},
+  "access":{"accessLevel":"METADATA_ONLY","reviewDepth":"METADATA_REVIEWED","retrievedAt":"2026-08-04T00:00:00Z","retrievalSource":"CROSSREF"},
+  "study":{"context":"EMPLOYMENT_INTERVIEW","sampleSize":null,"participantDescription":null,"language":null,"countryOrCulture":null,"interviewType":"Online video interview","deviceAndEnvironment":null},
+  "measurements":[],"reportedFindings":[],"faceFitMappings":[],
+  "intendedUses":["CONTEXT"],"adoptionStatuses":["ACCEPTED_CONTEXT","EXPERIMENTAL_ONLY","REJECTED_FOR_THRESHOLD"],
+  "thresholdAssessment":{"behaviorThresholdReported":false,"transferability":"NONE_REPORTED","productionThresholdUsable":false,"reason":"Only registered metadata was reviewed; no measurement or boundary claim was extracted."},
+  "limitations":["Full text and official abstract content were not available in the reviewed access path."],"status":"REVIEW_REQUIRED"
+}
