@@ -17,15 +17,15 @@ public class NcloudObjectStorageConfiguration {
     @Bean(destroyMethod = "close")
     S3Client ncloudS3Client(NcloudObjectStorageProperties properties) {
         return S3Client.builder()
-    endpointOverride(properties.getEndpoint())
-    region(Region.of(properties.getRegion()))
-    credentialsProvider(credentials(properties))
-    serviceConfiguration(S3Configuration.builder()
-        pathStyleAccessEnabled(true)
-        build())
-    requestChecksumCalculation(RequestChecksumCalculation.WHEN_REQUIRED)
-    responseChecksumValidation(ResponseChecksumValidation.WHEN_REQUIRED)
-    build();
+                .endpointOverride(properties.getEndpoint())
+                .region(Region.of(properties.getRegion()))
+                .credentialsProvider(credentials(properties))
+                .serviceConfiguration(S3Configuration.builder()
+                        .pathStyleAccessEnabled(true)
+                        .build())
+                .requestChecksumCalculation(RequestChecksumCalculation.WHEN_REQUIRED)
+                .responseChecksumValidation(ResponseChecksumValidation.WHEN_REQUIRED)
+                .build();
     }
 
     @Bean(destroyMethod = "close")
