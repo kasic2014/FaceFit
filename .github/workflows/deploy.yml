@@ -18,19 +18,43 @@ jobs:
           proxy_username: ${{ secrets.SSH_USER }}
           proxy_key: ${{ secrets.SSH_KEY }}
           script: |
+            set -e
+            echo "=== Environment Info ==="
+            whoami
+            pwd
+            echo "=== Checking Git and Docker ==="
+            which git || true
+            which docker || true
+            
             mkdir -p ~/FaceFit
             cd ~/FaceFit
+            
             if [ ! -d .git ]; then
+              echo "=== Cloning FaceFit Repository ==="
               git clone https://github.com/kasic2014/FaceFit.git .
             fi
+            
+            echo "=== Fetching and Syncing Main Branch ==="
             git fetch --all
             git checkout main
             git reset --hard origin/main
+            
             if [ ! -f .env ]; then
+              echo "=== Creating .env from .env.example ==="
               cp .env.example .env
             fi
-            docker compose --env-file .env -f infra/compose/compose.dev.yml down 2>/dev/null || docker-compose --env-file .env -f infra/compose/compose.dev.yml down 2>/dev/null || docker-compose -f docker-compose.dev.yml down 2>/dev/null || true
-            docker compose --env-file .env -f infra/compose/compose.dev.yml up -d --build 2>/dev/null || docker-compose --env-file .env -f infra/compose/compose.dev.yml up -d --build 2>/dev/null || docker-compose -f docker-compose.dev.yml up -d --build
+            
+            echo "=== Redeploying Backend & AI Server Docker Compose ==="
+            if command -v docker compose >/dev/null 2>&1; then
+              docker compose --env-file .env -f infra/compose/compose.dev.yml up -d --build
+            elif command -v docker-compose >/dev/null 2>&1; then
+              docker-compose --env-file .env -f infra/compose/compose.dev.yml up -d --build
+            else
+              echo "ERROR: Neither docker compose nor docker-compose command was found!"
+              exit 1
+            fi
+            
+            echo "=== Docker Container List ==="
             docker ps -a
 
   deploy-frontend:
@@ -43,18 +67,31 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            set -e
+            echo "=== Environment Info ==="
+            whoami
+            pwd
+            
             mkdir -p ~/FaceFit
             cd ~/FaceFit
+            
             if [ ! -d .git ]; then
+              echo "=== Cloning FaceFit Repository ==="
               git clone https://github.com/kasic2014/FaceFit.git .
             fi
+            
+            echo "=== Fetching and Syncing Main Branch ==="
             git fetch --all
             git checkout main
             git reset --hard origin/main
+            
+            echo "=== Rebuilding Frontend Docker Image ==="
             docker rm -f facefit-frontend 2>/dev/null || true
             docker build --no-cache \
               -t facefit-frontend:latest \
               ./frontend
+            
+            echo "=== Running Frontend Container ==="
             docker run -d \
               --name facefit-frontend \
               -p 80:80 \
@@ -64,5 +101,7 @@ jobs:
               -v /etc/letsencrypt:/etc/letsencrypt:ro \
               --restart unless-stopped \
               facefit-frontend:latest
+            
+            echo "=== Frontend Container Status & Logs ==="
             docker ps --filter name=facefit-frontend
             docker logs --tail 50 facefit-frontend
