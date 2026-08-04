@@ -98,4 +98,11 @@ docker compose up
 ```
 Vite 번들이 빌드되며, Nginx가 내장된 컨테이너가 포트 `3000`에서 가동됩니다. SPA 라우팅 폴백 설정이 처리되어 `/session/live` 등의 경로에 직접 접속해도 정상 동작합니다.
 
-<!-- deploy trigger: 2026-08-03 17:00 (complete src fix) -->
+---
+
+## CI/CD 자동화 및 테스트 검증
+
+- **GitHub Actions 연동**: `main` 및 `develop` 브랜치 푸시 시 AI Analysis Server 검증 테스트(`ai-analysis-test.yml`), Docker Compose 설정 검증 및 자동 배포가 수행됩니다.
+- **AI Analysis Server 테스트**: Faster-Whisper STT 분석, MediaPipe 시선·자세 분석 및 HTTP 비동기 세션 계약 자동 단위 테스트 수록.
+
+<!-- test trigger: 2026-08-04 (CI test & branch sync completed) -->
