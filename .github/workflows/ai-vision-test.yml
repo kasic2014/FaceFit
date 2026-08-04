@@ -4,13 +4,11 @@ on:
   push:
     branches:
       - main
-      - develop
     paths:
       - 'ai-server/vision-server/**'
   pull_request:
     branches:
       - main
-      - develop
     paths:
       - 'ai-server/vision-server/**'
 
