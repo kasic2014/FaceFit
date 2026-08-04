@@ -1,0 +1,77 @@
+{
+  "profileId": "FACEFIT_EXPERIMENTAL_SCORE_V1",
+  "version": "0.1.0",
+  "status": "EXPERIMENTAL",
+  "productionApproved": false,
+  "evidenceApprovalStatus": "NOT_APPROVED",
+  "validationStatus": "NOT_STARTED",
+  "scoreScale": {"minimum": 0, "maximum": 100, "decimalPlaces": 2},
+  "metricRules": [
+    {
+      "metricRuleId": "RULE_FIXTURE_HEAD_YAW_001", "metricId": "HEAD_RELATIVE_YAW_ABS_P95_DEG", "axis": "GAZE_HEAD",
+      "scoringFunction": "PIECEWISE_LINEAR", "unit": "DEGREE", "weight": 0.5,
+      "anchors": [{"value": 0, "score": 100}, {"value": 20, "score": 60}, {"value": 50, "score": 0}],
+      "clampOutsideRange": true,
+      "qualityGate": {"minimumSampleCount": 10, "minimumAvailabilityRatio": 0.8, "maximumMissingRatio": 0.2, "minimumAnswerDurationMs": 1000, "timestampValidityRequired": true},
+      "evidenceIds": ["EVIDENCE_TEST_FIXTURE_ONLY"], "limitations": ["Synthetic boundary only; Head Pose is not eye contact."]
+    },
+    {
+      "metricRuleId": "RULE_FIXTURE_HEAD_PITCH_001", "metricId": "HEAD_RELATIVE_PITCH_ABS_P95_DEG", "axis": "GAZE_HEAD",
+      "scoringFunction": "BAND_LOOKUP", "unit": "DEGREE", "weight": 0.5,
+      "bands": [
+        {"minimum": 0, "maximum": 10, "minimumInclusive": true, "maximumInclusive": false, "score": 100},
+        {"minimum": 10, "maximum": 25, "minimumInclusive": true, "maximumInclusive": true, "score": 60},
+        {"minimum": 25, "maximum": 100, "minimumInclusive": false, "maximumInclusive": true, "score": 0}
+      ],
+      "unmatchedPolicy": "NOT_SCORABLE",
+      "qualityGate": {"minimumSampleCount": 10, "minimumAvailabilityRatio": 0.8, "maximumMissingRatio": 0.2, "minimumAnswerDurationMs": 1000, "timestampValidityRequired": true},
+      "evidenceIds": ["EVIDENCE_TEST_FIXTURE_ONLY"], "limitations": ["Synthetic band only; not attention or confidence."]
+    },
+    {
+      "metricRuleId": "RULE_FIXTURE_POSTURE_TILT_001", "metricId": "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG", "axis": "POSTURE",
+      "scoringFunction": "PIECEWISE_LINEAR", "unit": "DEGREE", "weight": 0.6,
+      "anchors": [{"value": 0, "score": 100}, {"value": 5, "score": 50}, {"value": 10, "score": 0}],
+      "clampOutsideRange": false,
+      "qualityGate": {"minimumSampleCount": 10, "minimumAvailabilityRatio": 0.8, "maximumMissingRatio": 0.2, "minimumAnswerDurationMs": 1000, "timestampValidityRequired": true},
+      "evidenceIds": ["EVIDENCE_TEST_FIXTURE_ONLY"], "limitations": ["Synthetic test only; 2D shoulder proxy."]
+    },
+    {
+      "metricRuleId": "RULE_FIXTURE_POSTURE_VELOCITY_001", "metricId": "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC", "axis": "POSTURE",
+      "scoringFunction": "PIECEWISE_LINEAR", "unit": "NORMALIZED_PER_SECOND", "weight": 0.4,
+      "anchors": [{"value": 0, "score": 100}, {"value": 0.5, "score": 50}, {"value": 1, "score": 0}],
+      "clampOutsideRange": true,
+      "qualityGate": {"minimumSampleCount": 10, "minimumAvailabilityRatio": 0.8, "maximumMissingRatio": 0.2, "minimumAnswerDurationMs": 1000, "timestampValidityRequired": true},
+      "evidenceIds": ["EVIDENCE_TEST_FIXTURE_ONLY"], "limitations": ["Synthetic test only; camera-framing dependent."]
+    },
+    {
+      "metricRuleId": "RULE_FIXTURE_SPEECH_RATE_001", "metricId": "SPEECH_WORDS_PER_MINUTE", "axis": "SPEECH_DELIVERY",
+      "scoringFunction": "PIECEWISE_LINEAR", "unit": "WORDS_PER_MINUTE", "weight": 0.75,
+      "anchors": [{"value": 40, "score": 0}, {"value": 100, "score": 100}, {"value": 160, "score": 100}, {"value": 220, "score": 0}],
+      "clampOutsideRange": false,
+      "qualityGate": {"minimumSampleCount": 1, "minimumAvailabilityRatio": 0.8, "maximumMissingRatio": 0.2, "minimumAnswerDurationMs": 1000, "minimumWordCount": 5, "timestampValidityRequired": true},
+      "evidenceIds": ["EVIDENCE_TEST_FIXTURE_ONLY"], "limitations": ["Synthetic target range only; not approved speaking guidance."]
+    },
+    {
+      "metricRuleId": "RULE_FIXTURE_FILLER_001", "metricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE", "axis": "SPEECH_DELIVERY",
+      "scoringFunction": "BAND_LOOKUP", "unit": "COUNT_PER_MINUTE", "weight": 0.25,
+      "bands": [
+        {"minimum": 0, "maximum": 1, "minimumInclusive": true, "maximumInclusive": true, "score": 100},
+        {"minimum": 2, "maximum": 10, "minimumInclusive": true, "maximumInclusive": true, "score": 40}
+      ],
+      "unmatchedPolicy": "NOT_SCORABLE",
+      "qualityGate": {"minimumSampleCount": 1, "minimumAvailabilityRatio": 0.8, "maximumMissingRatio": 0.2, "minimumAnswerDurationMs": 1000, "minimumWordCount": 5, "timestampValidityRequired": true},
+      "evidenceIds": ["EVIDENCE_TEST_FIXTURE_ONLY"], "limitations": ["Candidate-only synthetic test; manual review required."]
+    }
+  ],
+  "axisRules": [
+    {"axis": "GAZE_HEAD", "minimumCoverageRatio": 0.5, "renormalizeAvailableWeights": true, "allowPartialScore": true, "requiredMetricIds": []},
+    {"axis": "POSTURE", "minimumCoverageRatio": 0.5, "renormalizeAvailableWeights": true, "allowPartialScore": true, "requiredMetricIds": ["POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG"]},
+    {"axis": "SPEECH_DELIVERY", "minimumCoverageRatio": 0.5, "renormalizeAvailableWeights": true, "allowPartialScore": true, "requiredMetricIds": []}
+  ],
+  "answerAggregation": {"overallEnabled": false},
+  "sessionAggregation": {"method": "DURATION_WEIGHTED", "minimumScorableAnswerCount": 2, "minimumAnswerCoverageRatio": 0.5, "allowPartialScore": true},
+  "overallRule": {"enabled": false, "requiredAxes": ["GAZE_HEAD", "POSTURE", "SPEECH_DELIVERY"], "axisWeights": null, "minimumAxisCoverageRatio": null},
+  "evidenceIds": ["EVIDENCE_TEST_FIXTURE_ONLY"],
+  "approvedBy": null,
+  "approvedAt": null
+}

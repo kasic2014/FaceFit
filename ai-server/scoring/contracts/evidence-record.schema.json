@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["evidenceId", "title", "authors", "year", "doi", "officialUrl", "fileSha256", "metricDefinition", "thresholdExists", "extractionLocations", "mapping", "limitations", "status"],
+  "properties": {
+    "evidenceId": {"type": "string"}, "title": {"type": "string"}, "authors": {"type": "array", "items": {"type": "string"}},
+    "year": {"type": ["integer", "null"]}, "doi": {"type": ["string", "null"]}, "officialUrl": {"type": ["string", "null"], "format": "uri"},
+    "fileSha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}, "metricDefinition": {"type": ["string", "null"]},
+    "thresholdExists": {"type": ["boolean", "null"]}, "thresholdValue": {"type": ["number", "null"]}, "unit": {"type": ["string", "null"]},
+    "extractionLocations": {"type": "array", "items": {"type": "object"}},
+    "mapping": {"type": "object", "required": ["relation", "faceFitMetricId"], "properties": {"relation": {"enum": ["DIRECT", "PROXY", "UNIT_CONVERSION", "DERIVED", "NOT_APPLICABLE"]}, "faceFitMetricId": {"type": ["string", "null"]}}},
+    "limitations": {"type": "array", "items": {"type": "string"}}, "status": {"enum": ["DRAFT", "REVIEW_REQUIRED", "APPROVED", "REJECTED"]}
+  }
+}

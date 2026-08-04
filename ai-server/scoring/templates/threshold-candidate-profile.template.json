@@ -1,0 +1,9 @@
+{
+  "profileId": "REPLACE_ME", "version": "0.0.0", "status": "EXPERIMENTAL", "productionApproved": false,
+  "evidenceApprovalStatus": "NOT_APPROVED", "validationStatus": "NOT_STARTED",
+  "scoreScale": {"minimum": 0, "maximum": 100, "decimalPlaces": 2}, "metricRules": [], "axisRules": [],
+  "answerAggregation": {"overallEnabled": false},
+  "sessionAggregation": {"method": "EQUAL", "minimumScorableAnswerCount": 1, "minimumAnswerCoverageRatio": 1, "allowPartialScore": false},
+  "overallRule": {"enabled": false, "requiredAxes": ["GAZE_HEAD", "POSTURE", "SPEECH_DELIVERY"], "axisWeights": null, "minimumAxisCoverageRatio": null},
+  "evidenceIds": [], "approvedBy": null, "approvedAt": null
+}
