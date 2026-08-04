@@ -1,0 +1,9 @@
+{
+  "evidenceId":"SRC_INT_006","title":"The Structured Employment Interview: Narrative and Quantitative Review of the Research Literature","authors":["Julia Levashina","Christopher J. Hartwell","Frederick P. Morgeson","Michael A. Campion"],"year":2013,"doi":"10.1111/peps.12052","officialUrl":"https://doi.org/10.1111/peps.12052","fileSha256":null,
+  "metricDefinition":null,"thresholdExists":false,"thresholdValue":null,"unit":null,"extractionLocations":[],"mapping":{"relation":"NOT_APPLICABLE","faceFitMetricId":null},
+  "access":{"accessLevel":"METADATA_ONLY","reviewDepth":"METADATA_REVIEWED","retrievedAt":"2026-08-04T00:00:00Z","retrievalSource":"CROSSREF"},
+  "study":{"context":"EMPLOYMENT_INTERVIEW","sampleSize":null,"participantDescription":null,"language":null,"countryOrCulture":null,"interviewType":"Research review","deviceAndEnvironment":null},
+  "measurements":[],"reportedFindings":[],"faceFitMappings":[],"intendedUses":["CONTEXT","VALIDATION_DESIGN"],"adoptionStatuses":["ACCEPTED_CONTEXT","EXPERIMENTAL_ONLY","REJECTED_FOR_THRESHOLD"],
+  "thresholdAssessment":{"behaviorThresholdReported":false,"transferability":"NONE_REPORTED","productionThresholdUsable":false,"reason":"Metadata review does not support extracting metric definitions or behavior boundaries."},
+  "limitations":["Only registered bibliographic metadata was reviewed."],"status":"REVIEW_REQUIRED"
+}
