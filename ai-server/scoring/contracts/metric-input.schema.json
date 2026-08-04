@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://face-fit.local/contracts/metric-input.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sessionId", "answerId", "metricId", "axis", "value", "unit", "scope", "quality", "source"],
+  "properties": {
+    "sessionId": {"type": "string", "pattern": "^SES_[0-9]{6}$"},
+    "answerId": {"type": "string", "pattern": "^ANS_[0-9]{6}$"},
+    "metricId": {"type": "string", "minLength": 1},
+    "axis": {"enum": ["GAZE_HEAD", "POSTURE", "SPEECH_DELIVERY"]},
+    "value": {"type": ["number", "null"]},
+    "unit": {"type": "string", "minLength": 1},
+    "scope": {"enum": ["FRAME", "ANSWER", "SESSION"]},
+    "quality": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "sampleCount": {"type": ["integer", "null"], "minimum": 0},
+        "availabilityRatio": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "missingRatio": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "answerDurationMs": {"type": ["integer", "null"], "minimum": 0},
+        "wordCount": {"type": ["integer", "null"], "minimum": 0},
+        "voicedFrameRatio": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "validSampleCount": {"type": ["integer", "null"], "minimum": 0},
+        "timestampValid": {"type": ["boolean", "null"]}
+      }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false, "required": ["service", "artifactHash"],
+      "properties": {"service": {"enum": ["VISION", "ANALYSIS"]}, "artifactHash": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}}
+    }
+  }
+}

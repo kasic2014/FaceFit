@@ -1,0 +1,149 @@
+{
+  "version": "1.0.0",
+  "metrics": [
+    {
+      "metricId": "HEAD_RELATIVE_YAW_ABS_P95_DEG", "axis": "GAZE_HEAD", "sourceService": "VISION",
+      "implementationPath": "ai-server/vision-server/app/vision/metric_registry.py", "sourcePath": "head_pose.relative_yaw_deg.absolute_p95",
+      "definition": "Absolute p95 of session-baseline-relative Head Pose yaw in an answer interval.", "calculationSummary": "Stage 10 interval aggregate of Stage 9 relative yaw.",
+      "unit": "DEGREE", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "PROXY",
+      "eligibleForScoringCandidate": false, "limitations": ["Camera-dependent Head Pose proxy; not gaze or eye-contact ratio."]
+    },
+    {
+      "metricId": "HEAD_RELATIVE_PITCH_ABS_P95_DEG", "axis": "GAZE_HEAD", "sourceService": "VISION",
+      "implementationPath": "ai-server/vision-server/app/vision/metric_registry.py", "sourcePath": "head_pose.relative_pitch_deg.absolute_p95",
+      "definition": "Absolute p95 of session-baseline-relative Head Pose pitch.", "calculationSummary": "Stage 10 interval aggregate of Stage 9 relative pitch.",
+      "unit": "DEGREE", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "PROXY",
+      "eligibleForScoringCandidate": false, "limitations": ["Not attention, concentration, confidence, or emotion."]
+    },
+    {
+      "metricId": "HEAD_RELATIVE_ROLL_ABS_P95_DEG", "axis": "GAZE_HEAD", "sourceService": "VISION",
+      "implementationPath": "ai-server/vision-server/app/vision/metric_registry.py", "sourcePath": "head_pose.relative_roll_deg.absolute_p95",
+      "definition": "Absolute p95 of session-baseline-relative Head Pose roll.", "calculationSummary": "Stage 10 interval aggregate of Stage 9 relative roll.",
+      "unit": "DEGREE", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "PROXY",
+      "eligibleForScoringCandidate": false, "limitations": ["Not a medical neck or spine assessment."]
+    },
+    {
+      "metricId": "POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG", "axis": "POSTURE", "sourceService": "VISION",
+      "implementationPath": "ai-server/vision-server/app/vision/metric_registry.py", "sourcePath": "posture.relative_shoulder_tilt_deg.absolute_p95",
+      "definition": "Absolute p95 of baseline-relative 2D shoulder-line tilt.", "calculationSummary": "Stage 10 interval aggregate.",
+      "unit": "DEGREE", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "PROXY",
+      "eligibleForScoringCandidate": false, "limitations": ["Does not measure spine, pelvis, attitude, or personality."]
+    },
+    {
+      "metricId": "POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC", "axis": "POSTURE", "sourceService": "VISION",
+      "implementationPath": "ai-server/vision-server/app/vision/metric_registry.py", "sourcePath": "posture.shoulder_center_velocity_norm_per_sec.p95",
+      "definition": "P95 of timestamp-based normalized 2D shoulder-center velocity.", "calculationSummary": "Stage 8 temporal metric aggregated in Stage 10.",
+      "unit": "NORMALIZED_PER_SECOND", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "PROXY",
+      "eligibleForScoringCandidate": false, "limitations": ["Dependent on camera framing; not intention or attitude."]
+    },
+    {
+      "metricId": "POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM", "axis": "POSTURE", "sourceService": "VISION",
+      "implementationPath": "ai-server/vision-server/app/vision/metric_registry.py", "sourcePath": "posture.relative_nose_shoulder_offset_x_norm.absolute_p95",
+      "definition": "Absolute p95 of baseline-relative nose-to-shoulder horizontal offset normalized by shoulder width.", "calculationSummary": "Stage 10 interval aggregate.",
+      "unit": "RATIO", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "PROXY",
+      "eligibleForScoringCandidate": false, "limitations": ["Head-to-shoulder alignment proxy, not torso diagnosis."]
+    },
+    {
+      "metricId": "QUALITY_HEAD_AVAILABILITY_RATIO", "axis": "GAZE_HEAD", "sourceService": "VISION",
+      "implementationPath": "ai-server/vision-server/app/vision/metric_registry.py", "sourcePath": "data_quality.head_pose_availability_ratio",
+      "definition": "Head Pose availability ratio.", "calculationSummary": "Available Head Pose frames divided by interval frames.",
+      "unit": "RATIO", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {}, "dataQualityOnly": true,
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "NOT_APPLICABLE",
+      "eligibleForScoringCandidate": false, "limitations": ["Quality gate input only; never a behavior penalty."]
+    },
+    {
+      "metricId": "QUALITY_POSTURE_AVAILABILITY_RATIO", "axis": "POSTURE", "sourceService": "VISION",
+      "implementationPath": "ai-server/vision-server/app/vision/metric_registry.py", "sourcePath": "data_quality.posture_availability_ratio",
+      "definition": "Shoulder posture availability ratio.", "calculationSummary": "Available shoulder frames divided by interval frames.",
+      "unit": "RATIO", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {}, "dataQualityOnly": true,
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "NOT_APPLICABLE",
+      "eligibleForScoringCandidate": false, "limitations": ["Quality gate input only; never a posture-quality score."]
+    },
+    {
+      "metricId": "SPEECH_WORDS_PER_MINUTE", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/speaking_rate_analyzer.py", "sourcePath": "speakingRate.wordsPerMinute",
+      "definition": "Stage 25 word count per answer duration minute.", "calculationSummary": "wordCount * 60000 / answerDurationMs.",
+      "unit": "WORDS_PER_MINUTE", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "DIRECT",
+      "eligibleForScoringCandidate": false, "limitations": ["Depends on STT tokenization and language context."]
+    },
+    {
+      "metricId": "SPEECH_ARTICULATION_WORDS_PER_MINUTE", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/speaking_rate_analyzer.py", "sourcePath": "speakingRate.articulationWordsPerMinute",
+      "definition": "Word count per detected word-timestamp union minute.", "calculationSummary": "wordCount * 60000 / detectedSpeechDurationMs.",
+      "unit": "WORDS_PER_MINUTE", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "DIRECT",
+      "eligibleForScoringCandidate": false, "limitations": ["Depends on word timestamp quality."]
+    },
+    {
+      "metricId": "SPEECH_TOTAL_INTERWORD_GAP_MS", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/pause_analyzer.py", "sourcePath": "timestampPauses.totalInterWordGapMs",
+      "definition": "Sum of positive gaps between adjacent word timestamps.", "calculationSummary": "Positive adjacent word gaps summed in milliseconds.",
+      "unit": "MILLISECOND", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "DIRECT",
+      "eligibleForScoringCandidate": false, "limitations": ["Technical timestamp-gap measure, not semantic hesitation."]
+    },
+    {
+      "metricId": "SPEECH_P90_INTERWORD_GAP_MS", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/pause_analyzer.py", "sourcePath": "timestampPauses.p90InterWordGapMs",
+      "definition": "P90 of positive inter-word timestamp gaps.", "calculationSummary": "Linear percentile of positive gaps.",
+      "unit": "MILLISECOND", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "DIRECT",
+      "eligibleForScoringCandidate": false, "limitations": ["Technical timestamp view only."]
+    },
+    {
+      "metricId": "SPEECH_FILLER_CANDIDATES_PER_MINUTE", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/filler_candidate_analyzer.py", "sourcePath": "fillerCandidateSummary.fillerCandidatesPerMinute",
+      "definition": "Lexicon-matched filler candidates per answer minute.", "calculationSummary": "Candidate count * 60000 / durationMs.",
+      "unit": "COUNT_PER_MINUTE", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "PROXY",
+      "eligibleForScoringCandidate": false, "limitations": ["Candidate-only; manual review required; not overall communication ability."]
+    },
+    {
+      "metricId": "SPEECH_RMS_DBFS", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/volume_analyzer.py", "sourcePath": "volume.rmsDbfs",
+      "definition": "Whole-answer RMS amplitude in dBFS.", "calculationSummary": "20*log10(RMS normalized PCM amplitude).",
+      "unit": "DBFS", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "DIRECT",
+      "eligibleForScoringCandidate": false, "limitations": ["Strongly affected by microphone gain and distance."]
+    },
+    {
+      "metricId": "SPEECH_PEAK_DBFS", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/volume_analyzer.py", "sourcePath": "volume.peakDbfs",
+      "definition": "Peak normalized PCM amplitude in dBFS.", "calculationSummary": "20*log10(max absolute normalized amplitude).",
+      "unit": "DBFS", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "DIRECT",
+      "eligibleForScoringCandidate": false, "limitations": ["Affected by microphone gain and transient noise."]
+    },
+    {
+      "metricId": "SPEECH_CLIPPING_SAMPLE_RATIO", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/volume_analyzer.py", "sourcePath": "volume.clippingSampleRatio",
+      "definition": "Ratio of PCM samples at the Stage 26 clipping amplitude.", "calculationSummary": "clipping sample count divided by sample count.",
+      "unit": "RATIO", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "DIRECT",
+      "eligibleForScoringCandidate": false, "limitations": ["Audio-capture quality measure, not speaker behavior."]
+    },
+    {
+      "metricId": "SPEECH_VOICED_FRAME_RATIO", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/pitch_analyzer.py", "sourcePath": "pitch.voicedFrameRatio",
+      "definition": "Ratio of frames with a finite physical F0 estimate.", "calculationSummary": "voiced frame count divided by pitch frame count.",
+      "unit": "RATIO", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "DIRECT",
+      "eligibleForScoringCandidate": false, "limitations": ["Pitch availability and signal quality measure, not confidence or gender."]
+    },
+    {
+      "metricId": "SPEECH_F0_RANGE_HZ", "axis": "SPEECH_DELIVERY", "sourceService": "ANALYSIS",
+      "implementationPath": "ai-server/analysis-server/app/speech/pitch_analyzer.py", "sourcePath": "pitch.f0RangeHz",
+      "definition": "Maximum minus minimum finite physical F0 estimate.", "calculationSummary": "Range over voiced frames only.",
+      "unit": "HERTZ", "valueStage": "AGGREGATED", "scope": "ANSWER", "directionType": "UNKNOWN", "qualityGate": {},
+      "missingValuePolicy": "NOT_SCORABLE", "evidenceStatus": "UNMAPPED", "evidenceRelation": null, "mappingCandidate": "DIRECT",
+      "eligibleForScoringCandidate": false, "limitations": ["Physical F0 only; excluded from scoring before evidence review; never confidence, emotion, personality, or gender."]
+    }
+  ]
+}
