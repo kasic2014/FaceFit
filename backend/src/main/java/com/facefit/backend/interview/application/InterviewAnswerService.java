@@ -14,16 +14,17 @@ import com.facefit.backend.interview.domain.InterviewProcessingJob;
 import com.facefit.backend.interview.domain.InterviewSession;
 import com.facefit.backend.interview.domain.InterviewSessionStatus;
 import com.facefit.backend.interview.domain.InterviewTurn;
+import com.facefit.backend.interview.domain.StorageProvider;
 import com.facefit.backend.interview.repository.InterviewAnswerRepository;
 import com.facefit.backend.interview.repository.InterviewProcessingJobRepository;
 import com.facefit.backend.interview.repository.InterviewSessionRepository;
 import com.facefit.backend.interview.repository.InterviewTurnRepository;
 import com.facefit.backend.interview.storage.InterviewAnswerStorage;
+import com.facefit.backend.interview.storage.InterviewAnswerStorageProperties;
 import com.facefit.backend.member.domain.Profile;
 import com.facefit.backend.onboarding.application.OnboardingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -57,6 +58,7 @@ public class InterviewAnswerService {
     private final AnswerMediaValidator mediaValidator;
     private final InterviewAnswerObjectKeyFactory objectKeyFactory;
     private final InterviewAnswerStorage storage;
+    private final InterviewAnswerStorageProperties storageProperties;
     private final InterviewSessionRepository sessionRepository;
     private final InterviewTurnRepository turnRepository;
     private final InterviewAnswerRepository answerRepository;
@@ -64,9 +66,6 @@ public class InterviewAnswerService {
     private final IdempotencyService idempotencyService;
     private final TransactionTemplate transactionTemplate;
     private final ApplicationEventPublisher eventPublisher;
-
-    @Value("${facefit.storage.supabase.interview-answers-bucket:interview-answers}")
-    private String storageBucket;
 
     public IdempotentResult<InterviewAnswerCreatedResponse> submit(
             Jwt jwt,
@@ -88,6 +87,7 @@ public class InterviewAnswerService {
                 file,
                 recordedDurationSeconds
         );
+        try (media) {
         String uri = "/api/v1/interview-sessions/" + sessionId + "/answers";
         String requestHash = idempotencyService.requestHash(
                 "ANSWER-001|"
@@ -123,10 +123,13 @@ public class InterviewAnswerService {
 
         try {
             storage.upload(
-                    storageBucket,
+                    storageProperties.getProvider(),
+                    storageProperties.getBucket(),
                     reservation.objectKey(),
                     media.mimeType(),
-                    media.content()
+                    media.size(),
+                    media.sha256(),
+                    media.path()
             );
         } catch (RuntimeException uploadFailure) {
             compensateUploadFailure(reservation);
@@ -146,6 +149,7 @@ public class InterviewAnswerService {
         } catch (RuntimeException databaseFailure) {
             compensateAfterFinalizeFailure(reservation);
             throw databaseFailure;
+        }
         }
     }
 
@@ -261,8 +265,14 @@ public class InterviewAnswerService {
                 session,
                 turn,
                 profile,
-                storageBucket,
+                storageProperties.getProvider(),
+                storageProperties.getBucket(),
                 objectKey,
+                storage.canonicalUrl(
+                        storageProperties.getProvider(),
+                        storageProperties.getBucket(),
+                        objectKey
+                ).toString(),
                 media.mimeType(),
                 media.size(),
                 media.sha256(),
@@ -352,7 +362,11 @@ public class InterviewAnswerService {
 
     private void compensateAfterFinalizeFailure(Reservation reservation) {
         try {
-            storage.delete(storageBucket, reservation.objectKey());
+            storage.delete(
+                    storageProperties.getProvider(),
+                    storageProperties.getBucket(),
+                    reservation.objectKey()
+            );
             cleanupReservation(reservation);
         } catch (RuntimeException compensationFailure) {
             log.error(
@@ -364,7 +378,11 @@ public class InterviewAnswerService {
 
     private void compensateUploadFailure(Reservation reservation) {
         try {
-            storage.delete(storageBucket, reservation.objectKey());
+            storage.delete(
+                    storageProperties.getProvider(),
+                    storageProperties.getBucket(),
+                    reservation.objectKey()
+            );
             cleanupReservation(reservation);
         } catch (RuntimeException compensationFailure) {
             log.error(

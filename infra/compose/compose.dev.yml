@@ -1,45 +1,97 @@
-version: '3.8'
+name: facefit
 
 services:
-  backend:
-    build:
-      context: ../..
-      dockerfile: infra/docker/backend.Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=local
-
   analysis-server:
     build:
       context: ../..
       dockerfile: infra/docker/analysis-server.Dockerfile
+      target: runtime
+    init: true
     ports:
-      - "8001:8001"
+      - "${AI_SERVER_PORT:-8001}:8001"
     environment:
-      - ENV=development
+      FACEFIT_AI_SERVICE_TOKEN: ${FACEFIT_AI_SERVICE_TOKEN:-}
+      FACEFIT_AI_MODEL_TIMEOUT_SECONDS: ${FACEFIT_AI_MODEL_TIMEOUT_SECONDS:-55}
+      FACEFIT_AI_MAX_UPLOAD_BYTES: ${FACEFIT_AI_MAX_UPLOAD_BYTES:-209715200}
+      ANALYSIS_MEDIA_ALLOWED_HOST: ${ANALYSIS_MEDIA_ALLOWED_HOST:-kr.object.ncloudstorage.com}
+      ANALYSIS_MEDIA_CONNECT_TIMEOUT_SECONDS: ${ANALYSIS_MEDIA_CONNECT_TIMEOUT_SECONDS:-5}
+      ANALYSIS_MEDIA_READ_TIMEOUT_SECONDS: ${ANALYSIS_MEDIA_READ_TIMEOUT_SECONDS:-120}
+      FACEFIT_AI_MAX_DURATION_SECONDS: ${FACEFIT_AI_MAX_DURATION_SECONDS:-300}
+      FACEFIT_AI_TRANSCRIPT_MAX_CHARS: ${FACEFIT_AI_TRANSCRIPT_MAX_CHARS:-50000}
+      WHISPER_MODEL_SIZE: ${WHISPER_MODEL_SIZE:-small}
+      WHISPER_DEVICE: ${WHISPER_DEVICE:-cpu}
+      WHISPER_COMPUTE_TYPE: ${WHISPER_COMPUTE_TYPE:-int8}
+      FACEFIT_CV_FACE_MODEL_PATH: /app/models/face_landmarker.task
+      FACEFIT_CV_POSE_MODEL_PATH: /app/models/pose_landmarker_full.task
+      FACEFIT_CV_SAMPLE_FPS: ${FACEFIT_CV_SAMPLE_FPS:-2}
+      FACEFIT_CV_MAX_SAMPLE_FRAMES: ${FACEFIT_CV_MAX_SAMPLE_FRAMES:-48}
+      FACEFIT_CV_MIN_USABLE_FRAMES: ${FACEFIT_CV_MIN_USABLE_FRAMES:-5}
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >-
+          import urllib.request;
+          urllib.request.urlopen('http://127.0.0.1:8001/health', timeout=2).read()
+      interval: 10s
+      timeout: 3s
+      start_period: 10s
+      retries: 6
+    networks:
+      - facefit-internal
 
-  vision-server:
+  backend:
     build:
       context: ../..
-      dockerfile: infra/docker/vision-server.Dockerfile
+      dockerfile: infra/docker/backend.Dockerfile
+      target: runtime
+    init: true
     ports:
-      - "8002:8002"
+      - "${BACKEND_PORT:-8080}:8080"
     environment:
-      - ENV=development
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-local}
+      DB_URL: ${DB_URL:-}
+      DB_USERNAME: ${DB_USERNAME:-}
+      DB_PASSWORD: ${DB_PASSWORD:-}
+      SPRING_FLYWAY_BASELINE_ON_MIGRATE: ${FLYWAY_BASELINE_ON_MIGRATE:-false}
+      SPRING_FLYWAY_BASELINE_VERSION: ${FLYWAY_BASELINE_VERSION:-1}
+      SUPABASE_JWT_ISSUER_URI: ${SUPABASE_JWT_ISSUER_URI:-}
+      SUPABASE_URL: ${SUPABASE_URL:-}
+      SUPABASE_SECRET_KEY: ${SUPABASE_SECRET_KEY:-}
+      CAREER_DOCUMENTS_BUCKET: ${CAREER_DOCUMENTS_BUCKET:-career-documents}
+      JOB_POSTINGS_BUCKET: ${JOB_POSTINGS_BUCKET:-job-postings}
+      INTERVIEW_ANSWER_STORAGE_PROVIDER: ${INTERVIEW_ANSWER_STORAGE_PROVIDER:-NCLOUD}
+      NCLOUD_OBJECT_STORAGE_ENDPOINT: ${NCLOUD_OBJECT_STORAGE_ENDPOINT:-https://kr.object.ncloudstorage.com}
+      NCLOUD_OBJECT_STORAGE_REGION: ${NCLOUD_OBJECT_STORAGE_REGION:-kr-standard}
+      NCLOUD_OBJECT_STORAGE_BUCKET: ${NCLOUD_OBJECT_STORAGE_BUCKET:-facefit-interview-videos}
+      NCLOUD_ACCESS_KEY: ${NCLOUD_ACCESS_KEY:-}
+      NCLOUD_SECRET_KEY: ${NCLOUD_SECRET_KEY:-}
+      NCLOUD_PRESIGNED_GET_TTL_SECONDS: ${NCLOUD_PRESIGNED_GET_TTL_SECONDS:-300}
+      # Compose DNS name: localhost would point back to the backend container.
+      FACEFIT_AI_BASE_URL: http://analysis-server:8001
+      FACEFIT_AI_SERVICE_TOKEN: ${FACEFIT_AI_SERVICE_TOKEN:-}
+      FACEFIT_AI_CONNECT_TIMEOUT: ${FACEFIT_AI_CONNECT_TIMEOUT:-3s}
+      FACEFIT_AI_RESPONSE_TIMEOUT: ${FACEFIT_AI_RESPONSE_TIMEOUT:-60s}
+      JOB_POSTING_OCR_ENABLED: ${JOB_POSTING_OCR_ENABLED:-false}
+      INTERVIEW_PROCESSING_DISPATCH_ENABLED: ${INTERVIEW_PROCESSING_DISPATCH_ENABLED:-false}
+      INTERVIEW_PROCESSING_RECOVERY_ENABLED: ${INTERVIEW_PROCESSING_RECOVERY_ENABLED:-false}
+    depends_on:
+      analysis-server:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget -q -O - http://127.0.0.1:8080/actuator/health >/dev/null || exit 1
+      interval: 10s
+      timeout: 3s
+      start_period: 30s
+      retries: 6
+    networks:
+      - facefit-internal
 
-  tts-server:
-    build:
-      context: ../..
-      dockerfile: infra/docker/tts-server.Dockerfile
-    ports:
-      - "8003:8003"
-    environment:
-      - ENV=development
-
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "80:80"
-    volumes:
-      - ../nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+networks:
+  facefit-internal:
+    driver: bridge

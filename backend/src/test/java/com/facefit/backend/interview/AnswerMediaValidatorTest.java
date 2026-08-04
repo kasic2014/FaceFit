@@ -6,12 +6,16 @@ import com.facefit.backend.interview.application.ValidatedAnswerMedia;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.nio.file.Path;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class AnswerMediaValidatorTest {
 
-    private final AnswerMediaValidator validator = new AnswerMediaValidator();
+    private final AnswerMediaValidator validator = new AnswerMediaValidator(
+            Path.of(System.getProperty("java.io.tmpdir"), "facefit-answer-tests")
+    );
 
     @Test
     void acceptsStructuredMp4WithVideoAudioAndBoundedDuration() {
@@ -24,6 +28,7 @@ class AnswerMediaValidatorTest {
         assertThat(result.extension()).isEqualTo("mp4");
         assertThat(result.durationMillis()).isEqualTo(60_000);
         assertThat(result.sha256()).hasSize(64);
+        result.close();
     }
 
     @Test
@@ -36,6 +41,7 @@ class AnswerMediaValidatorTest {
         assertThat(result.mimeType()).isEqualTo("video/webm");
         assertThat(result.extension()).isEqualTo("webm");
         assertThat(result.durationMillis()).isEqualTo(45_000);
+        result.close();
     }
 
     @Test

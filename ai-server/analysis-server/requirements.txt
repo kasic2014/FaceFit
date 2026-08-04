@@ -10,3 +10,5 @@ pydantic
 python-dotenv
 python-multipart>=0.0.20,<1
 httpx>=0.27.0,<1
+mediapipe==0.10.35
+mediapipe==0.10.35

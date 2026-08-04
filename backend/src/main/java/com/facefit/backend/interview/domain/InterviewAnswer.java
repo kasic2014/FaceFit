@@ -44,11 +44,18 @@ public class InterviewAnswer {
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private Profile profile;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "storage_provider", nullable = false, length = 20, updatable = false)
+    private StorageProvider storageProvider;
+
     @Column(name = "storage_bucket", nullable = false, length = 100, updatable = false)
     private String storageBucket;
 
     @Column(name = "storage_path", nullable = false, columnDefinition = "TEXT", updatable = false)
     private String storagePath;
+
+    @Column(name = "storage_url", columnDefinition = "TEXT", updatable = false)
+    private String storageUrl;
 
     @Column(name = "mime_type", nullable = false, length = 100, updatable = false)
     private String mimeType;
@@ -105,8 +112,10 @@ public class InterviewAnswer {
             InterviewSession session,
             InterviewTurn turn,
             Profile profile,
+            StorageProvider storageProvider,
             String storageBucket,
             String storagePath,
+            String storageUrl,
             String mimeType,
             long fileSizeBytes,
             String fileSha256,
@@ -118,8 +127,10 @@ public class InterviewAnswer {
         this.session = Objects.requireNonNull(session);
         this.turn = Objects.requireNonNull(turn);
         this.profile = Objects.requireNonNull(profile);
+        this.storageProvider = Objects.requireNonNull(storageProvider);
         this.storageBucket = Objects.requireNonNull(storageBucket);
         this.storagePath = Objects.requireNonNull(storagePath);
+        this.storageUrl = storageUrl;
         this.mimeType = Objects.requireNonNull(mimeType);
         this.fileSizeBytes = fileSizeBytes;
         this.fileSha256 = Objects.requireNonNull(fileSha256);
@@ -134,8 +145,10 @@ public class InterviewAnswer {
             InterviewSession session,
             InterviewTurn turn,
             Profile profile,
+            StorageProvider storageProvider,
             String storageBucket,
             String storagePath,
+            String storageUrl,
             String mimeType,
             long fileSizeBytes,
             String fileSha256,
@@ -148,8 +161,10 @@ public class InterviewAnswer {
                 session,
                 turn,
                 profile,
+                storageProvider,
                 storageBucket,
                 storagePath,
+                storageUrl,
                 mimeType,
                 fileSizeBytes,
                 fileSha256,

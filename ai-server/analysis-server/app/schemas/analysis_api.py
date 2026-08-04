@@ -68,3 +68,13 @@ class ContentAnalysisRequest(StrictModel):
     question: str = Field(min_length=1, max_length=5_000)
     transcript: str = Field(min_length=1, max_length=50_000)
     jobContext: str | None = Field(default=None, max_length=10_000)
+
+
+class MediaAnalysisRequest(StrictModel):
+    schemaVersion: Literal["1"]
+    requestId: UUID
+    answerId: UUID
+    mediaUrl: str = Field(min_length=1, max_length=4096)
+    mediaMimeType: Literal["video/mp4", "video/webm"]
+    mediaSizeBytes: int = Field(gt=0, le=200 * 1024 * 1024)
+    recordedDurationSec: float = Field(gt=0, le=300)

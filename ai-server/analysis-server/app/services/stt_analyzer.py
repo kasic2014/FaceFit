@@ -33,7 +33,7 @@ def probe_answer_media(media_path: Path) -> float:
             has_video = any(stream.type == "video" for stream in container.streams)
             if not has_audio or not has_video or container.duration is None:
                 raise AnalyzerMediaFailure
-            duration_seconds = float(container.duration * av.time_base)
+            duration_seconds = float(container.duration / av.time_base)
     except AnalyzerMediaFailure:
         raise
     except Exception as exc:

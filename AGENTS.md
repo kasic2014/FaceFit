@@ -78,7 +78,7 @@
 - `REPORT-001`은 모든 필수 분석 성공 후 비동기 `REPORT_GENERATION` 작업이 확정 저장한 세션당 단일 리포트만 조회한다.
 - 최종 리포트의 각 사용 축 점수는 답변 10개의 산술평균을 소수점 첫째 자리에서 `HALF_UP` 반올림한다. 음성 분석 동의 시 `GAZE`, `POSTURE`, `SPEECH`, `CONTENT` 네 축을, 미동의 시 `SPEECH=null`로 두고 `GAZE`, `POSTURE`, `CONTENT` 세 축을 동일 가중치로 집계한다.
 - 부분 리포트와 실패 분석의 0점 대체는 허용하지 않으며, 중단 세션은 분석 조정과 리포트 생성에서 제외한다.
-- 내부 AI HTTP 계약은 `docs/16_FaceFit_12단계_AI_HTTP계약.md`를 기준으로 하며 루트 `ai-server/analysis-server`가 단일 HTTP 진입점이다. STT는 실제 WhisperService 경계를 사용하고 CV·VOICE·CONTENT는 운영 산식·모델이 확정될 때까지 `503 ANALYSIS_UNAVAILABLE`을 반환한다. Spring HTTP Adapter는 아직 구현하지 않았다.
+- 내부 AI HTTP 계약은 `docs/16_FaceFit_12단계_AI_HTTP계약.md`와 CV 구현을 확정한 `docs/18_FaceFit_15단계_CV_분석.md`를 기준으로 하며 루트 `ai-server/analysis-server`가 단일 HTTP 진입점이다. STT는 실제 WhisperService 경계를, CV는 MediaPipe CPU 랜드마크 기반 MVP 산식을 사용한다. VOICE·CONTENT는 운영 산식·모델이 확정될 때까지 `503 ANALYSIS_UNAVAILABLE`을 반환한다. Spring HTTP Adapter는 STT·CV 성공 응답과 공통 오류 계약을 처리한다.
 - `VOICE-001~003` 음성 클론은 이번 MVP 구현 범위에 포함한다.
 - 음성 분석 동의는 온보딩의 선택 항목이며 미동의여도 음성 분석을 제외한 모든 면접 서비스를 사용할 수 있다. 음성 클론용 음성정보 동의는 이 항목 및 온보딩 필수 동의와 분리하고, 유효한 별도 동의가 있어야 `VOICE-001`을 호출할 수 있다.
 - 음성 복제 작업은 비동기로 처리하고 샘플·미리듣기·외부 모델 삭제 상태까지 추적한다.

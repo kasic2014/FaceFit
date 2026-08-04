@@ -21,6 +21,9 @@ class AnalysisApiSettingsTest(unittest.TestCase):
                 "WHISPER_MODEL_SIZE": "small",
                 "WHISPER_DEVICE": "cpu",
                 "WHISPER_COMPUTE_TYPE": "int8",
+                "FACEFIT_CV_SAMPLE_FPS": "3",
+                "FACEFIT_CV_MAX_SAMPLE_FRAMES": "60",
+                "FACEFIT_CV_MIN_USABLE_FRAMES": "6",
             },
             clear=True,
         ):
@@ -33,6 +36,9 @@ class AnalysisApiSettingsTest(unittest.TestCase):
         self.assertEqual(settings.whisper_model_name, "small")
         self.assertEqual(settings.whisper_device, "cpu")
         self.assertEqual(settings.whisper_compute_type, "int8")
+        self.assertEqual(settings.cv_sample_fps, 3)
+        self.assertEqual(settings.cv_max_sample_frames, 60)
+        self.assertEqual(settings.cv_min_usable_frames, 6)
 
     def test_secret_is_not_in_settings_representation(self) -> None:
         settings = AnalysisApiSettings(
@@ -58,6 +64,20 @@ class AnalysisApiSettingsTest(unittest.TestCase):
         ):
             with self.assertRaises(ValueError):
                 AnalysisApiSettings.from_environment()
+
+    def test_cv_limits_fail_before_unbounded_work_can_start(self) -> None:
+        for environment in (
+            {"FACEFIT_CV_SAMPLE_FPS": "11"},
+            {"FACEFIT_CV_MAX_SAMPLE_FRAMES": "121"},
+            {
+                "FACEFIT_CV_MAX_SAMPLE_FRAMES": "5",
+                "FACEFIT_CV_MIN_USABLE_FRAMES": "6",
+            },
+        ):
+            with self.subTest(environment=environment):
+                with patch.dict("os.environ", environment, clear=True):
+                    with self.assertRaises(ValueError):
+                        AnalysisApiSettings.from_environment()
 
 
 if __name__ == "__main__":
