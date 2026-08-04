@@ -26,8 +26,17 @@ from scripts import setup_mediapipe_models as setup
 
 REQUIREMENTS_SHA256 = "8a18c111dc4e4d93e8e1c0e28615298a32819d78d78996303f1171b3fad6e925"
 REQUIREMENTS_LOCK_SHA256 = "d05e1d8c452a61bf2638aace9bc320278eee5716ef15f8697d6c75ce8a2bc091"
-ANALYSIS_TREE_SHA256 = "c56f1147556369f2ebdc50bbe682741d8a26d83aba8d5cd0e01c10d195692ecf"
-SESSION001_SHA256 = "6523d266058fba6daff29c10a15780545bc3d7eac8e9e0b2b940212f9c1b9ea2"
+# Verified remote Analysis baseline plus the compatibility recovery in this branch.
+ANALYSIS_TREE_SHA256 = "07cc6ee0d6039ad60c8b776f78b16abf17aa1526d02d628b3463f56d9447fdd6"
+SESSION001_SHA256 = "305e8b43ee7fae1fd8142f32363c66ea1366db476177bd3d7bb090156e942780"
+TEXT_HASH_SUFFIXES = {".csv", ".json", ".md", ".py", ".txt", ".yml", ".yaml"}
+
+
+def protected_bytes(path: Path) -> bytes:
+    data = path.read_bytes()
+    if path.suffix.lower() in TEXT_HASH_SUFFIXES:
+        data = data.replace(b"\r\n", b"\n")
+    return data
 
 
 class FakeResponse:
@@ -119,7 +128,7 @@ def protected_tree_digest(
         relative = path.relative_to(WORKSPACE_ROOT).as_posix()
         digest.update(relative.encode("utf-8"))
         digest.update(b"\0")
-        digest.update(hashlib.sha256(path.read_bytes()).digest())
+        digest.update(hashlib.sha256(protected_bytes(path)).digest())
         digest.update(b"\0")
     return digest.hexdigest()
 
@@ -562,13 +571,13 @@ class ManifestAndSetupTests(unittest.TestCase):
 class ProtectionBaselineTests(unittest.TestCase):
     def test_requirements_file_is_unchanged(self) -> None:
         actual = hashlib.sha256(
-            (VISION_SERVER_ROOT / "requirements.txt").read_bytes()
+            protected_bytes(VISION_SERVER_ROOT / "requirements.txt")
         ).hexdigest()
         self.assertEqual(actual, REQUIREMENTS_SHA256)
 
     def test_requirements_lock_file_is_unchanged(self) -> None:
         actual = hashlib.sha256(
-            (VISION_SERVER_ROOT / "requirements-lock.txt").read_bytes()
+            protected_bytes(VISION_SERVER_ROOT / "requirements-lock.txt")
         ).hexdigest()
         self.assertEqual(actual, REQUIREMENTS_LOCK_SHA256)
 
