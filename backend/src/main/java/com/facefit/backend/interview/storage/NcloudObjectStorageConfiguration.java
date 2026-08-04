@@ -47,7 +47,6 @@ public class NcloudObjectStorageConfiguration {
     private S3Configuration s3Configuration() {
         return S3Configuration.builder()
                 .pathStyleAccessEnabled(true)
-                .checksumValidationEnabled(false)
                 .build();
     }
 }
