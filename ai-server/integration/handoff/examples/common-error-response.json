@@ -1,0 +1,6 @@
+{
+  "code": "RESULT_NOT_READY",
+  "details": [],
+  "message": "The requested component result is not ready.",
+  "requestId": "00000000-0000-4000-8000-000000000003"
+}

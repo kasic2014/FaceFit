@@ -1,0 +1,23 @@
+{
+  "version":"1.0.0","metricCount":18,"productionApproved":false,"thresholdProfileCreated":false,"scoreWeightsCreated":false,
+  "metrics":[
+    {"metricId":"HEAD_RELATIVE_YAW_ABS_P95_DEG","readiness":"METRIC_DEFINITION_ONLY","reason":"Euler-angle evidence does not validate baseline-relative answer p95 behavior."},
+    {"metricId":"HEAD_RELATIVE_PITCH_ABS_P95_DEG","readiness":"METRIC_DEFINITION_ONLY","reason":"Euler-angle evidence does not validate baseline-relative answer p95 behavior."},
+    {"metricId":"HEAD_RELATIVE_ROLL_ABS_P95_DEG","readiness":"METRIC_DEFINITION_ONLY","reason":"Euler-angle evidence does not validate baseline-relative answer p95 behavior."},
+    {"metricId":"QUALITY_HEAD_AVAILABILITY_RATIO","readiness":"QUALITY_GATE_ONLY","reason":"Measurement availability can only gate validity and cannot penalize behavior."},
+    {"metricId":"POSTURE_RELATIVE_SHOULDER_TILT_ABS_P95_DEG","readiness":"MEASUREMENT_LIMITATION_ONLY","reason":"2D shoulder keypoints permit derivation, but no seated behavior direction or boundary is validated."},
+    {"metricId":"POSTURE_SHOULDER_CENTER_VELOCITY_P95_NORM_PER_SEC","readiness":"MEASUREMENT_LIMITATION_ONLY","reason":"Keypoint tracking evidence does not validate normalized temporal movement as behavior quality."},
+    {"metricId":"POSTURE_RELATIVE_NOSE_OFFSET_X_ABS_P95_NORM","readiness":"MEASUREMENT_LIMITATION_ONLY","reason":"Keypoint evidence does not validate the Face-Fit baseline-relative aggregate."},
+    {"metricId":"QUALITY_POSTURE_AVAILABILITY_RATIO","readiness":"QUALITY_GATE_ONLY","reason":"Pose availability can only gate measurement validity."},
+    {"metricId":"SPEECH_WORDS_PER_MINUTE","readiness":"DIRECTION_ONLY","reason":"Interview speaking-activity evidence suggests a direction candidate, but Korean tokenization and boundaries remain unvalidated."},
+    {"metricId":"SPEECH_ARTICULATION_WORDS_PER_MINUTE","readiness":"NOT_READY","reason":"No reviewed source matches the word-timestamp-union definition."},
+    {"metricId":"SPEECH_TOTAL_INTERWORD_GAP_MS","readiness":"NOT_READY","reason":"Speaker-segmentation pauses do not match summed adjacent STT gaps."},
+    {"metricId":"SPEECH_P90_INTERWORD_GAP_MS","readiness":"NOT_READY","reason":"Human pause appropriateness does not match the p90 technical gap aggregate."},
+    {"metricId":"SPEECH_FILLER_CANDIDATES_PER_MINUTE","readiness":"NOT_READY","reason":"Candidate lexicon matches require Korean semantic and human validation."},
+    {"metricId":"SPEECH_RMS_DBFS","readiness":"NOT_READY","reason":"Microphone gain and distance are not normalized."},
+    {"metricId":"SPEECH_PEAK_DBFS","readiness":"NOT_READY","reason":"Microphone gain, distance, and transient noise are not normalized."},
+    {"metricId":"SPEECH_CLIPPING_SAMPLE_RATIO","readiness":"QUALITY_GATE_ONLY","reason":"Clipping describes capture quality, not delivery behavior."},
+    {"metricId":"SPEECH_VOICED_FRAME_RATIO","readiness":"QUALITY_GATE_ONLY","reason":"The value primarily reflects pitch availability and signal conditions."},
+    {"metricId":"SPEECH_F0_RANGE_HZ","readiness":"EXCLUDED_FROM_SCORING","reason":"Physical frequency range has no validated Face-Fit behavior interpretation."}
+  ]
+}

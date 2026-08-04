@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "description": "Shared fields only; service-specific Job fields are permitted.",
+  "properties": {
+    "completedAt": {
+      "anyOf": [
+        {
+          "description": "ISO-8601 UTC",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "createdAt": {
+      "description": "ISO-8601 UTC",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$",
+      "type": "string"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "code": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "message": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "jobId": {
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "type": "string"
+    },
+    "resultAvailable": {
+      "type": "boolean"
+    },
+    "sessionId": {
+      "pattern": "^SES_\\d{6}$",
+      "type": "string"
+    },
+    "startedAt": {
+      "anyOf": [
+        {
+          "description": "ISO-8601 UTC",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "FAILED",
+        "QUEUED",
+        "RUNNING",
+        "SUCCEEDED",
+        "SUCCEEDED_WITH_LIMITATIONS",
+        "SUCCEEDED_WITH_WARNINGS"
+      ],
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "answerId": {
+            "anyOf": [
+              {
+                "pattern": "^ANS_\\d{6}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "message": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "reviewRequired": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "answerId",
+          "reviewRequired"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "jobId",
+    "sessionId",
+    "status",
+    "createdAt",
+    "startedAt",
+    "completedAt",
+    "resultAvailable",
+    "warnings",
+    "error"
+  ],
+  "title": "Common AI Job Contract",
+  "type": "object"
+}

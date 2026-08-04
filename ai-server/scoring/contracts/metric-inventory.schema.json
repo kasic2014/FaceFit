@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "required": ["version", "metrics"], "additionalProperties": false,
+  "properties": {
+    "version": {"type": "string"},
+    "metrics": {"type": "array", "items": {
+      "type": "object",
+      "required": ["metricId", "axis", "sourceService", "implementationPath", "sourcePath", "definition", "calculationSummary", "unit", "valueStage", "scope", "directionType", "qualityGate", "missingValuePolicy", "evidenceStatus", "evidenceRelation", "eligibleForScoringCandidate", "limitations"],
+      "properties": {
+        "metricId": {"type": "string"}, "axis": {"enum": ["GAZE_HEAD", "POSTURE", "SPEECH_DELIVERY"]},
+        "sourceService": {"enum": ["VISION", "ANALYSIS"]}, "implementationPath": {"type": "string"}, "sourcePath": {"type": "string"},
+        "definition": {"type": "string"}, "calculationSummary": {"type": "string"}, "unit": {"type": "string"},
+        "valueStage": {"enum": ["RAW", "BASELINE", "RELATIVE", "AGGREGATED"]}, "scope": {"enum": ["FRAME", "ANSWER", "SESSION"]},
+        "directionType": {"enum": ["HIGHER_BETTER", "LOWER_BETTER", "TARGET_RANGE", "UNKNOWN"]}, "qualityGate": {"type": "object"},
+        "missingValuePolicy": {"const": "NOT_SCORABLE"}, "evidenceStatus": {"type": "string"}, "evidenceRelation": {"type": ["string", "null"]},
+        "eligibleForScoringCandidate": {"type": "boolean"}, "limitations": {"type": "array", "items": {"type": "string"}}
+      }
+    }}
+  }
+}

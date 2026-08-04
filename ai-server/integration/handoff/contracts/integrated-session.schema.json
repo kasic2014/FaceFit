@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "answers": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "answerId": {
+            "pattern": "^ANS_\\d{6}$",
+            "type": "string"
+          },
+          "interval": {
+            "additionalProperties": false,
+            "properties": {
+              "durationMs": {
+                "minimum": 1,
+                "type": "integer"
+              },
+              "endMs": {
+                "minimum": 1,
+                "type": "integer"
+              },
+              "startMs": {
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            "required": [
+              "startMs",
+              "endMs",
+              "durationMs"
+            ],
+            "type": "object"
+          },
+          "speechCharacteristics": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "transcription": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "vision": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "warnings": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "answerId": {
+                  "anyOf": [
+                    {
+                      "pattern": "^ANS_\\d{6}$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "code": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "message": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "reviewRequired": {
+                  "type": "boolean"
+                },
+                "source": {
+                  "enum": [
+                    "VISION",
+                    "TRANSCRIPTION",
+                    "SPEECH",
+                    "INTEGRATION"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "source",
+                "code",
+                "message",
+                "answerId",
+                "reviewRequired"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "answerId",
+          "interval",
+          "vision",
+          "transcription",
+          "speechCharacteristics",
+          "warnings"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "components": {
+      "additionalProperties": false,
+      "properties": {
+        "speechCharacteristics": {
+          "additionalProperties": true,
+          "properties": {
+            "answerCount": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "sourceStatus": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "READY",
+                "READY_WITH_WARNINGS",
+                "NOT_READY",
+                "FAILED",
+                "UNAVAILABLE"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "sourceStatus",
+            "answerCount"
+          ],
+          "type": "object"
+        },
+        "transcription": {
+          "additionalProperties": true,
+          "properties": {
+            "answerCount": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "sourceStatus": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "READY",
+                "READY_WITH_WARNINGS",
+                "NOT_READY",
+                "FAILED",
+                "UNAVAILABLE"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "sourceStatus",
+            "answerCount"
+          ],
+          "type": "object"
+        },
+        "vision": {
+          "additionalProperties": true,
+          "properties": {
+            "answerCount": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "sourceStatus": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "READY",
+                "READY_WITH_WARNINGS",
+                "NOT_READY",
+                "FAILED",
+                "UNAVAILABLE"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "sourceStatus",
+            "answerCount"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "vision",
+        "transcription",
+        "speechCharacteristics"
+      ],
+      "type": "object"
+    },
+    "errors": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "retryable": {
+            "type": "boolean"
+          },
+          "source": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "code",
+          "message",
+          "retryable"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "generatedAt": {
+      "description": "ISO-8601 UTC",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "scoringAvailable": {
+      "const": false,
+      "type": "boolean"
+    },
+    "scoringUnavailableReasons": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "type": "array"
+    },
+    "sessionId": {
+      "pattern": "^SES_\\d{6}$",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "INTEGRATED_READY",
+        "INTEGRATED_READY_WITH_WARNINGS",
+        "INTEGRATED_PARTIAL",
+        "INTEGRATED_FAILED"
+      ],
+      "type": "string"
+    },
+    "warnings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "answerId": {
+            "anyOf": [
+              {
+                "pattern": "^ANS_\\d{6}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "message": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "reviewRequired": {
+            "type": "boolean"
+          },
+          "source": {
+            "enum": [
+              "VISION",
+              "TRANSCRIPTION",
+              "SPEECH",
+              "INTEGRATION"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "code",
+          "message",
+          "answerId",
+          "reviewRequired"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "sessionId",
+    "status",
+    "generatedAt",
+    "scoringAvailable",
+    "scoringUnavailableReasons",
+    "components",
+    "answers",
+    "warnings",
+    "limitations",
+    "errors"
+  ],
+  "title": "Integrated Session Response",
+  "type": "object"
+}

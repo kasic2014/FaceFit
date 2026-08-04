@@ -20,6 +20,7 @@ Desktop.ini
 .env.production.local
 !.env.example
 !**/.env.example
+!**/.env.docker.example
 *.log
 logs/
 npm-debug.log*
