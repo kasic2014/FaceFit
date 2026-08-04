@@ -1,0 +1,9 @@
+{
+  "evidenceId":"SRC_INT_007","title":"Beyond Employment Interview Validity: A Comprehensive Narrative Review of Recent Research and Trends Over Time","authors":["Richard A. Posthuma","Frederick P. Morgeson","Michael A. Campion"],"year":2002,"doi":"10.1111/j.1744-6570.2002.tb00103.x","officialUrl":"https://doi.org/10.1111/j.1744-6570.2002.tb00103.x","fileSha256":null,
+  "metricDefinition":null,"thresholdExists":false,"thresholdValue":null,"unit":null,"extractionLocations":[],"mapping":{"relation":"NOT_APPLICABLE","faceFitMetricId":null},
+  "access":{"accessLevel":"METADATA_ONLY","reviewDepth":"METADATA_REVIEWED","retrievedAt":"2026-08-04T00:00:00Z","retrievalSource":"CROSSREF"},
+  "study":{"context":"EMPLOYMENT_INTERVIEW","sampleSize":null,"participantDescription":null,"language":null,"countryOrCulture":null,"interviewType":"Narrative review","deviceAndEnvironment":null},
+  "measurements":[],"reportedFindings":[],"faceFitMappings":[],"intendedUses":["CONTEXT"],"adoptionStatuses":["ACCEPTED_CONTEXT","EXPERIMENTAL_ONLY","REJECTED_FOR_THRESHOLD"],
+  "thresholdAssessment":{"behaviorThresholdReported":false,"transferability":"NONE_REPORTED","productionThresholdUsable":false,"reason":"Metadata review cannot support metric-level transfer."},
+  "limitations":["Only registered bibliographic metadata was reviewed."],"status":"REVIEW_REQUIRED"
+}

@@ -1,0 +1,11 @@
+{
+  "evidenceId":"SRC_INT_005","title":"Speaking Without Words: A Meta-Analysis of Over 70 Years of Research on the Power of Nonverbal Cues in Job Interviews","authors":["Michelle P. Martin-Raugh","Harrison J. Kell","Jason G. Randall","Cristina Anguiano-Carrasco","Justin T. Banfi"],"year":2022,"doi":"10.1002/job.2670","officialUrl":"https://onlinelibrary.wiley.com/doi/10.1002/job.2670","fileSha256":null,
+  "metricDefinition":"The abstract treats dynamic and static nonverbal cues as broad evidence categories and discusses interview-context moderators.","thresholdExists":false,"thresholdValue":null,"unit":null,"extractionLocations":[],"mapping":{"relation":"NOT_APPLICABLE","faceFitMetricId":null},
+  "access":{"accessLevel":"OFFICIAL_ABSTRACT_ONLY","reviewDepth":"ABSTRACT_REVIEWED","retrievedAt":"2026-08-04T00:00:00Z","retrievalSource":"DOI_PUBLISHER"},
+  "study":{"context":"EMPLOYMENT_INTERVIEW","sampleSize":null,"participantDescription":null,"language":null,"countryOrCulture":null,"interviewType":"Meta-analysis","deviceAndEnvironment":null},
+  "measurements":[{"paperMetricName":"nonverbal cue categories","definition":"Broad dynamic and static cue categories synthesized across prior interview studies.","calculationMethod":null,"unit":null,"aggregation":"META_ANALYTIC","measurementType":"CORRELATION","deviceOrTool":null,"reportedStatistics":[],"behaviorBoundaryReported":false,"notes":["Category-level effects are not Face-Fit metric definitions."]}],
+  "reportedFindings":[{"summary":"The abstract supports nonverbal behavior as interview context while emphasizing modality, structure, duration, and other moderators.","findingType":"CONTEXT","supportsBehaviorThreshold":false}],"faceFitMappings":[],
+  "intendedUses":["CONTEXT","AXIS_SELECTION","FAIRNESS_LIMITATION"],"adoptionStatuses":["ACCEPTED_CONTEXT","ACCEPTED_AXIS_SELECTION","EXPERIMENTAL_ONLY","REJECTED_FOR_THRESHOLD"],
+  "thresholdAssessment":{"behaviorThresholdReported":false,"transferability":"NON_TRANSFERABLE_CONTEXT","productionThresholdUsable":false,"reason":"Meta-analytic associations across heterogeneous cue definitions do not specify operational Face-Fit boundaries."},
+  "limitations":["Only the official abstract was reviewed.","Heterogeneous cues and study moderators prevent direct metric or threshold transfer."],"status":"REVIEW_REQUIRED"
+}

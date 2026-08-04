@@ -1,0 +1,9 @@
+{
+  "evidenceId":"SRC_HEAD_004","title":"OpenFace 2.0: Facial Behavior Analysis Toolkit","authors":["Tadas Baltrusaitis","Amir Zadeh","Yao Chong Lim","Louis-Philippe Morency"],"year":2018,"doi":"10.1109/FG.2018.00019","officialUrl":"https://doi.org/10.1109/FG.2018.00019","fileSha256":null,
+  "metricDefinition":null,"thresholdExists":false,"thresholdValue":null,"unit":null,"extractionLocations":[],"mapping":{"relation":"NOT_APPLICABLE","faceFitMetricId":null},
+  "access":{"accessLevel":"METADATA_ONLY","reviewDepth":"METADATA_REVIEWED","retrievedAt":"2026-08-04T00:00:00Z","retrievalSource":"CROSSREF"},
+  "study":{"context":"HEAD_POSE_MEASUREMENT","sampleSize":null,"participantDescription":null,"language":null,"countryOrCulture":null,"interviewType":null,"deviceAndEnvironment":null},
+  "measurements":[],"reportedFindings":[],"faceFitMappings":[],"intendedUses":["CONTEXT","AXIS_SELECTION"],"adoptionStatuses":["ACCEPTED_CONTEXT","ACCEPTED_AXIS_SELECTION","EXPERIMENTAL_ONLY","REJECTED_FOR_THRESHOLD"],
+  "thresholdAssessment":{"behaviorThresholdReported":false,"transferability":"NONE_REPORTED","productionThresholdUsable":false,"reason":"Metadata alone does not support output-field or accuracy extraction."},
+  "limitations":["Only registered bibliographic metadata was reviewed."],"status":"REVIEW_REQUIRED"
+}
