@@ -2,12 +2,18 @@ name: AI Analysis Server Test
 
 on:
   push:
+    branches:
+      - main
+      - develop
     paths:
       - 'ai-server/analysis-server/**'
       - 'ai-server/openapi/**'
       - '.github/workflows/ai-analysis-test.yml'
       - 'README.md'
   pull_request:
+    branches:
+      - main
+      - develop
     paths:
       - 'ai-server/analysis-server/**'
       - 'ai-server/openapi/**'
