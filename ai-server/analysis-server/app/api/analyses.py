@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
+from fastapi import APIRouter, Depends, Request
 
 from app.core.api_errors import (
     AnalysisApiError,
@@ -19,7 +18,9 @@ from app.core.api_errors import (
 from app.core.security import authorize_analysis_request
 from app.schemas.analysis_api import (
     ContentAnalysisRequest,
+    CvSuccessResponse,
     ErrorResponse,
+    MediaAnalysisRequest,
     SttSuccessResponse,
 )
 from app.services.analysis_contracts import (
@@ -29,7 +30,7 @@ from app.services.analysis_contracts import (
     AnalyzerTimeout,
     AnalyzerUnavailable,
 )
-from app.services.media import persist_upload
+from app.services.media import download_media
 
 
 ERROR_RESPONSES = {
@@ -74,19 +75,19 @@ def _map_failure(error: Exception, request_id: UUID) -> AnalysisApiError:
 )
 async def analyze_stt(
     request: Request,
-    answer_id: Annotated[UUID, Form(alias="answerId")],
-    language: Annotated[str, Form(pattern="^ko$")],
-    media: Annotated[UploadFile, File(description="MP4 or WebM answer media")],
+    body: MediaAnalysisRequest,
     request_id: UUID = Depends(authorize_analysis_request),
 ) -> SttSuccessResponse:
+    if body.requestId != request_id:
+        raise invalid_request(request_id)
     try:
-        managed = await persist_upload(media, request.app.state.analysis_settings)
+        managed = await download_media(body, request.app.state.analysis_settings)
     except Exception as error:
         raise _map_failure(error, request_id) from None
 
     try:
         result = await request.app.state.analysis_executor.run(
-            lambda: request.app.state.stt_analyzer.analyze(managed.path, language),
+            lambda: request.app.state.stt_analyzer.analyze(managed.path, "ko"),
             timeout_seconds=request.app.state.analysis_settings.model_timeout_seconds,
             cleanup=managed.cleanup,
         )
@@ -95,7 +96,7 @@ async def analyze_stt(
 
     return SttSuccessResponse(
         requestId=request_id,
-        answerId=answer_id,
+        answerId=body.answerId,
         modelVersion=result.model_version,
         language=result.language,
         transcript=result.transcript,
@@ -103,13 +104,12 @@ async def analyze_stt(
     )
 
 
-async def _validate_unavailable_media(
-    request: Request,
-    media: UploadFile,
-    request_id: UUID,
-) -> None:
+async def _validate_unavailable_media(request: Request, body: MediaAnalysisRequest,
+                                      request_id: UUID) -> None:
+    if body.requestId != request_id:
+        raise invalid_request(request_id)
     try:
-        managed = await persist_upload(media, request.app.state.analysis_settings)
+        managed = await download_media(body, request.app.state.analysis_settings)
     except Exception as error:
         raise _map_failure(error, request_id) from None
     managed.cleanup()
@@ -118,20 +118,39 @@ async def _validate_unavailable_media(
 
 @router.post(
     "/cv",
-    status_code=503,
-    response_model=ErrorResponse,
-    responses=UNAVAILABLE_RESPONSES,
-    summary="CV contract endpoint (operational scoring unavailable)",
+    response_model=CvSuccessResponse,
+    responses=ERROR_RESPONSES,
+    summary="Analyze one answer video with the CPU CV pipeline",
 )
 async def analyze_cv(
     request: Request,
-    answer_id: Annotated[UUID, Form(alias="answerId")],
-    media: Annotated[UploadFile, File(description="MP4 or WebM answer media")],
+    body: MediaAnalysisRequest,
     request_id: UUID = Depends(authorize_analysis_request),
-) -> ErrorResponse:
-    del answer_id
-    await _validate_unavailable_media(request, media, request_id)
-    raise analysis_unavailable(request_id)
+) -> CvSuccessResponse:
+    if body.requestId != request_id:
+        raise invalid_request(request_id)
+    try:
+        managed = await download_media(body, request.app.state.analysis_settings)
+    except Exception as error:
+        raise _map_failure(error, request_id) from None
+
+    try:
+        result = await request.app.state.analysis_executor.run(
+            lambda: request.app.state.cv_analyzer.analyze(managed.path),
+            timeout_seconds=request.app.state.analysis_settings.model_timeout_seconds,
+            cleanup=managed.cleanup,
+        )
+    except Exception as error:
+        raise _map_failure(error, request_id) from None
+
+    return CvSuccessResponse(
+        requestId=request_id,
+        answerId=body.answerId,
+        modelVersion=result.model_version,
+        gazeScore=result.gaze_score,
+        postureScore=result.posture_score,
+        feedback=list(result.feedback),
+    )
 
 
 @router.post(
@@ -143,12 +162,10 @@ async def analyze_cv(
 )
 async def analyze_voice(
     request: Request,
-    answer_id: Annotated[UUID, Form(alias="answerId")],
-    media: Annotated[UploadFile, File(description="MP4 or WebM answer media")],
+    body: MediaAnalysisRequest,
     request_id: UUID = Depends(authorize_analysis_request),
 ) -> ErrorResponse:
-    del answer_id
-    await _validate_unavailable_media(request, media, request_id)
+    await _validate_unavailable_media(request, body, request_id)
     raise analysis_unavailable(request_id)
 
 

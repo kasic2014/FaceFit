@@ -15,6 +15,7 @@ from app.core.http_contract import AnalysisContentTypeMiddleware
 from app.core.security import parse_request_id
 from app.core.settings import AnalysisApiSettings, get_settings
 from app.services.executor import AnalysisExecutor
+from app.services.cv_analyzer import MediaPipeCvAnalyzer
 from app.services.stt_analyzer import WhisperSttAnalyzer
 from app.speech.whisper_service import WhisperService
 
@@ -37,6 +38,7 @@ def create_app(
     *,
     settings: AnalysisApiSettings | None = None,
     stt_analyzer=None,
+    cv_analyzer=None,
     executor: AnalysisExecutor | None = None,
 ) -> FastAPI:
     effective_settings = settings or get_settings()
@@ -50,10 +52,21 @@ def create_app(
         transcript_max_chars=effective_settings.transcript_max_chars,
         max_duration_seconds=effective_settings.max_duration_seconds,
     )
+    effective_cv_analyzer = cv_analyzer or MediaPipeCvAnalyzer(
+        face_model_path=effective_settings.cv_face_model_path,
+        pose_model_path=effective_settings.cv_pose_model_path,
+        sample_fps=effective_settings.cv_sample_fps,
+        max_sample_frames=effective_settings.cv_max_sample_frames,
+        min_usable_frames=effective_settings.cv_min_usable_frames,
+        max_duration_seconds=effective_settings.max_duration_seconds,
+    )
 
     @asynccontextmanager
     async def lifespan(_app: FastAPI):
         yield
+        close = getattr(effective_cv_analyzer, "close", None)
+        if callable(close):
+            close()
         effective_executor.shutdown()
 
     application = FastAPI(
@@ -61,14 +74,15 @@ def create_app(
         version="1.0.0",
         description=(
             "Internal service-to-service analysis contract. "
-            "CV, VOICE and CONTENT return ANALYSIS_UNAVAILABLE until their "
-            "operational scoring contracts exist."
+            "CV uses a bounded CPU landmark pipeline. VOICE and CONTENT return "
+            "ANALYSIS_UNAVAILABLE until their operational contracts exist."
         ),
         lifespan=lifespan,
     )
     application.state.analysis_settings = effective_settings
     application.state.analysis_executor = effective_executor
     application.state.stt_analyzer = effective_stt_analyzer
+    application.state.cv_analyzer = effective_cv_analyzer
     application.dependency_overrides[get_settings] = lambda: effective_settings
     application.add_middleware(AnalysisContentTypeMiddleware)
 

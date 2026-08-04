@@ -31,7 +31,8 @@ HTTP 진입점은 `ai-server/analysis-server/app/main.py`다.
 |---|---|---|
 | GET | `/health` | 기존 호환 공개 health |
 | POST | `/internal/v1/analyses/stt` | Whisper STT 성공 경로 |
-| POST | `/internal/v1/analyses/cv` | 503 `ANALYSIS_UNAVAILABLE` |
+| POST | `/internal/v1/analyses/cv` | 200 `CvSuccessResponse` 또는 기존 오류 envelope |
+<!-- Stage 15 CV behavior and scoring are authoritative in docs/18_FaceFit_15단계_CV_분석.md. -->
 | POST | `/internal/v1/analyses/voice` | 503 `ANALYSIS_UNAVAILABLE` |
 | POST | `/internal/v1/analyses/content` | 503 `ANALYSIS_UNAVAILABLE` |
 
@@ -356,3 +357,7 @@ STT는 Method·URI·인증·multipart·성공·오류·버전 계약이 확정�
 CV·VOICE·CONTENT는 Java가 503 오류를 안전하게 분류하는 계약 테스트는 작성할
 수 있으나, 성공 결과 Adapter는 Python 운영 산식·모델이 생기기 전까지 완료로
 간주할 수 없다.
+
+## 20. Ncloud 영상 저장소 전환에 따른 요청 계약 변경
+
+면접 답변 미디어 전송은 `docs/19_FaceFit_Ncloud_영상_저장소_전환.md`를 우선한다. STT/CV/VOICE의 Method·URI와 응답 DTO·오류 코드는 유지하고, 내부 요청 Content-Type만 `multipart/form-data`에서 `application/json` Presigned URL 계약으로 변경했다. 저장 OpenAPI `ai-server/openapi/facefit-ai-openapi-v1.json`이 런타임 스키마와 일치해야 한다.

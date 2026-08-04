@@ -156,9 +156,12 @@ public class AnswerAnalysisWorker {
                             sessionId,
                             answer.getTurn().getTurnId(),
                             answer.getTurn().getQuestionText(),
+                            answer.getStorageProvider(),
                             answer.getStorageBucket(),
                             answer.getStoragePath(),
                             answer.getMimeType(),
+                            answer.getFileSizeBytes(),
+                            answer.getRecordedDurationSeconds(),
                             answer.getDetectedDurationMillis(),
                             answer.getTranscript()
                     )

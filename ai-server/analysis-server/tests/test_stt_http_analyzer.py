@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import math
 import unittest
+import sys
 from pathlib import Path
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from app.services.analysis_contracts import (
     AnalyzerMediaFailure,
@@ -11,7 +13,7 @@ from app.services.analysis_contracts import (
     AnalyzerPayloadTooLarge,
     AnalyzerUnavailable,
 )
-from app.services.stt_analyzer import WhisperSttAnalyzer
+from app.services.stt_analyzer import WhisperSttAnalyzer, probe_answer_media
 from app.speech.whisper_service import WhisperService
 
 
@@ -41,6 +43,21 @@ class FakeModel:
 
 
 class WhisperSttAnalyzerTest(unittest.TestCase):
+    def test_media_probe_converts_pyav_microseconds_to_seconds(self) -> None:
+        class Container:
+            duration = 12_340_000
+            streams = (SimpleNamespace(type="audio"), SimpleNamespace(type="video"))
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+        fake_av = SimpleNamespace(time_base=1_000_000, open=lambda _path: Container())
+        with patch.dict(sys.modules, {"av": fake_av}):
+            self.assertEqual(probe_answer_media(Path("answer.mp4")), 12.34)
+
     def analyzer(
         self,
         model: FakeModel,

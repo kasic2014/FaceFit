@@ -24,10 +24,12 @@ public final class HttpCvAnalysisAdapter implements CvAnalysisPort {
     public PortResult<AnalysisResult> analyze(AnswerAnalysisRequest request) {
         return mediaForwarder.forward(
                 request,
-                media -> client.analyzeCv(
+                mediaUrl -> client.analyzeCv(
                         request.answerId(),
+                        mediaUrl,
                         request.mimeType(),
-                        media
+                        request.mediaSizeBytes(),
+                        request.recordedDurationSeconds()
                 )
         );
     }

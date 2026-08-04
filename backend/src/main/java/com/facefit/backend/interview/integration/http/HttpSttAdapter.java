@@ -24,10 +24,12 @@ public final class HttpSttAdapter implements SttPort {
     public PortResult<SttResult> transcribe(AnswerAnalysisRequest request) {
         return mediaForwarder.forward(
                 request,
-                media -> client.transcribe(
+                mediaUrl -> client.transcribe(
                         request.answerId(),
+                        mediaUrl,
                         request.mimeType(),
-                        media
+                        request.mediaSizeBytes(),
+                        request.recordedDurationSeconds()
                 )
         );
     }

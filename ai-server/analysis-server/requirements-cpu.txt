@@ -1,0 +1,7 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# Compose and CI use CPU inference. Exact CPU wheels avoid pulling the much
+# larger CUDA runtime while keeping requirements.txt as the dependency source.
+torch==2.11.0+cpu
+torchaudio==2.11.0+cpu
+-r requirements.txt
