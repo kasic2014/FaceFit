@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router";
 import { RefreshCw } from "lucide-react";
 import { type AnalysisStatus } from "@/api/analysis";
+import type { components } from "@/api/generated/facefit";
 import { createIdempotencyKey, poll } from "@/api/polling";
 import { useAuth } from "@/auth/auth-context";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
+
+type InterviewSession = components["schemas"]["InterviewSession"];
 
 const stageLabels = {
   PREPARING: "Preparing analysis",
@@ -21,9 +24,30 @@ export default function AnalysisApiPage() {
   const [error, setError] = useState("");
   const [retrying, setRetrying] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
+  const [session, setSession] = useState<InterviewSession | null>(null);
 
   useEffect(() => {
     if (!sessionId) return;
+    let active = true;
+    const controller = new AbortController();
+    request<InterviewSession>(`/api/v1/interview-sessions/${sessionId}`, {
+      signal: controller.signal,
+    })
+      .then((value) => {
+        if (active) setSession(value);
+      })
+      .catch((reason: unknown) => {
+        if (!active || (reason instanceof DOMException && reason.name === "AbortError")) return;
+        setError(reason instanceof Error ? reason.message : "Unable to load session status.");
+      });
+    return () => {
+      active = false;
+      controller.abort();
+    };
+  }, [request, sessionId]);
+
+  useEffect(() => {
+    if (!sessionId || !session || session.status === "INTERRUPTED") return;
     let active = true;
     const controller = new AbortController();
     const timer = window.setTimeout(() => {
@@ -47,7 +71,7 @@ export default function AnalysisApiPage() {
       controller.abort();
       window.clearTimeout(timer);
     };
-  }, [reloadKey, request, sessionId]);
+  }, [reloadKey, request, session, sessionId]);
 
   const retry = async () => {
     if (!sessionId || !analysis?.retryable) return;
@@ -69,6 +93,7 @@ export default function AnalysisApiPage() {
   };
 
   if (!sessionId) return <Navigate to="/onboarding" replace />;
+  if (session?.status === "INTERRUPTED") return <Navigate to="/dashboard" replace />;
 
   const isFailed = analysis?.analysisStatus === "FAILED" || analysis?.reportStatus === "FAILED";
   const canOpenReport = analysis?.reportStatus === "SUCCEEDED";

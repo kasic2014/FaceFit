@@ -1,14 +1,55 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
-import { type GrowthData, type InterviewHistoryPage } from "@/api/analysis";
+import { Link, useNavigate } from "react-router";
+import { type GrowthData, type InterviewHistoryItem, type InterviewHistoryPage } from "@/api/analysis";
+import type { components } from "@/api/generated/facefit";
 import { useAuth } from "@/auth/auth-context";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 
+type InterviewSession = components["schemas"]["InterviewSession"];
+
+function historyItemPath(item: InterviewHistoryItem): string | null {
+  switch (item.sessionStatus) {
+    case "COMPLETED":
+      return item.reportId ? `/records/${item.sessionId}` : `/sessions/${item.sessionId}/analysis`;
+    case "INTERVIEW_COMPLETED":
+    case "ANALYZING":
+      return `/sessions/${item.sessionId}/analysis`;
+    case "DRAFT":
+      return `/sessions/${item.sessionId}/settings`;
+    case "IN_PROGRESS":
+      return `/sessions/${item.sessionId}/live`;
+    case "INTERRUPTED":
+      return null;
+  }
+}
+
 export default function DashboardApiPage() {
   const { auth, request } = useAuth();
+  const navigate = useNavigate();
   const [history, setHistory] = useState<InterviewHistoryPage | null>(null);
   const [growth, setGrowth] = useState<GrowthData | null>(null);
   const [error, setError] = useState("");
+  const [retryingId, setRetryingId] = useState<string | null>(null);
+
+  const retryInterrupted = async (sessionId: string) => {
+    setRetryingId(sessionId);
+    setError("");
+    try {
+      const next = await request<InterviewSession>(
+        `/api/v1/interview-sessions/${sessionId}/clone`,
+        { method: "POST", body: {} },
+      );
+      navigate(`/sessions/${next.sessionId}/settings`);
+    } catch (reason) {
+      setError(
+        reason instanceof Error
+          ? reason.message
+          : "Unable to start a retry session.",
+      );
+    } finally {
+      setRetryingId(null);
+    }
+  };
 
   useEffect(() => {
     let active = true;
@@ -129,16 +170,9 @@ export default function DashboardApiPage() {
                 {history.items.length === 0 ? (
                   <p className="text-sm text-ink-600">No interviews yet.</p>
                 ) : (
-                  history.items.map((item) => (
-                    <Link
-                      key={item.sessionId}
-                      to={
-                        item.reportId
-                          ? `/records/${item.sessionId}`
-                          : `/sessions/${item.sessionId}/analysis`
-                      }
-                      className="block rounded-xl bg-ivory-100 p-4 transition hover:bg-ivory-200"
-                    >
+                  history.items.map((item) => {
+                    const path = historyItemPath(item);
+                    const body = (
                       <div className="flex items-start justify-between gap-4">
                         <div>
                           <p className="font-bold">{item.companyName}</p>
@@ -148,13 +182,44 @@ export default function DashboardApiPage() {
                           </p>
                         </div>
                         <strong className="text-moss-800">
-                          {item.overallScore === null
-                            ? "In progress"
-                            : item.overallScore.toFixed(1)}
+                          {item.sessionStatus === "INTERRUPTED"
+                            ? "Interrupted"
+                            : item.overallScore === null
+                              ? "In progress"
+                              : item.overallScore.toFixed(1)}
                         </strong>
                       </div>
-                    </Link>
-                  ))
+                    );
+                    if (path) {
+                      return (
+                        <Link
+                          key={item.sessionId}
+                          to={path}
+                          className="block rounded-xl bg-ivory-100 p-4 transition hover:bg-ivory-200"
+                        >
+                          {body}
+                        </Link>
+                      );
+                    }
+                    return (
+                      <div
+                        key={item.sessionId}
+                        className="rounded-xl bg-ivory-100 p-4"
+                      >
+                        {body}
+                        <button
+                          type="button"
+                          onClick={() => void retryInterrupted(item.sessionId)}
+                          disabled={retryingId === item.sessionId}
+                          className="mt-3 rounded-lg bg-moss-900 px-4 py-2 text-sm font-bold text-white"
+                        >
+                          {retryingId === item.sessionId
+                            ? "Starting..."
+                            : "Practice again"}
+                        </button>
+                      </div>
+                    );
+                  })
                 )}
               </div>
             ) : (

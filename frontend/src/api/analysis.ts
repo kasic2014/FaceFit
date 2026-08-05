@@ -5,6 +5,7 @@ export type ReportData = components["schemas"]["ReportData"];
 export type ReportProcessing = components["schemas"]["ReportProcessing"];
 export type ReportResponse = ReportData | ReportProcessing;
 export type InterviewHistoryPage = components["schemas"]["InterviewHistoryPage"];
+export type InterviewHistoryItem = components["schemas"]["InterviewHistoryItem"];
 export type GrowthData = components["schemas"]["GrowthData"];
 
 export function isReportData(value: ReportResponse): value is ReportData {
