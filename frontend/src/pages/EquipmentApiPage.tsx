@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router";
 import type { InterviewSession } from "@/api/setup";
 import { useAuth } from "@/auth/auth-context";
 import EquipmentPage from "@/pages/EquipmentPage";

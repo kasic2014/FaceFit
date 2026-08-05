@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router";
 import { type LegalConsentRecord } from "@/api/privacy";
 import { createVoiceProfileFormData, type VoiceProfile } from "@/api/voice";
 import { parseLegalDocumentList, type LegalDocumentSummary } from "@/api/legal";

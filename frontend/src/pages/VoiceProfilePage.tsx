@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Check, ChevronLeft, CircleAlert, Mic, Pause, Play, RefreshCw, ShieldCheck, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AppNav } from "@/components/facefit/AppNav";

@@ -3,7 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Eye, MessageSquareText, ScanFace, Sparkles } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Footer } from "@/components/facefit/Footer";
 import { LandingHeader } from "@/components/facefit/LandingHeader";
 import { ScrollReveal } from "@/components/facefit/ScrollReveal";

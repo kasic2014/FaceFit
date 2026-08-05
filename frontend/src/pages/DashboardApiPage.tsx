@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { type GrowthData, type InterviewHistoryPage } from "@/api/analysis";
 import { useAuth } from "@/auth/auth-context";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";

@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { ArrowRight, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Logo } from "./Logo";
 
 const groups = [

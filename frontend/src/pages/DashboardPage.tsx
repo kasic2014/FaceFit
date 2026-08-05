@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ArrowUpRight, ChevronDown, Eye, MessageSquare, Plus, TrendingUp } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { AppNav } from "@/components/facefit/AppNav";

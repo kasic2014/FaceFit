@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CircleHelp, Headphones, Mic, Video } from "lucide-react";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { VideoPanel } from "@/components/facefit/interview/VideoPanel";
 import { GuidePanel } from "@/components/facefit/interview/GuidePanel";

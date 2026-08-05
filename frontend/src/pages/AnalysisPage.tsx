@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { RefreshCw } from "lucide-react";
 import { AnalysisProgress } from "@/components/facefit/analysis/AnalysisProgress";
 import { Logo } from "@/components/facefit/Logo";

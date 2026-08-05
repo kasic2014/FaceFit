@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { getApiUrl, isApiConfigured } from "@/api/config";
 import { useAuth } from "@/auth/auth-context";
 import { Logo } from "@/components/facefit/Logo";

@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import { Camera, CheckCircle2, ChevronLeft, Mic, RefreshCw, ScanFace, Volume2 } from "lucide-react";
 import { AppNav } from "@/components/facefit/AppNav";
 import { MediaPreview } from "@/components/facefit/interview/MediaPreview";

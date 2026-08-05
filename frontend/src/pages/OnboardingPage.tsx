@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FileText, Upload } from "lucide-react";
 import { AppNav } from "@/components/facefit/AppNav";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";

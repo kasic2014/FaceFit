@@ -1,6 +1,6 @@
 import { Pause, Play } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { AppNav } from "@/components/facefit/AppNav";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { latestRecord } from "@/lib/prototype-records";

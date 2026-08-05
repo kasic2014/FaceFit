@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router";
 import { type ReportData, isReportData } from "@/api/analysis";
 import { type MediaDeletion, type PlaybackAccess } from "@/api/privacy";
 import { poll } from "@/api/polling";

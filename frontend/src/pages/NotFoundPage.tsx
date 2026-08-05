@@ -1,5 +1,5 @@
 import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Logo } from "@/components/facefit/Logo";
 
 export default function NotFoundPage() {

@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import { AppNav } from "@/components/facefit/AppNav";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { findPrototypeRecord } from "@/lib/prototype-records";

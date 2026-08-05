@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowRight, Check, Mic, RotateCcw, ShieldCheck } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ScrollReveal } from "@/components/facefit/ScrollReveal";
 
 const scenarios = [

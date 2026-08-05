@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router";
 import { RefreshCw } from "lucide-react";
 import { type AnalysisStatus } from "@/api/analysis";
 import { createIdempotencyKey, poll } from "@/api/polling";

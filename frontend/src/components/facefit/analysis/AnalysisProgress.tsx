@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useEffect, useState, type ComponentType } from "react";
 import {
   AudioLines,

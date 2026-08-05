@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { CompanyBadge } from "./CompanyBadge";
 
 const rows = [

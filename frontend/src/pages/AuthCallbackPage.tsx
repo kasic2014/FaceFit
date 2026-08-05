@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import { exchangeLoginTicket } from "@/api/auth";
 import { isApiConfigured } from "@/api/config";
 import { useAuth } from "@/auth/auth-context";

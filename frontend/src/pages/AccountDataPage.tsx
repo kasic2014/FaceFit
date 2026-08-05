@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { type LegalConsentPage, type LegalConsentRevocation, type MemberDeletion } from "@/api/privacy";
 import { poll } from "@/api/polling";
 import { useAuth } from "@/auth/auth-context";

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { MediaPreview } from "@/components/facefit/interview/MediaPreview";
 import { useAuth } from "@/auth/auth-context";
@@ -53,6 +53,7 @@ export default function SessionLiveApiPage() {
   const endedByRef = useRef<"USER_BUTTON" | "SPACE_KEY" | "SILENCE_CONFIRMED">(
     "USER_BUTTON",
   );
+  const completionKeyRef = useRef<string | null>(null);
   const stopForSilence = useCallback(() => {
     endedByRef.current = "SILENCE_CONFIRMED";
     stopRecorder();
@@ -167,10 +168,7 @@ export default function SessionLiveApiPage() {
     return () => window.clearTimeout(timer);
   }, [loadQuestion, start]);
 
-  const submitAnswer = async (
-    endedBy: "USER_BUTTON" | "SPACE_KEY" | "SILENCE_CONFIRMED",
-    queuedAnswer?: AnswerOutboxRecord,
-  ) => {
+  const submitAnswer = async (queuedAnswer?: AnswerOutboxRecord) => {
     if (
       !sessionId ||
       !question ||
@@ -187,9 +185,7 @@ export default function SessionLiveApiPage() {
         answerKeyRef.current ??
         createIdempotencyKey();
       answerKeyRef.current = idempotencyKey;
-      const submittedEndedBy =
-        queuedAnswer?.endedBy ??
-        (endedByRef.current === "SPACE_KEY" ? "SPACE_KEY" : endedBy);
+      const submittedEndedBy = queuedAnswer?.endedBy ?? endedByRef.current;
       const blob = queuedAnswer?.blob ?? recorder.blob;
       const recordedDurationMs =
         queuedAnswer?.recordedDurationMs ?? recorder.durationMs;
@@ -245,10 +241,11 @@ export default function SessionLiveApiPage() {
 
   const finish = async (completionType: "NORMAL" | "USER_INTERRUPTED") => {
     if (!sessionId) return;
+    completionKeyRef.current ??= createIdempotencyKey();
     try {
       await request(`/api/v1/interview-sessions/${sessionId}/completion`, {
         method: "POST",
-        headers: { "Idempotency-Key": createIdempotencyKey() },
+        headers: { "Idempotency-Key": completionKeyRef.current },
         body: { completionType },
       });
       navigate(`/sessions/${sessionId}/analysis`, { replace: true });
@@ -393,7 +390,7 @@ export default function SessionLiveApiPage() {
               {recorder.state === "ready" ? (
                 <button
                   type="button"
-                  onClick={() => void submitAnswer("USER_BUTTON")}
+                  onClick={() => void submitAnswer()}
                   disabled={status === "submitting"}
                   className="rounded-xl bg-sunset-600 px-5 py-3 text-sm font-bold"
                 >
@@ -403,9 +400,7 @@ export default function SessionLiveApiPage() {
               {savedAnswer && recorder.state !== "ready" ? (
                 <button
                   type="button"
-                  onClick={() =>
-                    void submitAnswer(savedAnswer.endedBy, savedAnswer)
-                  }
+                  onClick={() => void submitAnswer(savedAnswer)}
                   disabled={status === "submitting"}
                   className="rounded-xl bg-sunset-600 px-5 py-3 text-sm font-bold"
                 >

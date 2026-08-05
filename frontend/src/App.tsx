@@ -1,36 +1,50 @@
-import { Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router";
 import { PrototypeFeedback } from "@/components/facefit/PrototypeFeedback";
 import { RequireAuth } from "@/auth/RequireAuth";
-import AnalysisPage from "@/pages/AnalysisPage";
-import AnalysisApiPage from "@/pages/AnalysisApiPage";
-import AccountOnboardingPage from "@/pages/AccountOnboardingPage";
-import AccountDataPage from "@/pages/AccountDataPage";
-import AuthCallbackPage from "@/pages/AuthCallbackPage";
-import DashboardApiPage from "@/pages/DashboardApiPage";
-import ConsentPage from "@/pages/ConsentPage";
-import EquipmentPage from "@/pages/EquipmentPage";
-import EquipmentApiPage from "@/pages/EquipmentApiPage";
-import HomePage from "@/pages/HomePage";
-import LoginPage from "@/pages/LoginPage";
-import NotFoundPage from "@/pages/NotFoundPage";
-import OnboardingPage from "@/pages/OnboardingPage";
-import PricingPage from "@/pages/PricingPage";
-import PolicyPage from "@/pages/PolicyPage";
-import RecordApiPage from "@/pages/RecordApiPage";
-import ReportPage from "@/pages/ReportPage";
-import ReportApiPage from "@/pages/ReportApiPage";
-import SessionLivePage from "@/pages/SessionLivePage";
-import SessionLiveApiPage from "@/pages/SessionLiveApiPage";
-import SessionSettingsApiPage from "@/pages/SessionSettingsApiPage";
-import SignupPage from "@/pages/SignupPage";
-import SourceResourcesApiPage from "@/pages/SourceResourcesApiPage";
-import VoiceProfilePage from "@/pages/VoiceProfilePage";
-import VoiceProfileApiPage from "@/pages/VoiceProfileApiPage";
+
+const AccountDataPage = lazy(() => import("@/pages/AccountDataPage"));
+const AccountOnboardingPage = lazy(() => import("@/pages/AccountOnboardingPage"));
+const AnalysisApiPage = lazy(() => import("@/pages/AnalysisApiPage"));
+const AnalysisPage = lazy(() => import("@/pages/AnalysisPage"));
+const AuthCallbackPage = lazy(() => import("@/pages/AuthCallbackPage"));
+const ConsentPage = lazy(() => import("@/pages/ConsentPage"));
+const DashboardApiPage = lazy(() => import("@/pages/DashboardApiPage"));
+const EquipmentApiPage = lazy(() => import("@/pages/EquipmentApiPage"));
+const EquipmentPage = lazy(() => import("@/pages/EquipmentPage"));
+const HomePage = lazy(() => import("@/pages/HomePage"));
+const LoginPage = lazy(() => import("@/pages/LoginPage"));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
+const OnboardingPage = lazy(() => import("@/pages/OnboardingPage"));
+const PolicyPage = lazy(() => import("@/pages/PolicyPage"));
+const PricingPage = lazy(() => import("@/pages/PricingPage"));
+const RecordApiPage = lazy(() => import("@/pages/RecordApiPage"));
+const ReportApiPage = lazy(() => import("@/pages/ReportApiPage"));
+const ReportPage = lazy(() => import("@/pages/ReportPage"));
+const SessionLiveApiPage = lazy(() => import("@/pages/SessionLiveApiPage"));
+const SessionLivePage = lazy(() => import("@/pages/SessionLivePage"));
+const SessionSettingsApiPage = lazy(() => import("@/pages/SessionSettingsApiPage"));
+const SignupPage = lazy(() => import("@/pages/SignupPage"));
+const SourceResourcesApiPage = lazy(() => import("@/pages/SourceResourcesApiPage"));
+const VoiceProfileApiPage = lazy(() => import("@/pages/VoiceProfileApiPage"));
+const VoiceProfilePage = lazy(() => import("@/pages/VoiceProfilePage"));
+
+function RouteFallback() {
+  return (
+    <main
+      aria-busy="true"
+      className="grid min-h-screen place-items-center bg-ivory-50 text-sm text-ink-500"
+    >
+      화면을 불러오는 중입니다.
+    </main>
+  );
+}
 
 export function App() {
   return (
     <>
-      <Routes>
+      <Suspense fallback={<RouteFallback />}>
+        <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
@@ -80,7 +94,8 @@ export function App() {
         <Route path="/pricing" element={<PricingPage />} />
         <Route path="/policy" element={<PolicyPage />} />
         <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+        </Routes>
+      </Suspense>
       <PrototypeFeedback />
     </>
   );

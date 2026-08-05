@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { useAuth } from "@/auth/auth-context";
 import { type AccountOnboardingResult, type LegalDocumentDetail, parseLegalDocumentDetail, parseLegalDocumentList } from "@/api/legal";

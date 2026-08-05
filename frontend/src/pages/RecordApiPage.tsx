@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router";
 
 export default function RecordApiPage() {
   const { sessionId } = useParams();

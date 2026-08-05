@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Check, ChevronLeft, ShieldCheck } from "lucide-react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router";
 import { AppNav } from "@/components/facefit/AppNav";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { parseLegalDocumentList, type LegalDocumentSummary } from "@/api/legal";

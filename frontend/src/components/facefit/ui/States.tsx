@@ -1,6 +1,6 @@
 import { AlertCircle, Check, FileText, Mic, RefreshCw, ShieldAlert, Upload, Video } from "lucide-react";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { cn } from "@/lib/utils";
 import { errorGuidance } from "@/lib/facefit-content";
 
