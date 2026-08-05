@@ -5,6 +5,7 @@ import io
 import json
 import math
 import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -27,14 +28,17 @@ from scripts import setup_mediapipe_models as setup
 REQUIREMENTS_SHA256 = "8a18c111dc4e4d93e8e1c0e28615298a32819d78d78996303f1171b3fad6e925"
 REQUIREMENTS_LOCK_SHA256 = "d05e1d8c452a61bf2638aace9bc320278eee5716ef15f8697d6c75ce8a2bc091"
 # Verified remote Analysis baseline plus the compatibility recovery in this branch.
-ANALYSIS_TREE_SHA256 = "07cc6ee0d6039ad60c8b776f78b16abf17aa1526d02d628b3463f56d9447fdd6"
+ANALYSIS_TREE_SHA256 = "eaaba5c5cae555119a0e1788f632bac285e9fe165db8406e86b2afe5ad4c22f1"
 SESSION001_SHA256 = "305e8b43ee7fae1fd8142f32363c66ea1366db476177bd3d7bb090156e942780"
-TEXT_HASH_SUFFIXES = {".csv", ".json", ".md", ".py", ".txt", ".yml", ".yaml"}
+TEXT_HASH_SUFFIXES = {".csv", ".example", ".json", ".md", ".py", ".txt", ".yml", ".yaml"}
 
 
 def protected_bytes(path: Path) -> bytes:
     data = path.read_bytes()
-    if path.suffix.lower() in TEXT_HASH_SUFFIXES:
+    if (
+        path.suffix.lower() in TEXT_HASH_SUFFIXES
+        or path.name == ".gitkeep"
+    ):
         data = data.replace(b"\r\n", b"\n")
     return data
 
@@ -91,47 +95,105 @@ def strict_load(path: Path):
     )
 
 
+
 def protected_tree_digest(
     *,
     session_only: bool = False,
 ) -> str:
     analysis = WORKSPACE_ROOT / "ai-server" / "analysis-server"
-    files = [
-        path
-        for path in analysis.rglob("*")
-        if path.is_file()
-        and ".venv" not in path.parts
-        and "__pycache__" not in path.parts
-        and path.suffix != ".pyc"
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "stt_preprocessing"
+
+    if session_only:
+        files = [
+            path
+            for path in analysis.rglob("*")
+            if path.is_file()
+            and ".venv" not in path.parts
+            and "__pycache__" not in path.parts
+            and path.suffix != ".pyc"
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "stt_preprocessing"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "stt_transcription"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "speech_characteristics"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "analysis_api"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "analysis_api_validation"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "analysis_docker_validation"
+            )
+            and "SESSION001" in path.as_posix()
+        ]
+    else:
+        completed = subprocess.run(
+            ["git", "ls-files", "--", "ai-server/analysis-server"],
+            cwd=WORKSPACE_ROOT,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="strict",
+            check=False,
         )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "stt_transcription"
-        )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "speech_characteristics"
-        )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "analysis_api"
-        )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "analysis_api_validation"
-        )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "analysis_docker_validation"
-        )
-        and (not session_only or "SESSION001" in path.as_posix())
-    ]
+
+        if completed.returncode != 0:
+            raise AssertionError(
+                "Could not enumerate Git-tracked Analysis files: "
+                + completed.stderr.strip()
+            )
+
+        files = []
+
+        for relative in completed.stdout.splitlines():
+            path = WORKSPACE_ROOT / relative
+
+            if (
+                path.is_file()
+                and ".venv" not in path.parts
+                and "__pycache__" not in path.parts
+                and path.suffix != ".pyc"
+                and not path.is_relative_to(
+                    analysis / "data" / "output" / "stt_preprocessing"
+                )
+                and not path.is_relative_to(
+                    analysis / "data" / "output" / "stt_transcription"
+                )
+                and not path.is_relative_to(
+                    analysis / "data" / "output" / "speech_characteristics"
+                )
+                and not path.is_relative_to(
+                    analysis / "data" / "output" / "analysis_api"
+                )
+                and not path.is_relative_to(
+                    analysis / "data" / "output" / "analysis_api_validation"
+                )
+                and not path.is_relative_to(
+                    analysis / "data" / "output" / "analysis_docker_validation"
+                )
+            ):
+                files.append(path)
+
     digest = hashlib.sha256()
-    for path in sorted(files, key=lambda item: item.as_posix().casefold()):
+
+    for path in sorted(
+        files,
+        key=lambda item: item.as_posix().casefold(),
+    ):
         relative = path.relative_to(WORKSPACE_ROOT).as_posix()
+
         digest.update(relative.encode("utf-8"))
         digest.update(b"\0")
-        digest.update(hashlib.sha256(protected_bytes(path)).digest())
+        digest.update(
+            hashlib.sha256(protected_bytes(path)).digest()
+        )
         digest.update(b"\0")
-    return digest.hexdigest()
 
+    return digest.hexdigest()
 
 class RegistryTests(unittest.TestCase):
     def test_official_face_url(self) -> None:

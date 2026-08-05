@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -31,13 +32,16 @@ MANIFEST_SHA256 = "0e4b8be16652ebde7531090a27ca5ef5131e2939c6004cbd22f8a311ff581
 SETUP_REPORT_SHA256 = "8d30234a346d6d2213c33ad3771a8932bf78760c2d61acf9f912da3bb1819690"
 LOADING_REPORT_SHA256 = "ff5668185a41973c26e7ad7301302a6ec6a7f88b4b67c0aac98589feef9ae405"
 # Verified remote Analysis baseline plus the compatibility recovery in this branch.
-ANALYSIS_TREE_SHA256 = "07cc6ee0d6039ad60c8b776f78b16abf17aa1526d02d628b3463f56d9447fdd6"
-TEXT_HASH_SUFFIXES = {".csv", ".json", ".md", ".py", ".txt", ".yml", ".yaml"}
+ANALYSIS_TREE_SHA256 = "eaaba5c5cae555119a0e1788f632bac285e9fe165db8406e86b2afe5ad4c22f1"
+TEXT_HASH_SUFFIXES = {".csv", ".example", ".json", ".md", ".py", ".txt", ".yml", ".yaml"}
 
 
 def protected_bytes(path: Path) -> bytes:
     data = path.read_bytes()
-    if path.suffix.lower() in TEXT_HASH_SUFFIXES:
+    if (
+        path.suffix.lower() in TEXT_HASH_SUFFIXES
+        or path.name == ".gitkeep"
+    ):
         data = data.replace(b"\r\n", b"\n")
     return data
 
@@ -62,43 +66,73 @@ class FakeAnalyzer:
         return self.result
 
 
+
 def tree_digest() -> str:
     analysis = WORKSPACE_ROOT / "ai-server" / "analysis-server"
-    files = [
-        path
-        for path in analysis.rglob("*")
-        if path.is_file()
-        and ".venv" not in path.parts
-        and "__pycache__" not in path.parts
-        and path.suffix != ".pyc"
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "stt_preprocessing"
+
+    completed = subprocess.run(
+        ["git", "ls-files", "--", "ai-server/analysis-server"],
+        cwd=WORKSPACE_ROOT,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="strict",
+        check=False,
+    )
+
+    if completed.returncode != 0:
+        raise AssertionError(
+            "Could not enumerate Git-tracked Analysis files: "
+            + completed.stderr.strip()
         )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "stt_transcription"
-        )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "speech_characteristics"
-        )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "analysis_api"
-        )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "analysis_api_validation"
-        )
-        and not path.is_relative_to(
-            analysis / "data" / "output" / "analysis_docker_validation"
-        )
-    ]
+
+    files = []
+
+    for relative in completed.stdout.splitlines():
+        path = WORKSPACE_ROOT / relative
+
+        if (
+            path.is_file()
+            and ".venv" not in path.parts
+            and "__pycache__" not in path.parts
+            and path.suffix != ".pyc"
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "stt_preprocessing"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "stt_transcription"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "speech_characteristics"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "analysis_api"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "analysis_api_validation"
+            )
+            and not path.is_relative_to(
+                analysis / "data" / "output" / "analysis_docker_validation"
+            )
+        ):
+            files.append(path)
+
     digest = hashlib.sha256()
-    for path in sorted(files, key=lambda item: item.as_posix().casefold()):
+
+    for path in sorted(
+        files,
+        key=lambda item: item.as_posix().casefold(),
+    ):
         data = protected_bytes(path)
-        digest.update(path.relative_to(WORKSPACE_ROOT).as_posix().encode())
+
+        digest.update(
+            path.relative_to(WORKSPACE_ROOT).as_posix().encode()
+        )
         digest.update(b"\0")
         digest.update(hashlib.sha256(data).digest())
         digest.update(b"\0")
-    return digest.hexdigest()
 
+    return digest.hexdigest()
 
 class AnalyzeStaticImageCliTests(unittest.TestCase):
     def test_normal_no_detection_exit_zero(self) -> None:
