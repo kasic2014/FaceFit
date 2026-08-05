@@ -80,6 +80,8 @@ ai-server/**/logs/*
 .agents/
 *.local
 .claude/
+.vite/
+img2threejs/
 
 # Visual verification and local delivery artifacts
 .playwright-cli/

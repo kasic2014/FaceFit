@@ -1,29 +1,39 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
 
 const links = [
   { label: "서비스 소개", href: "/#service" },
-  { label: "새 면접", href: "/onboarding" },
-  { label: "분석 리포트", href: "/report" },
-  { label: "성장 기록", href: "/dashboard" },
+  { label: "분석 근거", href: "/#evidence" },
+  { label: "성장 과제", href: "/#evidence" },
+  { label: "진행 방식", href: "/#how-it-works" },
+  { label: "요금제", href: "/pricing" },
 ];
 
 export function LandingHeader() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateHeader = () => setIsScrolled(window.scrollY > 18);
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    return () => window.removeEventListener("scroll", updateHeader);
+  }, []);
+
   return (
-    <>
-      <div className="bg-moss-900 px-5 py-2 text-center text-xs font-medium text-white md:px-8 md:text-sm lg:px-12">
-        첫 면접부터 리포트와 성장 기록까지 한 흐름으로 준비하세요.
-      </div>
-      <header className="flex items-center justify-between border-b border-ink-900/[.08] bg-white px-5 py-4 md:px-8 md:py-5 lg:px-12">
+    <header className={`sticky top-0 z-20 border-b px-5 text-white transition-[background-color,box-shadow,backdrop-filter] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] md:px-8 lg:px-12 ${isScrolled ? "border-white/12 bg-[#091511]/82 py-3 shadow-[0_8px_24px_rgba(0,0,0,.14)] backdrop-blur-xl" : "border-white/10 bg-[#091511] py-4"}`}>
+      <div className="mx-auto flex max-w-[1440px] items-center justify-between">
         <div className="flex items-center gap-10">
-          <Logo size="lg" />
+          <Link to="/" aria-label="Face Fit 홈" className="shrink-0">
+            <Logo size="lg" textClassName="text-white" />
+          </Link>
           <nav className="hidden items-center gap-7 lg:flex" aria-label="랜딩 메뉴">
             {links.map((item) =>
               item.href.includes("#") ? (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-sm font-medium text-ink-900/65 transition-colors hover:text-moss-700 focus-visible:outline-2 focus-visible:outline-moss-700"
+                  className="text-sm font-medium text-white/62 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
                   {item.label}
                 </a>
@@ -31,7 +41,7 @@ export function LandingHeader() {
                 <Link
                   key={item.label}
                   to={item.href}
-                  className="text-sm font-medium text-ink-900/65 transition-colors hover:text-moss-700 focus-visible:outline-2 focus-visible:outline-moss-700"
+                  className="text-sm font-medium text-white/62 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
                 >
                   {item.label}
                 </Link>
@@ -39,15 +49,10 @@ export function LandingHeader() {
             )}
           </nav>
         </div>
-        <div className="flex items-center gap-3">
-          <Link to="/login" className="hidden text-sm font-medium text-ink-900/70 hover:text-ink-900 sm:block">
-            로그인
-          </Link>
-          <Link to="/onboarding" className="rounded-[9px] bg-sunset-600 px-3.5 py-2.5 text-sm font-semibold text-white transition hover:bg-sunset-700 md:px-4">
-            면접 시작하기
-          </Link>
-        </div>
-      </header>
-    </>
+        <Link to="/login" className="inline-flex min-h-11 items-center bg-[#d96d25] px-4 text-sm font-semibold text-white transition hover:bg-[#ef8036] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+          로그인
+        </Link>
+      </div>
+    </header>
   );
 }

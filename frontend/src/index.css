@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -115,6 +114,10 @@
 }
 
 :root {
+  --motion-micro: 180ms;
+  --motion-ui: 280ms;
+  --motion-enter: 520ms;
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -192,6 +195,7 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
   html,
   body,
@@ -232,16 +236,39 @@
   }
 }
 
-.reveal-up {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+.reveal-up { opacity: 1; transform: none; }
+.reveal-up.is-visible { animation: section-reveal .62s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.landing-copy { word-break: keep-all; }
+.landing-copy :is(h1, h2, h3, p, a, button) { overflow-wrap: normal; }
+.skip-link { position: fixed; z-index: 60; left: 1rem; top: -4rem; border-radius: .5rem; background: #d96d25; padding: .75rem 1rem; color: white; font-size: .875rem; font-weight: 700; transition: top .2s ease-out; }
+.skip-link:focus { top: 1rem; outline: 2px solid white; outline-offset: 3px; }
+.hero-grain { pointer-events: none; opacity: .18; mix-blend-mode: soft-light; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E"); }
+.landing-copy :is(a, button) { -webkit-tap-highlight-color: transparent; }
+.landing-copy :is(a, button):active { transform: scale(.985); }
+/* The brand register needs Korean display type to feel open, not compressed.
+   This safely overrides the overly-tight section utilities without changing
+   the denser product UI scale. */
+.landing-copy h2 { letter-spacing: -.04em; line-height: .99; }
+.landing-copy .hero-heading { letter-spacing: -.04em; line-height: .96; }
+
+/* Footer actions and the compact practice tabs remain comfortable to tap. */
+footer form button { min-width: 2.75rem; min-height: 2.75rem; }
+.landing-copy [role="tab"] { min-height: 2.75rem; }
+
+@keyframes section-reveal {
+  from { opacity: .72; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-.reveal-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+
+@keyframes context-connector-drop {
+  0% { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.reveal-up.is-visible .context-connector svg {
+  animation: context-connector-drop var(--motion-ui) var(--motion-ease) both;
+  animation-delay: 180ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -436,12 +463,95 @@
 .robot-ripple { animation: robot-ripple 0.48s ease-out both; }
 
 .process-line { transform: scaleX(0); transform-origin: left center; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s; }
-.process-step { opacity: 0; transform: translateY(16px); transition: opacity 0.48s ease-out, transform 0.48s ease-out; }
+.process-step { opacity: 0; transform: translateY(16px); transition: opacity 0.48s var(--motion-ease), transform 0.48s var(--motion-ease); }
 .reveal-up.is-visible .process-line { transform: scaleX(1); }
 .reveal-up.is-visible .process-step { opacity: 1; transform: translateY(0); }
 .reveal-up.is-visible .process-step:nth-of-type(2) { transition-delay: 0.12s; }
 .reveal-up.is-visible .process-step:nth-of-type(3) { transition-delay: 0.22s; }
 .reveal-up.is-visible .process-step:nth-of-type(4) { transition-delay: 0.32s; }
+
+/* Landing motion: the hero follows cursor direction with a small, stable offset.
+   Scroll reveals establish reading order; they never hide content in reduced-motion mode. */
+@keyframes hero-orb-breathe {
+  0%, 100% { transform: scale(1.01); }
+  50% { transform: scale(1.035); }
+}
+
+@keyframes hero-glow-pulse {
+  0%, 100% { opacity: 0.34; transform: scale(0.92); }
+  50% { opacity: 0.72; transform: scale(1.1); }
+}
+
+@keyframes hero-orb-practice {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.055); }
+}
+
+@keyframes scan-sweep {
+  0% { transform: translateY(-130%); opacity: 0; }
+  14% { opacity: .82; }
+  56% { opacity: .62; }
+  80%, 100% { transform: translateY(720%); opacity: 0; }
+}
+
+@keyframes hero-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes hero-card-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
+}
+
+@keyframes live-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgb(242 171 114 / .45); }
+  50% { opacity: .65; box-shadow: 0 0 0 7px rgb(242 171 114 / 0); }
+}
+
+@keyframes orbit-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(-1.5%, 1%, 0) rotate(5deg); }
+}
+
+@keyframes wave-live {
+  0%, 100% { transform: scaleY(0.72); transform-origin: bottom; }
+  50% { transform: scaleY(1); transform-origin: bottom; }
+}
+
+@keyframes hero-kicker-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-orb {
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.hero-orb img { animation: hero-orb-breathe 10s ease-in-out infinite; }
+.hero-orb--top-left { transform: translate3d(-3.5%, -2.5%, 0) scale(1.04) rotate(-1.2deg); }
+.hero-orb--top-right { transform: translate3d(3.5%, -2.5%, 0) scale(1.04) rotate(1.2deg); }
+.hero-orb--bottom-left { transform: translate3d(-3.5%, 2.5%, 0) scale(1.04) rotate(1.2deg); }
+.hero-orb--bottom-right { transform: translate3d(3.5%, 2.5%, 0) scale(1.04) rotate(-1.2deg); }
+.hero-orb-image--practice { animation: hero-orb-practice 2.4s ease-in-out infinite !important; }
+.hero-glow { animation: hero-glow-pulse 5s ease-in-out infinite; }
+.hero-scan { pointer-events: none; mix-blend-mode: screen; }
+.hero-scan span { position: absolute; inset-inline: 4%; top: 0; height: 16%; border-top: 1px solid rgb(242 171 114 / .85); background: linear-gradient(180deg, rgb(242 171 114 / .18), transparent); box-shadow: 0 16px 36px rgb(242 171 114 / .22); animation: scan-sweep 6.4s cubic-bezier(.45, 0, .55, 1) infinite; }
+.hero-orbit { pointer-events: none; transform-origin: center; }
+.hero-orbit--outer { animation: hero-orbit-spin 22s linear infinite; }
+.hero-orbit--inner { animation: hero-orbit-spin 12s linear infinite reverse; }
+.hero-signal-card { width: 16rem; padding: 1.25rem; animation: hero-card-float 5.5s ease-in-out infinite; box-shadow: 0 24px 80px rgb(0 0 0 / .25), inset 0 1px 0 rgb(255 255 255 / .12); }
+.hero-signal-card p:nth-of-type(2) { font-size: 1rem; line-height: 1.45; }
+.hero-signal-dot { display: inline-block; width: .42rem; height: .42rem; border-radius: 999px; background: #f2ab72; animation: live-dot 1.8s ease-in-out infinite; }
+.agent-orbit { animation: orbit-drift 12s ease-in-out infinite; }
+.agent-orbit--slow { animation-duration: 16s; animation-direction: reverse; }
+.wave-bar { animation: wave-live 1.9s ease-in-out infinite; }
+.wave-bar:nth-child(3n) { animation-delay: -.5s; }
+.wave-bar:nth-child(4n) { animation-delay: -1.1s; }
+.demo-wave { transform-origin: bottom; animation: wave-live 1.55s ease-in-out infinite; }
+.demo-wave--1 { animation-delay: -.35s; }
+.demo-wave--2 { animation-delay: -.8s; }
+.demo-wave--3 { animation-delay: -1.15s; }
 
 /* Interview pain-point marquee (two opposing rows) */
 .marquee-row { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent); mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent); }
@@ -454,5 +564,26 @@
   .marquee-track-reverse { animation-duration: 38s; }
 }
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   .marquee-track { animation: none; }
+  .hero-orb,
+  .hero-orb img,
+  .hero-glow,
+  .hero-kicker,
+  .hero-heading,
+  .hero-copy,
+  .hero-actions,
+  .hero-panel,
+  .hero-scan span,
+  .hero-orbit,
+  .hero-signal-card,
+  .hero-signal-dot,
+  .agent-orbit,
+  .wave-bar {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .demo-wave { animation: none !important; }
+  .context-connector svg { animation: none !important; }
 }

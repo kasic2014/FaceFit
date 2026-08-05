@@ -51,7 +51,7 @@
 
 | 대상 | 필수 전달 |
 | --- | --- |
-| 개발자 | 04~13, 16~18, 실시간 아바타 아키텍처 |
+| 개발자 | 04~13, API v0.3.6, 16~18, MuseTalk 아키텍처·미디어 구현 계획 |
 | 디자이너 | 01~05, 08~10, 13, 20 |
 | QA | 05~10, 12~16, 18 |
 | 데이터·운영 | 11~14, 16, 18 |
@@ -60,7 +60,7 @@
 ## 기존 참고 문서
 
 - `PRD.md`, `OKR.md`, `MVP_ROADMAP.md`, `REQUIREMENTS_TRACEABILITY.md`는 본 세트의 근거·이전 버전이다.
-- `REALTIME_AVATAR_ARCHITECTURE.md`는 OpenAvatarChat+MuseTalk 기술 검토의 상세 문서다.
+- `REALTIME_AVATAR_ARCHITECTURE.md`는 질문 단위 MuseTalk MP4 기술 구조, `INTERVIEW_MEDIA_IMPLEMENTATION_PLAN.md`는 구현·QA 계획이다.
 - 새 실행 기준은 번호가 붙은 00~20 문서와 99 검증보고서다. 기존 문서를 삭제하지 않고 변경 배경을 보존한다.
 
 ## 아직 확정되지 않은 항목

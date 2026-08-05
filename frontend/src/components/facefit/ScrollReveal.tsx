@@ -39,7 +39,7 @@ export function ScrollReveal({
     <div
       ref={ref}
       className={cn("reveal-up w-full", className)}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={delay ? { animationDelay: `${delay}ms` } : undefined}
     >
       {children}
     </div>

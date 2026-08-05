@@ -13,7 +13,7 @@
 | 04 | `/onboarding` | 새 면접 설정 | SET-01~05 | Prototype | 입력 저장, 업로드, 면접관 프롬프트 반영 |
 | 05 | `/equipment` | 장비 확인 | DEV-01~03 | Prototype | 실제 권한·장치·얼굴·마이크 검증 |
 | 06 | `/voice-profile` | 음성 프로필 안내 | DEV-03~04 | Prototype | MVP는 건너뛰기 유지, 복제는 P2 동의형 |
-| 07 | `/session/live` | AI 면접 진행 | LIVE-01~08 | Prototype | OpenAvatarChat + MuseTalk 실시간 5문항 |
+| 07 | `/session/live` | AI 면접 진행 | LIVE-01~08 | Prototype | MuseTalk 질문 MP4·정적 캐릭터 폴백 5문항 |
 | 08 | `/analysis` | 분석 중 | ANL-01~07 | Prototype | 작업 상태·지연·실패·재시도 연결 |
 | 09 | `/report` | 면접 리포트 | ANL-01~07 | Prototype | 실제 근거·신뢰도·루브릭 버전 표시 |
 | 10 | `/dashboard` | 마이페이지 | GROW-01~03 | Prototype | 저장된 세션·성장·재면접 연결 |
@@ -21,7 +21,7 @@
 
 ## 2. 기능-서비스 추적
 
-| 요구사항 | 웹 UI | App API | OpenAvatarChat | 분석 워커 | 데이터 저장 | 상태 |
+| 요구사항 | 웹 UI | App API | MuseTalk Worker | 분석 워커 | 데이터 저장 | 상태 |
 | --- | --- | --- | --- | --- | --- | --- |
 | AUTH-01 계정 접근 | 로그인·회원가입 | 인증·세션 | - | - | 사용자·인증 이력 | Prototype |
 | AUTH-02 민감정보 동의 | 동의 UI | 정책 검증 | 세션 허용 여부 | 작업 허용 여부 | 동의 이력 | Planned |
@@ -31,18 +31,18 @@
 | SET-03 강도 선택 | 강도 카드 | 안전 정책 검증 | 질문 깊이 프롬프트 | 평가 메타 | 세션 설정 | Prototype |
 | SET-04 5문항·15~20분 | 진행 수 표시 | 질문 계획 생성 | 턴 오케스트레이션 | - | 세션 계획 | Prototype |
 | SET-05 컨텍스트 폴백 | 오류·안내 | 공통 질문 선택 | 폴백 프롬프트 | 공통 루브릭 | 폴백 사유 | Planned |
-| DEV-01 장치 확인 | MediaDevices | 선택 메타 저장 | RTC 입력 | 품질 플래그 | PostgreSQL | Prototype |
+| DEV-01 장치 확인 | MediaDevices | 선택 메타 저장 | - | 품질 플래그 | PostgreSQL | Prototype |
 | DEV-02 환경 가이드 | 프레임·눈높이·어깨선 | 점검 결과 | 입력 품질 | 품질 검증 | 품질 플래그 | Prototype |
 | DEV-03 음성 프로필 선택 | 건너뛰기·안내 | 선택 상태 | 표준 TTS | - | 선택 상태 | Prototype |
 | DEV-04 음성 프로필 베타 | 등록·철회 | 별도 동의·삭제 | 선택 TTS | 음성 모델 생성 | 격리 저장소 | Planned |
-| LIVE-01 아바타 질문 | A/V 표시 | RTC 토큰 | MuseTalk 핸들러 | - | 세션 로그 | Planned |
+| LIVE-01 캐릭터 질문 | MP4·정적 폴백 | 질문 미디어 상태·streaming | TTS+MuseTalk MP4 | - | Private Object·세션 로그 | Planned |
 | LIVE-02 대화 파이프라인 | 상태 UI | 세션 생성 | VAD·ASR·LLM·TTS·Avatar | - | 트레이스 | Planned |
 | LIVE-03 페르소나 일관성 | 면접관 정보 | 세션 컨텍스트 | 시스템 프롬프트 | - | 프롬프트 버전 | Planned |
 | LIVE-04 꼬리질문 | 질문 UI | 정책 컨텍스트 | LLM 구조화 생성 | - | 턴 기록 | Planned |
 | LIVE-05 턴 종료 | 버튼·Space·안내 | 종료 이벤트 | VAD·Interrupt | 음성 타임라인 | 턴 기록 | Prototype |
 | LIVE-06 수동 인터럽트 | 중단 컨트롤 | 인터럽트 이벤트 | Interrupt Handler | - | 인터럽트 로그 | Planned |
 | LIVE-07 전이중 인터럽트 | 실험 플래그 | 세션 정책 | Duplex 모드 | 에코·오검출 분석 | 실험 지표 | Planned |
-| LIVE-08 연결 복구 | 재연결·안전 종료 | 복구 토큰 | RTC 재연결 | 누락 구간 표시 | 체크포인트 | Planned |
+| LIVE-08 미디어 복구 | polling·정적 폴백 | 상태 재조회 | 재시도 1회·폴백 | 누락 구간 표시 | 체크포인트 | Planned |
 | ANL-01 시선·자세 | 결과 표시 | 작업 생성 | - | MediaPipe | 특징·신뢰도 | Planned |
 | ANL-02 발화 분석 | 결과 표시 | 작업 생성 | 실시간 전사 보조 | Faster-Whisper | 전사·타임스탬프 | Planned |
 | ANL-03 내용 분석 | 결과 표시 | 컨텍스트 제공 | 실시간 질문 생성 | 의도·루브릭 LLM | 근거·점수 | Planned |
@@ -71,8 +71,9 @@
 | 시나리오 | 연결 요구사항 | 기대 결과 |
 | --- | --- | --- |
 | 카메라 거부, 마이크 허용 | DEV-01, LIVE-08 | 제한 안내 후 오디오 면접 또는 재허용 선택 |
-| 5초 이상 생각하는 사용자 | LIVE-05 | 종료 전 안내와 수동 복구 제공 |
-| MuseTalk FPS 급락 | LIVE-01, LIVE-08 | 정적 이미지 + TTS로 전환, 세션 유지 |
+| 답변 시작 후 3초 이내 무음 | LIVE-05 | VAD 종료 판정 없이 녹음 유지 |
+| 3초 이후 2초 무음 | LIVE-05 | 1초 카운트다운, 재발화 시 취소·미발화 시 종료 |
+| MuseTalk timeout·실패 | LIVE-01, LIVE-08 | 정적 캐릭터+질문 텍스트로 전환, 세션 유지 |
 | LLM 시간 초과 | LIVE-04, LIVE-08 | 검증된 직무 질문 템플릿 사용 |
 | 얼굴이 장시간 가려짐 | ANL-01, ANL-04 | 해당 구간 신뢰도 부족, 점수 제외 사유 표시 |
 | 무음 또는 짧은 답변 | ANL-02, ANL-03 | 데이터 부족 상태와 재연습 제안 |

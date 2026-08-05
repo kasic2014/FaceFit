@@ -45,7 +45,7 @@ export function AnalysisProgress() {
   return (
     <section className="w-full" aria-live="polite">
       <AnalysisVisual icon={ActiveIcon} complete={isComplete} />
-      <p className="mt-7 text-sm font-bold text-moss-700">분석 진행 중</p>
+      <p className="mt-7 text-sm font-bold text-moss-700">{isComplete ? "분석 완료" : "분석 진행 중"}</p>
       <h1 className="mt-2 text-3xl font-bold tracking-[-.03em] text-ink-900">
         {isComplete ? "리포트를 준비했어요." : activeStage.description}
       </h1>
@@ -102,9 +102,7 @@ export function AnalysisProgress() {
         })}
       </ol>
 
-      <button type="button" onClick={() => setLeaveOpen(true)} className="mt-7 inline-flex min-h-11 items-center justify-center rounded-xl border border-line-300 bg-white px-5 text-sm font-bold text-ink-700 transition hover:border-moss-300 hover:text-moss-900">
-        나중에 확인하기
-      </button>
+      {isComplete ? <Link to="/report" className="mt-7 inline-flex min-h-11 items-center justify-center rounded-xl bg-sunset-600 px-5 text-sm font-bold text-white transition hover:bg-sunset-700">리포트 보기</Link> : <button type="button" onClick={() => setLeaveOpen(true)} className="mt-7 inline-flex min-h-11 items-center justify-center rounded-xl border border-line-300 bg-white px-5 text-sm font-bold text-ink-700 transition hover:border-moss-300 hover:text-moss-900">나중에 확인하기</button>}
 
       {leaveOpen && <LeaveAnalysisModal onClose={() => setLeaveOpen(false)} />}
     </section>

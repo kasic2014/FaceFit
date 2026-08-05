@@ -1,3 +1,4 @@
+import { useState, type FormEvent } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
@@ -7,6 +8,7 @@ const groups = [
     title: "서비스",
     items: [
       { label: "새 면접", href: "/onboarding" },
+      { label: "요금제", href: "/pricing" },
       { label: "분석 리포트", href: "/report" },
       { label: "성장 기록", href: "/dashboard" },
     ],
@@ -14,13 +16,21 @@ const groups = [
   {
     title: "안내",
     items: [
-      { label: "이용 가이드", href: "/design-preview" },
-      { label: "자주 묻는 질문", href: "/#faq" },
+      { label: "이용과 데이터 처리 안내", href: "/policy" },
+      { label: "성장 프로세스", href: "/#how-it-works" },
     ],
   },
 ];
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+  const [newsletterMessage, setNewsletterMessage] = useState("");
+
+  const submitNewsletter = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setNewsletterMessage(email.trim() ? "새 소식 신청은 현재 데모로 제공됩니다." : "이메일 주소를 입력해 주세요.");
+  };
+
   return (
     <footer className="border-t border-line-200 bg-ivory-100 px-5 py-14 md:px-8 lg:px-12">
       <div className="mx-auto max-w-[1200px]">
@@ -30,7 +40,7 @@ export function Footer() {
             <p className="mt-4 text-sm font-medium leading-6 text-ink-600">내 경험을, 내 답변으로.</p>
             <a
               href="mailto:hello@facefit.example"
-              className="mt-5 inline-flex size-10 items-center justify-center rounded-full border border-line-300 text-ink-600 transition hover:border-moss-500 hover:text-moss-700"
+              className="mt-5 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line-300 text-ink-600 transition hover:border-moss-500 hover:text-moss-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700"
               aria-label="이메일 문의"
             >
               <Mail size={16} />
@@ -59,16 +69,22 @@ export function Footer() {
           <div>
             <p className="text-sm font-bold text-ink-900">새 소식</p>
             <p className="mt-3 text-[13px] leading-6 text-ink-600">새로운 면접 연습 방법과 기능을 확인하세요.</p>
-            <div className="mt-4 flex rounded-xl border border-line-300 bg-white p-1">
+            <form onSubmit={submitNewsletter} className="mt-4 flex rounded-xl border border-line-300 bg-white p-1">
+              <label className="sr-only" htmlFor="newsletter-email">이메일 주소</label>
               <input
+                id="newsletter-email"
                 aria-label="이메일 주소"
                 placeholder="이메일 주소"
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
                 className="min-h-10 min-w-0 flex-1 bg-transparent px-3 text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-moss-500"
               />
-              <button aria-label="새 소식 구독" className="grid size-10 place-items-center rounded-lg bg-ink-900 text-white transition hover:bg-moss-900">
+              <button type="submit" aria-label="새 소식 구독" className="grid size-10 place-items-center rounded-lg bg-ink-900 text-white transition hover:bg-moss-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700">
                 <ArrowRight size={15} />
               </button>
-            </div>
+            </form>
+            {newsletterMessage && <p role="status" className="mt-2 text-xs leading-5 text-moss-700">{newsletterMessage}</p>}
           </div>
         </div>
         <div className="mt-12 border-t border-line-200 pt-5 text-xs leading-5 text-ink-400">

@@ -1,112 +1,17 @@
+import { BellRing, Check } from "lucide-react";
 import { useState } from "react";
-import { Check } from "lucide-react";
 import { AppNav } from "@/components/facefit/AppNav";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 
-type Plan = {
-  name: string;
-  summary: string;
-  price: string;
-  period: string;
-  benefits: string[];
-  cta: "이용 안내" | "현재 준비 중";
-  recommended?: boolean;
-};
+type BetaPlan = { name: string; summary: string; price: string; benefits: readonly string[]; featured?: boolean };
 
-const plans: Plan[] = [
-  {
-    name: "Free",
-    summary: "기본 면접 체험",
-    price: "0원",
-    period: "무료 체험",
-    benefits: ["기본 모의면접 1회", "핵심 피드백 요약", "면접 환경 점검"],
-    cta: "이용 안내",
-  },
-  {
-    name: "Standard",
-    summary: "월간 면접 및 상세 리포트",
-    price: "19,900원",
-    period: "월간 콘셉트",
-    benefits: ["월간 모의면접 5회", "질문별 상세 리포트", "개선 답변 다시 듣기"],
-    cta: "현재 준비 중",
-    recommended: true,
-  },
-  {
-    name: "Pro",
-    summary: "추가 면접 및 성장 분석",
-    price: "39,900원",
-    period: "월간 콘셉트",
-    benefits: ["월간 모의면접 12회", "면접 기록 성장 분석", "집중 연습 가이드"],
-    cta: "현재 준비 중",
-  },
-];
+const plans: readonly BetaPlan[] = [
+  { name: "Free", summary: "기본 면접 연습", price: "무료", benefits: ["모의 면접 1회", "답변 요약", "장비 환경 확인"] },
+  { name: "Standard", summary: "질문별 분석과 성장 과제", price: "출시 준비 중", benefits: ["월간 모의 면접", "질문별 분석 근거", "성장 과제 재연습"], featured: true },
+  { name: "Pro", summary: "집중 연습과 기록 비교", price: "출시 준비 중", benefits: ["추가 면접 횟수", "면접 기록 비교", "집중 재연습 가이드"] },
+] as const;
 
 export default function PricingPage() {
   const [message, setMessage] = useState("");
-
-  const showNotice = (plan: Plan) => {
-    setMessage(`${plan.name} 플랜은 발표용 콘셉트입니다. 실제 결제는 진행되지 않습니다.`);
-  };
-
-  return (
-    <div className="min-h-screen bg-ivory-50 text-ink-900">
-      <AppNav active="요금제" />
-      <PageContainer as="main" size="standard" className="py-12 md:py-16">
-        <header className="mx-auto max-w-[720px] text-center">
-          <p className="text-sm font-bold text-moss-700">FACE FIT PLANS</p>
-          <h1 className="mt-3 text-3xl font-bold tracking-[-.03em] md:text-4xl">연습 목표에 맞는 플랜을 확인해 보세요.</h1>
-          <p className="mt-4 text-sm leading-7 text-ink-600 md:text-base">
-            면접 경험과 리포트 범위를 비교할 수 있도록 구성한 발표용 요금제입니다.
-          </p>
-        </header>
-
-        <section className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-3" aria-label="Face Fit 요금제">
-          {plans.map((plan) => (
-            <article
-              key={plan.name}
-              className={plan.recommended
-                ? "relative flex min-w-0 flex-col rounded-2xl border-2 border-moss-700 bg-white p-6"
-                : "relative flex min-w-0 flex-col rounded-2xl border border-line-300 bg-white p-6"}
-            >
-              {plan.recommended && (
-                <span className="absolute top-5 right-5 rounded-full bg-moss-900 px-3 py-1 text-xs font-bold text-white">추천</span>
-              )}
-              <div className="pr-16">
-                <h2 className="font-heading text-2xl font-bold">{plan.name}</h2>
-                <p className="mt-2 break-words text-sm text-ink-600">{plan.summary}</p>
-              </div>
-              <div className="mt-7 border-b border-line-200 pb-6">
-                <strong className="text-3xl font-bold tracking-[-.03em]">{plan.price}</strong>
-                <span className="ml-2 text-xs text-ink-400">{plan.period}</span>
-              </div>
-              <ul className="mt-6 flex-1 space-y-3">
-                {plan.benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-2.5 text-sm leading-6 text-ink-700">
-                    <span className={plan.recommended ? "mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-moss-900 text-white" : "mt-1 grid size-5 shrink-0 place-items-center rounded-full bg-ivory-300 text-ink-600"}>
-                      <Check size={12} />
-                    </span>
-                    <span className="min-w-0 break-words">{benefit}</span>
-                  </li>
-                ))}
-              </ul>
-              <button
-                type="button"
-                onClick={() => showNotice(plan)}
-                className={plan.recommended
-                  ? "mt-8 w-full rounded-xl bg-moss-900 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-moss-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss-700"
-                  : "mt-8 w-full rounded-xl border border-line-300 px-5 py-3.5 text-sm font-bold text-ink-700 transition hover:bg-ivory-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink-600"}
-              >
-                {plan.cta}
-              </button>
-            </article>
-          ))}
-        </section>
-
-        <div className="mx-auto mt-8 max-w-[720px] text-center">
-          {message && <p role="status" className="mb-4 rounded-xl border border-moss-300 bg-white px-4 py-3 text-sm text-moss-900">{message}</p>}
-          <p className="text-xs leading-5 text-ink-400">요금제 페이지는 서비스 콘셉트 화면이며 실제 결제 기능은 제공하지 않습니다.</p>
-        </div>
-      </PageContainer>
-    </div>
-  );
+  return <div className="min-h-screen bg-ivory-50 text-ink-900"><AppNav active="요금제" /><PageContainer as="main" size="standard" className="py-12 md:py-16"><header className="mx-auto max-w-[720px] text-center"><p className="text-sm font-bold text-sunset-700">FACE FIT BETA</p><h1 className="mt-3 text-3xl font-bold tracking-[-.05em] md:text-4xl">요금제는 출시를 준비하고 있어요.</h1><p className="mt-4 text-sm leading-7 text-ink-600 md:text-base">현재는 기능과 흐름을 검증하는 프로토타입입니다. 실제 결제나 구독은 진행되지 않습니다.</p></header><section className="mt-10 grid gap-5 lg:grid-cols-3">{plans.map((plan) => <article key={plan.name} className={plan.featured ? "relative flex flex-col rounded-2xl border-2 border-moss-700 bg-white p-6" : "flex flex-col rounded-2xl border border-line-300 bg-white p-6"}>{plan.featured && <span className="absolute right-5 top-5 rounded-full bg-moss-900 px-3 py-1 text-xs font-bold text-white">추천 예정</span>}<h2 className="text-2xl font-bold">{plan.name}</h2><p className="mt-2 text-sm text-ink-600">{plan.summary}</p><strong className="mt-7 block border-b border-line-200 pb-6 text-2xl">{plan.price}</strong><ul className="mt-6 flex-1 space-y-3">{plan.benefits.map((benefit) => <li key={benefit} className="flex gap-2.5 text-sm leading-6 text-ink-700"><Check className="mt-1 size-4 shrink-0 text-moss-700" />{benefit}</li>)}</ul><button type="button" onClick={() => setMessage("출시 안내 요청은 현재 화면 데모로만 제공됩니다.")} className={plan.featured ? "mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-moss-900 px-5 text-sm font-bold text-white hover:bg-moss-700" : "mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-line-300 px-5 text-sm font-bold text-ink-700 hover:bg-ivory-100"}><BellRing size={16} />출시 안내 받기</button></article>)}</section>{message && <p role="status" className="mx-auto mt-8 max-w-[720px] rounded-xl border border-moss-300 bg-white px-4 py-3 text-center text-sm text-moss-900">{message}</p>}<p className="mx-auto mt-8 max-w-[720px] text-center text-xs leading-5 text-ink-500">출시 시점과 요금, 제공 범위는 정식 서비스 정책이 확정된 뒤 안내됩니다.</p></PageContainer></div>;
 }

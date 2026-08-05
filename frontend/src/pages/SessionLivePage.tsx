@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { CircleHelp, Headphones, Mic, Video } from "lucide-react";
+import { Navigate } from "react-router-dom";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { VideoPanel } from "@/components/facefit/interview/VideoPanel";
 import { GuidePanel } from "@/components/facefit/interview/GuidePanel";
 import { InterviewOnboarding } from "@/components/facefit/interview/InterviewOnboarding";
+import { InterviewEndDialog } from "@/components/facefit/interview/InterviewEndDialog";
 import { Logo } from "@/components/facefit/Logo";
-import { ConfirmModal } from "@/components/facefit/ui/States";
+import { useMediaDevices } from "@/hooks/useMediaDevices";
 
 type InterviewPhase = "answering" | "saving" | "next";
 const totalQuestions = 5;
@@ -16,16 +18,14 @@ export default function InterviewRoomPage() {
   const [camera, setCamera] = useState(true);
   const [phase, setPhase] = useState<InterviewPhase>("answering");
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [onboardingOpen, setOnboardingOpen] = useState(false);
+  const [onboardingOpen, setOnboardingOpen] = useState(() => window.localStorage.getItem("facefit-interview-onboarding-dismissed") !== "true");
   const completionTimer = useRef<number | null>(null);
   const completingRef = useRef(false);
+  const { stream, status: mediaStatus, message: mediaMessage, start } = useMediaDevices();
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setOnboardingOpen(window.localStorage.getItem("facefit-interview-onboarding-dismissed") !== "true");
-    }, 0);
-    return () => window.clearTimeout(timer);
-  }, []);
+    if (!onboardingOpen) void start();
+  }, [onboardingOpen, start]);
 
   useEffect(() => () => {
     if (completionTimer.current) window.clearTimeout(completionTimer.current);
@@ -73,6 +73,8 @@ export default function InterviewRoomPage() {
     if (phase === "saving") setPhase("answering");
   };
 
+  if (window.sessionStorage.getItem("facefit-consent-confirmed") !== "true") return <Navigate to="/consent" replace />;
+
   return <div className="min-h-screen bg-[#24372F]">
     <PageContainer size="wide" className="flex min-h-screen flex-col gap-4 py-4 md:h-dvh md:min-h-0 md:py-5">
       <header className="flex shrink-0 items-center justify-between px-1 text-white">
@@ -86,16 +88,17 @@ export default function InterviewRoomPage() {
       </section>
 
       <main className="relative hidden min-h-0 flex-1 gap-4 md:grid md:grid-cols-6 md:grid-rows-[minmax(240px,3fr)_minmax(160px,2fr)] lg:grid-cols-12 lg:grid-rows-1">
-        <VideoPanel /><GuidePanel />
+        <VideoPanel stream={stream} /><GuidePanel stream={stream} />
         {phase !== "answering" && <div className="absolute inset-0 z-10 grid place-items-center bg-[#10221D]/55 p-4"><div className="min-w-0 max-w-lg rounded-xl border border-white/10 bg-[#1C2A24] px-6 py-5 text-center text-white"><p className="break-words text-lg font-bold">{phase === "saving" ? "답변을 저장하고 있어요." : "다음 질문을 준비했어요."}</p><p className="mt-2 break-words text-sm text-white/60">{phase === "saving" ? "답변을 정리하고 다음 질문을 확인합니다." : "프로젝트에서 가장 어려웠던 판단은 무엇이었나요?"}</p>{phase === "next" && <button type="button" onClick={() => setPhase("answering")} className="mt-4 min-h-11 rounded-lg bg-sunset-600 px-4 py-2.5 text-sm font-bold">다음 질문 답변하기</button>}</div></div>}
       </main>
 
       <footer className="hidden shrink-0 flex-wrap items-center justify-between gap-3 rounded-xl border border-white/10 bg-[#1C2A24] px-5 py-4 md:flex lg:flex-nowrap">
+        <p role="status" className="basis-full text-center text-xs text-white/55">{mediaStatus === "ready" ? "카메라와 마이크가 연결되었습니다." : mediaMessage || "카메라와 마이크를 연결하고 있어요."}</p>
         <div className="flex shrink-0 gap-2"><button type="button" onClick={() => setMic(!mic)} className="min-h-11 whitespace-nowrap rounded-lg border border-white/15 px-4 py-2.5 text-sm text-white"><Mic size={15} className="mr-1 inline" />마이크 {mic ? "ON" : "OFF"}</button><button type="button" onClick={() => setCamera(!camera)} className="min-h-11 whitespace-nowrap rounded-lg border border-white/15 px-4 py-2.5 text-sm text-white"><Video size={15} className="mr-1 inline" />카메라 {camera ? "ON" : "OFF"}</button></div>
         <div className="flex shrink-0 gap-2"><button type="button" onClick={completeAnswer} disabled={phase !== "answering" || onboardingOpen} className="min-h-11 whitespace-nowrap rounded-lg border border-white/25 bg-white px-5 py-2.5 text-sm font-bold text-[#24372F] transition hover:bg-[#F2F0EA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/10 disabled:text-white/40">답변 완료 <kbd className="ml-1 rounded border border-current/25 px-1 py-0.5 text-[10px] font-medium">Space</kbd></button><button type="button" onClick={() => setEnd(true)} className="min-h-11 whitespace-nowrap rounded-lg bg-sunset-600 px-4 py-2.5 text-sm font-bold text-white">면접 종료</button></div>
         <span className="basis-full break-words text-center text-xs text-white/45 lg:min-w-0 lg:flex-1 lg:basis-auto lg:truncate lg:text-right"><Headphones size={13} className="mr-1 inline" />답변 완료 후 저장한 뒤 다음 질문을 준비합니다.</span>
       </footer>
-      <ConfirmModal open={end} onClose={closeEndModal} />
+      <InterviewEndDialog open={end} onClose={closeEndModal} />
       {onboardingOpen && <InterviewOnboarding onStart={closeOnboarding} onDismissForever={dismissOnboarding} />}
     </PageContainer>
   </div>;

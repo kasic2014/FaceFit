@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronUp, ChevronDown, CircleCheck, Circle } from "lucide-react";
 import { FollowUpQuestionIcon, ContentAnalysisIcon, SpeechAnalysisIcon } from "@/components/facefit/icons";
+import { MediaPreview } from "@/components/facefit/interview/MediaPreview";
 
 const structureChecklist = [
   { label: "상황 설명", done: true },
@@ -16,7 +17,7 @@ const speechStatus = [
   { label: "침묵 상태", value: "정상" },
 ];
 
-export function GuidePanel() {
+export function GuidePanel({ stream }: { stream: MediaStream | null }) {
   const [open, setOpen] = useState(true);
 
   return (
@@ -34,7 +35,7 @@ export function GuidePanel() {
           <div>
             <p className="mb-2 text-xs font-semibold text-ink-400">나의 화면</p>
             <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-              <img src="/images/user-webcam.png" alt="내 웹캠" className="absolute inset-0 size-full object-cover" loading="lazy" />
+              <MediaPreview stream={stream} label="내 카메라 미리보기" />
             </div>
           </div>
 

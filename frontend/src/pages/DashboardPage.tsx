@@ -7,6 +7,7 @@ import { PageContainer } from "@/components/facefit/layout/PageContainer";
 type InterviewStatus = "analyzing" | "complete";
 
 type InterviewRecord = {
+  id?: string;
   company: string;
   role: string;
   meta: string;
@@ -17,7 +18,7 @@ type InterviewRecord = {
 // TODO: Replace this mock status with persisted analysis status from the API.
 const interviews: InterviewRecord[] = [
   { company: "Face Fit 면접", role: "백엔드 개발자", meta: "기술 면접관 · 일반 · 방금 전", status: "analyzing" },
-  { company: "네이버 (NAVER)", role: "백엔드 개발자", meta: "기술 면접관 · 일반 · 2026.07.10", score: "78", status: "complete" },
+  { id: "naver-backend-20260710", company: "네이버 (NAVER)", role: "백엔드 개발자", meta: "기술 면접관 · 일반 · 2026.07.10", score: "78", status: "complete" },
   { company: "카카오 (KAKAO)", role: "AI 엔지니어", meta: "HR 면접관 · 일반 · 2026.07.05", score: "72", status: "complete" },
   { company: "삼성전자 (SAMSUNG)", role: "소프트웨어 개발자", meta: "기술 면접관 · 압박 · 2026.06.28", score: "65", status: "complete" },
   { company: "LG전자 (LG)", role: "SW 개발자", meta: "HR 면접관 · 일반 · 2026.06.20", score: "61", status: "complete" },
@@ -29,7 +30,7 @@ export default function DashboardPage() {
   return <div className="min-h-screen bg-[#f6f4ee] text-[#1f2220]"><AppNav active="마이페이지" />
     <PageContainer as="main" size="standard" className="py-10">
       <header className="flex flex-wrap items-start justify-between gap-5"><div><h1 className="text-3xl font-bold tracking-[-.055em]">마이페이지</h1><p className="mt-2 text-sm text-ink-600">면접 기록과 성장 변화를 한눈에 확인하세요.</p></div><Link to="/onboarding" className="inline-flex items-center gap-2 rounded-xl bg-sunset-600 px-5 py-3 text-sm font-bold text-white"><Plus size={16}/>새 면접 시작</Link></header>
-      <div className="mt-6 inline-flex rounded-xl border border-line-300 bg-white p-1" role="tablist">{["요약", "면접 기록", "성장 분석"].map((item) => <button key={item} onClick={() => setTab(item)} className={tab === item ? "rounded-lg bg-moss-900 px-4 py-2.5 text-sm font-bold text-white" : "px-4 py-2.5 text-sm font-medium text-ink-600"}>{item}</button>)}</div>
+      <div className="mt-6 inline-flex rounded-xl border border-line-300 bg-white p-1" role="tablist">{["요약", "면접 기록", "성장 흐름"].map((item) => <button key={item} type="button" role="tab" aria-selected={tab === item} onClick={() => setTab(item)} className={tab === item ? "rounded-lg bg-moss-900 px-4 py-2.5 text-sm font-bold text-white" : "px-4 py-2.5 text-sm font-medium text-ink-600"}>{item}</button>)}</div>
       {tab === "요약" ? <Summary onViewRecords={() => setTab("면접 기록")} /> : tab === "면접 기록" ? <InterviewList /> : <Growth />}
     </PageContainer>
   </div>;
@@ -37,7 +38,7 @@ export default function DashboardPage() {
 
 function Summary({ onViewRecords }: { onViewRecords: () => void }) { return <div className="mt-7 grid gap-5 lg:grid-cols-[1.65fr_1fr]"><div className="space-y-5"><LatestResult/><Growth compact/><Practice/></div><aside className="space-y-5"><div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1"><Tip title="가장 개선된 항목" icon={<TrendingUp size={17}/>} tint="bg-[#edf6f0] border-[#c9dfd0]" value="답변 내용 +8점" note="이전 대비"/><Tip title="우선 개선할 항목" icon={<Eye size={17}/>} tint="bg-[#fff0e7] border-[#f6c6aa]" value="시선 유지" note="집중 연습이 필요해요"/></div><InterviewList onViewRecords={onViewRecords}/></aside></div>; }
 
-function LatestResult() { return <section className="rounded-2xl border border-line-300 bg-white p-6"><h2 className="text-sm font-bold">최근 면접 결과</h2><div className="mt-6 grid items-center gap-5 sm:grid-cols-[1.3fr_.55fr_.8fr_.9fr]"><div className="min-w-0"><b className="block truncate text-sm">네이버 (NAVER)</b><p className="mt-1 text-xs text-ink-600">백엔드 개발자</p><p className="truncate text-xs text-ink-400">기술 면접관 · 일반 · 2026.07.10</p></div><div className="text-center"><p className="text-xs text-ink-600">종합 점수</p><strong className="text-5xl leading-none text-moss-900">78<small className="text-base">점</small></strong><p className="mt-2 text-xs font-bold text-moss-700">▲ 6점</p><p className="text-[10px] text-ink-400">이전 면접(72점) 대비</p></div><p className="rounded-xl bg-[#f7f6f1] p-4 text-sm leading-6">논리적인 답변 구조는 좋았지만, 카메라 시선 유지와 결론 전달이 부족했어요.</p><div className="grid gap-2"><Link to="/report" className="rounded-xl border border-line-300 px-4 py-3 text-center text-sm font-bold">리포트 보기</Link><Link to="/onboarding" className="rounded-xl bg-moss-900 px-4 py-3 text-center text-sm font-bold text-white">같은 조건으로 다시 면접</Link></div></div></section>; }
+function LatestResult() { return <section className="rounded-2xl border border-line-300 bg-white p-6"><h2 className="text-sm font-bold">최근 면접 결과</h2><div className="mt-6 grid items-center gap-5 sm:grid-cols-[1.3fr_.55fr_.8fr_.9fr]"><div className="min-w-0"><b className="block truncate text-sm">네이버 (NAVER)</b><p className="mt-1 text-xs text-ink-600">백엔드 개발자</p><p className="truncate text-xs text-ink-400">기술 면접관 · 일반 · 2026.07.10</p></div><div className="text-center"><p className="text-xs text-ink-600">관찰 점수</p><strong className="text-5xl leading-none text-moss-900">78<small className="text-base">점</small></strong><p className="mt-2 text-xs font-bold text-moss-700">▲ 6점</p><p className="text-[10px] text-ink-400">이전 면접(72점) 대비</p></div><p className="rounded-xl bg-[#f7f6f1] p-4 text-sm leading-6">답변 구조는 좋았지만, 카메라 시선 유지와 결론 전달을 다음 성장 과제로 정했습니다.</p><div className="grid gap-2"><Link to="/records/naver-backend-20260710" className="rounded-xl border border-line-300 px-4 py-3 text-center text-sm font-bold">기록 상세 보기</Link><Link to="/onboarding" className="rounded-xl bg-moss-900 px-4 py-3 text-center text-sm font-bold text-white">이 성장 과제로 재연습</Link></div></div></section>; }
 
 function Tip({title, icon, tint, value, note}:{title:string;icon:ReactNode;tint:string;value:string;note:string}) { return <section className={`rounded-2xl border p-4 ${tint}`}><div className="flex justify-between text-sm font-bold"><span>{title}</span>{icon}</div><div className="mt-4 flex items-center gap-3"><span className="grid size-9 place-items-center rounded-full bg-white">{icon}</span><div><b className="text-sm">{value}</b><p className="text-xs text-ink-600">{note}</p></div></div></section>; }
 
@@ -64,7 +65,7 @@ function InterviewList({ onViewRecords }: { onViewRecords?: () => void }) {
               ? <div className="shrink-0 text-right"><p className="text-xs font-bold text-moss-700">분석 중</p><p className="mt-1 max-w-20 text-[10px] leading-4 text-ink-400">리포트를 생성하고 있어요</p></div>
               : <strong className="shrink-0 text-xl">{interview.score}<small className="text-xs font-medium">점</small></strong>}
             <div className="grid shrink-0 gap-1 sm:ml-auto">
-              {interview.status === "complete" && <Link to="/report" className="rounded-lg border border-line-300 px-2 py-1 text-center text-xs font-bold">리포트 보기</Link>}
+              {interview.status === "complete" && (interview.id ? <Link to={`/records/${interview.id}`} className="rounded-lg border border-line-300 px-2 py-1 text-center text-xs font-bold">기록 상세 보기</Link> : <Link to="/report" className="rounded-lg border border-line-300 px-2 py-1 text-center text-xs font-bold">샘플 리포트</Link>)}
               <Link to="/onboarding" className="rounded-lg border border-line-300 px-2 py-1 text-center text-xs font-bold">다시 면접</Link>
             </div>
           </article>

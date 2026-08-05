@@ -1,38 +1,36 @@
 # FaceFit 제품 산출문서
 
-> 기준일: 2026-07-20  
-> 문서 상태: 실시간 아바타 면접 MVP 기준안
+> 기준일: 2026-07-31
+> 원칙: PM 포트폴리오와 실제 개발 협업에 필요한 산출물을 보존하고 역할별로 분류한다.
 
-이 폴더는 FaceFit의 제품 범위, 목표, 기술 구조, 실행 순서를 한곳에서 관리한다. 화면설계서와 서비스 소개 자료를 기준으로 정리했으며, React+Vite 프론트엔드, OpenAvatarChat + MuseTalk 기반 실시간 면접관 구현 계획을 연결한다.
+## 단일 기준 문서
 
-## 공식 개발 착수 전 산출물
+| 영역 | 기준 문서 |
+| --- | --- |
+| 제품 범위 | [PRD](PRD.md), [서비스 기획서](01_FaceFit_서비스기획서.md) |
+| 사용자·경험 | [페르소나](02_FaceFit_사용자정의_페르소나.md), [여정](03_FaceFit_사용자여정지도.md), [IA](04_FaceFit_IA_사이트맵.md), [플로우](05_FaceFit_유저플로우.md) |
+| 구현 요구 | [요구사항](06_FaceFit_요구사항정의서.md), [기능](07_FaceFit_기능정의서.md), [화면](08_FaceFit_화면정의서.md), [상태](09_FaceFit_상태_예외정의서.md), [정책](10_FaceFit_정책_비즈니스룰.md) |
+| 기술 계약 | [데이터](11_FaceFit_데이터요구사항.md), [연동](12_FaceFit_연동요구사항_초안.md), [비기능](13_FaceFit_비기능요구사항.md), [API v0.3.6](FaceFit_백엔드_API_명세서_v0.3.md) |
+| 캐릭터·미디어 | [MuseTalk 아키텍처](REALTIME_AVATAR_ARCHITECTURE.md), [미디어 구현 계획](INTERVIEW_MEDIA_IMPLEMENTATION_PLAN.md) |
+| 측정·검증 | [이벤트·KPI](14_FaceFit_이벤트_KPI정의서.md), [QA](15_FaceFit_QA_수용기준.md), [추적표](16_FaceFit_요구사항추적표.md) |
+| 실행·통제 | [백로그](17_FaceFit_MVP_백로그.md), [리스크·결정](18_FaceFit_리스크_의사결정기록.md), [MVP 로드맵](MVP_ROADMAP.md), [OKR](OKR.md) |
+| 포트폴리오 | [PM 케이스 스터디](19_FaceFit_PM_포트폴리오_케이스스터디.md), [감사보고서](00_산출물_감사보고서.md), [검증보고서](99_산출물_검증보고서.md) |
 
-전체 00~20 문서, 역할별 읽는 순서, 미확정 항목과 업데이트 방법은 [FaceFit 기획 산출물 인덱스](README_FaceFit_기획산출물.md)를 기준으로 한다. 최종 정합성은 [산출물 검증보고서](99_산출물_검증보고서.md)에서 확인한다.
+## 역할별 필수 전달
 
-## 기존 제품·기술 참고 문서
+| 대상 | 필수 문서 |
+| --- | --- |
+| PM·이해관계자 | PRD, 01~06, 14, 17~19, OKR, 로드맵 |
+| 프론트엔드 | 04~10, API, 미디어 구현 계획, QA, 추적표 |
+| 백엔드·AI | 06~13, API, MuseTalk 아키텍처, QA, 추적표 |
+| UX·디자인 | 01~05, 08~10, 13 |
+| QA | 05~10, 12~16, API, 리스크·결정 |
+| 포트폴리오 검토자 | 01, 02~05 중 대표 자료, 18, 19, 검증보고서 |
 
-| 문서 | 용도 | 주요 독자 |
-| --- | --- | --- |
-| [PRD](./PRD.md) | 사용자 문제, 제품 범위, 기능·비기능 요구사항, 수용 기준 | 전 팀 |
-| [OKR](./OKR.md) | MVP 검증 목표와 정량 결과 지표 | PM, 리드 |
-| [실시간 아바타 아키텍처](./REALTIME_AVATAR_ARCHITECTURE.md) | OpenAvatarChat + MuseTalk 통합 구조, 지연 예산, 배포·장애 대응 | BE, AI, FE |
-| [MVP 로드맵](./MVP_ROADMAP.md) | 단계별 구현 순서, 우선순위, 완료 조건, 리스크 | 전 팀 |
-| [요구사항 추적표](./REQUIREMENTS_TRACEABILITY.md) | 화면·요구사항·구현 상태의 연결 | PM, QA, 개발 |
+## 운영 원칙
 
-## 문서 운영 원칙
-
-- PRD가 제품 범위의 기준 문서이며, 다른 문서와 충돌할 때 PRD의 최신 결정 기록을 따른다.
-- 목표 수치는 현재 실측값이 아니라 MVP 검증을 위한 목표값이다. 최초 부하·사용성 테스트 후 기준선을 갱신한다.
-- 채용 합격 여부를 판정하는 서비스가 아니라, 지원자가 스스로 개선하는 연습·코칭 서비스로 한정한다.
-- 감정 추정값은 진단이나 점수에 사용하지 않는다. 리포트는 관측 가능한 행동과 답변 근거를 우선한다.
-- 음성·영상·얼굴 랜드마크는 민감정보로 취급하며 최소 수집, 명시적 동의, 보존기간 분리 원칙을 적용한다.
-
-## 기준 자료
-
-- `FACE-FIT_ 설명 가능한 AI 면접 코칭 서비스.pdf`
-- `FaceFit_UIUX_멘토링_화면설계서.pdf`
-- `uiux멘토링화면설계서.html`
-- 현재 저장소의 React+Vite 화면·컴포넌트와 전환 완료 기준
-- [OpenAvatarChat 공식 저장소](https://github.com/HumanAIGC-Engineering/OpenAvatarChat)
-- [OpenAvatarChat MuseTalk 빠른 시작](https://humanaigc-engineering.github.io/OpenAvatarChat/getting-started/musetalk.html)
-- [MuseTalk 공식 저장소](https://github.com/TMElyralab/MuseTalk)
+- 문서를 삭제해 중복을 해결하지 않는다. 단일 기준 문서와 보조 문서를 명시한다.
+- Method·URI·DTO는 API v0.3.6, 제품 범위는 PRD, 구현 우선순위는 17을 우선한다.
+- 변경 시 요구사항·화면·API·QA·추적표·결정 기록을 함께 갱신한다.
+- 현재 캐릭터 구조는 OpenAvatarChat·RTC가 아닌 질문 단위 MuseTalk MP4와 정적 폴백이다.
+- 화면 존재만으로 완료 처리하지 않는다. API 연동과 P0 QA 통과가 완료 기준이다.

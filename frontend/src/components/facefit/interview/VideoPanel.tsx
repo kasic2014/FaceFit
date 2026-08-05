@@ -1,6 +1,7 @@
 import { RotateCcw } from "lucide-react";
+import { MediaPreview } from "@/components/facefit/interview/MediaPreview";
 
-export function VideoPanel() {
+export function VideoPanel({ stream }: { stream: MediaStream | null }) {
   return (
     <div className="relative min-h-0 min-w-0 overflow-hidden rounded-2xl bg-[#1c2b26] md:col-span-6 md:min-h-[240px] lg:col-span-8 lg:min-h-0">
       <img
@@ -11,6 +12,10 @@ export function VideoPanel() {
         fetchPriority="high"
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-transparent via-30% to-black/20" />
+
+      <div className="absolute right-5 top-5 z-10 aspect-video w-32 overflow-hidden rounded-xl border border-white/20 bg-[#1c2b26] shadow-lg">
+        <MediaPreview stream={stream} label="내 카메라 미리보기" />
+      </div>
 
       <div className="pointer-events-none absolute top-5 left-5 flex items-center gap-3 animate-[fade-up-sm_0.45s_cubic-bezier(0.16,1,0.3,1)_both]" style={{ animationDelay: "0ms" }}>
         <span className="grid size-11 shrink-0 place-items-center rounded-full bg-black/40 text-xs font-bold text-white">AI</span>

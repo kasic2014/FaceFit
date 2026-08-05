@@ -1,0 +1,1597 @@
+openapi: 3.1.0
+info:
+  title: FaceFit API - Phase 1
+  version: 0.3.6
+  description: Authentication and account-onboarding contract extracted from FaceFit API specification v0.3.6.
+servers:
+  - url: '{apiBaseUrl}'
+    variables:
+      apiBaseUrl:
+        default: http://localhost:8080
+paths:
+  /oauth2/authorization/{provider}:
+    get:
+      operationId: startOAuth
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema: { type: string, enum: [google, kakao, naver] }
+      responses:
+        '302': { description: Redirect to OAuth provider }
+  /login/oauth2/code/{provider}:
+    get:
+      operationId: completeOAuthCallback
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema: { type: string, enum: [google, kakao, naver] }
+        - name: code
+          in: query
+          required: true
+          schema: { type: string }
+        - name: state
+          in: query
+          required: false
+          schema: { type: string }
+      responses:
+        '303': { description: Redirect to frontend callback with a one-time login ticket }
+  /api/v1/auth/oauth/exchange:
+    post:
+      operationId: exchangeOAuthLoginTicket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [loginTicket]
+              additionalProperties: false
+              properties:
+                loginTicket: { type: string }
+      responses:
+        '200': { $ref: '#/components/responses/AuthSuccess' }
+        '400': { $ref: '#/components/responses/ApiError' }
+  /api/v1/auth/token/refresh:
+    post:
+      operationId: refreshAuthSession
+      responses:
+        '200': { $ref: '#/components/responses/AuthSuccess' }
+        '401': { $ref: '#/components/responses/ApiError' }
+  /api/v1/auth/logout:
+    post:
+      operationId: logout
+      security: [{ bearerAuth: [] }]
+      responses:
+        '204': { description: Refresh cookie expired }
+  /api/v1/auth/session:
+    get:
+      operationId: getAuthSession
+      responses:
+        '200': { $ref: '#/components/responses/AuthSuccess' }
+  /api/v1/legal-documents:
+    get:
+      operationId: listLegalDocuments
+      parameters:
+        - name: type
+          in: query
+          schema: { $ref: '#/components/schemas/LegalDocumentType' }
+      responses:
+        '200':
+          description: Active legal documents
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LegalDocumentListEnvelope' }
+  /api/v1/legal-documents/{documentId}:
+    get:
+      operationId: getLegalDocument
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200':
+          description: Legal document detail
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LegalDocumentDetailEnvelope' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /api/v1/members/me/onboarding:
+    patch:
+      operationId: completeAccountOnboarding
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [legalActions, voiceAnalysisConsent]
+              additionalProperties: false
+              properties:
+                voiceAnalysisConsent: { type: boolean }
+                legalActions:
+                  type: array
+                  items:
+                    type: object
+                    required: [documentId, actionType]
+                    additionalProperties: false
+                    properties:
+                      documentId: { $ref: '#/components/schemas/Uuid' }
+                      actionType: { $ref: '#/components/schemas/LegalActionType' }
+      responses:
+        '200':
+          description: Onboarding complete
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/OnboardingCompletionEnvelope' }
+        '400': { $ref: '#/components/responses/ApiError' }
+        '401': { $ref: '#/components/responses/ApiError' }
+  /api/v1/career-documents:
+    get:
+      operationId: listCareerDocuments
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: documentType
+          in: query
+          schema: { type: string, enum: [RESUME, COVER_LETTER] }
+        - name: status
+          in: query
+          schema: { $ref: '#/components/schemas/ProcessingStatus' }
+        - { $ref: '#/components/parameters/Page' }
+        - { $ref: '#/components/parameters/Size' }
+      responses:
+        '200': { $ref: '#/components/responses/CareerDocumentPageSuccess' }
+    post:
+      operationId: createCareerDocument
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file, documentType]
+              properties:
+                file: { type: string, format: binary }
+                documentType: { const: RESUME }
+      responses:
+        '202': { $ref: '#/components/responses/CareerDocumentSuccess' }
+  /api/v1/career-documents/{documentId}:
+    get:
+      operationId: getCareerDocument
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/CareerDocumentSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+    delete:
+      operationId: deleteCareerDocument
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '204': { description: Career document deleted }
+        '404': { $ref: '#/components/responses/ApiError' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/career-documents/{documentId}/analysis:
+    get:
+      operationId: getCareerDocumentAnalysis
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/ResumeInterviewProfileSummarySuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /api/v1/job-postings:
+    get:
+      operationId: listJobPostings
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: processingStatus
+          in: query
+          schema: { $ref: '#/components/schemas/ProcessingStatus' }
+        - { $ref: '#/components/parameters/Page' }
+        - { $ref: '#/components/parameters/Size' }
+      responses:
+        '200': { $ref: '#/components/responses/JobPostingPageSuccess' }
+    post:
+      operationId: createJobPosting
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [inputType, targetJobRole, file]
+              properties:
+                inputType: { const: FILE }
+                targetJobRole: { $ref: '#/components/schemas/AiJobRole' }
+                file: { type: string, format: binary }
+      responses:
+        '202': { $ref: '#/components/responses/JobPostingSuccess' }
+  /api/v1/job-postings/{jobPostingId}:
+    get:
+      operationId: getJobPosting
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: jobPostingId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/JobPostingSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+    patch:
+      operationId: updateJobPosting
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: jobPostingId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/JobPostingUpdate' }
+      responses:
+        '200': { $ref: '#/components/responses/JobPostingSuccess' }
+        '400': { $ref: '#/components/responses/ApiError' }
+        '409': { $ref: '#/components/responses/ApiError' }
+    delete:
+      operationId: deleteJobPosting
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: jobPostingId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '204': { description: Job posting deleted }
+        '404': { $ref: '#/components/responses/ApiError' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions:
+    post:
+      operationId: createInterviewSession
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [resumeDocumentId, coverLetterDocumentId, jobPostingId, persona, difficulty]
+              additionalProperties: false
+              properties:
+                resumeDocumentId: { $ref: '#/components/schemas/Uuid' }
+                coverLetterDocumentId: { type: [string, 'null'], format: uuid }
+                jobPostingId: { $ref: '#/components/schemas/Uuid' }
+                persona: { $ref: '#/components/schemas/Persona' }
+                difficulty: { $ref: '#/components/schemas/Difficulty' }
+      responses:
+        '201': { $ref: '#/components/responses/InterviewSessionSuccess' }
+        '400': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}:
+    get:
+      operationId: getInterviewSession
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/InterviewSessionSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+    patch:
+      operationId: updateInterviewSession
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/InterviewSessionUpdate' }
+      responses:
+        '200': { $ref: '#/components/responses/InterviewSessionSuccess' }
+        '400': { $ref: '#/components/responses/ApiError' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/start:
+    post:
+      operationId: startInterviewSession
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '202': { $ref: '#/components/responses/InterviewSessionSuccess' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/completion:
+    post:
+      operationId: completeInterviewSession
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [completionType]
+              additionalProperties: false
+              properties:
+                completionType: { type: string, enum: [NORMAL, USER_INTERRUPTED] }
+      responses:
+        '200': { $ref: '#/components/responses/InterviewSessionSuccess' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/questions/current:
+    get:
+      operationId: getCurrentQuestion
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/CurrentQuestionSuccess' }
+        '202': { $ref: '#/components/responses/CurrentQuestionSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/questions/{questionId}/character-media-access:
+    post:
+      operationId: createQuestionCharacterMediaAccess
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+        - name: questionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/PlaybackAccessSuccess' }
+        '202': { $ref: '#/components/responses/ReportProcessingSuccess' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/answers:
+    post:
+      operationId: createInterviewAnswer
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [questionId, file, recordedDurationMs, endedBy]
+              properties:
+                questionId: { $ref: '#/components/schemas/Uuid' }
+                file: { type: string, format: binary }
+                recordedDurationMs: { type: integer, minimum: 1000, maximum: 300000 }
+                endedBy: { type: string, enum: [USER_BUTTON, SPACE_KEY, SILENCE_CONFIRMED] }
+      responses:
+        '202': { $ref: '#/components/responses/InterviewAnswerSuccess' }
+        '400': { $ref: '#/components/responses/ApiError' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-answers/{answerId}:
+    get:
+      operationId: getInterviewAnswer
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: answerId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/InterviewAnswerSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/analysis-status:
+    get:
+      operationId: getAnalysisStatus
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/AnalysisStatusSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/analysis-retry:
+    post:
+      operationId: retryAnalysis
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [failedStepsOnly]
+              additionalProperties: false
+              properties:
+                failedStepsOnly: { const: true }
+      responses:
+        '202': { $ref: '#/components/responses/AnalysisStatusSuccess' }
+        '400': { $ref: '#/components/responses/ApiError' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/report:
+    get:
+      operationId: getInterviewReport
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/ReportDataSuccess' }
+        '202': { $ref: '#/components/responses/ReportProcessingSuccess' }
+        '409': { $ref: '#/components/responses/ApiError' }
+        '503': { $ref: '#/components/responses/ApiError' }
+  /api/v1/reports/{reportId}/question-feedback/{feedbackId}/improved-answer-audio:
+    get:
+      operationId: getImprovedAnswerAudio
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: reportId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+        - name: feedbackId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+        - name: voiceType
+          in: query
+          required: true
+          schema: { type: string, enum: [STANDARD, PERSONAL] }
+      responses:
+        '200':
+          description: Improved answer audio stream
+          content:
+            audio/mpeg:
+              schema: { type: string, format: binary }
+        '202': { $ref: '#/components/responses/ReportProcessingSuccess' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/members/me/interview-sessions:
+    get:
+      operationId: listInterviewHistory
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema: { type: string, enum: [DRAFT, IN_PROGRESS, INTERVIEW_COMPLETED, ANALYZING, COMPLETED, INTERRUPTED] }
+        - name: page
+          in: query
+          required: false
+          schema: { type: integer, minimum: 0, default: 0 }
+        - name: size
+          in: query
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+      responses:
+        '200': { $ref: '#/components/responses/InterviewHistorySuccess' }
+  /api/v1/members/me/growth:
+    get:
+      operationId: getGrowth
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 100, default: 5 }
+        - name: from
+          in: query
+          required: false
+          schema: { type: string, format: date-time }
+        - name: to
+          in: query
+          required: false
+          schema: { type: string, format: date-time }
+      responses:
+        '200': { $ref: '#/components/responses/GrowthSuccess' }
+  /api/v1/legal-consents:
+    get:
+      operationId: listLegalConsents
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema: { type: string, enum: [ACTIVE, REVOKED], default: ACTIVE }
+        - name: type
+          in: query
+          required: false
+          schema: { $ref: '#/components/schemas/LegalDocumentType' }
+        - name: sessionId
+          in: query
+          required: false
+          schema: { type: string, format: uuid }
+        - name: page
+          in: query
+          required: false
+          schema: { type: integer, minimum: 0, default: 0 }
+        - name: size
+          in: query
+          required: false
+          schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+      responses:
+        '200': { $ref: '#/components/responses/LegalConsentPageSuccess' }
+    post:
+      operationId: createLegalConsent
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [documentId, actionType]
+              additionalProperties: false
+              properties:
+                documentId: { $ref: '#/components/schemas/Uuid' }
+                actionType: { $ref: '#/components/schemas/LegalActionType' }
+                context:
+                  type: object
+                  required: [sessionId]
+                  additionalProperties: false
+                  properties:
+                    sessionId: { type: [string, 'null'], format: uuid }
+      responses:
+        '200': { $ref: '#/components/responses/LegalConsentSuccess' }
+        '201': { $ref: '#/components/responses/LegalConsentSuccess' }
+        '400': { $ref: '#/components/responses/ApiError' }
+  /api/v1/legal-consents/{consentRecordId}:
+    delete:
+      operationId: revokeLegalConsent
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: consentRecordId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '202': { $ref: '#/components/responses/LegalConsentRevocationSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/media:
+    delete:
+      operationId: deleteInterviewMedia
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [scope]
+              additionalProperties: false
+              properties:
+                scope: { const: ORIGINAL_MEDIA }
+      responses:
+        '202': { $ref: '#/components/responses/MediaDeletionSuccess' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/media-deletion:
+    get:
+      operationId: getInterviewMediaDeletion
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/MediaDeletionSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-sessions/{sessionId}/clone:
+    post:
+      operationId: cloneInterviewSession
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                growthTaskId: { type: [string, 'null'], format: uuid }
+      responses:
+        '201': { $ref: '#/components/responses/InterviewSessionSuccess' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/interview-answers/{answerId}/media-access:
+    post:
+      operationId: createAnswerMediaAccess
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: answerId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [startMs, endMs]
+              additionalProperties: false
+              properties:
+                startMs: { type: integer, minimum: 0 }
+                endMs: { type: integer, minimum: 1 }
+      responses:
+        '200': { $ref: '#/components/responses/PlaybackAccessSuccess' }
+        '400': { $ref: '#/components/responses/ApiError' }
+        '401': { $ref: '#/components/responses/ApiError' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /api/v1/members/me:
+    get:
+      operationId: getMyMember
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { $ref: '#/components/responses/MemberSummarySuccess' }
+    delete:
+      operationId: deleteMember
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [confirmation]
+              additionalProperties: false
+              properties:
+                confirmation: { const: DELETE_MY_ACCOUNT }
+      responses:
+        '202': { $ref: '#/components/responses/MemberDeletionSuccess' }
+  /api/v1/members/me/deletion:
+    get:
+      operationId: getMemberDeletion
+      parameters:
+        - name: Deletion-Status-Token
+          in: header
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { $ref: '#/components/responses/MemberDeletionSuccess' }
+        '401': { $ref: '#/components/responses/ApiError' }
+  /api/v1/voice-profiles:
+    post:
+      operationId: createVoiceProfile
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [consentLegalRecordId, file]
+              properties:
+                consentLegalRecordId: { $ref: '#/components/schemas/Uuid' }
+                file: { type: string, format: binary }
+      responses:
+        '202': { $ref: '#/components/responses/VoiceProfileSuccess' }
+        '400': { $ref: '#/components/responses/ApiError' }
+        '409': { $ref: '#/components/responses/ApiError' }
+  /api/v1/voice-profiles/me:
+    get:
+      operationId: getMyVoiceProfile
+      security: [{ bearerAuth: [] }]
+      responses:
+        '200': { $ref: '#/components/responses/VoiceProfileSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+    delete:
+      operationId: deleteMyVoiceProfile
+      security: [{ bearerAuth: [] }]
+      responses:
+        '202': { $ref: '#/components/responses/VoiceProfileSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /api/v1/client-events:
+    post:
+      operationId: createClientEvents
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/ClientEvent'
+                - type: array
+                  minItems: 1
+                  maxItems: 20
+                  items: { $ref: '#/components/schemas/ClientEvent' }
+      responses:
+        '202': { description: Events accepted }
+  /api/v1/interview-sessions/{sessionId}/question-context:
+    get:
+      operationId: getQuestionContext
+      security: [{ bearerAuth: [] }]
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { $ref: '#/components/schemas/Uuid' }
+      responses:
+        '200': { $ref: '#/components/responses/QuestionContextSuccess' }
+        '404': { $ref: '#/components/responses/ApiError' }
+  /media/v1/playback/{playbackToken}:
+    get:
+      operationId: streamPlaybackMedia
+      parameters:
+        - name: playbackToken
+          in: path
+          required: true
+          schema: { type: string, minLength: 1 }
+        - name: Range
+          in: header
+          required: false
+          schema: { type: string }
+      responses:
+        '200':
+          description: Full MP4 stream
+          content:
+            video/mp4:
+              schema: { type: string, format: binary }
+        '206':
+          description: Partial MP4 stream
+          headers:
+            Content-Range: { schema: { type: string } }
+            Accept-Ranges: { schema: { const: bytes } }
+          content:
+            video/mp4:
+              schema: { type: string, format: binary }
+        '401': { description: Expired or invalid playback token }
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer, bearerFormat: JWT }
+  responses:
+    AuthSuccess:
+      description: Auth session
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/AuthEnvelope' }
+    ApiError:
+      description: API error
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+    CareerDocumentSuccess:
+      description: Career document
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/CareerDocumentEnvelope' }
+    JobPostingSuccess:
+      description: Job posting
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/JobPostingEnvelope' }
+    InterviewSessionSuccess:
+      description: Interview session
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/InterviewSessionEnvelope' }
+    AnalysisStatusSuccess:
+      description: Analysis status
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/AnalysisStatusEnvelope' }
+    ReportDataSuccess:
+      description: Completed interview report
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ReportDataEnvelope' }
+    ReportProcessingSuccess:
+      description: Report is being generated
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ReportProcessingEnvelope' }
+    InterviewHistorySuccess:
+      description: Interview history page
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/InterviewHistoryPageEnvelope' }
+    GrowthSuccess:
+      description: Interview growth data
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/GrowthDataEnvelope' }
+    LegalConsentSuccess:
+      description: Legal consent record
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/LegalConsentEnvelope' }
+    LegalConsentPageSuccess:
+      description: Legal consent record page
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/LegalConsentPageEnvelope' }
+    LegalConsentRevocationSuccess:
+      description: Legal consent revocation
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/LegalConsentRevocationEnvelope' }
+    MediaDeletionSuccess:
+      description: Interview media deletion
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/MediaDeletionEnvelope' }
+    MemberDeletionSuccess:
+      description: Member deletion status
+      headers:
+        Deletion-Status-Token:
+          required: false
+          schema: { type: string }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/MemberDeletionEnvelope' }
+    VoiceProfileSuccess:
+      description: Voice profile status
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/VoiceProfileEnvelope' }
+    PlaybackAccessSuccess:
+      description: Opaque media playback access
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/PlaybackAccessEnvelope' }
+    CurrentQuestionSuccess:
+      description: Current question or question generation state
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/CurrentQuestionEnvelope' }
+    InterviewAnswerSuccess:
+      description: Interview answer status
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/InterviewAnswerEnvelope' }
+    QuestionContextSuccess:
+      description: Question generation evidence summaries
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/QuestionContextEnvelope' }
+    CareerDocumentPageSuccess:
+      description: Career document page
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/CareerDocumentPageEnvelope' }
+    ResumeInterviewProfileSummarySuccess:
+      description: Sanitized resume interview profile
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ResumeInterviewProfileSummaryEnvelope' }
+    JobPostingPageSuccess:
+      description: Job posting page
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/JobPostingPageEnvelope' }
+    MemberSummarySuccess:
+      description: Current member profile
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/MemberSummaryEnvelope' }
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema: { type: integer, minimum: 0, default: 0 }
+    Size:
+      name: size
+      in: query
+      required: false
+      schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+  schemas:
+    Uuid: { type: string, format: uuid }
+    IsoDateTime: { type: string, format: date-time }
+    MemberStatus: { type: string, enum: [ACTIVE, BLOCKED, WITHDRAWN] }
+    OnboardingStatus: { type: string, enum: [NOT_STARTED, IN_PROGRESS, COMPLETED] }
+    NextAction: { type: string, enum: [COMPLETE_ONBOARDING, GO_TO_SERVICE, RELOGIN] }
+    MemberSummary:
+      type: object
+      required: [memberId, name, email, profileImageUrl, memberStatus, onboardingStatus, createdAt]
+      additionalProperties: false
+      properties:
+        memberId: { $ref: '#/components/schemas/Uuid' }
+        name: { type: string }
+        email: { type: string, format: email }
+        profileImageUrl: { type: [string, 'null'], format: uri }
+        memberStatus: { $ref: '#/components/schemas/MemberStatus' }
+        onboardingStatus: { $ref: '#/components/schemas/OnboardingStatus' }
+        createdAt: { $ref: '#/components/schemas/IsoDateTime' }
+    AuthData:
+      type: object
+      required: [authenticated, accessToken, accessTokenExpiresInSec, member, nextAction]
+      additionalProperties: false
+      properties:
+        authenticated: { type: boolean }
+        accessToken: { type: [string, 'null'] }
+        accessTokenExpiresInSec: { type: [integer, 'null'], minimum: 1 }
+        member:
+          anyOf: [{ $ref: '#/components/schemas/MemberSummary' }, { type: 'null' }]
+        nextAction: { $ref: '#/components/schemas/NextAction' }
+    ApiEnvelopeBase:
+      type: object
+      required: [success, code, message, requestId, timestamp]
+      properties:
+        success: { type: boolean }
+        code: { type: string }
+        message: { type: string }
+        requestId: { type: string }
+        timestamp: { $ref: '#/components/schemas/IsoDateTime' }
+    AuthEnvelope:
+      allOf:
+        - { $ref: '#/components/schemas/ApiEnvelopeBase' }
+        - type: object
+          required: [data]
+          properties:
+            success: { const: true }
+            data: { $ref: '#/components/schemas/AuthData' }
+    LegalDocumentType: { type: string, enum: [TERMS_OF_SERVICE, PRIVACY_POLICY, INTERVIEW_MEDIA_PROCESSING, VOICE_CLONING] }
+    LegalActionType: { type: string, enum: [CONSENTED, ACKNOWLEDGED] }
+    LegalDocumentSummary:
+      type: object
+      required: [documentId, type, version, title, requiredForOnboarding, requiredAction, effectiveAt]
+      additionalProperties: false
+      properties:
+        documentId: { $ref: '#/components/schemas/Uuid' }
+        type: { $ref: '#/components/schemas/LegalDocumentType' }
+        version: { type: string }
+        title: { type: string }
+        requiredForOnboarding: { type: boolean }
+        requiredAction: { $ref: '#/components/schemas/LegalActionType' }
+        effectiveAt: { $ref: '#/components/schemas/IsoDateTime' }
+    LegalDocumentDetail:
+      allOf:
+        - { $ref: '#/components/schemas/LegalDocumentSummary' }
+        - type: object
+          required: [contentFormat, content]
+          properties:
+            contentFormat: { const: MARKDOWN }
+            content: { type: string }
+    LegalDocumentListEnvelope:
+      allOf:
+        - { $ref: '#/components/schemas/ApiEnvelopeBase' }
+        - type: object
+          required: [data]
+          properties:
+            success: { const: true }
+            data:
+              type: array
+              items: { $ref: '#/components/schemas/LegalDocumentSummary' }
+    LegalDocumentDetailEnvelope:
+      allOf:
+        - { $ref: '#/components/schemas/ApiEnvelopeBase' }
+        - type: object
+          required: [data]
+          properties:
+            success: { const: true }
+            data: { $ref: '#/components/schemas/LegalDocumentDetail' }
+    OnboardingCompletion:
+      type: object
+      required: [onboardingStatus, voiceAnalysisConsent, voiceAnalysisConsentedAt, nextAction]
+      additionalProperties: false
+      properties:
+        onboardingStatus: { const: COMPLETED }
+        voiceAnalysisConsent: { type: boolean }
+        voiceAnalysisConsentedAt: { type: [string, 'null'], format: date-time }
+        nextAction: { const: GO_TO_SERVICE }
+    OnboardingCompletionEnvelope:
+      allOf:
+        - { $ref: '#/components/schemas/ApiEnvelopeBase' }
+        - type: object
+          required: [data]
+          properties:
+            success: { const: true }
+            data: { $ref: '#/components/schemas/OnboardingCompletion' }
+    ErrorEnvelope:
+      allOf:
+        - { $ref: '#/components/schemas/ApiEnvelopeBase' }
+        - type: object
+          required: [data]
+          properties:
+            success: { const: false }
+            data:
+              type: object
+              required: [retryable, retryAfterSec]
+              properties:
+                retryable: { type: boolean }
+                retryAfterSec: { type: [integer, 'null'], minimum: 0 }
+                fieldErrors:
+                  type: array
+                  items:
+                    type: object
+                    required: [field, reason]
+                    properties:
+                      field: { type: string }
+                      reason: { type: string }
+                      rejectedValue: {}
+    ProcessingStatus: { type: string, enum: [PROCESSING, READY, FAILED] }
+    CareerDocument:
+      type: object
+      required: [documentId, documentType, originalFileName, sizeBytes, mimeType, status, failureCode, createdAt, updatedAt]
+      properties:
+        documentId: { $ref: '#/components/schemas/Uuid' }
+        documentType: { type: string, enum: [RESUME, COVER_LETTER] }
+        originalFileName: { type: string }
+        sizeBytes: { type: integer, minimum: 0 }
+        mimeType: { type: string }
+        status: { $ref: '#/components/schemas/ProcessingStatus' }
+        failureCode: { type: [string, 'null'] }
+        createdAt: { $ref: '#/components/schemas/IsoDateTime' }
+        updatedAt: { $ref: '#/components/schemas/IsoDateTime' }
+    CareerDocumentPage:
+      type: object
+      required: [items, page, size, totalElements, totalPages, hasNext]
+      additionalProperties: false
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/CareerDocument' } }
+        page: { type: integer, minimum: 0 }
+        size: { type: integer, minimum: 1 }
+        totalElements: { type: integer, minimum: 0 }
+        totalPages: { type: integer, minimum: 0 }
+        hasNext: { type: boolean }
+    ResumeInterviewProfileSummary:
+      type: object
+      required: [documentId, profileVersion, status, skills, experienceCount, projectCount, missingInformation, qualityFlags, analyzerVersion, analyzedAt]
+      additionalProperties: false
+      properties:
+        documentId: { $ref: '#/components/schemas/Uuid' }
+        profileVersion: { const: '1.0' }
+        status: { $ref: '#/components/schemas/ProcessingStatus' }
+        skills:
+          type: array
+          items:
+            type: object
+            required: [name, evidenceRefCount]
+            additionalProperties: false
+            properties:
+              name: { type: string }
+              evidenceRefCount: { type: integer, minimum: 0 }
+        experienceCount: { type: integer, minimum: 0 }
+        projectCount: { type: integer, minimum: 0 }
+        missingInformation: { type: array, items: { type: string } }
+        qualityFlags: { type: array, items: { type: string, enum: [LOW_TEXT_QUALITY, OCR_UNCERTAIN, AMBIGUOUS_DATE, NO_PROJECT_EVIDENCE] } }
+        analyzerVersion: { type: [string, 'null'] }
+        analyzedAt: { type: [string, 'null'], format: date-time }
+    AiJobRole: { type: string, enum: [AI_ENGINEER, ML_ENGINEER, DATA_SCIENTIST, DATA_ENGINEER, MLOPS_ENGINEER, LLM_ENGINEER, NLP_ENGINEER, COMPUTER_VISION_ENGINEER, AI_PRODUCT_MANAGER] }
+    JobPosting:
+      type: object
+      required: [jobPostingId, inputType, originalFileName, processingStatus, companyName, targetJobRole, mainResponsibilities, qualifications, preferredQualifications, technologiesTools, coreCompetencies, companyBusinessIntro, failureCode, createdAt, updatedAt]
+      properties:
+        jobPostingId: { $ref: '#/components/schemas/Uuid' }
+        inputType: { const: FILE }
+        originalFileName: { type: [string, 'null'] }
+        processingStatus: { $ref: '#/components/schemas/ProcessingStatus' }
+        companyName: { type: [string, 'null'] }
+        targetJobRole: { anyOf: [{ $ref: '#/components/schemas/AiJobRole' }, { type: 'null' }] }
+        mainResponsibilities: { type: [array, 'null'], items: { type: string } }
+        qualifications: { type: [array, 'null'], items: { type: string } }
+        preferredQualifications: { type: [array, 'null'], items: { type: string } }
+        technologiesTools: { type: [array, 'null'], items: { type: string } }
+        coreCompetencies: { type: [array, 'null'], items: { type: string } }
+        companyBusinessIntro: { type: [string, 'null'] }
+        failureCode: { type: [string, 'null'] }
+        createdAt: { $ref: '#/components/schemas/IsoDateTime' }
+        updatedAt: { $ref: '#/components/schemas/IsoDateTime' }
+    JobPostingUpdate:
+      type: object
+      minProperties: 1
+      additionalProperties: false
+      properties:
+        companyName: { type: string, minLength: 1 }
+        targetJobRole: { $ref: '#/components/schemas/AiJobRole' }
+        mainResponsibilities: { type: array, minItems: 1, items: { type: string, minLength: 1 } }
+        qualifications: { type: array, minItems: 1, items: { type: string, minLength: 1 } }
+        preferredQualifications: { type: array, items: { type: string, minLength: 1 } }
+        technologiesTools: { type: array, items: { type: string, minLength: 1 } }
+        coreCompetencies: { type: array, items: { type: string, minLength: 1 } }
+        companyBusinessIntro: { type: string }
+    JobPostingPage:
+      type: object
+      required: [items, page, size, totalElements, totalPages, hasNext]
+      additionalProperties: false
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/JobPosting' } }
+        page: { type: integer, minimum: 0 }
+        size: { type: integer, minimum: 1 }
+        totalElements: { type: integer, minimum: 0 }
+        totalPages: { type: integer, minimum: 0 }
+        hasNext: { type: boolean }
+    Persona: { type: string, enum: [TECHNICAL, HR, EXECUTIVE] }
+    Difficulty: { type: string, enum: [GENERAL, PRESSURE] }
+    InterviewSession:
+      type: object
+      required: [sessionId, status, resumeDocumentId, coverLetterDocumentId, jobPostingId, persona, difficulty, baseQuestionCount, generatedFollowUpCount, followUpFailureCount, completedFollowUpDecisionCount, knownTurnCount, finalTurnCount, answeredTurnCount, currentTurnOrder, questionGenerationStatus, characterMode, createdAt, startedAt, completedAt, interruptedAt]
+      properties:
+        sessionId: { $ref: '#/components/schemas/Uuid' }
+        status: { type: string, enum: [DRAFT, IN_PROGRESS, INTERVIEW_COMPLETED, ANALYZING, COMPLETED, INTERRUPTED] }
+        resumeDocumentId: { $ref: '#/components/schemas/Uuid' }
+        coverLetterDocumentId: { type: [string, 'null'], format: uuid }
+        jobPostingId: { $ref: '#/components/schemas/Uuid' }
+        persona: { $ref: '#/components/schemas/Persona' }
+        difficulty: { $ref: '#/components/schemas/Difficulty' }
+        baseQuestionCount: { const: 5 }
+        generatedFollowUpCount: { type: integer, minimum: 0 }
+        followUpFailureCount: { type: integer, minimum: 0 }
+        completedFollowUpDecisionCount: { type: integer, minimum: 0 }
+        knownTurnCount: { type: integer, minimum: 0 }
+        finalTurnCount: { type: [integer, 'null'], minimum: 5, maximum: 10 }
+        answeredTurnCount: { type: integer, minimum: 0 }
+        currentTurnOrder: { type: [integer, 'null'], minimum: 1 }
+        questionGenerationStatus: { type: string, enum: [NOT_STARTED, QUEUED, PROCESSING, SUCCEEDED, FAILED] }
+        characterMode: { const: MUSETALK_CLIP }
+        createdAt: { $ref: '#/components/schemas/IsoDateTime' }
+        startedAt: { type: [string, 'null'], format: date-time }
+        completedAt: { type: [string, 'null'], format: date-time }
+        interruptedAt: { type: [string, 'null'], format: date-time }
+    InterviewSessionUpdate:
+      type: object
+      minProperties: 1
+      additionalProperties: false
+      properties:
+        resumeDocumentId: { $ref: '#/components/schemas/Uuid' }
+        coverLetterDocumentId: { type: [string, 'null'], format: uuid }
+        jobPostingId: { $ref: '#/components/schemas/Uuid' }
+        persona: { $ref: '#/components/schemas/Persona' }
+        difficulty: { $ref: '#/components/schemas/Difficulty' }
+    CareerDocumentEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/CareerDocument' } } }]
+    CareerDocumentPageEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/CareerDocumentPage' } } }]
+    ResumeInterviewProfileSummaryEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/ResumeInterviewProfileSummary' } } }]
+    JobPostingEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/JobPosting' } } }]
+    JobPostingPageEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/JobPostingPage' } } }]
+    InterviewSessionEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/InterviewSession' } } }]
+    MemberSummaryEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/MemberSummary' } } }]
+    AnalysisStageCount:
+      type: object
+      required: [total, queued, processing, succeeded, failed]
+      additionalProperties: false
+      properties:
+        total: { type: integer, minimum: 0 }
+        queued: { type: integer, minimum: 0 }
+        processing: { type: integer, minimum: 0 }
+        succeeded: { type: integer, minimum: 0 }
+        failed: { type: integer, minimum: 0 }
+    AnalysisStatus:
+      type: object
+      required: [sessionId, sessionStatus, analysisStatus, totalAnswerCount, completedAnswerCount, failedAnswerCount, totalRequiredTaskCount, succeededRequiredTaskCount, progressPercent, currentUiStage, stages, reportStatus, failureCode, retryable, retryCount, retryAfterSec, updatedAt]
+      additionalProperties: false
+      properties:
+        sessionId: { $ref: '#/components/schemas/Uuid' }
+        sessionStatus: { type: string, enum: [DRAFT, IN_PROGRESS, INTERVIEW_COMPLETED, ANALYZING, COMPLETED, INTERRUPTED] }
+        analysisStatus: { type: string, enum: [WAITING, PROCESSING, SUCCEEDED, FAILED] }
+        totalAnswerCount: { type: integer, minimum: 0 }
+        completedAnswerCount: { type: integer, minimum: 0 }
+        failedAnswerCount: { type: integer, minimum: 0 }
+        totalRequiredTaskCount: { type: integer, minimum: 0 }
+        succeededRequiredTaskCount: { type: integer, minimum: 0 }
+        progressPercent: { type: number, minimum: 0, maximum: 100 }
+        currentUiStage: { type: string, enum: [PREPARING, VOICE, VISION, CONTENT, REPORT] }
+        stages:
+          type: object
+          required: [stt, cv, voice, content]
+          additionalProperties: false
+          properties:
+            stt: { $ref: '#/components/schemas/AnalysisStageCount' }
+            cv: { $ref: '#/components/schemas/AnalysisStageCount' }
+            voice: { $ref: '#/components/schemas/AnalysisStageCount' }
+            content: { $ref: '#/components/schemas/AnalysisStageCount' }
+        reportStatus: { type: string, enum: [WAITING_FOR_ANALYSIS, QUEUED, PROCESSING, SUCCEEDED, FAILED] }
+        failureCode: { type: [string, 'null'], enum: [ANSWER_ANALYSIS_FAILED, BLOCKED_BY_ANALYSIS_FAILURE, REPORT_GENERATION_FAILED, null] }
+        retryable: { type: boolean }
+        retryCount: { type: integer, minimum: 0, maximum: 2 }
+        retryAfterSec: { type: [integer, 'null'], minimum: 0 }
+        updatedAt: { $ref: '#/components/schemas/IsoDateTime' }
+    AnalysisStatusEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/AnalysisStatus' } } }]
+    ReportEvidence:
+      type: object
+      required: [label, value, questionId, startMs, endMs]
+      additionalProperties: false
+      properties:
+        label: { type: string }
+        value: { type: string }
+        questionId: { type: [string, 'null'], format: uuid }
+        startMs: { type: [integer, 'null'], minimum: 0 }
+        endMs: { type: [integer, 'null'], minimum: 0 }
+    ReportImprovement:
+      type: object
+      required: [improvementId, axis, title, reason, practice, priority]
+      additionalProperties: false
+      properties:
+        improvementId: { $ref: '#/components/schemas/Uuid' }
+        axis: { type: string, enum: [GAZE, POSTURE, SPEECH, CONTENT] }
+        title: { type: string }
+        reason: { type: string }
+        practice: { type: string }
+        priority: { type: integer, minimum: 1 }
+    QuestionFeedback:
+      type: object
+      required: [feedbackId, questionId, answerId, order, question, answerSummary, score, evidence, improvedAnswerText, improvementReason, audioAvailability]
+      additionalProperties: false
+      properties:
+        feedbackId: { $ref: '#/components/schemas/Uuid' }
+        questionId: { $ref: '#/components/schemas/Uuid' }
+        answerId: { $ref: '#/components/schemas/Uuid' }
+        order: { type: integer, minimum: 1 }
+        question: { type: string }
+        answerSummary: { type: string }
+        score: { type: number, minimum: 0, maximum: 100 }
+        evidence: { type: array, items: { $ref: '#/components/schemas/ReportEvidence' } }
+        improvedAnswerText: { type: string }
+        improvementReason: { type: string }
+        audioAvailability:
+          type: object
+          required: [standard, personal]
+          additionalProperties: false
+          properties:
+            standard: { type: string, enum: [READY, PROCESSING, FAILED] }
+            personal: { type: string, enum: [UNAVAILABLE, PROCESSING, READY, FAILED] }
+    ReportData:
+      type: object
+      required: [sessionId, sessionStatus, reportStatus, report]
+      additionalProperties: false
+      properties:
+        sessionId: { $ref: '#/components/schemas/Uuid' }
+        sessionStatus: { const: COMPLETED }
+        reportStatus: { const: SUCCEEDED }
+        report:
+          type: object
+          required: [reportId, schemaVersion, rubricVersion, overallScore, scores, strengths, improvements, questionFeedback, disclaimer, generatedAt]
+          additionalProperties: false
+          properties:
+            reportId: { $ref: '#/components/schemas/Uuid' }
+            schemaVersion: { const: '1.0' }
+            rubricVersion: { type: string }
+            overallScore: { type: number, minimum: 0, maximum: 100 }
+            scores:
+              type: object
+              required: [gaze, posture, speech, content]
+              additionalProperties: false
+              properties:
+                gaze: { type: number, minimum: 0, maximum: 100 }
+                posture: { type: number, minimum: 0, maximum: 100 }
+                speech: { type: [number, 'null'], minimum: 0, maximum: 100 }
+                content: { type: number, minimum: 0, maximum: 100 }
+            strengths:
+              type: array
+              items:
+                type: object
+                required: [axis, title, description, evidence]
+                additionalProperties: false
+                properties:
+                  axis: { type: string, enum: [GAZE, POSTURE, SPEECH, CONTENT] }
+                  title: { type: string }
+                  description: { type: string }
+                  evidence: { type: array, items: { $ref: '#/components/schemas/ReportEvidence' } }
+            improvements: { type: array, items: { $ref: '#/components/schemas/ReportImprovement' } }
+            questionFeedback: { type: array, items: { $ref: '#/components/schemas/QuestionFeedback' } }
+            disclaimer: { type: string }
+            generatedAt: { $ref: '#/components/schemas/IsoDateTime' }
+    ReportDataEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/ReportData' } } }]
+    ReportProcessing:
+      type: object
+      required: [status, retryAfterSec]
+      additionalProperties: false
+      properties:
+        status: { const: PROCESSING }
+        retryAfterSec: { type: integer, minimum: 0 }
+    ReportProcessingEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/ReportProcessing' } } }]
+    InterviewHistoryItem:
+      type: object
+      required: [sessionId, reportId, sessionStatus, analysisStatus, companyName, targetJobRole, persona, difficulty, overallScore, completedAt, createdAt]
+      additionalProperties: false
+      properties:
+        sessionId: { $ref: '#/components/schemas/Uuid' }
+        reportId: { type: [string, 'null'], format: uuid }
+        sessionStatus: { type: string, enum: [DRAFT, IN_PROGRESS, INTERVIEW_COMPLETED, ANALYZING, COMPLETED, INTERRUPTED] }
+        analysisStatus: { type: [string, 'null'], enum: [WAITING, PROCESSING, SUCCEEDED, FAILED, null] }
+        companyName: { type: string }
+        targetJobRole: { $ref: '#/components/schemas/AiJobRole' }
+        persona: { $ref: '#/components/schemas/Persona' }
+        difficulty: { $ref: '#/components/schemas/Difficulty' }
+        overallScore: { type: [number, 'null'], minimum: 0, maximum: 100 }
+        completedAt: { type: [string, 'null'], format: date-time }
+        createdAt: { $ref: '#/components/schemas/IsoDateTime' }
+    InterviewHistoryPage:
+      type: object
+      required: [items, page, size, totalElements, totalPages, hasNext]
+      additionalProperties: false
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/InterviewHistoryItem' } }
+        page: { type: integer, minimum: 0 }
+        size: { type: integer, minimum: 1 }
+        totalElements: { type: integer, minimum: 0 }
+        totalPages: { type: integer, minimum: 0 }
+        hasNext: { type: boolean }
+    InterviewHistoryPageEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/InterviewHistoryPage' } } }]
+    GrowthPoint:
+      type: object
+      required: [sessionId, reportId, completedAt, overallScore, scores]
+      additionalProperties: false
+      properties:
+        sessionId: { $ref: '#/components/schemas/Uuid' }
+        reportId: { $ref: '#/components/schemas/Uuid' }
+        completedAt: { $ref: '#/components/schemas/IsoDateTime' }
+        overallScore: { type: number, minimum: 0, maximum: 100 }
+        scores:
+          type: object
+          required: [gaze, posture, speech, content]
+          additionalProperties: false
+          properties:
+            gaze: { type: number, minimum: 0, maximum: 100 }
+            posture: { type: number, minimum: 0, maximum: 100 }
+            speech: { type: [number, 'null'], minimum: 0, maximum: 100 }
+            content: { type: number, minimum: 0, maximum: 100 }
+    GrowthData:
+      type: object
+      required: [points, dataSufficiency, mostImprovedAxis, priorityAxis, latestImprovement]
+      additionalProperties: false
+      properties:
+        points: { type: array, items: { $ref: '#/components/schemas/GrowthPoint' } }
+        dataSufficiency: { type: string, enum: [INSUFFICIENT, SUFFICIENT] }
+        mostImprovedAxis: { type: [string, 'null'], enum: [GAZE, POSTURE, SPEECH, CONTENT, null] }
+        priorityAxis: { type: [string, 'null'], enum: [GAZE, POSTURE, SPEECH, CONTENT, null] }
+        latestImprovement:
+          anyOf: [{ $ref: '#/components/schemas/ReportImprovement' }, { type: 'null' }]
+    GrowthDataEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/GrowthData' } } }]
+    LegalConsentRecord:
+      type: object
+      required: [consentRecordId, documentId, documentType, documentVersion, actionType, status, consentedAt, revokedAt]
+      additionalProperties: false
+      properties:
+        consentRecordId: { $ref: '#/components/schemas/Uuid' }
+        documentId: { $ref: '#/components/schemas/Uuid' }
+        documentType: { $ref: '#/components/schemas/LegalDocumentType' }
+        documentVersion: { type: string }
+        actionType: { $ref: '#/components/schemas/LegalActionType' }
+        status: { type: string, enum: [ACTIVE, REVOKED] }
+        consentedAt: { $ref: '#/components/schemas/IsoDateTime' }
+        revokedAt: { type: [string, 'null'], format: date-time }
+    LegalConsentEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/LegalConsentRecord' } } }]
+    LegalConsentPage:
+      type: object
+      required: [items, page, size, totalElements, totalPages, hasNext]
+      additionalProperties: false
+      properties:
+        items: { type: array, items: { $ref: '#/components/schemas/LegalConsentRecord' } }
+        page: { type: integer, minimum: 0 }
+        size: { type: integer, minimum: 1 }
+        totalElements: { type: integer, minimum: 0 }
+        totalPages: { type: integer, minimum: 0 }
+        hasNext: { type: boolean }
+    LegalConsentPageEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/LegalConsentPage' } } }]
+    LegalConsentRevocation:
+      type: object
+      required: [consentRecord, dependentDeletionStatus]
+      additionalProperties: false
+      properties:
+        consentRecord: { $ref: '#/components/schemas/LegalConsentRecord' }
+        dependentDeletionStatus: { type: [string, 'null'], enum: [QUEUED, PROCESSING, COMPLETED, FAILED, null] }
+    LegalConsentRevocationEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/LegalConsentRevocation' } } }]
+    MediaDeletion:
+      type: object
+      required: [deletionRequestId, sessionId, status, objectCount, requestedAt, completedAt]
+      additionalProperties: false
+      properties:
+        deletionRequestId: { $ref: '#/components/schemas/Uuid' }
+        sessionId: { $ref: '#/components/schemas/Uuid' }
+        status: { type: string, enum: [QUEUED, PROCESSING, COMPLETED, FAILED] }
+        objectCount: { type: integer, minimum: 0 }
+        requestedAt: { $ref: '#/components/schemas/IsoDateTime' }
+        completedAt: { type: [string, 'null'], format: date-time }
+    MediaDeletionEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/MediaDeletion' } } }]
+    MemberDeletion:
+      type: object
+      required: [deletionRequestId, status, requestedAt, completedAt, failedTargets]
+      additionalProperties: false
+      properties:
+        deletionRequestId: { $ref: '#/components/schemas/Uuid' }
+        status: { type: string, enum: [QUEUED, PROCESSING, COMPLETED, FAILED] }
+        requestedAt: { $ref: '#/components/schemas/IsoDateTime' }
+        completedAt: { type: [string, 'null'], format: date-time }
+        failedTargets: { type: array, items: { type: string } }
+    MemberDeletionEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/MemberDeletion' } } }]
+    VoiceProfile:
+      type: object
+      required: [voiceProfileId, voiceStatus, usable, failureCode, createdAt, completedAt, deletionCompletedAt]
+      additionalProperties: false
+      properties:
+        voiceProfileId: { $ref: '#/components/schemas/Uuid' }
+        voiceStatus: { type: string, enum: [QUEUED, PROCESSING, READY, FAILED, DELETING] }
+        usable: { type: boolean }
+        failureCode: { type: [string, 'null'], enum: [INVALID_SAMPLE, INSUFFICIENT_AUDIO, MODEL_CREATION_FAILED, MODEL_DELETION_FAILED, null] }
+        createdAt: { $ref: '#/components/schemas/IsoDateTime' }
+        completedAt: { type: [string, 'null'], format: date-time }
+        deletionCompletedAt: { type: [string, 'null'], format: date-time }
+    VoiceProfileEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/VoiceProfile' } } }]
+    PlaybackAccess:
+      type: object
+      required: [playbackUrl, expiresAt, mediaDurationMs, clipStartMs, clipEndMs]
+      additionalProperties: false
+      properties:
+        playbackUrl: { type: string, format: uri }
+        expiresAt: { $ref: '#/components/schemas/IsoDateTime' }
+        mediaDurationMs: { type: integer, minimum: 0 }
+        clipStartMs: { type: integer, minimum: 0 }
+        clipEndMs: { type: integer, minimum: 1 }
+    PlaybackAccessEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/PlaybackAccess' } } }]
+    InterviewQuestion:
+      type: object
+      required: [questionId, turnOrder, baseQuestionOrder, baseQuestionCount, questionKind, text, characterMediaStatus, characterMediaDurationMs, characterFallback]
+      additionalProperties: false
+      properties:
+        questionId: { $ref: '#/components/schemas/Uuid' }
+        turnOrder: { type: integer, minimum: 1, maximum: 10 }
+        baseQuestionOrder: { type: integer, minimum: 1, maximum: 5 }
+        baseQuestionCount: { const: 5 }
+        questionKind: { type: string, enum: [BASE, FOLLOW_UP] }
+        text: { type: string }
+        characterMediaStatus: { type: string, enum: [QUEUED, PROCESSING, READY, FAILED_FALLBACK] }
+        characterMediaDurationMs: { type: [integer, 'null'], minimum: 0 }
+        characterFallback: { type: string, enum: [NONE, STATIC_CHARACTER_TEXT] }
+    QuestionPending:
+      type: object
+      required: [questionGenerationStatus]
+      additionalProperties: false
+      properties:
+        questionGenerationStatus: { type: string, enum: [NOT_STARTED, QUEUED, PROCESSING, SUCCEEDED, FAILED] }
+        followUpDecisionStatus: { type: string, enum: [NOT_APPLICABLE, QUEUED, PROCESSING, GENERATED, SKIPPED, FAILED_SKIPPED] }
+        characterMediaStatus: { type: string, enum: [QUEUED, PROCESSING] }
+        retryAfterSec: { type: integer, minimum: 0 }
+    InterviewComplete:
+      type: object
+      required: [nextQuestionStatus, question]
+      additionalProperties: false
+      properties:
+        nextQuestionStatus: { const: INTERVIEW_COMPLETE }
+        question: { type: 'null' }
+    CurrentQuestion:
+      oneOf:
+        - { $ref: '#/components/schemas/InterviewQuestion' }
+        - { $ref: '#/components/schemas/QuestionPending' }
+        - { $ref: '#/components/schemas/InterviewComplete' }
+    CurrentQuestionEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/CurrentQuestion' } } }]
+    InterviewAnswer:
+      type: object
+      required: [answerId, status, nextQuestionStatus, nextQuestionId, followUpDecisionStatus, updatedAt]
+      additionalProperties: false
+      properties:
+        answerId: { $ref: '#/components/schemas/Uuid' }
+        status: { type: string, enum: [UPLOADED, PROCESSING, READY, FAILED] }
+        nextQuestionStatus: { type: string, enum: [WAITING, READY, INTERVIEW_COMPLETE] }
+        nextQuestionId: { type: [string, 'null'], format: uuid }
+        followUpDecisionStatus: { type: string, enum: [NOT_APPLICABLE, QUEUED, PROCESSING, GENERATED, SKIPPED, FAILED_SKIPPED] }
+        updatedAt: { $ref: '#/components/schemas/IsoDateTime' }
+    InterviewAnswerEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/InterviewAnswer' } } }]
+    ClientEvent:
+      type: object
+      required: [eventId, eventName, occurredAt, sessionId, properties]
+      additionalProperties: false
+      properties:
+        eventId: { $ref: '#/components/schemas/Uuid' }
+        eventName: { type: string, minLength: 1, maxLength: 64 }
+        occurredAt: { $ref: '#/components/schemas/IsoDateTime' }
+        sessionId: { type: [string, 'null'], format: uuid }
+        properties:
+          type: object
+          maxProperties: 20
+          additionalProperties:
+            type: [string, number, boolean, 'null']
+    QuestionEvidenceSummary:
+      type: object
+      required: [evidenceId, sourceType, title, sourceDomain, publishedAt, freshnessStatus, summary]
+      additionalProperties: false
+      properties:
+        evidenceId: { $ref: '#/components/schemas/Uuid' }
+        sourceType: { type: string, enum: [RESUME, JOB_POSTING, OFFICIAL_COMPANY_SOURCE, ROLE_TEMPLATE] }
+        title: { type: string }
+        sourceDomain: { type: [string, 'null'] }
+        publishedAt: { type: [string, 'null'], format: date-time }
+        freshnessStatus: { type: [string, 'null'], enum: [FRESH, STALE, null] }
+        summary: { type: string, maxLength: 240 }
+    QuestionContextTransparency:
+      type: object
+      required: [sessionId, generationMode, promptVersion, resumeProfileStatus, retrievalStatus, questions, generatedAt]
+      additionalProperties: false
+      properties:
+        sessionId: { $ref: '#/components/schemas/Uuid' }
+        generationMode: { type: string, enum: [RAG_GROUNDED, JOB_POSTING_ONLY, ROLE_TEMPLATE] }
+        promptVersion: { type: string }
+        resumeProfileStatus: { type: string, enum: [PROCESSING, READY, FAILED] }
+        retrievalStatus: { type: string, enum: [NOT_USED, READY, NO_RELIABLE_EVIDENCE, FAILED_FALLBACK] }
+        questions:
+          type: array
+          items:
+            type: object
+            required: [questionId, evidence]
+            additionalProperties: false
+            properties:
+              questionId: { $ref: '#/components/schemas/Uuid' }
+              evidence: { type: array, items: { $ref: '#/components/schemas/QuestionEvidenceSummary' } }
+        generatedAt: { $ref: '#/components/schemas/IsoDateTime' }
+    QuestionContextEnvelope:
+      allOf: [{ $ref: '#/components/schemas/ApiEnvelopeBase' }, { type: object, required: [data], properties: { success: { const: true }, data: { $ref: '#/components/schemas/QuestionContextTransparency' } } }]
