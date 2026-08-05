@@ -1,4 +1,4 @@
-import { requestJson } from "@/api/http";
+import { requestJson, type JsonRequestOptions } from "@/api/http";
 import type { components } from "@/api/generated/facefit";
 
 export type NextAction = components["schemas"]["NextAction"];
@@ -14,8 +14,8 @@ function isAuthData(value: unknown): value is AuthData {
     && (typeof data.nextAction === "string");
 }
 
-async function readAuthData(path: string, body?: unknown) {
-  const data = await requestJson<unknown>(path, body === undefined ? {} : { method: "POST", body });
+async function readAuthData(path: string, init: JsonRequestOptions = {}) {
+  const data = await requestJson<unknown>(path, init);
   if (!isAuthData(data)) throw new Error("Auth API returned an invalid response shape.");
   return data;
 }
@@ -25,11 +25,11 @@ export function getAuthSession() {
 }
 
 export function refreshAuthSession() {
-  return readAuthData("/api/v1/auth/token/refresh");
+  return readAuthData("/api/v1/auth/token/refresh", { method: "POST" });
 }
 
 export function exchangeLoginTicket(loginTicket: string) {
-  return readAuthData("/api/v1/auth/oauth/exchange", { loginTicket });
+  return readAuthData("/api/v1/auth/oauth/exchange", { method: "POST", body: { loginTicket } });
 }
 
 export function logout() {

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { type AuthData, getAuthSession, logout, refreshAuthSession } from "@/api/auth";
 import { isApiConfigured } from "@/api/config";
-import { requestBinary, requestJson, requestJsonWithResponse, requestMultipart, type BinaryRequestOptions, type JsonRequestOptions, type MultipartRequestOptions } from "@/api/http";
+import { ApiError, requestBinary, requestJson, requestJsonWithResponse, requestMultipart, type BinaryRequestOptions, type JsonRequestOptions, type MultipartRequestOptions } from "@/api/http";
 import { AuthContext, type AuthContextValue, type AuthStatus } from "@/auth/auth-context";
 
 function getStatus(auth: AuthData): AuthStatus {
@@ -83,7 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         accessToken: authRef.current?.accessToken ?? null,
       });
     } catch (error) {
-      if (!canRetryAfterRefresh || !(error instanceof Error) || (error as { status?: number }).status !== 401) throw error;
+      if (!canRetryAfterRefresh || !(error instanceof ApiError) || error.status !== 401) throw error;
 
       const refreshed = await refresh();
       if (!refreshed?.accessToken) throw error;
@@ -109,7 +109,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       return await requestBinary(path, { ...options, accessToken: authRef.current?.accessToken ?? null });
     } catch (error) {
-      if (!(error instanceof Error) || (error as { status?: number }).status !== 401) throw error;
+      if (!(error instanceof ApiError) || error.status !== 401) throw error;
       const refreshed = await refresh();
       if (!refreshed?.accessToken) throw error;
       return requestBinary(path, { ...options, accessToken: refreshed.accessToken });

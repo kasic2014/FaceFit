@@ -13,7 +13,7 @@ export function isApiConfigured() {
 
 export function getApiUrl(path: string) {
   if (!isApiConfigured()) {
-    throw new ApiConfigurationError("VITE_API_BASE_URL is required before API requests can run.");
+    throw new ApiConfigurationError("VITE_API_BASE_URL이 설정되지 않았습니다. 관리자에게 문의해 주세요.");
   }
 
   return `${apiBaseUrl}${path.startsWith("/") ? path : `/${path}`}`;
