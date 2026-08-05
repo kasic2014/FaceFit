@@ -1,5 +1,7 @@
 # FaceFit 백엔드 API 명세서 v0.3.6
 
+> **2026-08-05 구현 기준 보류:** `docs/product` 사본과 `frontend/openapi/facefit-api.phase1.yaml`이 본 문서와 오류 envelope·공개 API 범위에서 충돌한다. Method·URI 변경 없이 충돌을 기록한 [API 계약 기준선](product/API_CONTRACT_BASELINE_2026-08-05.md) 승인 전에는 새 구현 또는 통합 완료 판정을 하지 않는다.
+
 | 항목 | 내용 |
 | --- | --- |
 | 문서 목적 | 백엔드 구현 및 프론트엔드·AI 담당자와의 연동 기준 공유 |
@@ -595,9 +597,7 @@ JOB-001 필수 FILE 검증
 - 업로드된 지원공고 파일은 공개 URL로 노출하지 않습니다.
 - 확장자만 믿지 않고 MIME 타입과 실제 파일 형식을 검증합니다.
 - 지원공고 FILE 원본은 10MB 이하만 `job-postings` Private bucket에 저장하며 공개 URL이나 signed URL을 발급하지 않습니다.
-- HWP 5.x는 OLE2/CFB·FileHeader·문서 버전·암호화·배포용 상태를 검증하고, 별도 JVM에서 메모리·시간·출력 길이를 제한해 파싱합니다.
 - 업로드 파일에 HTML·JavaScript·매크로·명령문이 포함되어도 실행하지 않습니다.
-- TEXT 입력도 일반 문자열로만 저장·구조화하며 코드나 명령으로 실행하지 않습니다.
 - 원본 파일명이나 사용자 경로는 Storage 객체 키 및 임시 파일명으로 사용하지 않습니다.
 - 원본, 전체 추출 텍스트, Supabase Secret Key는 로그에 기록하지 않습니다.
 - 프론트 출력 시 HTML 이스케이프 또는 안전한 텍스트 렌더링을 적용합니다.

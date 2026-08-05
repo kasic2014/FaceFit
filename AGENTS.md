@@ -58,10 +58,10 @@
 - 회원 상태와 별도로 `onboardingStatus`를 관리하고, 미완료 회원은 `ONBOARDING-001`로 첫 이용 절차를 완료한다.
 - `memberStatus=PENDING`, 가입 완료 전용 처리, PENDING 전용 토큰·화면 전환은 다시 승인받지 않는 한 추가하지 않는다.
 - 지원공고 URL 수집·크롤링·스크래핑은 구현하지 않는다.
-- 지원공고는 `JOB-001~005`를 통해 사용자가 제공한 파일(`FILE`) 또는 일반 텍스트(`TEXT`)로 입력받는다.
-- `JOB-001`의 `FILE` 입력은 `multipart/form-data`, `TEXT` 입력은 `application/json`을 사용하며 두 입력을 한 요청에 함께 보내지 않는다.
-- 지원공고 파일은 PDF·DOCX·JPG·JPEG·PNG·HWP 5.x만 허용한다. HWP 2.x·3.x, HWPX, 암호화·비밀번호 보호·배포용·손상·위장 HWP는 허용하지 않는다.
-- 업로드 파일의 확장자·MIME 타입·실제 형식을 검증하고 파일이나 `rawText`에 포함된 매크로·스크립트·명령문은 실행하지 않는다.
+- 지원공고는 `JOB-001~005`를 통해 사용자가 제공한 파일(`FILE`)로만 입력받는다.
+- `JOB-001`은 `multipart/form-data`, `inputType=FILE`, `targetJobRole`, `file`만 사용한다.
+- 지원공고 파일은 PDF·JPG·JPEG·PNG만 허용한다. DOCX, HWP, HWPX, 일반 텍스트(`TEXT`) 입력은 받지 않는다.
+- 업로드 파일의 확장자·MIME 타입·실제 형식을 검증하고 파일에 포함된 매크로·스크립트·명령문은 실행하지 않는다.
 - 지원공고 URL, 외부 사이트 크롤링·스크래핑 및 `SCRIPT` 입력은 허용하지 않는다.
 - `CAREER_DOCUMENTS.documentType`에는 `RESUME`, `COVER_LETTER`만 사용하고 `JOB_POSTING`은 사용하지 않는다.
 - 면접 세션 생성에는 본인 소유의 `READY` 이력서와 필수 확인값이 채워진 `READY` 지원공고가 필요하며, 자기소개서는 선택 사항이다.
