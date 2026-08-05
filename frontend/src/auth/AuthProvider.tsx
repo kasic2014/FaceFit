@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { type AuthData, getAuthSession, logout, refreshAuthSession } from "@/api/auth";
 import { isApiConfigured } from "@/api/config";
-import { ApiError, requestBinary, requestJson, requestJsonWithResponse, requestMultipart, type BinaryRequestOptions, type JsonRequestOptions, type MultipartRequestOptions } from "@/api/http";
+import { requestBinary, requestJson, requestJsonWithResponse, requestMultipart, type BinaryRequestOptions, type JsonRequestOptions, type MultipartRequestOptions } from "@/api/http";
 import { AuthContext, type AuthContextValue, type AuthStatus } from "@/auth/auth-context";
+import { withAuthRetry } from "@/auth/with-auth-retry";
 
 function getStatus(auth: AuthData): AuthStatus {
   return auth.authenticated && auth.accessToken ? "authenticated" : "anonymous";
@@ -73,48 +74,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setAuthState(null, "unconfigured");
   }, [backendConfigured, setAuthState]);
 
-  const request = useCallback(async <T,>(path: string, options: JsonRequestOptions = {}) => {
+  const getAccessToken = useCallback(() => authRef.current?.accessToken ?? null, []);
+
+  const request = useCallback(<T,>(path: string, options: JsonRequestOptions = {}) => {
     const method = options.method?.toUpperCase() ?? "GET";
-    const canRetryAfterRefresh = method === "GET" || method === "HEAD";
+    const canRetry = method === "GET" || method === "HEAD";
+    return withAuthRetry<T>(canRetry, (accessToken) => requestJson<T>(path, { ...options, accessToken }), getAccessToken, refresh);
+  }, [getAccessToken, refresh]);
 
-    try {
-      return await requestJson<T>(path, {
-        ...options,
-        accessToken: authRef.current?.accessToken ?? null,
-      });
-    } catch (error) {
-      if (!canRetryAfterRefresh || !(error instanceof ApiError) || error.status !== 401) throw error;
+  const requestWithResponse = useCallback(<T,>(path: string, options: JsonRequestOptions = {}) => {
+    const method = options.method?.toUpperCase() ?? "GET";
+    const canRetry = method === "GET" || method === "HEAD";
+    return withAuthRetry(canRetry, (accessToken) => requestJsonWithResponse<T>(path, { ...options, accessToken }), getAccessToken, refresh);
+  }, [getAccessToken, refresh]);
 
-      const refreshed = await refresh();
-      if (!refreshed?.accessToken) throw error;
+  // ponytail: uploads always retry after refresh — ANSWER-001 carries an Idempotency-Key, so a retried upload is safe.
+  const upload = useCallback(<T,>(path: string, options: MultipartRequestOptions) =>
+    withAuthRetry<T>(true, (accessToken) => requestMultipart<T>(path, { ...options, accessToken }), getAccessToken, refresh),
+  [getAccessToken, refresh]);
 
-      return requestJson<T>(path, {
-        ...options,
-        accessToken: refreshed.accessToken,
-      });
-    }
-  }, [refresh]);
-
-  const requestWithResponse = useCallback(<T,>(path: string, options: JsonRequestOptions = {}) => requestJsonWithResponse<T>(path, {
-    ...options,
-    accessToken: authRef.current?.accessToken ?? null,
-  }), []);
-
-  const upload = useCallback(<T,>(path: string, options: MultipartRequestOptions) => requestMultipart<T>(path, {
-    ...options,
-    accessToken: authRef.current?.accessToken ?? null,
-  }), []);
-
-  const binary = useCallback(async (path: string, options: Omit<BinaryRequestOptions, "accessToken"> = {}) => {
-    try {
-      return await requestBinary(path, { ...options, accessToken: authRef.current?.accessToken ?? null });
-    } catch (error) {
-      if (!(error instanceof ApiError) || error.status !== 401) throw error;
-      const refreshed = await refresh();
-      if (!refreshed?.accessToken) throw error;
-      return requestBinary(path, { ...options, accessToken: refreshed.accessToken });
-    }
-  }, [refresh]);
+  const binary = useCallback((path: string, options: Omit<BinaryRequestOptions, "accessToken"> = {}) =>
+    withAuthRetry(true, (accessToken) => requestBinary(path, { ...options, accessToken }), getAccessToken, refresh),
+  [getAccessToken, refresh]);
 
   const value = useMemo<AuthContextValue>(() => ({
     auth,
