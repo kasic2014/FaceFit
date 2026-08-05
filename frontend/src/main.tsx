@@ -3,7 +3,10 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 import { App } from "@/App";
 import { AuthProvider } from "@/auth/AuthProvider";
+import { pruneStaleAnswerOutbox } from "@/lib/answer-outbox";
 import "@/index.css";
+
+void pruneStaleAnswerOutbox();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
