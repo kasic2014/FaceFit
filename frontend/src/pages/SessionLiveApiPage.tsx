@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Pause, Play } from "lucide-react";
+import { Pause, Play, RotateCcw } from "lucide-react";
 import { Navigate, useNavigate, useParams } from "react-router";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { MediaPreview } from "@/components/facefit/interview/MediaPreview";
+import { InterviewEndDialog } from "@/components/facefit/interview/InterviewEndDialog";
+import { InterviewOnboarding } from "@/components/facefit/interview/InterviewOnboarding";
 import { useAuth } from "@/auth/auth-context";
 import { createIdempotencyKey, poll } from "@/api/polling";
 import { createClientEvent, sendClientEvent } from "@/api/telemetry";
@@ -24,6 +26,8 @@ import {
   saveAnswerOutbox,
   type AnswerOutboxRecord,
 } from "@/lib/answer-outbox";
+
+const onboardingDismissedKey = "facefit.interview.onboarding.dismissed";
 
 export default function SessionLiveApiPage() {
   const { sessionId } = useParams();
@@ -54,6 +58,12 @@ export default function SessionLiveApiPage() {
     "USER_BUTTON",
   );
   const completionKeyRef = useRef<string | null>(null);
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => window.localStorage.getItem(onboardingDismissedKey) !== "true",
+  );
+  const [endDialogOpen, setEndDialogOpen] = useState(false);
+  const [ending, setEnding] = useState(false);
+  const [replaying, setReplaying] = useState(false);
   const stopForSilence = useCallback(() => {
     endedByRef.current = "SILENCE_CONFIRMED";
     stopRecorder();
@@ -242,19 +252,40 @@ export default function SessionLiveApiPage() {
   const finish = async (completionType: "NORMAL" | "USER_INTERRUPTED") => {
     if (!sessionId) return;
     completionKeyRef.current ??= createIdempotencyKey();
+    setEnding(true);
     try {
       await request(`/api/v1/interview-sessions/${sessionId}/completion`, {
         method: "POST",
         headers: { "Idempotency-Key": completionKeyRef.current },
         body: { completionType },
       });
-      navigate(`/sessions/${sessionId}/analysis`, { replace: true });
+      navigate(
+        completionType === "USER_INTERRUPTED"
+          ? "/dashboard"
+          : `/sessions/${sessionId}/analysis`,
+        { replace: true },
+      );
     } catch (error) {
+      setEndDialogOpen(false);
       setMessage(
         error instanceof Error
           ? error.message
           : "면접 종료를 저장하지 못했습니다.",
       );
+    } finally {
+      setEnding(false);
+    }
+  };
+
+  const replayQuestion = async () => {
+    if (!question || !isInterviewQuestion(question) || replaying) return;
+    setReplaying(true);
+    try {
+      await loadPlaybackAccess(question);
+    } catch {
+      setMessage("질문 영상을 다시 불러오지 못했습니다.");
+    } finally {
+      setReplaying(false);
     }
   };
 
@@ -263,7 +294,10 @@ export default function SessionLiveApiPage() {
       if (
         event.code !== "Space" ||
         event.repeat ||
-        recorder.state !== "recording"
+        recorder.state !== "recording" ||
+        endDialogOpen ||
+        showOnboarding ||
+        status === "submitting"
       )
         return;
       const target = event.target as HTMLElement | null;
@@ -278,7 +312,7 @@ export default function SessionLiveApiPage() {
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [recorder.state, stopRecorder]);
+  }, [endDialogOpen, recorder.state, showOnboarding, status, stopRecorder]);
 
   if (!sessionId) return <Navigate to="/onboarding" replace />;
 
@@ -289,7 +323,7 @@ export default function SessionLiveApiPage() {
           <p className="text-sm font-bold">AI 면접 진행</p>
           <button
             type="button"
-            onClick={() => void finish("USER_INTERRUPTED")}
+            onClick={() => setEndDialogOpen(true)}
             className="rounded-lg border border-white/20 px-4 py-2 text-sm"
           >
             면접 중단
@@ -330,6 +364,19 @@ export default function SessionLiveApiPage() {
                     ? "질문을 준비하고 있어요."
                     : "면접을 계속할 수 없습니다."}
               </h1>
+              {question &&
+              isInterviewQuestion(question) &&
+              question.characterMediaStatus === "READY" ? (
+                <button
+                  type="button"
+                  onClick={() => void replayQuestion()}
+                  disabled={replaying}
+                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-white/60 transition-colors hover:text-white/90 disabled:cursor-not-allowed"
+                >
+                  <RotateCcw size={13} />
+                  {replaying ? "질문을 불러오는 중" : "질문 다시 듣기"}
+                </button>
+              ) : null}
             </div>
           </div>
           <aside className="overflow-hidden rounded-2xl bg-[#20372b] p-5">
@@ -427,13 +474,32 @@ export default function SessionLiveApiPage() {
             <button
               type="button"
               onClick={() => void finish("NORMAL")}
-              className="mt-5 rounded-xl bg-moss-900 px-5 py-3 text-sm font-bold text-white"
+              disabled={ending}
+              className="mt-5 rounded-xl bg-moss-900 px-5 py-3 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-60"
             >
-              면접 종료 및 분석 시작
+              {ending ? "분석을 시작하는 중" : "면접 종료 및 분석 시작"}
             </button>
           </section>
         ) : null}
       </PageContainer>
+      <InterviewEndDialog
+        open={endDialogOpen}
+        turnOrder={
+          question && isInterviewQuestion(question) ? question.turnOrder : null
+        }
+        pending={ending}
+        onCancel={() => setEndDialogOpen(false)}
+        onConfirm={() => void finish("USER_INTERRUPTED")}
+      />
+      {showOnboarding ? (
+        <InterviewOnboarding
+          onStart={() => setShowOnboarding(false)}
+          onDismissForever={() => {
+            window.localStorage.setItem(onboardingDismissedKey, "true");
+            setShowOnboarding(false);
+          }}
+        />
+      ) : null}
     </main>
   );
 }

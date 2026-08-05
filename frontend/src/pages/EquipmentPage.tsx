@@ -4,11 +4,16 @@ import { AppNav } from "@/components/facefit/AppNav";
 import { MediaPreview } from "@/components/facefit/interview/MediaPreview";
 import { PageContainer } from "@/components/facefit/layout/PageContainer";
 import { useMediaDevices } from "@/hooks/useMediaDevices";
+import { useMicLevel } from "@/hooks/useMicLevel";
+
+const micLevelBars = 12;
 
 export default function EquipmentPage() {
   const { sessionId } = useParams();
   const { stream, status, message, cameras, microphones, selection, start, refreshDevices, selectCamera, selectMicrophone } = useMediaDevices();
   const isReady = status === "ready";
+  const micLevel = useMicLevel(stream);
+  const activeBars = Math.round(micLevel * micLevelBars);
 
   return (
     <div className="min-h-screen bg-[#f7f5ef] text-ink-900">
@@ -42,6 +47,15 @@ export default function EquipmentPage() {
             <DeviceSelect icon={Camera} label="카메라" value={selection.cameraId ?? ""} options={cameras} disabled={!isReady} onChange={selectCamera} />
             <DeviceSelect icon={Mic} label="마이크" value={selection.microphoneId ?? ""} options={microphones} disabled={!isReady} onChange={selectMicrophone} />
             <div className="flex items-center gap-3 rounded-xl border border-line-300 bg-white px-4 py-4 shadow-[0_7px_18px_rgba(40,45,39,.05)]"><Volume2 size={21} className="text-ink-700" /><span className="font-bold text-ink-900">스피커</span><span className="ml-auto text-xs text-ink-600">시스템 기본값</span></div>
+          </div>
+
+          <div className="mt-3 flex items-center gap-3 rounded-xl border border-line-300 bg-white px-4 py-3 text-left shadow-[0_7px_18px_rgba(40,45,39,.05)]">
+            <Mic size={21} className="shrink-0 text-ink-700" />
+            <span className="shrink-0 font-bold text-ink-900">입력 확인</span>
+            <div className="flex flex-1 items-center gap-1" role="meter" aria-valuemin={0} aria-valuemax={micLevelBars} aria-valuenow={activeBars} aria-label="마이크 입력 세기">
+              {Array.from({ length: micLevelBars }, (_, index) => <span key={index} className={index < activeBars ? "h-4 flex-1 rounded-full bg-moss-700" : "h-4 flex-1 rounded-full bg-ivory-200"} />)}
+            </div>
+            <span className="shrink-0 text-xs text-ink-600">{!isReady ? "연결 필요" : activeBars > 0 ? "입력 감지됨" : "말해 보세요"}</span>
           </div>
 
           <button type="button" onClick={() => void refreshDevices()} className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-600 transition hover:text-moss-900"><RefreshCw size={15} />장치 목록 새로고침</button>
